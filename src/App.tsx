@@ -1,11 +1,19 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
 
 function App() {
   return (
-    <Box>
-      <Text>Project setup</Text>
-      <Button colorScheme="blue">Button</Button>
-    </Box>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Landing />} />
+          <Route path="SignUp" element={<SignUp />} />
+          <Route path="Login" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
