@@ -1,7 +1,19 @@
-import { Text } from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
+import LandingBottomArea from "../components/LandingBottomArea";
+import LandingPagePanel from "../components/LandingPagePanel";
 
 const Landing = () => {
-  return <Text>Landing</Text>;
+  return (
+    <VStack>
+      <LandingPagePanel>
+        <Text>Landing top part</Text>
+      </LandingPagePanel>
+      <LandingPagePanel>
+        <Text>Landing middle part</Text>
+      </LandingPagePanel>
+      <LandingBottomArea />
+    </VStack>
+  );
 };
 
 export default Landing;
