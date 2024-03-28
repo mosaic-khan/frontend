@@ -4,6 +4,12 @@ const config: ThemeConfig = {
   initialColorMode: "light",
 };
 
-const theme = extendTheme({ config });
+const theme = extendTheme
+({ 
+  fonts:{
+    heading: `Vazir`,
+    body:`Vazir`
+    },
+ });
 
 export default theme;
