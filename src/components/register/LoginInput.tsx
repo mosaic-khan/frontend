@@ -22,14 +22,18 @@ const LoginInput = () => {
       px={{ base: "0", sm: "8" }}
     >
       <Stack spacing="8">
-        <Stack paddingTop= '20px' spacing={{ base: "10px", md: "3" }} textAlign="center">
-          <Heading  size={{ base: "10px", md: "sm" }}>
+        <Stack
+          paddingTop="20px"
+          spacing={{ base: "10px", md: "3" }}
+          textAlign="center"
+        >
+          <Heading size={{ base: "10px", md: "sm" }}>
             ورود به حساب کاربری
           </Heading>
           <Text>
             حساب ندارید؟ {"  "}
             <Link color="red" href="#">
-              ثبت نام
+              ثبت‌نام
             </Link>
           </Text>
         </Stack>
@@ -37,21 +41,23 @@ const LoginInput = () => {
       <Box
         py={{ base: "0", sm: "8" }}
         px={{ base: "4", sm: "10" }}
+        paddingLeft={{base:"0", sm:"1"}}
+        paddingRight={{base:"0", sm:"1"}}
         boxShadow={{ base: "none", sm: "md" }}
         borderRadius={{ base: "none", sm: "xl" }}
       >
         <Stack padding="6">
           <FormControl>
-            <FormLabel htmlFor="phone#" dir="rtl">
-              شماره تلفن
+            <FormLabel htmlFor="email" dir="rtl">
+              ایمیل{" "}
             </FormLabel>
-            <Input id="phone#" type="phone#" />
+            <Input id="email" type="email" />
           </FormControl>
           <PasswordField />
         </Stack>
-        <HStack justifyContent="space-between" paddingLeft="1px">
+        <HStack justifyContent="space-between" paddingLeft="15px">
           <Checkbox defaultChecked colorScheme="red"></Checkbox>
-          <Text fontSize="12px" whiteSpace="nowrap" as='u'>
+          <Text fontSize="12px" whiteSpace="nowrap" as="u">
             {" "}
             !مرا به‌خاطر بسپار
           </Text>
@@ -59,10 +65,13 @@ const LoginInput = () => {
             رمز خود را فراموش کردید؟
           </Button>
         </HStack>
-        <Stack paddingBlockStart="5">
-          <Button color="red" colorScheme="white" variant='outline'>ورود</Button>
+        <Stack alignItems='center' paddingTop={4}>
+          <Button color="red" colorScheme="white" variant="outline"  width="250px" borderRadius={50}>
+            ورود
+          </Button>
         </Stack>
       </Box>
+      
     </Container>
   );
 };
