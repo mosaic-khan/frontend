@@ -28,7 +28,7 @@ const LoginInput = () => {
           </Heading>
           <Text>
             حساب ندارید؟ {"  "}
-            <Link color="blue" href="#">
+            <Link color="red" href="#">
               ثبت نام
             </Link>
           </Text>
@@ -50,7 +50,7 @@ const LoginInput = () => {
           <PasswordField />
         </Stack>
         <HStack justifyContent="space-between" paddingLeft="1px">
-          <Checkbox defaultChecked></Checkbox>
+          <Checkbox defaultChecked colorScheme="red"></Checkbox>
           <Text fontSize="12px" whiteSpace="nowrap" as='u'>
             {" "}
             !مرا به‌خاطر بسپار
@@ -60,7 +60,7 @@ const LoginInput = () => {
           </Button>
         </HStack>
         <Stack paddingBlockStart="5">
-          <Button colorScheme="blue">ورود</Button>
+          <Button color="red" colorScheme="white" variant='outline'>ورود</Button>
         </Stack>
       </Box>
     </Container>
