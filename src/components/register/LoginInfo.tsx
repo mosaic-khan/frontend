@@ -1,26 +1,24 @@
-import { Box, Button, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { Button, Heading, Text, VStack } from "@chakra-ui/react";
 
 const LoginInfo = () => {
   return (
-    <>
-    <Box position='absolute' top='20%'>
-      <VStack
-        textAlign="center"
-        textColor="white"
-        justifyContent="space-between"
+    <VStack textAlign="center" textColor="white" spacing="60px">
+      <Heading>!سلام</Heading>
+      <Text width="80%">
+        {
+          "اگر اولین بار است که وارد این سایت می‌شوید، با ثبت اطلاعات خود به ما بپیوندید"
+        }
+      </Text>
+      <Button
+        color="white"
+        colorScheme="white"
+        variant="outline"
+        borderRadius="100px"
+        width="200px"
       >
-        <Heading paddingY={10}>!سلام</Heading>
-        <Text>
-        {'اگر اولین بار است که وارد این سایت می‌شوید، با ثبت اطلاعات خود به ما بپیوندید'}
-        </Text>
-      </VStack>
-      </Box>
-      <Box position='absolute' bottom='11%' >
-        <Button color="white" variant="outline" borderRadius={50} width="300px">
-          ثبت‌نام
-        </Button>
-      </Box>
-    </>
+        ثبت‌نام
+      </Button>
+    </VStack>
   );
 };
 
