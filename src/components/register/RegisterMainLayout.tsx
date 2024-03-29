@@ -68,7 +68,7 @@ const RegisterMainLayout = () => {
   return (
     <Center marginTop="120px">
       <Box
-        bg="red.50"
+        boxShadow="dark-lg"
         height={h}
         width={w}
         borderRadius="10px"
@@ -90,7 +90,7 @@ const RegisterMainLayout = () => {
           </Center>
         </HStack>
         <Box
-          bg="red.500"
+          bg="brand.500"
           height="100%"
           width="50%"
           overflow="hidden"

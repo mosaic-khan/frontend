@@ -40,6 +40,7 @@ const LoginInput = () => {
         <Button
           width="200px"
           colorScheme="red"
+          color="brand.500"
           variant="outline"
           borderRadius="100px"
         >
