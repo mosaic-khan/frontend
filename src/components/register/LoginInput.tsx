@@ -1,69 +1,47 @@
 import {
-  Box,
   Button,
+  Center,
   Checkbox,
-  Container,
   FormControl,
   FormLabel,
   HStack,
   Heading,
   Input,
-  Link,
-  Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import { PasswordField } from "../PassWordField";
+import { PasswordField } from "./PassWordField";
 
 const LoginInput = () => {
   return (
-    <Container
-      maxW="lg"
-      py={{ base: "12", md: "24" }}
-      px={{ base: "0", sm: "8" }}
-    >
-      <Stack spacing="8">
-        <Stack paddingTop= '20px' spacing={{ base: "10px", md: "3" }} textAlign="center">
-          <Heading  size={{ base: "10px", md: "sm" }}>
-            ورود به حساب کاربری
-          </Heading>
-          <Text>
-            حساب ندارید؟ {"  "}
-            <Link color="red" href="#">
-              ثبت نام
-            </Link>
-          </Text>
-        </Stack>
-      </Stack>
-      <Box
-        py={{ base: "0", sm: "8" }}
-        px={{ base: "4", sm: "10" }}
-        boxShadow={{ base: "none", sm: "md" }}
-        borderRadius={{ base: "none", sm: "xl" }}
+    <VStack spacing="10px">
+      <Center marginBottom="50px">
+        <Heading size="md">ورود به حساب کاربری</Heading>
+      </Center>
+      <FormControl>
+        <FormLabel htmlFor="email#" dir="rtl" marginBottom="0px">
+          ایمیل
+        </FormLabel>
+        <Input id="email#" type="email#" marginTop="0px" />
+      </FormControl>
+      <PasswordField />
+      <Button
+        variant="text"
+        fontSize="12px"
+        onClick={() => console.log("TODO")}
       >
-        <Stack padding="6">
-          <FormControl>
-            <FormLabel htmlFor="phone#" dir="rtl">
-              شماره تلفن
-            </FormLabel>
-            <Input id="phone#" type="phone#" />
-          </FormControl>
-          <PasswordField />
-        </Stack>
-        <HStack justifyContent="space-between" paddingLeft="1px">
-          <Checkbox defaultChecked colorScheme="red"></Checkbox>
-          <Text fontSize="12px" whiteSpace="nowrap" as='u'>
-            {" "}
-            !مرا به‌خاطر بسپار
-          </Text>
-          <Button variant="text" size="sm" onClick={() => console.log("TODO")}>
-            رمز خود را فراموش کردید؟
-          </Button>
-        </HStack>
-        <Stack paddingBlockStart="5">
-          <Button color="red" colorScheme="white" variant='outline'>ورود</Button>
-        </Stack>
-      </Box>
-    </Container>
+        رمز خود را فراموش کردید؟
+      </Button>
+      <HStack justifyContent="space-between" marginTop="-12px">
+        <Checkbox defaultChecked colorScheme="red"></Checkbox>
+        <Text fontSize="12px">!مرا به‌خاطر بسپار</Text>
+      </HStack>
+      <Center marginTop="40px">
+        <Button width="200px" colorScheme="red" variant="outline">
+          ورود
+        </Button>
+      </Center>
+    </VStack>
   );
 };
 
