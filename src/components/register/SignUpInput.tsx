@@ -1,13 +1,10 @@
 import {
   Button,
   Center,
-  Checkbox,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
   Input,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
