@@ -3,22 +3,24 @@ import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
+  bgColor: string;
 }
 
 const boxConfig: BoxProps = {
-  bgColor: "#ffe6ed",
+  bgColor: "brand.50",
   width: "1280px",
-  height: "650px",
   borderRadius: "0px 0px 100px 0px",
   marginTop: "80px",
   marginBottom: "80px",
   overflow: "hidden",
 };
 
-const LandingMainPart = ({ children }: Props) => {
+const LandingMainPart = ({ children, bgColor }: Props) => {
   return (
     <Center>
-      <Box {...boxConfig}>{children}</Box>
+      <Box {...boxConfig} bgColor={bgColor}>
+        {children}
+      </Box>
     </Center>
   );
 };

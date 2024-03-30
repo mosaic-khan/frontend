@@ -1,26 +1,19 @@
 import { Input, InputGroup, InputRightElement, Circle } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
+
 export const SearchBar = () => {
   return (
     <>
-      <InputGroup
-        //size="sm"
-        paddingLeft="800px"
-        paddingRight="50px"
-        paddingTop="10px"
-      >
+      <InputGroup w="350px">
         <Input
-          borderRadius="15px"
-          border="1px solid #949494"
+          borderRadius="50px"
+          borderColor="gray.500"
+          focusBorderColor="brand.200"
           bgColor="white"
           textAlign="right"
         />
-        <InputRightElement
-          pointerEvents="none"
-          marginTop="10px"
-          marginRight="50px"
-        >
-          <Circle bgColor="#F8F6F6" size="30px" border="1px solid #949494">
+        <InputRightElement pointerEvents="none">
+          <Circle bgColor="gray.50" size="30px" border="1px">
             <Search2Icon color="gray.600" boxSize="20px" />
           </Circle>
         </InputRightElement>
