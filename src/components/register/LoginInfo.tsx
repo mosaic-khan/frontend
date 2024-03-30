@@ -2,7 +2,7 @@ import { Button, Heading, Text, VStack } from "@chakra-ui/react";
 
 const LoginInfo = () => {
   return (
-    <VStack textAlign="center" textColor="white" spacing="60px">
+    <VStack textAlign="center" textColor="white" spacing="20px">
       <Heading>!سلام</Heading>
       <Text width="80%">
         {

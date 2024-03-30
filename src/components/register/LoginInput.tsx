@@ -15,7 +15,7 @@ import { PasswordField } from "./PassWordField";
 const LoginInput = () => {
   return (
     <VStack spacing="10px">
-      <Center marginBottom="50px">
+      <Center marginBottom="10px">
         <Heading size="md">ورود به حساب کاربری</Heading>
       </Center>
       <FormControl>
@@ -26,6 +26,7 @@ const LoginInput = () => {
       </FormControl>
       <PasswordField />
       <Button
+        color="gray.500"
         variant="text"
         fontSize="12px"
         onClick={() => console.log("TODO")}
@@ -34,9 +35,11 @@ const LoginInput = () => {
       </Button>
       <HStack justifyContent="space-between" marginTop="-12px">
         <Checkbox defaultChecked colorScheme="red"></Checkbox>
-        <Text fontSize="12px">!مرا به‌خاطر بسپار</Text>
+        <Text color="gray.500" fontSize="12px">
+          !مرا به‌خاطر بسپار
+        </Text>
       </HStack>
-      <Center marginTop="40px">
+      <Center>
         <Button
           width="200px"
           colorScheme="red"
