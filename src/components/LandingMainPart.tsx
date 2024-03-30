@@ -6,16 +6,16 @@ interface Props {
 }
 
 const boxConfig: BoxProps = {
-  bgColor: "gray.50",
+  bgColor: "#ffe6ed",
   width: "1280px",
   height: "650px",
   borderRadius: "0px 0px 100px 0px",
   marginTop: "80px",
-  marginBottom: "60px",
+  marginBottom: "80px",
   overflow: "hidden",
 };
 
-const LandingPagePanel = ({ children }: Props) => {
+const LandingMainPart = ({ children }: Props) => {
   return (
     <Center>
       <Box {...boxConfig}>{children}</Box>
@@ -23,4 +23,4 @@ const LandingPagePanel = ({ children }: Props) => {
   );
 };
 
-export default LandingPagePanel;
+export default LandingMainPart;
