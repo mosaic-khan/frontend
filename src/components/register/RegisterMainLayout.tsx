@@ -25,7 +25,7 @@ const moveMargin = (from: number, to: number) => {
 const h = 500;
 const w = 800;
 const topM = 120;
-const fadeScale = 0.5;
+const fadeScale = 0.2;
 
 const RegisterMainLayout = () => {
   const [layoutState, setLayoutState] = useState(0);

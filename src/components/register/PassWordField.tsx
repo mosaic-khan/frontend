@@ -4,55 +4,49 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputProps,
   InputRightElement,
   useDisclosure,
-  useMergeRefs,
 } from "@chakra-ui/react";
-import { forwardRef, useRef } from "react";
+import { ReactNode } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-export const PasswordField = forwardRef<HTMLInputElement, InputProps>(
-  (props, ref) => {
-    const { isOpen, onToggle } = useDisclosure();
-    const inputRef = useRef<HTMLInputElement>(null);
+interface Props {
+  children: ReactNode;
+  id: string;
+}
 
-    const mergeRef = useMergeRefs(inputRef, ref);
-    const onClickReveal = () => {
-      onToggle();
-      if (inputRef.current) {
-        inputRef.current.focus({ preventScroll: true });
-      }
-    };
+export const PasswordField = ({ children, id }: Props) => {
+  const { isOpen, onToggle } = useDisclosure();
 
-    return (
-      <FormControl>
-        <FormLabel htmlFor="password" dir="rtl" marginBottom="0px">
-          رمز
-        </FormLabel>
-        <InputGroup>
-          <InputRightElement>
-            <IconButton
-              variant="text"
-              aria-label={isOpen ? "Mask password" : "Reveal password"}
-              icon={isOpen ? <HiEye /> : <HiEyeOff />}
-              onClick={onClickReveal}
-            />
-          </InputRightElement>
-          <Input
-            id="password"
-            ref={mergeRef}
-            name="password"
-            type={isOpen ? "text" : "password"}
-            autoComplete="current-password"
-            required
-            marginTop="0px"
-            {...props}
+  const onClickReveal = () => {
+    onToggle();
+  };
+
+  return (
+    <FormControl>
+      <FormLabel htmlFor={id} dir="rtl" marginBottom="0px">
+        {children}
+      </FormLabel>
+      <InputGroup>
+        <InputRightElement>
+          <IconButton
+            variant="text"
+            aria-label={isOpen ? "Mask password" : "Reveal password"}
+            icon={isOpen ? <HiEye /> : <HiEyeOff />}
+            onClick={onClickReveal}
           />
-        </InputGroup>
-      </FormControl>
-    );
-  }
-);
+        </InputRightElement>
+        <Input
+          id={id}
+          name={id}
+          type={isOpen ? "text" : "password"}
+          autoComplete="current-password"
+          required
+          marginTop="0px"
+        />
+      </InputGroup>
+    </FormControl>
+  );
+};
 
 PasswordField.displayName = "PasswordField";

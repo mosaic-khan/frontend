@@ -14,8 +14,8 @@ import { PasswordField } from "./PassWordField";
 
 const LoginInput = () => {
   return (
-    <VStack spacing="10px">
-      <Center marginBottom="10px">
+    <VStack spacing="4px">
+      <Center marginBottom="20px">
         <Heading size="md">ورود به حساب کاربری</Heading>
       </Center>
       <FormControl>
@@ -24,16 +24,16 @@ const LoginInput = () => {
         </FormLabel>
         <Input id="email" type="email" marginTop="0px" />
       </FormControl>
-      <PasswordField />
-      <Button
-        color="gray.500"
-        variant="text"
-        fontSize="12px"
-        onClick={() => console.log("TODO")}
-      >
-        رمز خود را فراموش کردید؟
-      </Button>
-      <HStack justifyContent="space-between" marginTop="-12px">
+      <PasswordField id="password">رمز</PasswordField>
+      <HStack justifyContent="space-between" marginTop="4px">
+        <Button
+          color="gray.500"
+          variant="text"
+          fontSize="12px"
+          onClick={() => console.log("TODO")}
+        >
+          رمز خود را فراموش کردید؟
+        </Button>
         <Checkbox defaultChecked colorScheme="red"></Checkbox>
         <Text color="gray.500" fontSize="12px">
           !مرا به‌خاطر بسپار
@@ -46,6 +46,7 @@ const LoginInput = () => {
           color="brand.500"
           variant="outline"
           borderRadius="100px"
+          marginTop="20px"
         >
           ورود
         </Button>
