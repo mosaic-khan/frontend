@@ -1,6 +1,10 @@
 import { Button } from "@chakra-ui/react";
 
-const LoginSignUpButton = () => {
+interface Props {
+  onClick: () => void;
+}
+
+const LoginSignUpButton = ({ onClick }: Props) => {
   return (
     <Button
       bgColor="brand.500"
@@ -9,6 +13,7 @@ const LoginSignUpButton = () => {
       borderRadius="50px"
       width="250px"
       _hover={{ bg: "brand.600" }}
+      onClick={onClick}
     >
       ورود / ثبت نام
     </Button>

@@ -1,11 +1,14 @@
 import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { SearchBar } from "./SearchBar";
-import LoginSignUpButton from "./LoginSignupButton";
+import LoginSignUpButton from "./LoginSignUpButton";
 import logo from "../../assets/Logo_0_2_1.svg";
 import fruits from "../../assets/Fruits.png";
+import { useNavigate } from "react-router-dom";
 
 const LandingTop = () => {
+  const navigate = useNavigate();
+
   return (
     <Box w="100%" h="680px">
       <HStack h="100%" justifyContent="space-between">
@@ -23,11 +26,16 @@ const LandingTop = () => {
           >
             خوان
           </Heading>
-          <Text textAlign="right" color="black" fontWeight="bold">
+          <Text
+            fontSize="20px"
+            textAlign="right"
+            color="black"
+            fontWeight="bold"
+          >
             اشتراک گذاری دستورهای آشپزی
           </Text>
-          <SearchBar></SearchBar>
-          <LoginSignUpButton></LoginSignUpButton>
+          <SearchBar />
+          <LoginSignUpButton onClick={() => navigate("/register")} />
         </VStack>
       </HStack>
     </Box>
