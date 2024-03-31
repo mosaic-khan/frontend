@@ -19,10 +19,10 @@ const LoginInput = () => {
         <Heading size="md">ورود به حساب کاربری</Heading>
       </Center>
       <FormControl>
-        <FormLabel htmlFor="email#" dir="rtl" marginBottom="0px">
+        <FormLabel htmlFor="email" dir="rtl" marginBottom="0px">
           ایمیل
         </FormLabel>
-        <Input id="email#" type="email#" marginTop="0px" />
+        <Input id="email" type="email" marginTop="0px" />
       </FormControl>
       <PasswordField />
       <Button
