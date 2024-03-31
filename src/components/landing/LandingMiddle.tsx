@@ -1,13 +1,13 @@
 import { Box, HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
-import burger from "../../assets/Burger_2_with_icons.png";
+import burger from "../../assets/Burger_2_shadow.png";
 
 const LandingMiddle = () => {
   return (
     <Box w="100%" h="560px">
       <HStack h="100%" justifyContent="space-between">
-        <Box w="700px" h="700px" marginLeft="50px" marginTop="-20px">
-          <Image src={burger} boxSize="700px" objectFit="contain" />
+        <Box w="500px" h="500px" marginLeft="50px" marginTop="-20px">
+          <Image src={burger} boxSize="500px" objectFit="contain" />
         </Box>
         <VStack h="100%" alignItems="end" marginRight="50px">
           <Heading
