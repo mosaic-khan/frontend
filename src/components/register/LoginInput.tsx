@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
+import { RedButton } from "../Buttons";
 
 const LoginInput = () => {
   return (
@@ -41,16 +42,7 @@ const LoginInput = () => {
         </Button>
       </HStack>
       <Center>
-        <Button
-          width="200px"
-          colorScheme="red"
-          color="brand.500"
-          variant="outline"
-          borderRadius="100px"
-          marginTop="20px"
-        >
-          ورود
-        </Button>
+        <RedButton marginTop="35px">ورود</RedButton>
       </Center>
     </VStack>
   );
