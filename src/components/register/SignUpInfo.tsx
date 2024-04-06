@@ -1,4 +1,5 @@
 import { Button, Heading, Text, VStack } from "@chakra-ui/react";
+import { WhiteButton } from "../Buttons";
 
 const SignUpInfo = () => {
   return (
@@ -9,19 +10,10 @@ const SignUpInfo = () => {
           اگر حساب دارید، همین حالا وارد شوید
         </Text>
       </VStack>
-      <Button
-        color="white"
-        colorScheme="white"
-        variant="outline"
-        borderRadius="100px"
-        width="200px"
-        position="absolute"
-        bottom={10}
-
-      >
+      <WhiteButton position="absolute" bottom={10}>
         ورود
-      </Button>
-   </>
+      </WhiteButton>
+    </>
   );
 };
 

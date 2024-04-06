@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
+import { RedButton } from "../Buttons";
 
 const SignUpInput = () => {
   return (
@@ -30,16 +31,7 @@ const SignUpInput = () => {
       <PasswordField id="password">رمز عبور</PasswordField>
       <PasswordField id="password">تکرار رمز عبور</PasswordField>
       <Center>
-        <Button
-          width="200px"
-          colorScheme="red"
-          color="brand.500"
-          variant="outline"
-          borderRadius="100px"
-          marginTop="30px"
-        >
-          ثبت‌نام
-        </Button>
+        <RedButton marginTop="30px">ثبت‌نام</RedButton>
       </Center>
     </VStack>
   );
