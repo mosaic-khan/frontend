@@ -26,18 +26,19 @@ const LoginInput = () => {
       </FormControl>
       <PasswordField id="password">رمز</PasswordField>
       <HStack justifyContent="space-between" marginTop="4px">
+        <Checkbox defaultChecked colorScheme="red"></Checkbox>
+        <Text color="gray.500" fontSize="12px">
+          !مرا به‌خاطر بسپار
+        </Text>
         <Button
           color="gray.500"
           variant="text"
           fontSize="12px"
           onClick={() => console.log("TODO")}
+          paddingRight={1}
         >
           رمز خود را فراموش کردید؟
         </Button>
-        <Checkbox defaultChecked colorScheme="red"></Checkbox>
-        <Text color="gray.500" fontSize="12px">
-          !مرا به‌خاطر بسپار
-        </Text>
       </HStack>
       <Center>
         <Button
