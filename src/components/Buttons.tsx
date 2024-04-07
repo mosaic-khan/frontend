@@ -16,7 +16,7 @@ export const RedButton = ({ children, ...rest }: Props) => {
       _hover={{
         fontWeight: "bold",
         boxShadow: "lg",
-        bg: "red.50",
+        bg: "brand.50",
         transform: "translateY(-2px)",
       }}
       {...rest}

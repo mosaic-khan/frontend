@@ -36,7 +36,7 @@ const LoginInput = () => {
           variant="text"
           fontSize="12px"
           onClick={() => console.log("TODO")}
-          paddingRight={1}
+          paddingRight={0}
         >
           رمز خود را فراموش کردید؟
         </Button>
