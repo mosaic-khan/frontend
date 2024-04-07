@@ -111,7 +111,6 @@ const RegisterMainLayout = () => {
             top={`-${h}px`}
             marginLeft={margin()}
             animation={moveAnimation()}
-            onClick={togglePosition}
           >
             <HStack
               height="100%"
@@ -120,10 +119,10 @@ const RegisterMainLayout = () => {
               animation={moveContentAnimation()}
             >
               <Center height="100%" width="100%">
-                <LoginInfo />
+                <LoginInfo toggle={togglePosition} />
               </Center>
               <Center height="100%" width="100%">
-                <SignUpInfo />
+                <SignUpInfo toggle={togglePosition} />
               </Center>
             </HStack>
           </Box>
