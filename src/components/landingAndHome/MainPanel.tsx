@@ -15,7 +15,7 @@ const boxConfig: BoxProps = {
   overflow: "hidden",
 };
 
-const LandingMainPart = ({ children, bgColor }: Props) => {
+const MainPanel = ({ children, bgColor }: Props) => {
   return (
     <Center>
       <Box {...boxConfig} bgColor={bgColor}>
@@ -25,4 +25,4 @@ const LandingMainPart = ({ children, bgColor }: Props) => {
   );
 };
 
-export default LandingMainPart;
+export default MainPanel;

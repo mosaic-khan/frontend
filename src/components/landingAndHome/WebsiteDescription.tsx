@@ -2,7 +2,7 @@ import { Box, HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
 import burger from "../../assets/Burger_2_shadow.png";
 
-const LandingMiddle = () => {
+const WebsiteDescription = () => {
   return (
     <Box w="100%" h="560px">
       <HStack h="100%" justifyContent="space-between">
@@ -40,4 +40,4 @@ const LandingMiddle = () => {
   );
 };
 
-export default LandingMiddle;
+export default WebsiteDescription;

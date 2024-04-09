@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { useColorMode } from "@chakra-ui/react";
 import Register from "./pages/Register";
+import Home from "./components/landingAndHome/Home/HomeLayout";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Landing />} />
+          <Route path="Home" element={<Home />} />
           <Route path="Register" element={<Register />} />
         </Route>
       </Routes>

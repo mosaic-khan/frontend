@@ -4,7 +4,7 @@ interface Props {
   image: string;
 }
 
-const LandingCategoriesImage = ({ image }: Props) => {
+const CategoryDisplay = ({ image }: Props) => {
   return (
     <LinkBox as="image" maxW="sm" p="0" borderWidth="none">
       <LinkOverlay href="#">
@@ -14,10 +14,11 @@ const LandingCategoriesImage = ({ image }: Props) => {
           src={image}
           alt="Image1"
           borderRadius="25%"
+          boxShadow="lg"
         />
       </LinkOverlay>
     </LinkBox>
   );
 };
 
-export default LandingCategoriesImage;
+export default CategoryDisplay;
