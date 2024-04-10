@@ -1,7 +1,7 @@
 import HomeLayout from "../components/landingAndHome/Home/HomeLayout";
 
-const Landing = () => {
+const Home = () => {
   return <HomeLayout />;
 };
 
-export default Landing;
+export default Home;

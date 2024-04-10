@@ -6,10 +6,13 @@ import Footer from "../Footer";
 import TopPosts from "./TopPosts";
 import TopUser from "./TopUser";
 
-const Home = () => {
+const HomeLayout = () => {
   return (
     <VStack>
-      <CategoryList></CategoryList>
+      <CategoryList
+        Headingmargintopsize="15px"
+        Imagemargintopsize="30px"
+      ></CategoryList>
       <MainPanel bgColor="gray.100">
         <TopPosts />
       </MainPanel>
@@ -24,4 +27,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeLayout;

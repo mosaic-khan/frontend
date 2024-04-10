@@ -6,7 +6,15 @@ interface Props {
 
 const CategoryDisplay = ({ image }: Props) => {
   return (
-    <LinkBox as="image" maxW="sm" p="0" borderWidth="none">
+    <LinkBox
+      as="image"
+      maxW="sm"
+      p="0"
+      borderWidth="none"
+      overflow="hidden"
+      transition="transform 0.3s ease-in-out"
+      _hover={{ opacity: "0.85", transform: "scale(1.5)" }}
+    >
       <LinkOverlay href="#">
         <Image
           boxSize="130px"

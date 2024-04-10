@@ -8,13 +8,18 @@ import Image6 from "../../assets/6.jpg";
 import Image7 from "../../assets/7.jpg";
 import CategoryDisplay from "./CategoryDisplay";
 
-const CategoryList = () => {
+interface Props {
+  Headingmargintopsize: string;
+  Imagemargintopsize: string;
+}
+
+const CategoryList = ({ Headingmargintopsize, Imagemargintopsize }: Props) => {
   return (
     <>
-      <Heading as="h4" fontSize="20px">
+      <Heading as="h4" fontSize="32px" marginTop={Headingmargintopsize}>
         دسته بندی ها
       </Heading>
-      <HStack marginTop="60px" spacing="50px">
+      <HStack marginTop={Imagemargintopsize} spacing="50px">
         <CategoryDisplay image={Image1}></CategoryDisplay>
         <CategoryDisplay image={Image2}></CategoryDisplay>
         <CategoryDisplay image={Image3}></CategoryDisplay>

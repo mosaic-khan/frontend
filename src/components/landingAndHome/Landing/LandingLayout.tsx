@@ -11,7 +11,10 @@ const LandingLayout = () => {
       <MainPanel bgColor="gray.50">
         <LandingTop />
       </MainPanel>
-      <CategoryList></CategoryList>
+      <CategoryList
+        Headingmargintopsize="0px"
+        Imagemargintopsize="60px"
+      ></CategoryList>
       <MainPanel bgColor="brand.50">
         <WebsiteDescription />
       </MainPanel>
