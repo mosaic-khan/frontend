@@ -1,7 +1,6 @@
 import { ChevronDownIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Center,
   FormControl,
   FormLabel,
   HStack,
@@ -10,11 +9,18 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import { ShamsiCalendarButton, GradientRedButton } from "./Buttons";
+import backImage from "../assets/EditProfile_background.jpg";
 
 export const EditProfile = () => {
   return (
-    <Box bg="gray.100" w="100%" h="100vh">
-      <Center h="100%">
+    <Box
+      bgImage={backImage}
+      w="100%"
+      h="100vh"
+      style={{ backgroundSize: "cover" }}
+    >
+      <Box position="absolute" width="800px" left="25%" top="25%">
         <Box
           boxShadow="2xl"
           bg="gray.50"
@@ -23,6 +29,8 @@ export const EditProfile = () => {
           color="white"
           borderRadius="10px"
           position="relative"
+          marginLeft="5%"
+          top="20px"
         >
           <HStack>
             <Box
@@ -63,19 +71,15 @@ export const EditProfile = () => {
 
               <FormControl id="birthday" marginBottom="10px">
                 <FormLabel paddingRight="10px">تاریخ تولد</FormLabel>
-                <Input
-                  type="date"
-                  variant="filled"
-                  _placeholder={{ color: "gray.200" }}
-                />
+                <ShamsiCalendarButton></ShamsiCalendarButton>
               </FormControl>
             </Box>
             <Box
               position="absolute"
-              width="150px"
-              height="150px"
-              left="20px"
-              top="20px"
+              width="170px"
+              height="170px"
+              left="5%"
+              top="15%"
             >
               <Box
                 width="100%"
@@ -84,9 +88,9 @@ export const EditProfile = () => {
                 overflow="hidden"
               >
                 <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyH4jpbGF6Sf5wxdUWJ40tciMwqpZsWWRzkw&s"
+                  src="https://bit.ly/dan-abramov"
                   alt="Profile Image"
-                  fallbackSrc='https://via.placeholder.com/150'
+                  fallbackSrc="https://via.placeholder.com/150"
                   width="100%"
                   height="100%"
                 />
@@ -114,7 +118,11 @@ export const EditProfile = () => {
             </Box>
           </HStack>
         </Box>
-      </Center>
+
+        <GradientRedButton position="relative" bottom="10px">
+          ذخیره
+        </GradientRedButton>
+      </Box>
     </Box>
   );
 };
