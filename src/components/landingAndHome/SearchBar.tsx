@@ -4,7 +4,7 @@ import { Search2Icon } from "@chakra-ui/icons";
 export const SearchBar = () => {
   return (
     <>
-      <InputGroup w="450px" marginTop="20px">
+      <InputGroup w="450px">
         <Input
           size="lg"
           borderRadius="50px"

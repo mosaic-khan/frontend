@@ -6,7 +6,7 @@ import Footer from "../Footer";
 import TopPosts from "./TopPosts";
 import TopUser from "./TopUser";
 
-const Home = () => {
+const HomeLayout = () => {
   return (
     <VStack>
       <CategoryList></CategoryList>
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeLayout;
