@@ -1,7 +1,8 @@
-import { Box, BoxProps, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { chakra, shouldForwardProp } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
+import HeaderMenuItem from "./HeaderMenuItem";
 
 const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) =>
@@ -24,70 +25,40 @@ const HeaderMenu = () => {
     else setState(1);
   };
 
-  const boxTransitionAnimation = (from: BoxConfig, to: BoxConfig) => {
-    return {
-      height: [from.h, to.h],
-      width: [from.w, to.w],
-      borderRadius: [from.borderRadius, to.borderRadius],
-      marginTop: [from.marginTop, to.marginTop],
-      marginBottom: [from.marginBottom, to.marginBottom],
-    };
-  };
-
-  const animation = (original: BoxConfig) =>
-    state == 2
-      ? boxTransitionAnimation(original, dotBoxConfig)
-      : state == 1
-      ? boxTransitionAnimation(dotBoxConfig, original)
-      : {};
-
-  const transition = {
-    duration: 0.5,
-    ease: "easeInOut",
-  };
-
-  const dotBoxConfig: BoxConfig = {
-    h: "16px",
-    w: "16px",
-    borderRadius: "8px 8px 8px 8px",
-    marginTop: "30px",
-    marginBottom: "0px",
-  };
-
   const topProps: BoxConfig = {
-    h: "16px",
-    w: "60px",
-    borderRadius: "16px 16px 0px 0px",
+    h: "12px",
+    w: "50px",
+    borderRadius: "10px 10px 2px 2px",
     marginTop: "0px",
-    marginBottom: "2px",
+    marginBottom: "3px",
   };
 
   const middleAround: BoxConfig = {
-    h: "6px",
-    w: "50px",
+    h: "4px",
+    w: "40px",
     borderRadius: "3px 3px 3px 3px",
     marginTop: "0px",
     marginBottom: "0px",
   };
 
   const middleCenter: BoxConfig = {
-    h: "10px",
-    w: "60px",
+    h: "8px",
+    w: "50px",
     borderRadius: "5px 5px 5px 5px",
     marginTop: "0px",
     marginBottom: "0px",
   };
 
   const bottom: BoxConfig = {
-    h: "12px",
-    w: "60px",
-    borderRadius: "0px 0px 12px 12px",
-    marginTop: "2px",
+    h: "8px",
+    w: "50px",
+    borderRadius: "2px 2px 6px 6px",
+    marginTop: "3px",
     marginBottom: "0px",
   };
 
   return (
-    <Box h="60px" w="60px" marginLeft="18px" onClick={toggleOpen}>
+    <Box h="50px" w="50px" onClick={toggleOpen}>
       <ChakraBox
         animate={
           state == 2
@@ -105,45 +76,27 @@ const HeaderMenu = () => {
         }}
         position="relative"
         zIndex="2"
-        marginTop="3px"
+        marginTop="4px"
         top={state == 2 ? "60px" : "0px"}
       >
         <VStack spacing="0px">
-          <ChakraBox
-            animate={animation(topProps)}
-            // @ts-ignore no problem in operation, although type error appears.
-            transition={transition}
-            {...topProps}
-            bg="#DC742B"
+          <HeaderMenuItem state={state} boxConfig={topProps} color="#DC742B" />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleAround}
+            color="#DB022D"
           />
-          <ChakraBox
-            animate={animation(middleAround)}
-            // @ts-ignore no problem in operation, although type error appears.
-            transition={transition}
-            {...middleAround}
-            bg="#DB022D"
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleCenter}
+            color="#5A2804"
           />
-          <ChakraBox
-            animate={animation(middleCenter)}
-            // @ts-ignore no problem in operation, although type error appears.
-            transition={transition}
-            {...middleCenter}
-            bg="#5A2804"
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleAround}
+            color="#45B207"
           />
-          <ChakraBox
-            animate={animation(middleAround)}
-            // @ts-ignore no problem in operation, although type error appears.
-            transition={transition}
-            {...middleAround}
-            bg="#45B207"
-          />
-          <ChakraBox
-            animate={animation(bottom)}
-            // @ts-ignore no problem in operation, although type error appears.
-            transition={transition}
-            {...bottom}
-            bg="#DC742B"
-          />
+          <HeaderMenuItem state={state} boxConfig={bottom} color="#DC742B" />
         </VStack>
       </ChakraBox>
     </Box>
