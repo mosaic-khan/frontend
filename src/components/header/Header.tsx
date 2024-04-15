@@ -8,7 +8,7 @@ const Header = () => {
     <VStack w="100%" spacing="0px">
       <HStack h="60px" w="100%" justifyContent="space-between">
         <HStack marginLeft="6px">
-          <HeaderMenu />
+          <HeaderMenu itemTexts={["خروج"]} />
           <Avatar size="md" src="https://bit.ly/broken-link" />
         </HStack>
         <SearchBar />

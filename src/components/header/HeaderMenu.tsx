@@ -1,8 +1,13 @@
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, ScaleFade, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { chakra, shouldForwardProp } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import HeaderMenuItem from "./HeaderMenuItem";
+import { ChevronUpIcon } from "@chakra-ui/icons";
+
+interface Props {
+  itemTexts: string[];
+}
 
 const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) =>
@@ -17,7 +22,7 @@ interface BoxConfig {
   marginBottom: string;
 }
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ itemTexts }: Props) => {
   const [state, setState] = useState(0);
 
   const toggleOpen = () => {
@@ -59,14 +64,19 @@ const HeaderMenu = () => {
 
   return (
     <Box h="50px" w="50px" onClick={toggleOpen}>
+      <ScaleFade in={state == 2} delay={0.3}>
+        <Center h="50px" w="50px">
+          <ChevronUpIcon boxSize="40px" />
+        </Center>
+      </ScaleFade>
       <ChakraBox
         animate={
           state == 2
             ? {
-                top: ["0px", "60px"],
+                top: ["0px", "50px"],
               }
             : state == 1
-            ? { top: ["60px", "0px"] }
+            ? { top: ["50px", "0px"] }
             : {}
         }
         // @ts-ignore no problem in operation, although type error appears.
@@ -76,27 +86,40 @@ const HeaderMenu = () => {
         }}
         position="relative"
         zIndex="2"
-        marginTop="4px"
+        marginTop="-46px"
         top={state == 2 ? "60px" : "0px"}
       >
         <VStack spacing="0px">
-          <HeaderMenuItem state={state} boxConfig={topProps} color="#DC742B" />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={topProps}
+            color="#DC742B"
+            text={itemTexts[0]}
+          />
           <HeaderMenuItem
             state={state}
             boxConfig={middleAround}
             color="#DB022D"
+            text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleCenter}
             color="#5A2804"
+            text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleAround}
             color="#45B207"
+            text={itemTexts[0]}
           />
-          <HeaderMenuItem state={state} boxConfig={bottom} color="#DC742B" />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={bottom}
+            color="#DC742B"
+            text={itemTexts[0]}
+          />
         </VStack>
       </ChakraBox>
     </Box>

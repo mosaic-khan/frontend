@@ -1,10 +1,11 @@
-import { Box, BoxProps, chakra, shouldForwardProp } from "@chakra-ui/react";
+import { BoxProps, chakra, shouldForwardProp, Text } from "@chakra-ui/react";
 import { isValidMotionProp, motion } from "framer-motion";
 
 interface Props {
   state: number;
   boxConfig: BoxConfig;
   color: string;
+  text: string;
 }
 
 interface BoxConfig {
@@ -20,7 +21,7 @@ const ChakraBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-const HeaderMenuItem = ({ state, boxConfig, color }: Props) => {
+const HeaderMenuItem = ({ state, boxConfig, color, text }: Props) => {
   const boxTransitionAnimation = (from: BoxConfig, to: BoxConfig) => {
     return {
       height: [from.h, to.h],
@@ -68,7 +69,34 @@ const HeaderMenuItem = ({ state, boxConfig, color }: Props) => {
       {...boxConfig}
       bg={color}
     >
-      <Box {...textBoxConfig}></Box>
+      {state == 2 && (
+        <ChakraBox
+          animate={
+            state == 2
+              ? {
+                  width: ["35px", "35px", "150px"],
+                  opacity: ["0%", "0%", "100%"],
+                }
+              : {}
+          }
+          // @ts-ignore no problem in operation, although type error appears.
+          transition={{
+            duration: 0.7,
+            ease: "easeInOut",
+          }}
+          {...textBoxConfig}
+        >
+          <Text
+            fontSize="16px"
+            marginRight="20px"
+            marginTop="3px"
+            dir="rtl"
+            color="gray.700"
+          >
+            {text}
+          </Text>
+        </ChakraBox>
+      )}
     </ChakraBox>
   );
 };
