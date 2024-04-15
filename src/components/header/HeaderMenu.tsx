@@ -63,10 +63,22 @@ const HeaderMenu = ({ itemTexts }: Props) => {
   };
 
   return (
-    <Box h="50px" w="50px" onClick={toggleOpen}>
-      <ScaleFade in={state == 2} delay={0.3}>
+    <Box
+      h="50px"
+      w="50px"
+      onClick={toggleOpen}
+      cursor="pointer"
+      _hover={
+        state != 2
+          ? {
+              transform: "translateY(-3px)",
+            }
+          : {}
+      }
+    >
+      <ScaleFade initialScale={0.2} in={state == 2} delay={0.3}>
         <Center h="50px" w="50px">
-          <ChevronUpIcon boxSize="40px" />
+          <ChevronUpIcon boxSize="40px" color={"brand.200"} />
         </Center>
       </ScaleFade>
       <ChakraBox
@@ -93,31 +105,31 @@ const HeaderMenu = ({ itemTexts }: Props) => {
           <HeaderMenuItem
             state={state}
             boxConfig={topProps}
-            color="#DC742B"
+            color="orange.400"
             text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleAround}
-            color="#DB022D"
+            color="brand.500"
             text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleCenter}
-            color="#5A2804"
+            color="orange.800"
             text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleAround}
-            color="#45B207"
+            color="green.400"
             text={itemTexts[0]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={bottom}
-            color="#DC742B"
+            color="orange.400"
             text={itemTexts[0]}
           />
         </VStack>
