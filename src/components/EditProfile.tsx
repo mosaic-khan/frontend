@@ -10,16 +10,17 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { ShamsiCalendarButton, GradientRedButton } from "./Buttons";
-import backImage from "../assets/EditProfile_background.jpg";
+import tomato from "../assets/tomato-logo.png";
 
 export const EditProfile = () => {
   return (
     <Box
-      bgImage={backImage}
+    position="relative"
       w="100%"
       h="100vh"
-      style={{ backgroundSize: "cover" }}
+      bgColor="#ffd2c8"
     >
+      <Image boxSize="250px" position="absolute" right='0' bottom="0" src={tomato} borderColor="#ffd2c8"></Image>
       <Box position="absolute" width="800px" left="25%" top="25%">
         <Box
           boxShadow="2xl"
