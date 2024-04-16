@@ -1,14 +1,10 @@
 import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { SearchBar } from "./SearchBar";
-import LoginSignUpButton from "./LoginSignUpButton";
 import logo from "../../assets/Logo_0_2_1.svg";
-<<<<<<< HEAD
 import fruits from "../../assets/Fruits.png";
-=======
-import fruits from "../../assets/pizza.png";
->>>>>>> adding tomato
 import { useNavigate } from "react-router-dom";
+import LoginSignUpButton from "./LoginSignupButton";
 
 const LandingTop = () => {
   const navigate = useNavigate();
@@ -17,11 +13,7 @@ const LandingTop = () => {
     <Box w="100%" h="680px">
       <HStack h="100%" justifyContent="space-between">
         <Box w="900px" h="900px" marginLeft="-160px" marginTop="200px">
-<<<<<<< HEAD
           <Image src={fruits} boxSize="900px" />
-=======
-          <Image src={fruits} style={size} />
->>>>>>> adding tomato
         </Box>
         <VStack h="100%" alignItems="end" marginRight="50px" marginTop="100px">
           <Image src={logo} boxSize="60px" />
