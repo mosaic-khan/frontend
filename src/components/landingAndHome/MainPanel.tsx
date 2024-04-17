@@ -10,12 +10,10 @@ const boxConfig: BoxProps = {
   bgColor: "brand.50",
   width: "1280px",
   borderRadius: "0px 0px 100px 0px",
-  marginTop: "80px",
-  marginBottom: "80px",
   overflow: "hidden",
 };
 
-const LandingMainPart = ({ children, bgColor }: Props) => {
+const MainPanel = ({ children, bgColor }: Props) => {
   return (
     <Center>
       <Box {...boxConfig} bgColor={bgColor}>
@@ -25,4 +23,4 @@ const LandingMainPart = ({ children, bgColor }: Props) => {
   );
 };
 
-export default LandingMainPart;
+export default MainPanel;

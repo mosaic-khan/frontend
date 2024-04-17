@@ -4,9 +4,16 @@ interface Props {
   image: string;
 }
 
-const LandingCategoriesImage = ({ image }: Props) => {
+const CategoryDisplay = ({ image }: Props) => {
   return (
-    <LinkBox as="image" maxW="sm" p="0" borderWidth="none">
+    <LinkBox
+      as="image"
+      maxW="sm"
+      p="0"
+      borderWidth="none"
+      transition="transform 0.3s ease-in-out"
+      _hover={{ opacity: "0.85", transform: "scale(1.5)" }}
+    >
       <LinkOverlay href="#">
         <Image
           boxSize="130px"
@@ -14,10 +21,11 @@ const LandingCategoriesImage = ({ image }: Props) => {
           src={image}
           alt="Image1"
           borderRadius="25%"
+          boxShadow="lg"
         />
       </LinkOverlay>
     </LinkBox>
   );
 };
 
-export default LandingCategoriesImage;
+export default CategoryDisplay;
