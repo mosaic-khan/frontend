@@ -43,6 +43,7 @@ export const PasswordField = ({ children, id }: Props) => {
           autoComplete="current-password"
           required
           marginTop="0px"
+          focusBorderColor="green.600"
         />
       </InputGroup>
     </FormControl>

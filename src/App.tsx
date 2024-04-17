@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { useColorMode } from "@chakra-ui/react";
 import Register from "./pages/Register";
-import { EditProfile } from "./components/EditProfile";
+import { EditProfile } from "./pages/EditProfile";
 
 function App() {
   const { setColorMode } = useColorMode();

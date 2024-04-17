@@ -19,13 +19,13 @@ const SignUpInput = () => {
         <FormLabel htmlFor="email" dir="rtl" marginBottom="0px">
           ایمیل
         </FormLabel>
-        <Input id="email" type="email" marginTop="0px" />
+        <Input id="email" type="email" marginTop="0px" focusBorderColor="green.600"/>
       </FormControl>
       <FormControl>
         <FormLabel htmlFor="username" dir="rtl" marginBottom="0px">
           نام کاربری
         </FormLabel>
-        <Input id="username" type="username" marginTop="0px" />
+        <Input id="username" type="username" marginTop="0px" focusBorderColor="green.600"/>
       </FormControl>
       <PasswordField id="password">رمز عبور</PasswordField>
       <PasswordField id="password">تکرار رمز عبور</PasswordField>

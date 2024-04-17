@@ -9,7 +9,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { ShamsiCalendarButton, GradientRedButton } from "./Buttons";
+import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
 
 export const EditProfile = () => {

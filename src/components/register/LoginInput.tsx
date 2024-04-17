@@ -23,7 +23,7 @@ const LoginInput = () => {
         <FormLabel htmlFor="email" dir="rtl" marginBottom="0px">
           ایمیل
         </FormLabel>
-        <Input id="email" type="email" marginTop="0px" />
+        <Input id="email" type="email" marginTop="0px" focusBorderColor="green.600" />
       </FormControl>
       <PasswordField id="password">رمز</PasswordField>
       <HStack justifyContent="space-between" marginTop="4px">

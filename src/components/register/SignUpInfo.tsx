@@ -14,9 +14,9 @@ const SignUpInfo = ({ toggle }: Props) => {
       marginTop="160px"
     >
       <VStack>
-        <Heading>!خوش آمدید</Heading>
-        <Text width="80%" whiteSpace="no-wrap">
-          اگر حساب دارید، همین حالا وارد شوید
+        <Heading>!خوش اومدی</Heading>
+        <Text width="80%" whiteSpace={"break-spaces"} dir="rtl">
+        { " می‌شناسیمت؟\n بیا ببریمت تو حسابت!"}
         </Text>
       </VStack>
       <Center h="200px" w="100%"></Center>
