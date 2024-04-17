@@ -1,10 +1,18 @@
 import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
+<<<<<<< HEAD:src/components/landingAndHome/Landing/LandingTop.tsx
 import { SearchBar } from "../SearchBar";
 import { useNavigate } from "react-router-dom";
 import LoginSignUpButton from "./LoginSignUpButton";
 import logo from "../../../assets/Logo_0_2_1.svg";
 import fruits from "../../../assets/Fruits.png";
+=======
+import { SearchBar } from "./SearchBar";
+import logo from "../../assets/Logo_0_2_1.svg";
+import fruits from "../../assets/Fruits.png";
+import { useNavigate } from "react-router-dom";
+import LoginSignUpButton from "./LoginSignupButton";
+>>>>>>> cd57ed8a69d8540e3bffbc4b896f1ff8abf9cad8:src/components/landing/LandingTop.tsx
 
 const LandingTop = () => {
   const navigate = useNavigate();
