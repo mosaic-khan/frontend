@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
+import { RedButton } from "../Buttons";
 
 const LoginInput = () => {
   return (
@@ -26,30 +27,22 @@ const LoginInput = () => {
       </FormControl>
       <PasswordField id="password">رمز</PasswordField>
       <HStack justifyContent="space-between" marginTop="4px">
+        <Checkbox defaultChecked colorScheme="red"></Checkbox>
+        <Text color="gray.500" fontSize="12px">
+          !مرا به‌خاطر بسپار
+        </Text>
         <Button
           color="gray.500"
           variant="text"
           fontSize="12px"
           onClick={() => console.log("TODO")}
+          paddingRight={0}
         >
           رمز خود را فراموش کردید؟
         </Button>
-        <Checkbox defaultChecked colorScheme="red"></Checkbox>
-        <Text color="gray.500" fontSize="12px">
-          !مرا به‌خاطر بسپار
-        </Text>
       </HStack>
       <Center>
-        <Button
-          width="200px"
-          colorScheme="red"
-          color="brand.500"
-          variant="outline"
-          borderRadius="100px"
-          marginTop="20px"
-        >
-          ورود
-        </Button>
+        <RedButton marginTop="35px">ورود</RedButton>
       </Center>
     </VStack>
   );
