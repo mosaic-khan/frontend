@@ -4,8 +4,8 @@ import Image1 from "../../../assets/Userpic3.png";
 const TopUser = () => {
   return (
     <Box h="600px" w="100%">
-      <HStack justifyContent="space-between">
-        <Box h="600px" w="600px" bg="gray.100">
+      <HStack h="100%" justifyContent="space-between">
+        <Box h="600px" w="600px">
           <VStack spacing="0px">
             <Circle
               bg="gray.400"
@@ -24,21 +24,15 @@ const TopUser = () => {
           </VStack>
         </Box>
         <VStack h="100%" w="600px" spacing="10px">
-          <Box h="60px" w="500px" bg="gray.100">
-            <Heading textAlign="right">آشپزهای برتر هفته</Heading>
+          <Box h="60px" w="500px" marginTop={"60px"}>
+            <Heading textAlign="right" fontSize="32">
+              آشپزهای برتر هفته
+            </Heading>
           </Box>
-          <Box h="90px" w="500px" bg="brand.500" borderRadius="40px">
-            <UserOfTopUsers Username="مهدی" image={Image1}></UserOfTopUsers>
-          </Box>
-          <Box h="90px" w="500px" bg="brand.500" borderRadius="40px">
-            <UserOfTopUsers Username="علی" image={Image1}></UserOfTopUsers>
-          </Box>
-          <Box h="90px" w="500px" bg="brand.500" borderRadius="40px">
-            <UserOfTopUsers Username="نادر" image={Image1}></UserOfTopUsers>
-          </Box>
-          <Box h="90px" w="500px" bg="brand.500" borderRadius="40px">
-            <UserOfTopUsers Username="محمد" image={Image1}></UserOfTopUsers>
-          </Box>
+          <UserOfTopUsers Username="مهدی" image={Image1}></UserOfTopUsers>
+          <UserOfTopUsers Username="علی" image={Image1}></UserOfTopUsers>
+          <UserOfTopUsers Username="نادر" image={Image1}></UserOfTopUsers>
+          <UserOfTopUsers Username="محمد" image={Image1}></UserOfTopUsers>
         </VStack>
       </HStack>
     </Box>

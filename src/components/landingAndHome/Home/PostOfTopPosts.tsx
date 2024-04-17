@@ -16,7 +16,7 @@ interface Props {
 }
 const Post = ({ image, title, text }: Props) => {
   return (
-    <Box h="400px" w="300px" bg="gray.500" borderRadius="10%" bg="brand.50">
+    <Box h="400px" w="300px" bg="brand.50" borderRadius="60px">
       <VStack>
         <LinkBox
           as="image"
@@ -31,17 +31,20 @@ const Post = ({ image, title, text }: Props) => {
               w="280px"
               src={image}
               alt={image}
-              borderRadius="15%"
+              borderRadius="50px"
               marginTop="10px"
             />
           </LinkOverlay>
         </LinkBox>
         <Link href="#" _hover={{ opacity: "0.85" }}>
-          <Heading as="h3" fontSize="24px">
-            {title}
-          </Heading>
+          <Heading fontSize="24">{title}</Heading>
         </Link>
-        <Text textAlign="right" paddingRight="15px" paddingLeft="15px">
+        <Text
+          fontSize="18"
+          textAlign="right"
+          paddingRight="15px"
+          paddingLeft="15px"
+        >
           {text}
         </Text>
       </VStack>

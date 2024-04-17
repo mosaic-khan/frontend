@@ -11,7 +11,6 @@ const CategoryDisplay = ({ image }: Props) => {
       maxW="sm"
       p="0"
       borderWidth="none"
-      overflow="hidden"
       transition="transform 0.3s ease-in-out"
       _hover={{ opacity: "0.85", transform: "scale(1.5)" }}
     >

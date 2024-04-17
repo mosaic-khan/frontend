@@ -1,4 +1,4 @@
-import { HStack, Heading } from "@chakra-ui/react";
+import { HStack, Heading, VStack } from "@chakra-ui/react";
 import Image1 from "../../assets/1.jpg";
 import Image2 from "../../assets/2.webp";
 import Image3 from "../../assets/3.webp";
@@ -9,17 +9,16 @@ import Image7 from "../../assets/7.jpg";
 import CategoryDisplay from "./CategoryDisplay";
 
 interface Props {
-  Headingmargintopsize: string;
-  Imagemargintopsize: string;
+  marginTop?: string;
 }
 
-const CategoryList = ({ Headingmargintopsize, Imagemargintopsize }: Props) => {
+const CategoryList = ({ marginTop }: Props) => {
   return (
-    <>
-      <Heading as="h4" fontSize="32px" marginTop={Headingmargintopsize}>
+    <VStack spacing="40px" marginTop={marginTop ? marginTop : "0px"}>
+      <Heading fontSize="26px" fontWeight="bold">
         دسته بندی ها
       </Heading>
-      <HStack marginTop={Imagemargintopsize} spacing="50px">
+      <HStack spacing="50px">
         <CategoryDisplay image={Image1}></CategoryDisplay>
         <CategoryDisplay image={Image2}></CategoryDisplay>
         <CategoryDisplay image={Image3}></CategoryDisplay>
@@ -28,7 +27,7 @@ const CategoryList = ({ Headingmargintopsize, Imagemargintopsize }: Props) => {
         <CategoryDisplay image={Image6}></CategoryDisplay>
         <CategoryDisplay image={Image7}></CategoryDisplay>
       </HStack>
-    </>
+    </VStack>
   );
 };
 

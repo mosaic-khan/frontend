@@ -1,4 +1,12 @@
-import { HStack, Text, Image, LinkBox, LinkOverlay } from "@chakra-ui/react";
+import {
+  HStack,
+  Text,
+  Image,
+  LinkBox,
+  LinkOverlay,
+  Box,
+} from "@chakra-ui/react";
+import { useState } from "react";
 
 interface Props {
   Username: string;
@@ -6,32 +14,33 @@ interface Props {
 }
 
 const UserOfTopUsers = ({ Username, image }: Props) => {
+  const [isHover, setHover] = useState(false);
+
   return (
-    <HStack justifyContent="space-between">
-      <LinkBox
-        as="image"
-        maxW="sm"
-        p="0"
-        borderWidth="none"
-        //overflow="hidden"
-        _hover={{ opacity: "0.95" }}
-      >
+    <LinkBox
+      h={isHover ? "120px" : "80px"}
+      w="500px"
+      bg="brand.500"
+      onMouseEnter={() => setHover(true)}
+      onMouseOut={() => setHover(false)}
+      borderRadius="40px"
+    >
+      <HStack justifyContent="space-between">
         <LinkOverlay href="#">
           <Image
             src={image}
-            w="75px"
-            h="75px"
-            borderRadius="100%"
-            marginLeft="10px"
-            marginTop="7px"
+            w={isHover ? "110px" : "70px"}
+            h={isHover ? "110px" : "70px"}
+            borderRadius="35px"
+            marginLeft="5px"
+            marginTop="5px"
           />
         </LinkOverlay>
-      </LinkBox>
-
-      <Text paddingRight="40px" color="white" marginTop="5px" fontSize="30px">
-        {Username}
-      </Text>
-    </HStack>
+        <Text paddingRight="40px" color="white" marginTop="5px" fontSize="30px">
+          {Username}
+        </Text>
+      </HStack>
+    </LinkBox>
   );
 };
 

@@ -7,14 +7,11 @@ import Footer from "../Footer";
 
 const LandingLayout = () => {
   return (
-    <VStack>
+    <VStack marginTop="50px" spacing="120px">
       <MainPanel bgColor="gray.50">
         <LandingTop />
       </MainPanel>
-      <CategoryList
-        Headingmargintopsize="0px"
-        Imagemargintopsize="60px"
-      ></CategoryList>
+      <CategoryList marginTop="-60px" />
       <MainPanel bgColor="brand.50">
         <WebsiteDescription />
       </MainPanel>

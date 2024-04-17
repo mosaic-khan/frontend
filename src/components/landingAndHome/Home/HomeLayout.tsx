@@ -8,15 +8,12 @@ import TopUser from "./TopUser";
 
 const HomeLayout = () => {
   return (
-    <VStack>
-      <CategoryList
-        Headingmargintopsize="15px"
-        Imagemargintopsize="30px"
-      ></CategoryList>
-      <MainPanel bgColor="gray.100">
+    <VStack marginTop="50px" spacing="120px">
+      <CategoryList />
+      <MainPanel bgColor="gray.50">
         <TopPosts />
       </MainPanel>
-      <MainPanel bgColor="gray.100">
+      <MainPanel bgColor="gray.50">
         <TopUser />
       </MainPanel>
       <MainPanel bgColor="brand.50">
