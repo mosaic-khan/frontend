@@ -13,15 +13,10 @@
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
-<<<<<<< HEAD
     "@emotion/styled": "^11.11.5",
     "framer-motion": "^11.0.27",
-=======
-    "@emotion/styled": "^11.11.0",
     "@react-shamsi/calendar": "^0.1.1",
     "@react-shamsi/datepicker": "^0.1.0",
-    "framer-motion": "^11.0.14",
->>>>>>> cd57ed8a69d8540e3bffbc4b896f1ff8abf9cad8
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
