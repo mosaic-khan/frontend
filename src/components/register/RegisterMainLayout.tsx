@@ -3,17 +3,16 @@ import {
   Box,
   keyframes,
   HStack,
-  ScaleFade,
   VStack,
   Image,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import SignUpInput from "./SignUpInput";
-import LoginInput from "./LoginInput";
 import LoginInfo from "./LoginInfo";
 import SignUpInfo from "./SignUpInfo";
 import BG_top_left from "../../assets/BG_top_left.svg";
 import BG_bottom_right from "../../assets/BG_bottom_right.svg";
+import SignUpProcess from "./SignUpProcess";
+import LoginProcess from "./LoginProcess";
 
 const moveMargin = (from: number, to: number) => {
   return keyframes`  
@@ -25,7 +24,6 @@ const moveMargin = (from: number, to: number) => {
 const h = 500;
 const w = 800;
 const topM = 120;
-const fadeScale = 0.2;
 
 const RegisterMainLayout = () => {
   const [layoutState, setLayoutState] = useState(0);
@@ -88,19 +86,12 @@ const RegisterMainLayout = () => {
           overflow="hidden"
         >
           <HStack height="100%" width="100%" spacing="0px">
-            <Center width="50%" height="100%">
-              <ScaleFade initialScale={fadeScale} in={layoutState == 2}>
-                <SignUpInput />
-              </ScaleFade>
-            </Center>
-            <Center height="100%" width="50%">
-              <ScaleFade
-                initialScale={fadeScale}
-                in={layoutState == 0 || layoutState == 1}
-              >
-                <LoginInput />
-              </ScaleFade>
-            </Center>
+            <SignUpProcess h={h} active={layoutState == 2} />
+            <Box height="100%" width="50%">
+              <Center height="100%" width="100%">
+                <LoginProcess h={h} active={layoutState == 0} />
+              </Center>
+            </Box>
           </HStack>
           <Box
             bg="brand.500"

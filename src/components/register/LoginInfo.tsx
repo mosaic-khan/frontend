@@ -14,10 +14,9 @@ const LoginInfo = ({ toggle }: Props) => {
     >
       <Center h="100px" w="100%"></Center>
       <VStack>
-        <Heading>!سلام</Heading>
-        <Text width="80%">
-          اگر اولین بار است که وارد این سایت می‌شوید،با وارد کردن اطلاعات خود به
-          ما بپیوندید
+        <Heading>تازه واردی؟؟ </Heading>
+        <Text width="80%" dir="rtl">
+           همین الان حساب خودتو بساز!
         </Text>
       </VStack>
       <Center h="100px" w="100%">
