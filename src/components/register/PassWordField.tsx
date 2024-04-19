@@ -56,6 +56,8 @@ export const PasswordField = ({
           onChange={(e) => onChange(e.target.value)}
           marginTop="0px"
           borderColor={borderColor}
+          focusBorderColor="green.600"
+
         />
       </InputGroup>
     </FormControl>
