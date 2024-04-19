@@ -1,9 +1,38 @@
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { Button, ButtonProps, IconButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import "@react-shamsi/calendar/dist/styles.css";
-// If you want to use the time picker
 import "@react-shamsi/timepicker/dist/styles.css";
 import { DatePicker } from "@react-shamsi/datepicker";
+import { TThemeClasses } from "@react-shamsi/calendar";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+
+const brandCalendar: TThemeClasses = {
+  headerBackgroundColor: "#FF004B",
+  headerTextColor: "white",
+  chevronRightColor: "black",
+  chevronLeftColor: "black",
+  topBarTextColor: "black",
+  bodyBackgroundColor: "white",
+  weekDaysTextColor: "white",
+  weekDaysBackgroundColor: "#B52B41",
+  daysColor: "black",
+  daysBackgroundColor: "white",
+  todayBorderColor: "white",
+  daysSelectedColor: "white",
+  daysSelectedBackgroundColor: "#FF004B",
+  offDaysColor: "#FF004B",
+  offDaysSelectedColor: "white",
+  footerBackgroundColor: "white",
+  footerButtonColor: "black",
+  clock: {
+    backgroundColor: "white",
+    clockBackgroundColor: "#FF004B",
+    clockLabelsColor: "white",
+    pointerBackgroundColor: "gray",
+    amPmColor: "white",
+    amPmActiveBackgroundColor: "#FF004B",
+  },
+};
 interface Props extends ButtonProps {
   children: ReactNode;
 }
@@ -28,7 +57,6 @@ export const RedButton = ({ children, ...rest }: Props) => {
     </Button>
   );
 };
-
 export const WhiteButton = ({ children, ...rest }: Props) => {
   return (
     <Button
@@ -84,10 +112,10 @@ export const ShamsiCalendarButton = () => {
   return (
     <DatePicker
       dateFormat="yy/MM/dd"
-      placeholder="--/--/----"
+      placeholder="--/--/--"
       persianDigits
       calendarProps={{
-        theme: "light",
+        theme: brandCalendar,
       }}
       style={{
         width: "100%",
@@ -98,5 +126,23 @@ export const ShamsiCalendarButton = () => {
         fontSize: "1rem",
       }}
     ></DatePicker>
+  );
+};
+
+export const BackButton = () => {
+  return (
+    <IconButton
+      h="30px"
+      w="40px"
+      aria-label="back-button"
+      icon={<ArrowBackIcon />}
+      color="brand.800"
+      bgColor="brand.50"
+      _hover={{
+        boxShadow: "sm",
+        bg: "brand.50",
+        transform: "translateY(-3px)",
+      }}
+    ></IconButton>
   );
 };
