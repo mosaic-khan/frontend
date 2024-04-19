@@ -2,7 +2,7 @@ import { VStack } from "@chakra-ui/react";
 import MainPanel from "../MainPanel";
 import CategoryList from "../CategoryList";
 import WebsiteDescription from "../WebsiteDescription";
-import Footer from "../Footer";
+import Footer from "../Footer/Footer";
 import TopPosts from "./TopPosts";
 import TopUser from "./TopUser";
 
