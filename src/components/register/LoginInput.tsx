@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Center,
@@ -20,36 +20,47 @@ const LoginInput = () => {
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [result, setResult] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
 
-  const evaluateSignIn = (email: string, password: string): string => {
+  const evaluateSignIn = (email: string): boolean => {
     // Define regex patterns
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     // Validate email
     if (!email.match(emailPattern)) {
       setEmailError(true);
-      return "email";
+      setResult("email");
+      return false;
     } else {
       setEmailError(false);
     }
 
-    userClient
-      .login({ userNameOrEmail: email, password: password })
-      .then((res) => {
-        console.log("login response: ", res);
-      })
-      .catch((err) => {
-        console.log("login error: ", err);
-      });
-
-    return "ok";
+    return true;
   };
 
   const handleSignIn = (email: string, password: string) => {
-    const error = evaluateSignIn(email, password);
-    if (error === "email") {
+    let valid = evaluateSignIn(email);
+    if (valid) {
+      userClient
+        .login({
+          password: password,
+          userNameOrEmail: email,
+        })
+        .then((res) => {
+          console.log("login response: ", res);
+          setResult("ok");
+        })
+        .catch((err) => {
+          console.log("login error: ", err);
+          setResult("request");
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (result === "email") {
       toast({
         description: <Text dir="rtl">فرمت ایمیل درست نیست.</Text>,
         status: "error",
@@ -57,7 +68,15 @@ const LoginInput = () => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else {
+    } else if (result === "request") {
+      toast({
+        description: <Text dir="rtl">خطا از سمت سرور</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
+    } else if (result == "ok") {
       toast({
         description: <Text dir="rtl">خوش آمدید!</Text>,
         status: "success",
@@ -66,7 +85,9 @@ const LoginInput = () => {
         position: "bottom-left",
       });
     }
-  };
+    setResult("");
+  }, [result]);
+
   return (
     <VStack spacing="4px">
       <Center marginBottom="20px">
