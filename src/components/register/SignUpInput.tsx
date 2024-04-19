@@ -36,7 +36,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const usernamePattern = /^[a-zA-Z0-9_-]{3,20}$/;
     const passwordPattern =
-      /^(?=\w{8,})([\w]*[a-z][\w]*[A-Z][\w]*[0-9][\w]*|[\w]*[A-Z][\w]*[a-z][\w]*[0-9][\w]*|[\w]*[0-9][\w]*[A-Z][\w]*[a-z][\w]*|[\w]*[a-z][\w]*[0-9][\w]*[A-Z][\w]*|[\w]*[A-Z][\w]*[0-9][\w]*[a-z][\w]*|[\w]*[0-9][\w]*[a-z][\w]*[A-Z][\w]*)$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
     // Validate email
     if (!email.match(emailPattern)) {
@@ -123,7 +123,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         ),
         status: "success",
         isClosable: true,
-        duration: 800,
+        duration: 4000,
         position: "bottom-left",
       });
       onSubmit();

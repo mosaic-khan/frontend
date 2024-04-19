@@ -21,11 +21,10 @@ const LoginInput = () => {
   const [password, setPassword] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
+
   const evaluateSignIn = (email: string, password: string): string => {
     // Define regex patterns
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const passwordPattern =
-      /^(?=\w{8,})([\w]*[a-z][\w]*[A-Z][\w]*[0-9][\w]*|[\w]*[A-Z][\w]*[a-z][\w]*[0-9][\w]*|[\w]*[0-9][\w]*[A-Z][\w]*[a-z][\w]*|[\w]*[a-z][\w]*[0-9][\w]*[A-Z][\w]*|[\w]*[A-Z][\w]*[0-9][\w]*[a-z][\w]*|[\w]*[0-9][\w]*[a-z][\w]*[A-Z][\w]*)$/;
 
     // Validate email
     if (!email.match(emailPattern)) {
@@ -34,13 +33,7 @@ const LoginInput = () => {
     } else {
       setEmailError(false);
     }
-    // Validate password
-    if (!password.match(passwordPattern)) {
-      setPasswordError(true);
-      return "password";
-    } else {
-      setPasswordError(false);
-    }
+
     return "ok";
   };
 
@@ -54,36 +47,12 @@ const LoginInput = () => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (error === "password") {
-      toast({
-        description: <Text dir="rtl">رمز عبور وارد شده مورد قبول نیست.</Text>,
-        status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
-      });
-    } else if (error === "username") {
-      toast({
-        description: <Text dir="rtl">نام کاربری انتخاب شده مجاز نیست.</Text>,
-        status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
-      });
-    } else if (error === "confirm") {
-      toast({
-        description: <Text dir="rtl">رمز عبور تطابق ندارد.</Text>,
-        status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
-      });
     } else {
       toast({
         description: <Text dir="rtl">خوش آمدید!</Text>,
         status: "success",
         isClosable: true,
-        duration: 3000,
+        duration: 4000,
         position: "bottom-left",
       });
     }
