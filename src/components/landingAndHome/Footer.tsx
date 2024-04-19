@@ -1,7 +1,7 @@
 import { Box, HStack, VStack, Link, Heading, Image } from "@chakra-ui/react";
 import logo from "../../assets/Logo_0_2_1.svg";
 
-const LandingBottomArea = () => {
+const Footer = () => {
   return (
     <HStack
       bg="gray.100"
@@ -40,4 +40,4 @@ const LandingBottomArea = () => {
   );
 };
 
-export default LandingBottomArea;
+export default Footer;
