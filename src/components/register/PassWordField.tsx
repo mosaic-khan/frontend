@@ -13,9 +13,19 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 interface Props {
   children: ReactNode;
   id: string;
+  onChange: (value: string) => void;
+  value: string;
+  variant?: string;
+  borderColor?: string;
 }
 
-export const PasswordField = ({ children, id }: Props) => {
+export const PasswordField = ({
+  children,
+  id,
+  value,
+  borderColor,
+  onChange,
+}: Props) => {
   const { isOpen, onToggle } = useDisclosure();
 
   const onClickReveal = () => {
@@ -42,7 +52,10 @@ export const PasswordField = ({ children, id }: Props) => {
           type={isOpen ? "text" : "password"}
           autoComplete="current-password"
           required
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           marginTop="0px"
+          borderColor={borderColor}
         />
       </InputGroup>
     </FormControl>
