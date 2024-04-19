@@ -9,7 +9,11 @@ import {
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
 
-const SignUpInput = () => {
+interface Props {
+  onSubmit: () => void;
+}
+
+const SignUpInput = ({ onSubmit }: Props) => {
   return (
     <VStack spacing="4px">
       <Center marginBottom="20px">
@@ -30,7 +34,9 @@ const SignUpInput = () => {
       <PasswordField id="password">رمز عبور</PasswordField>
       <PasswordField id="password">تکرار رمز عبور</PasswordField>
       <Center>
-        <RedButton marginTop="30px">ثبت‌نام</RedButton>
+        <RedButton marginTop="30px" onClick={onSubmit}>
+          ثبت‌نام{" "}
+        </RedButton>
       </Center>
     </VStack>
   );
