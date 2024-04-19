@@ -87,11 +87,7 @@ const RegisterMainLayout = () => {
         >
           <HStack height="100%" width="100%" spacing="0px">
             <SignUpProcess h={h} active={layoutState == 2} />
-            <Box height="100%" width="50%">
-              <Center height="100%" width="100%">
-                <LoginProcess h={h} active={layoutState == 0} />
-              </Center>
-            </Box>
+            <LoginProcess h={h} active={layoutState == 0 || layoutState == 1} />
           </HStack>
           <Box
             bg="brand.500"
