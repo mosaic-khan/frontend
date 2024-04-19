@@ -129,7 +129,7 @@ export const ShamsiCalendarButton = () => {
   );
 };
 
-export const BackButton = () => {
+export const BackButton = ({onClick}:ButtonProps) => {
   return (
     <IconButton
       h="30px"
@@ -143,6 +143,7 @@ export const BackButton = () => {
         bg: "brand.50",
         transform: "translateY(-3px)",
       }}
+      onClick={onClick}
     ></IconButton>
   );
 };

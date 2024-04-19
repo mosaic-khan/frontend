@@ -14,8 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
+interface Props {
+  forgotPage: () => void;
+}
 
-const LoginInput = () => {
+const LoginInput = ({ forgotPage }: Props) => {
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,6 +78,7 @@ const LoginInput = () => {
             setEmail(e.target.value), setEmailError(false);
           }}
           borderColor={emailError ? "red.500" : "gray.200"}
+          focusBorderColor="green.600"
         />
       </FormControl>
       <PasswordField
@@ -89,14 +93,14 @@ const LoginInput = () => {
       </PasswordField>
       <HStack justifyContent="space-between" marginTop="4px">
         <Checkbox defaultChecked colorScheme="red"></Checkbox>
-        <Text color="gray.500" fontSize="12px">
+        <Text color="gray.500" fontSize="12px" whiteSpace={"nowrap"}>
           !مرا به‌خاطر بسپار
         </Text>
         <Button
           color="gray.500"
           variant="text"
           fontSize="12px"
-          onClick={() => console.log("TODO")}
+          onClick={forgotPage}
           paddingRight={0}
         >
           رمز خود را فراموش کردید؟
