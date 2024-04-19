@@ -1,10 +1,10 @@
 import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
-import { SearchBar } from "./SearchBar";
-import LoginSignUpButton from "./LoginSignUpButton";
-import logo from "../../assets/Logo_0_2_1.svg";
-import fruits from "../../assets/Fruits.png";
+import { SearchBar } from "../SearchBar";
 import { useNavigate } from "react-router-dom";
+import LoginSignUpButton from "./LoginSignUpButton";
+import logo from "../../../assets/Logo_0_2_1.svg";
+import fruits from "../../../assets/Fruits.png";
 
 const LandingTop = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const LandingTop = () => {
           >
             اشتراک گذاری دستورهای آشپزی
           </Text>
-          <SearchBar />
+          <SearchBar width="500px" />
           <LoginSignUpButton onClick={() => navigate("/register")} />
         </VStack>
       </HStack>

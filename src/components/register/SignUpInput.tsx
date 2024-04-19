@@ -1,5 +1,4 @@
 import {
-  Button,
   Center,
   FormControl,
   FormLabel,
@@ -8,8 +7,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
+import { RedButton } from "../Buttons";
 
-const SignUpInput = () => {
+interface Props {
+  onSubmit: () => void;
+}
+
+const SignUpInput = ({ onSubmit }: Props) => {
   return (
     <VStack spacing="4px">
       <Center marginBottom="20px">
@@ -30,16 +34,9 @@ const SignUpInput = () => {
       <PasswordField id="password">رمز عبور</PasswordField>
       <PasswordField id="password">تکرار رمز عبور</PasswordField>
       <Center>
-        <Button
-          width="200px"
-          colorScheme="red"
-          color="brand.500"
-          variant="outline"
-          borderRadius="100px"
-          marginTop="30px"
-        >
-          ثبت‌نام
-        </Button>
+        <RedButton marginTop="30px" onClick={onSubmit}>
+          ثبت‌نام{" "}
+        </RedButton>
       </Center>
     </VStack>
   );

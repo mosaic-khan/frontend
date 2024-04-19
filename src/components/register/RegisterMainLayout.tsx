@@ -14,6 +14,8 @@ import LoginInfo from "./LoginInfo";
 import SignUpInfo from "./SignUpInfo";
 import BG_top_left from "../../assets/BG_top_left.svg";
 import BG_bottom_right from "../../assets/BG_bottom_right.svg";
+import VerificationCodeInput from "./VerificationCodeInput";
+import SignUpProcess from "./SignUpProcess";
 
 const moveMargin = (from: number, to: number) => {
   return keyframes`  
@@ -88,19 +90,17 @@ const RegisterMainLayout = () => {
           overflow="hidden"
         >
           <HStack height="100%" width="100%" spacing="0px">
-            <Center width="50%" height="100%">
-              <ScaleFade initialScale={fadeScale} in={layoutState == 2}>
-                <SignUpInput />
-              </ScaleFade>
-            </Center>
-            <Center height="100%" width="50%">
-              <ScaleFade
-                initialScale={fadeScale}
-                in={layoutState == 0 || layoutState == 1}
-              >
-                <LoginInput />
-              </ScaleFade>
-            </Center>
+            <SignUpProcess h={h} active={layoutState == 2} />
+            <Box height="100%" width="50%">
+              <Center height="100%" width="100%">
+                <ScaleFade
+                  initialScale={fadeScale}
+                  in={layoutState == 0 || layoutState == 1}
+                >
+                  <LoginInput />
+                </ScaleFade>
+              </Center>
+            </Box>
           </HStack>
           <Box
             bg="brand.500"
@@ -111,7 +111,6 @@ const RegisterMainLayout = () => {
             top={`-${h}px`}
             marginLeft={margin()}
             animation={moveAnimation()}
-            onClick={togglePosition}
           >
             <HStack
               height="100%"
@@ -120,10 +119,10 @@ const RegisterMainLayout = () => {
               animation={moveContentAnimation()}
             >
               <Center height="100%" width="100%">
-                <LoginInfo />
+                <LoginInfo toggle={togglePosition} />
               </Center>
               <Center height="100%" width="100%">
-                <SignUpInfo />
+                <SignUpInfo toggle={togglePosition} />
               </Center>
             </HStack>
           </Box>
