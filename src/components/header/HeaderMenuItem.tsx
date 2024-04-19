@@ -92,6 +92,9 @@ const HeaderMenuItem = ({ state, boxConfig, color, text }: Props) => {
             marginTop="5px"
             dir="rtl"
             color="gray.700"
+            userSelect="none"
+            overflow="hidden"
+            whiteSpace="nowrap"
           >
             {text}
           </Text>
