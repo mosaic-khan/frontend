@@ -4,6 +4,8 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { UserAPI } from "./user";
+import type { EditProfileInfoResponse } from "./user";
+import type { EditProfileInfoRequest } from "./user";
 import type { PersonalInfoCompletionRequest } from "./user";
 import type { CodeVerificationResponse } from "./user";
 import type { CodeVerificationRequest } from "./user";
@@ -45,6 +47,10 @@ export interface IUserAPIClient {
      * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (KhanAPI.PersonalInfoCompletionRequest);
      */
     personalInfoCompletion(input: PersonalInfoCompletionRequest, options?: RpcOptions): UnaryCall<PersonalInfoCompletionRequest, PersonalInfoCompletionRequest>;
+    /**
+     * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (KhanAPI.EditProfileInfoResponse);
+     */
+    editProfileInfo(input: EditProfileInfoRequest, options?: RpcOptions): UnaryCall<EditProfileInfoRequest, EditProfileInfoResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.UserAPI
@@ -96,5 +102,12 @@ export class UserAPIClient implements IUserAPIClient, ServiceInfo {
     personalInfoCompletion(input: PersonalInfoCompletionRequest, options?: RpcOptions): UnaryCall<PersonalInfoCompletionRequest, PersonalInfoCompletionRequest> {
         const method = this.methods[5], opt = this._transport.mergeOptions(options);
         return stackIntercept<PersonalInfoCompletionRequest, PersonalInfoCompletionRequest>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (KhanAPI.EditProfileInfoResponse);
+     */
+    editProfileInfo(input: EditProfileInfoRequest, options?: RpcOptions): UnaryCall<EditProfileInfoRequest, EditProfileInfoResponse> {
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        return stackIntercept<EditProfileInfoRequest, EditProfileInfoResponse>("unary", this._transport, method, opt, input);
     }
 }

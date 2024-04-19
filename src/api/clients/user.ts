@@ -183,6 +183,40 @@ export interface PersonalInfoCompletionResponse {
      */
     user?: User;
 }
+// signUp end
+
+// EditProfie begin
+
+/**
+ * @generated from protobuf message KhanAPI.EditProfileInfoRequest
+ */
+export interface EditProfileInfoRequest {
+    /**
+     * @generated from protobuf field: optional string fName = 1;
+     */
+    fName?: string;
+    /**
+     * @generated from protobuf field: optional string lName = 2;
+     */
+    lName?: string;
+    /**
+     * @generated from protobuf field: optional string gender = 3;
+     */
+    gender?: string;
+    /**
+     * @generated from protobuf field: optional string birthDay = 4;
+     */
+    birthDay?: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.EditProfileInfoResponse
+ */
+export interface EditProfileInfoResponse {
+    /**
+     * @generated from protobuf field: bool ok = 1;
+     */
+    ok: boolean;
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class User$Type extends MessageType<User> {
     constructor() {
@@ -818,6 +852,120 @@ class PersonalInfoCompletionResponse$Type extends MessageType<PersonalInfoComple
  * @generated MessageType for protobuf message KhanAPI.PersonalInfoCompletionResponse
  */
 export const PersonalInfoCompletionResponse = new PersonalInfoCompletionResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class EditProfileInfoRequest$Type extends MessageType<EditProfileInfoRequest> {
+    constructor() {
+        super("KhanAPI.EditProfileInfoRequest", [
+            { no: 1, name: "fName", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "lName", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "gender", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "birthDay", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<EditProfileInfoRequest>): EditProfileInfoRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<EditProfileInfoRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: EditProfileInfoRequest): EditProfileInfoRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* optional string fName */ 1:
+                    message.fName = reader.string();
+                    break;
+                case /* optional string lName */ 2:
+                    message.lName = reader.string();
+                    break;
+                case /* optional string gender */ 3:
+                    message.gender = reader.string();
+                    break;
+                case /* optional string birthDay */ 4:
+                    message.birthDay = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: EditProfileInfoRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* optional string fName = 1; */
+        if (message.fName !== undefined)
+            writer.tag(1, WireType.LengthDelimited).string(message.fName);
+        /* optional string lName = 2; */
+        if (message.lName !== undefined)
+            writer.tag(2, WireType.LengthDelimited).string(message.lName);
+        /* optional string gender = 3; */
+        if (message.gender !== undefined)
+            writer.tag(3, WireType.LengthDelimited).string(message.gender);
+        /* optional string birthDay = 4; */
+        if (message.birthDay !== undefined)
+            writer.tag(4, WireType.LengthDelimited).string(message.birthDay);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.EditProfileInfoRequest
+ */
+export const EditProfileInfoRequest = new EditProfileInfoRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class EditProfileInfoResponse$Type extends MessageType<EditProfileInfoResponse> {
+    constructor() {
+        super("KhanAPI.EditProfileInfoResponse", [
+            { no: 1, name: "ok", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
+    }
+    create(value?: PartialMessage<EditProfileInfoResponse>): EditProfileInfoResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.ok = false;
+        if (value !== undefined)
+            reflectionMergePartial<EditProfileInfoResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: EditProfileInfoResponse): EditProfileInfoResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* bool ok */ 1:
+                    message.ok = reader.bool();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: EditProfileInfoResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool ok = 1; */
+        if (message.ok !== false)
+            writer.tag(1, WireType.Varint).bool(message.ok);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.EditProfileInfoResponse
+ */
+export const EditProfileInfoResponse = new EditProfileInfoResponse$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.UserAPI
  */
@@ -827,5 +975,6 @@ export const UserAPI = new ServiceType("KhanAPI.UserAPI", [
     { name: "NewPasswordWithToken", options: {}, I: NewPasswordWithTokenRequest, O: Empty },
     { name: "SignUp", options: {}, I: SignUpRequest, O: SignUpResponse },
     { name: "CodeVerification", options: {}, I: CodeVerificationRequest, O: CodeVerificationResponse },
-    { name: "PersonalInfoCompletion", options: {}, I: PersonalInfoCompletionRequest, O: PersonalInfoCompletionRequest }
+    { name: "PersonalInfoCompletion", options: {}, I: PersonalInfoCompletionRequest, O: PersonalInfoCompletionRequest },
+    { name: "EditProfileInfo", options: {}, I: EditProfileInfoRequest, O: EditProfileInfoResponse }
 ]);

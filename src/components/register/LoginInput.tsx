@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
+import userClient from "../../api/services/user-service";
 
 const LoginInput = () => {
   const toast = useToast();
@@ -33,6 +34,15 @@ const LoginInput = () => {
     } else {
       setEmailError(false);
     }
+
+    userClient
+      .login({ userNameOrEmail: email, password: password })
+      .then((res) => {
+        console.log("login response: ", res);
+      })
+      .catch((err) => {
+        console.log("login error: ", err);
+      });
 
     return "ok";
   };
