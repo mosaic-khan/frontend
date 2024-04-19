@@ -11,12 +11,17 @@ import {
 import { BackButton, RedButton } from "../Buttons";
 import tomato from "../../assets/tomato_with_key.png";
 import { useState } from "react";
-export const ForgotPassword = () => {
+interface Props {
+  onSubmit: () => void;
+  onCancel: () => void;
+}
+
+export const ForgotPassword = ({ onSubmit, onCancel }: Props) => {
   const [email, setEmail] = useState("");
   return (
     <VStack position="relative" h="450px" w="350px">
       <Box position="absolute" left="0" top="0">
-        <BackButton />
+        <BackButton onClick={onCancel} />
       </Box>
       <Image src={tomato} height="100px" marginTop="50px"></Image>
       <VStack>
@@ -37,7 +42,14 @@ export const ForgotPassword = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Input>
         </FormControl>
-        <RedButton onClick={() => console.log(email)}>تایید</RedButton>
+        <RedButton
+          onClick={() => {
+            onSubmit;
+            console.log(email);
+          }}
+        >
+          تایید
+        </RedButton>
       </VStack>
     </VStack>
   );
