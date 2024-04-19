@@ -89,7 +89,7 @@ const HeaderMenuItem = ({ state, boxConfig, color, text }: Props) => {
           <Text
             fontSize="16px"
             marginRight="20px"
-            marginTop="3px"
+            marginTop="5px"
             dir="rtl"
             color="gray.700"
           >

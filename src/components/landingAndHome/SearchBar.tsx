@@ -1,10 +1,14 @@
 import { Input, InputGroup, InputRightElement, Circle } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
-export const SearchBar = () => {
+interface Props {
+  width: string;
+}
+
+export const SearchBar = ({ width }: Props) => {
   return (
     <>
-      <InputGroup w="450px">
+      <InputGroup w={width}>
         <Input
           size="lg"
           borderRadius="50px"

@@ -71,7 +71,7 @@ const HeaderMenu = ({ itemTexts }: Props) => {
       _hover={
         state != 2
           ? {
-              transform: "translateY(-3px)",
+              transform: "scale(1.1)",
             }
           : {}
       }
@@ -112,25 +112,25 @@ const HeaderMenu = ({ itemTexts }: Props) => {
             state={state}
             boxConfig={middleAround}
             color="brand.500"
-            text={itemTexts[0]}
+            text={itemTexts[1]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleCenter}
             color="orange.800"
-            text={itemTexts[0]}
+            text={itemTexts[2]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={middleAround}
             color="green.400"
-            text={itemTexts[0]}
+            text={itemTexts[3]}
           />
           <HeaderMenuItem
             state={state}
             boxConfig={bottom}
             color="orange.400"
-            text={itemTexts[0]}
+            text={itemTexts[4]}
           />
         </VStack>
       </ChakraBox>
