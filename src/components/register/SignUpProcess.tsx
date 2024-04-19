@@ -13,6 +13,7 @@ const SignUpProcess = ({ h, active }: Props) => {
 
   useEffect(() => {
     if (active) setStage(1);
+    else setStage(0);
   }, [active]);
 
   return (
