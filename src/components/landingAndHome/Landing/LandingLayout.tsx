@@ -3,7 +3,7 @@ import MainPanel from "../MainPanel";
 import LandingTop from "./LandingTop";
 import CategoryList from "../CategoryList";
 import WebsiteDescription from "../WebsiteDescription";
-import Footer from "../Footer";
+import Footer from "../Footer/Footer";
 
 const LandingLayout = () => {
   return (
