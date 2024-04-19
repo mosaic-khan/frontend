@@ -3,6 +3,7 @@ import Landing from "./pages/Landing";
 import { useColorMode } from "@chakra-ui/react";
 import Register from "./pages/Register";
 import { EditProfile } from "./pages/EditProfile";
+import Home from "./pages/Home";
 
 function App() {
   const { setColorMode } = useColorMode();
