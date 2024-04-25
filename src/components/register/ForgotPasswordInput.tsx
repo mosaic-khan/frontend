@@ -19,11 +19,11 @@ interface Props {
 export const ForgotPassword = ({ onSubmit, onCancel }: Props) => {
   const [email, setEmail] = useState("");
   return (
-    <VStack position="relative" h="450px" w="350px">
-      <Box position="absolute" left="0" top="0">
+    <VStack marginTop="-40px">
+      <Box w="460px">
         <BackButton onClick={onCancel} />
       </Box>
-      <Image src={tomato} height="100px" marginTop="50px"></Image>
+      <Image src={tomato} height="100px" marginTop="10px"></Image>
       <VStack>
         <Heading size="md" marginBottom="35px">
           رمزتو فراموش کردی؟
@@ -32,15 +32,14 @@ export const ForgotPassword = ({ onSubmit, onCancel }: Props) => {
           <FormLabel dir="rtl" marginBottom="15px">
             ایمیلتو وارد کن تا رمز جدید بذاری!
           </FormLabel>
-
           <Input
             id="forgot_email"
             type="email"
             focusBorderColor="green.600"
-            width="250px"
+            marginTop="0px"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Input>
+          />
         </FormControl>
         <RedButton
           onClick={() => {

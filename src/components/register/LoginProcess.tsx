@@ -17,7 +17,7 @@ const LoginProcess = ({ h, active }: Props) => {
   }, [active]);
 
   return (
-    <Box height="100%" width="50%">
+    <Box height="100%" width="100%">
       <Center height="100%" width="100%">
         <ScaleFade initialScale={0.2} in={stage == 1}>
           <LoginInput forgotPage={() => setStage(2)} />
