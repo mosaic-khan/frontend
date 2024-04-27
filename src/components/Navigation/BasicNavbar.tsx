@@ -15,7 +15,7 @@ export interface NavItem {
 
 export const BasicNavbar = ({Nav_Items}:{ Nav_Items: NavItem[] }) => {
     const linkColor = 'gray.600';
-    const linkHoverColor = 'brand.800';
+    const linkHoverColor = 'brand.900';
   
     return (
       <HStack spacing={4}>
