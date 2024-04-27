@@ -1,14 +1,14 @@
 import { Icon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { AiFillHome, AiOutlineHome } from "react-icons/ai";
+import { BsQuestionCircle } from "react-icons/bs";
 
-const HomeIcon = () => {
+const QuestionIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
-      as={isHovered ? AiFillHome : AiOutlineHome}
+      as={BsQuestionCircle}
       boxSize={6}
-      color={isHovered ? "brand.800" : "black.100"}
+      color={isHovered ? "brand.800" : "black.800"}
       mr={4}
       onClick={() => console.log("TODO")}
       onMouseEnter={() => setIsHovered(true)}
@@ -21,5 +21,4 @@ const HomeIcon = () => {
     />
   );
 };
-
-export default HomeIcon;
+export default QuestionIcon;

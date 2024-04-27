@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import { EditProfile } from "./pages/EditProfile";
 import Home from "./pages/Home";
 import { ResetPassword } from "./pages/ResetPassword";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -17,7 +18,10 @@ function App() {
           <Route path="Home" element={<Home />} />
           <Route path="Register" element={<Register />} />
           <Route path="EditProfile" element={<EditProfile />} />
-          <Route path="ResetPassword" element={<ResetPassword/>}/>
+          <Route path="ResetPassword" element={<ResetPassword/>}/>  
+          <Route path="MyProfile" element={<UserProfile/>}/>
+
+
         </Route>
       </Routes>
     </BrowserRouter>

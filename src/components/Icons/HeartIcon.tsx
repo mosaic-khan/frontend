@@ -1,12 +1,12 @@
 import { Icon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { AiFillHome, AiOutlineHome } from "react-icons/ai";
+import { IoHeart, IoHeartOutline } from "react-icons/io5";
 
-const HomeIcon = () => {
+const HeartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
-      as={isHovered ? AiFillHome : AiOutlineHome}
+      as={isHovered ? IoHeart : IoHeartOutline}
       boxSize={6}
       color={isHovered ? "brand.800" : "black.100"}
       mr={4}
@@ -21,5 +21,4 @@ const HomeIcon = () => {
     />
   );
 };
-
-export default HomeIcon;
+export default HeartIcon;
