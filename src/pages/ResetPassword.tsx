@@ -109,7 +109,7 @@ export const ResetPassword = () => {
             </Box>
             <VStack
               h="400px"
-              w="300px"
+              w="350px"
               p="50px"
               marginLeft="50px"
               spacing="20px"
@@ -131,8 +131,8 @@ export const ResetPassword = () => {
             <Image src={Confused_tomato} boxSize="250px" />
           </HStack>
         </Box>
-          <Image src={BG_bottom_right} position="absolute" bottom="0px" right="0px"/>
-          <Image src={BG_bottom_left} position="absolute" top="60px" left="0px" />
+          <Image src={BG_bottom_right} position="fixed" bottom="0px" right="0px"/>
+          <Image src={BG_bottom_left} position="fixed" top="60px" left="0px" />
       </Center>
     </Box>
   );
