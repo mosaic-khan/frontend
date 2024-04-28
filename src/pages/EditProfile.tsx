@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, LegacyRef } from "react";
 import { ChevronDownIcon, EditIcon } from "@chakra-ui/icons";
 import { ImageUpload } from "../components/UploadImage/ImageUpload";
 import { ImageCropper } from "../components/UploadImage/ImageCropper";
@@ -20,54 +20,32 @@ import {
 } from "@chakra-ui/react";
 import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
-import { Area } from "react-easy-crop";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserSideBar from "../components/Navigation/UserSideBar";
 export const EditProfile = () => {
-  let Arr = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
-  const inputRef = useRef<HTMLInputElement>(); // Create a ref for the file input
+  // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
+  const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Define the onChooseImg function
   const onChooseImg = () => {
     if (inputRef.current) {
-      inputRef.current.click(); // Trigger the file input click
+      inputRef.current.click();
     }
   };
   const [image, setImage] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
-  //Call back function when image is selected
+
   const onImageSelected = (selectedImg: string) => {
     setImage(selectedImg);
     setCurrentPage("crop-img");
   };
-  //Call back function when cropping is done
-  const onCropDone = (imgCroppedArea: Area) => {
-    const canvasEle = document.createElement("canvas");
-    canvasEle.width = imgCroppedArea.width;
-    canvasEle.height = imgCroppedArea.height;
-    const context = canvasEle.getContext("2d");
-    let imageObj1 = new Image();
-    imageObj1.src = image;
-    imageObj1.onload = function () {
-      context?.drawImage(
-        imageObj1,
-        imgCroppedArea.x,
-        imgCroppedArea.y,
-        imgCroppedArea.width,
-        imgCroppedArea.height,
-        0,
-        0,
-        imgCroppedArea.width,
-        imgCroppedArea.height
-      );
-
-      const dataURL = canvasEle.toDataURL("image/jpeg");
-
-      setImgAfterCrop(dataURL);
-      setCurrentPage("choose-img");
-    };
+  const setCityName = (input: string, start: boolean) => { 
+    //todo (request from back)
+  };
+  const onCropDone = (imgCroppedArea: string) => {
+    setImgAfterCrop(imgCroppedArea);
+    setCurrentPage("choose-img");
   };
 
   useEffect(() => {
@@ -88,7 +66,6 @@ export const EditProfile = () => {
         src={tomato}
         borderColor="#ffd2c8"
       ></Img>
-      {/* Modal for cropping the image */}
       <Modal
         isOpen={isOpen}
         onClose={() => {
@@ -111,7 +88,7 @@ export const EditProfile = () => {
 
           <ImageCropper
             image={image}
-            onCropDone={(imgCroppedArea: Area) => {
+            onCropDone={(imgCroppedArea: string) => {
               onCropDone(imgCroppedArea);
               onClose();
               setCurrentPage("choose-img");
@@ -156,6 +133,7 @@ export const EditProfile = () => {
               </FormControl>
               <FormControl id="sex" marginBottom="10px">
                 <FormLabel paddingRight="10px">جنسیت</FormLabel>
+
                 <Select
                   variant="filled"
                   _placeholder={{ color: "gray.200" }}
@@ -163,10 +141,6 @@ export const EditProfile = () => {
                     <ChevronDownIcon marginLeft="30px" paddingRight="10px" />
                   }
                 >
-                  {/* {for (var i in Arr){
-                    console.log(Arr[i])
-
-                  }} */}
                   <option value="female">خانم</option>
                   <option value="male">آقا</option>
                   <option value="other">ترجیح می‌دهم نگویم</option>
@@ -181,16 +155,13 @@ export const EditProfile = () => {
               <FormControl id="city" marginBottom="10px">
                 <FormLabel paddingRight="10px">شهر</FormLabel>
                 <Select
+                  onChange={(e) => setCityName(e.target.value, true)}
                   variant="filled"
                   _placeholder={{ color: "gray.200" }}
-                  icon={
-                    <ChevronDownIcon marginLeft="30px" paddingRight="10px" />
-                  }
-                >
-                  <option value="female">خانم</option>
-                  <option value="male">آقا</option>
-                  <option value="other">ترجیح می‌دهم نگویم</option>
-                </Select>
+                />
+                {/* {Cities.map((city) => (
+                    <option key={city.length}>{city}</option>
+                  ))} */}
               </FormControl>
             </Box>
             <Box

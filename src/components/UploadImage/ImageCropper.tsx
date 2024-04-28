@@ -1,47 +1,20 @@
-import ReactCrop, {
-  Crop,
-  PixelCrop,
-  centerCrop,
-  convertToPixelCrop,
-  makeAspectCrop,
-} from "react-image-crop";
+import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
 import { Box, Button } from "@chakra-ui/react";
-import { FC, SetStateAction, useEffect, useRef, useState } from "react";
+import { FC, SetStateAction, useRef, useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
-const MIN_DIMENSION = 150;
 const ASPECT_RATIO = 1;
-function centerAspectCrop(
-  mediaWidth: number,
-  mediaHeight: number,
-  aspect: number
-) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: "%",
-        width: 100,
-        height: 100,
-      },
-      aspect,
-      mediaWidth,
-      mediaHeight
-    ),
-    mediaWidth,
-    mediaHeight
-  );
-}
+
 export interface ImageCropperProps {
-  /** The image data URL to be cropped. */
-  image: string /** Function to handle a successfully cropped image. */;
-  onCropDone: (croppedImage: any) => void;
+  image: string;
+  onCropDone: (croppedImage: string) => void;
 }
 
 export const ImageCropper: FC<ImageCropperProps> = ({ image, onCropDone }) => {
   const [crop, setCrop] = useState<Crop>({
     x: 25,
     y: 25,
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
     unit: "px",
   });
   const imgRef = useRef<HTMLImageElement>(null);
@@ -75,12 +48,6 @@ export const ImageCropper: FC<ImageCropperProps> = ({ image, onCropDone }) => {
     if (!ctx) {
       throw new Error("No 2d context");
     }
-
-    const pixelCrop = convertToPixelCrop(
-      crop,
-      image.naturalWidth,
-      image.naturalHeight
-    );
 
     ctx.drawImage(
       image,
