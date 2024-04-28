@@ -1,9 +1,11 @@
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { Button, ButtonProps, IconButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import "@react-shamsi/calendar/dist/styles.css";
 import "@react-shamsi/timepicker/dist/styles.css";
 import { DatePicker } from "@react-shamsi/datepicker";
 import { TThemeClasses } from "@react-shamsi/calendar";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+
 const brandCalendar: TThemeClasses = {
   headerBackgroundColor: "#FF004B",
   headerTextColor: "white",
@@ -124,5 +126,24 @@ export const ShamsiCalendarButton = () => {
         fontSize: "1rem",
       }}
     ></DatePicker>
+  );
+};
+
+export const BackButton = ({onClick}:ButtonProps) => {
+  return (
+    <IconButton
+      h="30px"
+      w="40px"
+      aria-label="back-button"
+      icon={<ArrowBackIcon />}
+      color="brand.800"
+      bgColor="brand.50"
+      _hover={{
+        boxShadow: "sm",
+        bg: "brand.50",
+        transform: "translateY(-3px)",
+      }}
+      onClick={onClick}
+    ></IconButton>
   );
 };
