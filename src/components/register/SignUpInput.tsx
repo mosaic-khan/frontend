@@ -14,7 +14,7 @@ import { WhiteButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
 
 interface Props {
-  onSubmit: () => void;
+  onSubmit: (token: string) => void;
 }
 
 const SignUpInput = ({ onSubmit }: Props) => {
@@ -24,6 +24,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [result, setResult] = useState("");
+  const [token, setToken] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [usernameError, setUsernameError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
@@ -94,6 +95,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         })
         .then((res) => {
           console.log("signUp response: ", res);
+          setToken(res.response.token);
           setResult("ok");
         })
         .catch((err) => {
@@ -156,7 +158,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 4000,
         position: "bottom-left",
       });
-      onSubmit();
+      onSubmit(token);
     }
     setResult("");
   }, [result]);
