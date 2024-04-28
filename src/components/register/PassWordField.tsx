@@ -5,6 +5,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  SystemStyleObject,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
@@ -17,6 +18,7 @@ interface Props {
   value: string;
   variant?: string;
   borderColor?: string;
+  _placeholder?: SystemStyleObject;
 }
 
 export const PasswordField = ({
@@ -25,6 +27,8 @@ export const PasswordField = ({
   value,
   borderColor,
   onChange,
+  _placeholder,
+  variant,
 }: Props) => {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -57,7 +61,8 @@ export const PasswordField = ({
           marginTop="0px"
           borderColor={borderColor}
           focusBorderColor="green.600"
-
+          variant={variant}
+          _placeholder={_placeholder}
         />
       </InputGroup>
     </FormControl>
