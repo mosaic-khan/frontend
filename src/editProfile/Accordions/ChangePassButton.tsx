@@ -1,12 +1,19 @@
 import { AccordionButton, HStack, Text } from "@chakra-ui/react";
-import { IoLockClosed } from "react-icons/io5";
+import { useState } from "react";
+import { BiLockAlt, BiLockOpenAlt } from "react-icons/bi";
 
 const ChangePassButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <AccordionButton dir="rtl" paddingRight="30px" borderRadius="lg">
+    <AccordionButton
+      dir="rtl"
+      paddingRight="30px"
+      borderRadius="lg"
+      onClick={() => setIsOpen(!isOpen)}
+    >
       <HStack h="80px">
-        <IoLockClosed color="gray" size="20px" />
-        <Text textAlign={"right"} color="gray.600" fontSize="2xl">
+        {isOpen ? <BiLockOpenAlt  color="gray" size="25px"/> : <BiLockAlt color="gray" size="25px" />}
+        <Text textAlign="right" color="gray.600" fontSize="2xl">
           تغییر رمز عبور
         </Text>
       </HStack>

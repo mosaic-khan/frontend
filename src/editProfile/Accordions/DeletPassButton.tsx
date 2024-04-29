@@ -1,11 +1,11 @@
 import { AccordionButton, HStack, Text } from "@chakra-ui/react";
-import {IoTrashBin } from "react-icons/io5";
+import { PiTrashSimpleBold } from "react-icons/pi";
 
 const DeletePassButton = () => {
   return (
     <AccordionButton dir="rtl" paddingRight="30px" borderRadius="lg">
       <HStack h="80px">
-        <IoTrashBin color="gray" size="20px" />
+        <PiTrashSimpleBold color="#B10019" size="25px" />
         <Text textAlign="right" color="brand.700" fontWeight="bold" fontSize="xl">
           حذف حساب کاربری
         </Text>
