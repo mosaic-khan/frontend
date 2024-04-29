@@ -1,34 +1,22 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-} from "@chakra-ui/react";
+import { Accordion, AccordionProps } from "@chakra-ui/react";
 import { ReactNode } from "react";
-interface Props {
+interface Props extends AccordionProps {
   children: ReactNode;
-  bgColor: string;
 }
-const AccordionComponent = ({ children, bgColor }: Props) => {
+
+const AccordionComponent = ({ children, ...rest }: Props) => {
   return (
     <Accordion
       defaultIndex={[1]}
       allowMultiple
-      bg="white"
+      borderRadius="lg"
       width="800px"
-      borderRadius="md"
+      bgColor="gray.50"
+      marginBottom="20px"
+      boxShadow="2xl"
+      {...rest}
     >
-      <AccordionItem>
-        <h2>
-          <AccordionButton>
-            <Box as="span" flex="1" textAlign="right"></Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>{children}</AccordionPanel>
-      </AccordionItem>
+      {children}
     </Accordion>
   );
 };

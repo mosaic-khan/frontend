@@ -18,13 +18,15 @@ import {
   Select,
   Avatar,
   VStack,
+  Center,
 } from "@chakra-ui/react";
 import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
-import UserNavigation from "../components/Navigation/ProfileNavigation";
-import UserSideBar from "../components/Navigation/UserSideBar";
-import AccordionComponent from "../components/Accordion/Accordion";
-import ChangePass from "../components/Accordion/ChangePass";
+import UserNavigation from "../components/navigation/ProfileNavigation";
+import UserSideBar from "../components/navigation/UserSideBar";
+import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
+import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
+import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 export const EditProfile = () => {
   // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
   const inputRef = useRef<any>();
@@ -60,11 +62,10 @@ export const EditProfile = () => {
     <Box position="relative" w="100%" h="100%" bgColor="gray.100">
       <UserNavigation />
       <UserSideBar />
-      {/* add this inside UserSideBar  */}
       <Img
-        boxSize="230px"
+        boxSize="200px"
         position="fixed"
-        right="0"
+        right="60px"
         bottom="0"
         src={tomato}
         borderColor="#ffd2c8"
@@ -100,141 +101,149 @@ export const EditProfile = () => {
         </ModalContent>
       </Modal>
       <VStack boxSize="80%" marginLeft="30px" marginTop="10px">
-        <Box>
-          <Box
-            boxShadow="2xl"
-            bg="gray.50"
-            h="500px"
-            w="800px"
-            color="white"
-            borderRadius="md"
-            position="relative"
-            marginRight="5%"
-            top="20px"
-          >
-            <HStack>
-              <Box
-                h="400px"
-                w="60%"
-                dir="rtl"
-                position="absolute"
-                right="0"
-                top="0"
-                paddingTop="30px"
-                paddingRight="30px"
-                textColor="black"
-                justifyContent="space-between"
-              >
-                <FormControl id="name" marginBottom="10px">
-                  <FormLabel paddingRight="10px">نام</FormLabel>
-                  <Input
-                    variant="filled"
-                    _placeholder={{ color: "gray.200" }}
-                  />
-                </FormControl>
+        <Box position="relative" width="900px" height="600px">
+          <Center>
+            <Box
+              boxShadow="2xl"
+              bg="gray.50"
+              h="500px"
+              w="800px"
+              color="white"
+              borderRadius="lg"
+              position="relative"
+              top="20px"
+            >
+              <HStack>
+                <Box
+                  h="400px"
+                  w="60%"
+                  dir="rtl"
+                  position="absolute"
+                  right="0"
+                  top="0"
+                  paddingTop="30px"
+                  paddingRight="30px"
+                  textColor="black"
+                  justifyContent="space-between"
+                >
+                  <FormControl id="name" marginBottom="10px">
+                    <FormLabel paddingRight="10px">نام</FormLabel>
+                    <Input
+                      variant="filled"
+                      _placeholder={{ color: "gray.200" }}
+                    />
+                  </FormControl>
 
-                <FormControl id="FullName" marginBottom="10px">
-                  <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-                  <Input
-                    variant="filled"
-                    _placeholder={{ color: "gray.200" }}
-                  />
-                </FormControl>
-                <FormControl id="sex" marginBottom="10px">
-                  <FormLabel paddingRight="10px">جنسیت</FormLabel>
+                  <FormControl id="FullName" marginBottom="10px">
+                    <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
+                    <Input
+                      variant="filled"
+                      _placeholder={{ color: "gray.200" }}
+                    />
+                  </FormControl>
+                  <FormControl id="sex" marginBottom="10px">
+                    <FormLabel paddingRight="10px">جنسیت</FormLabel>
 
-                  <Select
-                    variant="filled"
-                    _placeholder={{ color: "gray.200" }}
-                    icon={
-                      <ChevronDownIcon marginLeft="30px" paddingRight="10px" />
-                    }
-                  >
-                    <option value="female">خانم</option>
-                    <option value="male">آقا</option>
-                    <option value="other">ترجیح می‌دهم نگویم</option>
-                  </Select>
-                </FormControl>
+                    <Select
+                      variant="filled"
+                      _placeholder={{ color: "gray.200" }}
+                      icon={
+                        <ChevronDownIcon
+                          marginLeft="30px"
+                          paddingRight="10px"
+                        />
+                      }
+                    >
+                      <option value="female">خانم</option>
+                      <option value="male">آقا</option>
+                      <option value="other">ترجیح می‌دهم نگویم</option>
+                    </Select>
+                  </FormControl>
 
-                <FormControl id="birthday" marginBottom="10px">
-                  <FormLabel paddingRight="10px">تاریخ تولد</FormLabel>
-                  <ShamsiCalendarButton></ShamsiCalendarButton>
-                </FormControl>
+                  <FormControl id="birthday" marginBottom="10px">
+                    <FormLabel paddingRight="10px">تاریخ تولد</FormLabel>
+                    <ShamsiCalendarButton></ShamsiCalendarButton>
+                  </FormControl>
 
-                <FormControl id="city" marginBottom="10px">
-                  <FormLabel paddingRight="10px">شهر</FormLabel>
-                  <Select
-                    onChange={(e) => setCityName(e.target.value, true)}
-                    variant="filled"
-                    _placeholder={{ color: "gray.200" }}
-                  />
-                  {/* {Cities.map((city) => (
+                  <FormControl id="city" marginBottom="10px">
+                    <FormLabel paddingRight="10px">شهر</FormLabel>
+                    <Select
+                      onChange={(e) => setCityName(e.target.value, true)}
+                      variant="filled"
+                      _placeholder={{ color: "gray.200" }}
+                    />
+                    {/* {Cities.map((city) => (
                     <option key={city.length}>{city}</option>
                   ))} */}
-                </FormControl>
-              </Box>
-              <Box
-                position="absolute"
-                width="150px"
-                height="150px"
-                left="5%"
-                top="15%"
-              >
+                  </FormControl>
+                </Box>
                 <Box
-                  bg="blue"
-                  width="100%"
-                  height="100%"
-                  borderRadius="full"
-                  overflow="hidden"
+                  position="absolute"
+                  width="150px"
+                  height="150px"
+                  left="5%"
+                  top="15%"
                 >
                   <Box
-                    position="absolute"
-                    bottom="0"
-                    right="0"
-                    width="40px"
-                    height="40px"
-                    borderRadius={100}
-                    bg="white"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    boxShadow="0 2px 4px rgba(0,0,0,0.1)"
-                    zIndex={1}
-                  >
-                    <Icon
-                      as={EditIcon}
-                      color="gray.600"
-                      onClick={onChooseImg}
-                      cursor="pointer"
-                    />
-                    {currentPage === "choose-img" ? (
-                      <ImageUpload
-                        ref={inputRef}
-                        onImageSelected={onImageSelected}
-                      />
-                    ) : (
-                      <></>
-                    )}
-                  </Box>
-
-                  <Avatar
-                    src={imgAfterCrop}
-                    // alt="Profile Image"
+                    bg="blue"
                     width="100%"
                     height="100%"
-                    borderRadius={100}
-                  ></Avatar>
+                    borderRadius="full"
+                    overflow="hidden"
+                  >
+                    <Box
+                      position="absolute"
+                      bottom="0"
+                      right="0"
+                      width="40px"
+                      height="40px"
+                      borderRadius={100}
+                      bg="white"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      boxShadow="0 2px 4px rgba(0,0,0,0.1)"
+                      zIndex={1}
+                    >
+                      <Icon
+                        as={EditIcon}
+                        color="gray.600"
+                        onClick={onChooseImg}
+                        cursor="pointer"
+                      />
+                      {currentPage === "choose-img" ? (
+                        <ImageUpload
+                          ref={inputRef}
+                          onImageSelected={onImageSelected}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                    </Box>
+
+                    <Avatar
+                      src={imgAfterCrop}
+                      // alt="Profile Image"
+                      width="100%"
+                      height="100%"
+                      borderRadius={100}
+                      
+                    ></Avatar>
+                  </Box>
                 </Box>
-              </Box>
-            </HStack>
-          </Box>
-          <GradientRedButton position="relative" bottom="10px">
+              </HStack>
+            </Box>
+          </Center>
+          <GradientRedButton position="absolute" bottom="50px">
             ذخیره
           </GradientRedButton>
         </Box>
-        <AccordionComponent bgColor="Black">
-          <ChangePass />
-        </AccordionComponent>
+        <ChangePassAccordion>
+          <ChangePassChildren />
+        </ChangePassAccordion>
+        <DeletePassAccordion>
+          <>TODO</>
+        </DeletePassAccordion>
       </VStack>
     </Box>
   );
