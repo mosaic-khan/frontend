@@ -25,7 +25,12 @@ const LoginProcess = ({ h, active }: Props) => {
       </Center>
       <Center height="100%" width="100%" marginTop={`-${h}px`}>
         <ScaleFade initialScale={0.2} in={stage == 2}>
-          <ForgotPassword onSubmit={() => {}} onCancel={() => setStage(1)} />
+          <ForgotPassword
+            onSubmit={() => {
+              setStage(1);
+            }}
+            onCancel={() => setStage(1)}
+          />
         </ScaleFade>
       </Center>
     </Box>
