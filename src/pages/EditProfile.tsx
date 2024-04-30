@@ -16,7 +16,6 @@ import {
   Img,
   Input,
   Select,
-  Text,
   Avatar,
   VStack,
   Center,
@@ -179,11 +178,15 @@ export const EditProfile = () => {
                   ))} */}
                   </FormControl>
                 </Box>
-              
-                <VStack width="300px" height="500px" justifyContent="space-between" spacing="50px">
+
+                <VStack
+                  width="300px"
+                  height="500px"
+                  justifyContent="space-between"
+                  spacing="50px"
+                >
                   <Box
                     position="absolute"
-                   
                     width="150px"
                     height="150px"
                     top="10%"
@@ -234,7 +237,7 @@ export const EditProfile = () => {
                       ></Avatar>
                     </Box>
                   </Box>
-                  <BiographyBox/>
+                  <BiographyBox />
                 </VStack>
               </HStack>
             </Box>
