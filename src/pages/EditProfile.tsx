@@ -26,6 +26,9 @@ import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
+import UserSideBar from "../components/Navigation/UserSideBar";
+
 export const EditProfile = () => {
   // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
   const inputRef = useRef<any>();
