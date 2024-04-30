@@ -12,7 +12,11 @@ const ChangePassButton = () => {
       onClick={() => setIsOpen(!isOpen)}
     >
       <HStack h="80px">
-        {isOpen ? <BiLockOpenAlt  color="gray" size="25px"/> : <BiLockAlt color="gray" size="25px" />}
+        {isOpen ? (
+          <BiLockOpenAlt color="gray" size="25px" />
+        ) : (
+          <BiLockAlt color="gray" size="25px" />
+        )}
         <Text textAlign="right" color="gray.600" fontSize="2xl">
           تغییر رمز عبور
         </Text>
