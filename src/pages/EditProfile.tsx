@@ -25,8 +25,7 @@ import tomato from "../assets/tomato-logo.png";
 import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
-import UserSideBar from "../components/Navigation/UserSideBar";
-import UserNavigation from "../components/Navigation/ProfileNavigation";
+import BiographyBox from "../editProfile/Profile/Biography";
 export const EditProfile = () => {
   // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
   const inputRef = useRef<any>();
@@ -195,59 +194,67 @@ export const EditProfile = () => {
                   ))} */}
                   </FormControl>
                 </Box>
-                <Box
-                  position="absolute"
-                  width="150px"
-                  height="150px"
-                  left="5%"
-                  top="15%"
+
+                <VStack
+                  width="300px"
+                  height="500px"
+                  justifyContent="space-between"
+                  spacing="50px"
                 >
                   <Box
-                    bg="blue"
-                    width="100%"
-                    height="100%"
-                    borderRadius="full"
-                    overflow="hidden"
+                    position="absolute"
+                    width="150px"
+                    height="150px"
+                    top="10%"
                   >
+                    {/*Icon with avatar*/}
                     <Box
-                      position="absolute"
-                      bottom="0"
-                      right="0"
-                      width="40px"
-                      height="40px"
-                      borderRadius={100}
-                      bg="white"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      boxShadow="0 2px 4px rgba(0,0,0,0.1)"
-                      zIndex={1}
-                    >
-                      <Icon
-                        as={EditIcon}
-                        color="gray.600"
-                        onClick={onChooseImg}
-                        cursor="pointer"
-                      />
-                      {currentPage === "choose-img" ? (
-                        <ImageUpload
-                          ref={inputRef}
-                          onImageSelected={onImageSelected}
-                        />
-                      ) : (
-                        <></>
-                      )}
-                    </Box>
-
-                    <Avatar
-                      src={imgAfterCrop}
-                      // alt="Profile Image"
                       width="100%"
                       height="100%"
-                      borderRadius={100}
-                    ></Avatar>
+                      borderRadius="full"
+                      overflow="hidden"
+                    >
+                      {/* Icon */}
+                      <Box
+                        position="absolute"
+                        bottom="0"
+                        right="0"
+                        width="40px"
+                        height="40px"
+                        borderRadius={100}
+                        bg="white"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        boxShadow="0 2px 4px rgba(0,0,0,0.1)"
+                        zIndex={1}
+                      >
+                        <Icon
+                          as={EditIcon}
+                          color="gray.600"
+                          onClick={onChooseImg}
+                          cursor="pointer"
+                        />
+                        {currentPage === "choose-img" ? (
+                          <ImageUpload
+                            ref={inputRef}
+                            onImageSelected={onImageSelected}
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </Box>
+
+                      <Avatar
+                        src={imgAfterCrop}
+                        width="100%"
+                        height="100%"
+                        borderRadius={100}
+                      ></Avatar>
+                    </Box>
                   </Box>
-                </Box>
+                  <BiographyBox />
+                </VStack>
               </HStack>
             </Box>
           </Center>
