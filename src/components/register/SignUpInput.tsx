@@ -180,7 +180,6 @@ const SignUpInput = ({ onSubmit }: Props) => {
           }}
           borderColor={emailError ? "red.500" : "gray.200"}
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <FormControl>
@@ -197,7 +196,6 @@ const SignUpInput = ({ onSubmit }: Props) => {
           }}
           borderColor={usernameError ? "red.500" : "gray.200"}
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <PasswordField
