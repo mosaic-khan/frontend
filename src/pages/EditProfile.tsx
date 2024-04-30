@@ -22,11 +22,11 @@ import {
 } from "@chakra-ui/react";
 import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
-import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserSideBar from "../components/navigation/UserSideBar";
 import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
+import UserSideBar from "../components/Navigation/UserSideBar";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
 export const EditProfile = () => {
   // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
   const inputRef = useRef<any>();
@@ -40,6 +40,16 @@ export const EditProfile = () => {
   const [image, setImage] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
+  const cities = [
+    "hello",
+    "hell",
+    "he",
+    "dor",
+    "back",
+    "kenhwvqb",
+    "lkjkqj b",
+    "qiohuiqq jkvbksoqjq lkwjvn hell",
+  ];
 
   const onImageSelected = (selectedImg: string) => {
     setImage(selectedImg);
@@ -47,6 +57,14 @@ export const EditProfile = () => {
   };
   const setCityName = (input: string, start: boolean) => {
     //todo (request from back)
+    if (start) {
+      for (let i = 0; i < cities.length; i++) {
+        if (cities[i].match(`^${input}`)) {
+          console.log(cities[i]);
+          console.log(input);
+        }
+      }
+    }
   };
   const onCropDone = (imgCroppedArea: string) => {
     setImgAfterCrop(imgCroppedArea);
@@ -167,7 +185,7 @@ export const EditProfile = () => {
 
                   <FormControl id="city" marginBottom="10px">
                     <FormLabel paddingRight="10px">شهر</FormLabel>
-                    <Select
+                    <Input
                       onChange={(e) => setCityName(e.target.value, true)}
                       variant="filled"
                       _placeholder={{ color: "gray.200" }}
@@ -227,7 +245,6 @@ export const EditProfile = () => {
                       width="100%"
                       height="100%"
                       borderRadius={100}
-                      
                     ></Avatar>
                   </Box>
                 </Box>
