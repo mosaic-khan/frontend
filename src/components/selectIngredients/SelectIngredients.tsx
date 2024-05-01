@@ -2,57 +2,77 @@ import {
   HStack,
   Input,
   Popover,
-  PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Select,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
   VStack,
   useBoolean,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IngredientsTable from "./IngredientsTable";
+import { RedButton } from "../Buttons";
+import IngredientsSuggestion from "./IngredientsSuggestion";
 
-const SelectIngredients = () => {
+interface Props {
+  onChange: (ingredients: string[][]) => void;
+}
+
+const SelectIngredients = ({ onChange }: Props) => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const [nameError, setNameError] = useBoolean(false);
+  const [amountError, setAmountError] = useBoolean(false);
   const [isEditingName, setIsEditingName] = useBoolean(false);
-
+  const [showPopover, setShowPopover] = useBoolean(false);
+  const [ingredients, setIngredients] = useState<string[][]>([]);
   const nameRef = useRef(null);
 
   const handleChangeName = (event: any) => {
     setName(event.target.value);
+    setNameError.off();
   };
 
   const handleChangeAmount = (event: any) => {
     setAmount(event.target.value);
+    setAmountError.off();
   };
+
+  const onSubmit = () => {
+    if (name.trim() === "") {
+      setNameError.on();
+      return;
+    }
+    if (amount.trim() === "") {
+      setAmountError.on();
+      return;
+    }
+    setIngredients([...ingredients, [name, amount]]);
+    setName("");
+    setAmount("");
+  };
+
+  useEffect(() => {
+    if (isEditingName) {
+      setShowPopover.on();
+    } else {
+      const timeout = setTimeout(() => {
+        setShowPopover.off();
+      }, 200);
+      return () => clearTimeout(timeout);
+    }
+  }, [isEditingName]);
+
+  useEffect(() => {
+    onChange(ingredients);
+  }, [ingredients]);
 
   return (
     <VStack>
-      <Text>SelectIngredients</Text>
-
-      <Select variant="outline" placeholder="Outline" />
-      <HStack>
-        <Input
-          value={amount}
-          onChange={handleChangeAmount}
-          size="lg"
-          dir="rtl"
-        />
+      <HStack dir="rtl">
         <Popover
           initialFocusRef={nameRef}
-          isOpen={isEditingName}
+          isOpen={showPopover}
           returnFocusOnClose={false}
+          placement="bottom-end"
         >
           <PopoverTrigger>
             <Input
@@ -65,18 +85,31 @@ const SelectIngredients = () => {
                 setIsEditingName.off();
               }}
               onChange={handleChangeName}
+              {...(nameError ? { borderColor: "brand.500" } : {})}
               size="lg"
               dir="rtl"
             />
           </PopoverTrigger>
-          <PopoverContent>
-            <PopoverBody>
-              Are you sure you want to have that milkshake?
-            </PopoverBody>
+          <PopoverContent w="400px">
+            <IngredientsSuggestion
+              inputText={name}
+              onSelect={(ingredient) => {
+                setName(ingredient);
+                setShowPopover.off();
+              }}
+            />
           </PopoverContent>
         </Popover>
+        <Input
+          value={amount}
+          onChange={handleChangeAmount}
+          {...(amountError ? { borderColor: "brand.500" } : {})}
+          size="lg"
+          dir="rtl"
+        />
       </HStack>
-      <IngredientsTable />
+      <RedButton children={"ثبت مواد اولیه"} onClick={onSubmit} />
+      <IngredientsTable ingredients={ingredients} />
     </VStack>
   );
 };

@@ -10,8 +10,8 @@ function App() {
   const { setColorMode } = useColorMode();
   setColorMode("light"); // light dark
   return (
-    <Center>
-      <SelectIngredients />
+    <Center marginTop="100px" bg="gray.50">
+      <SelectIngredients onChange={() => {}} />
     </Center>
     // <BrowserRouter>
     //   <Routes>
