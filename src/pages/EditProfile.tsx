@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { ChevronDownIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import { ImageUpload } from "../components/UploadImage/ImageUpload";
 import { ImageCropper } from "../components/UploadImage/ImageCropper";
 import {
@@ -9,28 +9,24 @@ import {
   ModalCloseButton,
   useDisclosure,
   Box,
-  FormControl,
-  FormLabel,
   HStack,
   Icon,
   Img,
-  Input,
-  Select,
   Avatar,
   VStack,
   Center,
 } from "@chakra-ui/react";
-import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
+import { GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
 import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
-import UserNavigation from "../components/Navigation/ProfileNavigation";
-import UserSideBar from "../components/Navigation/UserSideBar";
+import UserNavigation from "../components/navigation/ProfileNavigation";
+import UserSideBar from "../components/navigation/UserSideBar";
+import PerosonalInfo from "../editProfile/Profile/Personalnfo";
 
 export const EditProfile = () => {
-  // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
   const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -42,32 +38,12 @@ export const EditProfile = () => {
   const [image, setImage] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
-  const cities = [
-    "hello",
-    "hell",
-    "he",
-    "dor",
-    "back",
-    "kenhwvqb",
-    "lkjkqj b",
-    "qiohuiqq jkvbksoqjq lkwjvn hell",
-  ];
 
   const onImageSelected = (selectedImg: string) => {
     setImage(selectedImg);
     setCurrentPage("crop-img");
   };
-  const setCityName = (input: string, start: boolean) => {
-    //todo (request from back)
-    if (start) {
-      for (let i = 0; i < cities.length; i++) {
-        if (cities[i].match(`^${input}`)) {
-          console.log(cities[i]);
-          console.log(input);
-        }
-      }
-    }
-  };
+
   const onCropDone = (imgCroppedArea: string) => {
     setImgAfterCrop(imgCroppedArea);
     setCurrentPage("choose-img");
@@ -134,69 +110,7 @@ export const EditProfile = () => {
               top="20px"
             >
               <HStack>
-                <Box
-                  h="400px"
-                  w="60%"
-                  dir="rtl"
-                  position="absolute"
-                  right="0"
-                  top="0"
-                  paddingTop="30px"
-                  paddingRight="30px"
-                  textColor="black"
-                  justifyContent="space-between"
-                >
-                  <FormControl id="name" marginBottom="10px">
-                    <FormLabel paddingRight="10px">نام</FormLabel>
-                    <Input
-                      variant="filled"
-                      _placeholder={{ color: "gray.200" }}
-                    />
-                  </FormControl>
-
-                  <FormControl id="FullName" marginBottom="10px">
-                    <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-                    <Input
-                      variant="filled"
-                      _placeholder={{ color: "gray.200" }}
-                    />
-                  </FormControl>
-                  <FormControl id="sex" marginBottom="10px">
-                    <FormLabel paddingRight="10px">جنسیت</FormLabel>
-
-                    <Select
-                      variant="filled"
-                      _placeholder={{ color: "gray.200" }}
-                      icon={
-                        <ChevronDownIcon
-                          marginLeft="30px"
-                          paddingRight="10px"
-                        />
-                      }
-                    >
-                      <option value="female">خانم</option>
-                      <option value="male">آقا</option>
-                      <option value="other">ترجیح می‌دهم نگویم</option>
-                    </Select>
-                  </FormControl>
-
-                  <FormControl id="birthday" marginBottom="10px">
-                    <FormLabel paddingRight="10px">تاریخ تولد</FormLabel>
-                    <ShamsiCalendarButton></ShamsiCalendarButton>
-                  </FormControl>
-
-                  <FormControl id="city" marginBottom="10px">
-                    <FormLabel paddingRight="10px">شهر</FormLabel>
-                    <Input
-                      onChange={(e) => setCityName(e.target.value, true)}
-                      variant="filled"
-                      _placeholder={{ color: "gray.200" }}
-                    />
-                    {/* {Cities.map((city) => (
-                    <option key={city.length}>{city}</option>
-                  ))} */}
-                  </FormControl>
-                </Box>
+                <PerosonalInfo />
 
                 <VStack
                   width="300px"
