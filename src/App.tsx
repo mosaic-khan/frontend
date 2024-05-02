@@ -6,6 +6,7 @@ import { EditProfile } from "./pages/EditProfile";
 import Home from "./pages/Home";
 import { ResetPassword } from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
+import OtherProfile from "./pages/OtherProfile";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -20,7 +21,8 @@ function App() {
           <Route path="EditProfile" element={<EditProfile />} />
           <Route path="ResetPassword" element={<ResetPassword/>}/>  
           <Route path="MyProfile" element={<UserProfile/>}/>
-
+          <Route path="OtherProfile" element={<OtherProfile/>}/> 
+          {/* todo: profile address should be based on the username  */}
 
         </Route>
       </Routes>

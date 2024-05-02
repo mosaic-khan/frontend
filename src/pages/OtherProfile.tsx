@@ -1,9 +1,9 @@
 import { Box, HStack, VStack } from "@chakra-ui/react";
 import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserHeader from "../components/header/UserHeader";
 import UserSideBar from "../components/navigation/UserSideBar";
+import OtherHeader from "../components/header/OtherHeader";
 
-const UserProfile = () => {
+const OtherProfile = () => {
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">
       <Box position="fixed" w="full" h="10%">
@@ -16,7 +16,7 @@ const UserProfile = () => {
           <UserSideBar />
           <VStack w="85%" h="full">
             {/* Header */}
-            <UserHeader />
+            <OtherHeader />
             {/* Latest Box */}
             <Box w="full"></Box>
           </VStack>
@@ -26,4 +26,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default OtherProfile;
