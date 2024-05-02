@@ -236,12 +236,4 @@ const SignUpInput = ({ onSubmit }: Props) => {
 };
 
 export default SignUpInput;
-function toast(arg0: {
-  description: import("react/jsx-runtime").JSX.Element;
-  status: string;
-  isClosable: boolean;
-  duration: number;
-  position: string;
-}) {
-  throw new Error("Function not implemented.");
-}
+

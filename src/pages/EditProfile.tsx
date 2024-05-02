@@ -23,7 +23,7 @@ import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
 import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserSideBar from "../components/navigation/UserSideBar";
+import UserSideBar from  "../components/navigation/UserSideBar";
 import PerosonalInfo from "../editProfile/Profile/Personalnfo";
 
 export const EditProfile = () => {
