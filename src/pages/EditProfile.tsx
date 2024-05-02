@@ -23,7 +23,7 @@ import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
 import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserSideBar from "../components/navigation/UserSideBar";
+import UserSideBar from  "../components/navigation/UserSideBar";
 import PerosonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
