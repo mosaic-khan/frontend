@@ -10,11 +10,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
-import { RedButton } from "../Buttons";
+import { WhiteButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
 
 interface Props {
-  onSubmit: () => void;
+  onSubmit: (token: string) => void;
 }
 
 const SignUpInput = ({ onSubmit }: Props) => {
@@ -24,6 +24,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [result, setResult] = useState("");
+  const [token, setToken] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [usernameError, setUsernameError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
@@ -94,6 +95,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         })
         .then((res) => {
           console.log("signUp response: ", res);
+          setToken(res.response.token);
           setResult("ok");
         })
         .catch((err) => {
@@ -156,13 +158,13 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 4000,
         position: "bottom-left",
       });
-      onSubmit();
+      onSubmit(token);
     }
     setResult("");
   }, [result]);
 
   return (
-    <VStack spacing="4px">
+    <VStack spacing="4px" textColor="white">
       <Center marginBottom="20px">
         <Heading size="md">ایجاد حساب کاربری</Heading>
       </Center>
@@ -179,8 +181,9 @@ const SignUpInput = ({ onSubmit }: Props) => {
             setEmail(e.target.value), setEmailError(false);
           }}
           borderColor={emailError ? "red.500" : "gray.200"}
+          textColor="black"
+          bgColor="white"
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <FormControl>
@@ -196,8 +199,9 @@ const SignUpInput = ({ onSubmit }: Props) => {
             setUsername(e.target.value), setUsernameError(false);
           }}
           borderColor={usernameError ? "red.500" : "gray.200"}
+          textColor="black"
+          bgColor="white"
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <PasswordField
@@ -206,6 +210,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
         onChange={(value) => {
           setPassword(value), setPasswordError(false);
         }}
+        textColor="black"
+        bgColor="white"
         borderColor={passwordError ? "red.500" : "gray.200"}
       >
         رمز عبور
@@ -216,6 +222,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
         onChange={(value) => {
           setPasswordConfirm(value), setPasswordConfirmError(false);
         }}
+        textColor="black"
+        bgColor="white"
         borderColor={passwordConfirmError ? "red.500" : "gray.200"}
       >
         تکرار رمز عبور
@@ -224,14 +232,14 @@ const SignUpInput = ({ onSubmit }: Props) => {
         {/* <RedButton marginTop="30px" onClick={onSubmit}>
           ثبت‌نام{" "}
         </RedButton> */}
-        <RedButton
+        <WhiteButton
           marginTop="30px"
           onClick={() =>
             handleSignUp(email, password, username, passwordConfirm)
           }
         >
           ثبت‌نام
-        </RedButton>
+        </WhiteButton>
       </Center>
     </VStack>
   );
