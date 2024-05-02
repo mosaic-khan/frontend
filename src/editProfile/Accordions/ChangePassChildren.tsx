@@ -14,6 +14,7 @@ const ChangePassChildren = () => {
   let [passwordConfirmError, setPasswordConfirmError] = useState(false);
   const [result, setResult] = useState("");
   const toast = useToast();
+
   useEffect(() => {
     if (result === "error") {
       toast({
@@ -31,6 +32,14 @@ const ChangePassChildren = () => {
         duration: 4000,
         position: "bottom-left",
       });
+    } else if (result === "password") {
+      toast({
+        description: <Text dir="rtl">رمز عبور وارد شده مورد قبول نیست.</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
     } else if (result === "confirm") {
       toast({
         description: <Text dir="rtl">رمز عبور تطابق ندارد.</Text>,
@@ -43,11 +52,33 @@ const ChangePassChildren = () => {
 
     setResult("");
   }, [result]);
-  function HandleChangePassword(
+
+  const evaluateSignUp = (
     oldPass: string,
-    newPass: string,
+    password: string,
     passwordConfirm: string
-  ) {
+  ): boolean => {
+    // Define regex patterns
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_]).{8,72}$/;
+
+    if (!oldPass.match(passwordPattern)) {
+        setOldPasswordError(true);
+        setResult("password");
+        return false;
+      } else {
+        setOldPasswordError(false);
+      }
+
+    // Validate password
+    if (!password.match(passwordPattern)) {
+      setPasswordError(true);
+      setResult("password");
+      return false;
+    } else {
+      setPasswordError(false);
+    }
+
     if (password !== passwordConfirm) {
       setPasswordConfirmError(true);
       setResult("confirm");
@@ -55,7 +86,18 @@ const ChangePassChildren = () => {
     } else if (passwordConfirm) {
       setPasswordConfirmError(false);
     } else;
-    if (!passwordConfirmError) {
+
+    return true;
+  };
+
+  function HandleChangePassword(
+    oldPass: string,
+    newPass: string,
+    passwordConfirm: string
+  ) {
+    const valid = evaluateSignUp(oldPass, newPass, passwordConfirm);
+
+    if (valid) {
       userClient
         .changePassword({
           oldPassword: oldPass,
