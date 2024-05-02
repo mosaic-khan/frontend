@@ -35,6 +35,7 @@ const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
       })
       .then((res) => {
         console.log("codeVerification response: ", res);
+        localStorage.setItem("jwt", res.response.jwtToken);
         setResult("ok");
       })
       .catch((err) => {
