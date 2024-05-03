@@ -1,5 +1,6 @@
 import { Text, TextProps, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import postClient from "../../api/services/post-service";
 
 interface Props {
   inputText: string;
@@ -14,11 +15,25 @@ const textProps: TextProps = {
 };
 
 const IngredientsSuggestion = ({ inputText, onSelect }: Props) => {
-  //   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [suggestions, setSuggestions] = useState<string[]>(["a", "b", "c"]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
-    // Send request to back end and set the suggestions
+    postClient
+      .suggestIngredient(
+        { name: inputText },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("suggestIngredient response: ", res);
+        setSuggestions(res.response.ingerdients);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [inputText]);
 
   return (
@@ -34,7 +49,7 @@ const IngredientsSuggestion = ({ inputText, onSelect }: Props) => {
               onSelect(item);
             }}
           >
-            {inputText} {item}
+            {item}
           </Text>
         ))
       ) : (
