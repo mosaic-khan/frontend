@@ -5,7 +5,6 @@ import Register from "./pages/Register";
 import { EditProfile } from "./pages/EditProfile";
 import Home from "./pages/Home";
 import NewPost from "./pages/NewPost";
-import MyPosts from "./pages/MyPosts";
 import { ResetPassword } from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
 import OtherProfile from "./pages/OtherProfile";
@@ -22,7 +21,6 @@ function App() {
           <Route path="Register" element={<Register />} />
           <Route path="EditProfile" element={<EditProfile />} />
           <Route path="NewPost" element={<NewPost />} />
-          <Route path="MyPosts" element={<MyPosts />} />
           <Route path="ResetPassword" element={<ResetPassword/>}/>  
           <Route path="MyProfile" element={<UserProfile/>}/>
           <Route path="OtherProfile" element={<OtherProfile/>}/> 

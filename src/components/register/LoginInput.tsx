@@ -15,7 +15,6 @@ import {
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
-import client from "../../api/services/user-service";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

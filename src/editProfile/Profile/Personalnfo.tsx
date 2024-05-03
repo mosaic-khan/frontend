@@ -116,7 +116,7 @@ const PerosonalInfo = ({ user, setUser }: Props) => {
         <ShamsiCalendarButton></ShamsiCalendarButton>
       </FormControl>
 
-      <FormControl id="city" marginBottom="10px">
+      <FormControl id="city" marginBottom="10px" >
         <FormLabel paddingRight="10px">شهر</FormLabel>
         <Popover
           isOpen={isOpen && cities.length > 0}
