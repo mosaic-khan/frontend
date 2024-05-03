@@ -1,5 +1,15 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { FormControl, FormLabel, Input, Select, Box, Popover, PopoverBody, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Box,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 import { ShamsiCalendarButton } from "../../components/Buttons";
 
 import userClient from "../../api/services/user-service";
@@ -11,7 +21,7 @@ type City = {
 
 const PerosonalInfo = () => {
   const [cities, setCities] = useState<City[]>([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const fetchCities = (input: string) => {
     if (!input) {
@@ -29,6 +39,7 @@ const PerosonalInfo = () => {
       )
       .then((res) => {
         setCities(res.response.cities);
+        console.log(cities);
       })
       .catch((err) => {
         console.error("GetCities error: ", err);
@@ -55,35 +66,17 @@ const PerosonalInfo = () => {
     >
       <FormControl id="name" marginBottom="10px">
         <FormLabel paddingRight="10px">نام</FormLabel>
-        <Input
-          value={user.fName}
-          onChange={(e) => {
-            setUser({ ...user, fName: e.target.value });
-          }}
-          variant="filled"
-          _placeholder={{ color: "gray.200" }}
-        />
+        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
       </FormControl>
 
       <FormControl id="FullName" marginBottom="10px">
         <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-        <Input
-          value={user.lName}
-          onChange={(e) => {
-            setUser({ ...user, lName: e.target.value });
-          }}
-          variant="filled"
-          _placeholder={{ color: "gray.200" }}
-        />
+        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
       </FormControl>
       <FormControl id="sex" marginBottom="10px">
         <FormLabel paddingRight="10px">جنسیت</FormLabel>
 
         <Select
-          value={user.gender}
-          onChange={(e) => {
-            setUser({ ...user, gender: e.target.value });
-          }}
           variant="filled"
           _placeholder={{ color: "gray.200" }}
           icon={<ChevronDownIcon marginLeft="30px" paddingRight="10px" />}
@@ -100,29 +93,29 @@ const PerosonalInfo = () => {
       </FormControl>
 
       <FormControl id="city" marginBottom="10px">
-      <FormLabel paddingRight="10px">شهر</FormLabel>
-      <Popover
-        isOpen={isOpen && cities.length > 0}
-        onClose={() => setIsOpen(false)}
-      >
-        <PopoverTrigger>
-          <Input
-            value={inputValue}
-            onChange={handleInputChange}
-            variant="filled"
-          />
-        </PopoverTrigger>
-        <PopoverContent width="auto">
-          <PopoverBody>
-            {cities.map((city) => (
-              <div key={city.id} tabIndex={0}>
-                {city.name}
-              </div>
-            ))}
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    </FormControl>
+        <FormLabel paddingRight="10px">شهر</FormLabel>
+        <Popover
+          isOpen={isOpen && cities.length > 0}
+          onClose={() => setIsOpen(false)}
+        >
+          <PopoverTrigger>
+            <Input
+              value={inputValue}
+              onChange={handleInputChange}
+              variant="filled"
+            />
+          </PopoverTrigger>
+          <PopoverContent width="auto">
+            <PopoverBody>
+              {cities.map((city) => (
+                <div key={city.id} tabIndex={0}>
+                  {city.name}
+                </div>
+              ))}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </FormControl>
     </Box>
   );
 };

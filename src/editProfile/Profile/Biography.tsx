@@ -1,13 +1,8 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Box, Text, Input, useToast } from "@chakra-ui/react";
-import { User } from "../../api/clients/user";
 
-interface Props {
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
-}
-
-const BiographyBox = ({ user, setUser }: Props) => {
+const BiographyBox = () => {
+  const [bio, setBio] = useState("");
   const toast = useToast();
 
   const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +16,7 @@ const BiographyBox = ({ user, setUser }: Props) => {
         isClosable: true,
       });
     } else {
-      setUser({ ...user, bio: inputBio });
+      setBio(inputBio);
     }
   };
 
@@ -37,7 +32,7 @@ const BiographyBox = ({ user, setUser }: Props) => {
       position="absolute"
       top="50%"
       border="1px solid"
-      borderColor={user.bio.split(" ").length > 50 ? "red.500" : "gray.200"}
+      borderColor={bio.split(" ").length > 50 ? "red.500" : "gray.200"}
       dir="rtl"
     >
       <Text fontSize="md" color="gray.600" mb={1}>
@@ -45,7 +40,7 @@ const BiographyBox = ({ user, setUser }: Props) => {
       </Text>
       <Input
         variant="filled"
-        value={user.bio}
+        value={bio}
         onChange={handleBioChange}
         placeholder="توضیحی کوتاه درباره خود.."
         fontSize="xs"
