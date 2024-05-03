@@ -102,7 +102,13 @@ const ChangePassChildren = () => {
         .changePassword({
           oldPassword: oldPass,
           newPassword: newPass,
-        })
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          }
+        }
+)
         .then((res) => {
           console.log("signUp response: ", res);
           setResult("ok");
