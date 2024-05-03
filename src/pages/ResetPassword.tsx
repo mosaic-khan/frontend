@@ -1,96 +1,76 @@
 import {
   Box,
-  Button,
   Center,
-  Flex,
   FormControl,
   HStack,
   Heading,
   Image,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import { NavItem, BasicNavbar } from "../components/Navigation/BasicNavbar";
 import { PasswordField } from "../components/register/PassWordField";
 import BG_bottom_right from "../assets/BG_bottom_right.svg";
-import BG_bottom_left  from "../assets/BG_top_left.svg"
+import BG_bottom_left from "../assets/BG_top_left.svg";
 import Confused_tomato from "../assets/ForgotPass_tomato.png";
-import HomeIcon from "../components/Icons/HomeIcon";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { RedButton } from "../components/Buttons";
+import ResetPassNav from "../components/ResetPassword/NavSetting";
+import userClient from "../api/services/user-service";
+import { useEffect, useState } from "react";
 
 const BoxH = 500;
 const BoxW = 800;
 
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    ItemNumber: 1,
-    icon: <HomeIcon />,
-    href: "/",
-  },
-  {
-    ItemNumber: 2,
-    icon: <InfoOutlineIcon boxSize="20px" />,
-    children: [
-      {
-        ItemNumber: 1,
-        label: "ارتباط با ما",
-        icon: <InfoOutlineIcon color="brand.800" opacity="90%" />,
-        href: "#",
-      },
-    ],
-  },
-];
-export default function ResetPassNav() {
-  return (
-    <Box>
-      <Flex
-        position="fixed"
-        top="0"
-        width="100%"
-        bg={"white"}
-        h="60px"
-        py="10px"
-        px="20px"
-        borderBottom={0.01}
-        borderStyle="dotted"
-        borderColor="brand.800"
-        align={"center"}
-      >
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" }}
-          p={2}
-        >
-          <BasicNavbar Nav_Items={NAV_ITEMS} />
-        </Flex>
-
-        <HStack textColor="brand.900" spacing="20px" justify="right">
-          <Button
-            as="a"
-            fontSize="sm"
-            variant="link"
-            href="register"
-            textColor="brand.900"
-          >
-            ثبت نام
-          </Button>
-          <Button
-            as="a"
-            fontSize="sm"
-            variant="link"
-            href="register"
-            textColor="brand.900"
-          >
-            ورود
-          </Button>
-        </HStack>
-      </Flex>
-    </Box>
-  );
-}
-
 export const ResetPassword = () => {
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [result, setResult] = useState("");
+  const toast = useToast();
+  const url = window.location.href;
+  const token = new URLSearchParams(new URL(url).search).get("token");
+
+  const resetPassReq = (password: string) => {
+    if (token != null) {
+      userClient
+        .newPasswordWithToken({
+          resetPasswordToken: token,
+          password: password,
+        })
+        .then((res) => {
+          console.log("login response: ", res);
+          setResult("ok");
+        })
+        .catch((err) => {
+          console.log("login error: ", err);
+          setResult("badRequest");
+        });
+    } else {
+      console.log("invalid token");
+      setResult("badRequest");
+    }
+  };
+
+  useEffect(() => {
+    if (result === "ok") {
+      toast({
+        description: <Text dir="rtl">رمزتون با موفقیت عوض شد!</Text>,
+        status: "success",
+        isClosable: true,
+        duration: 4000,
+        position: "bottom-left",
+      });
+    } else if (result === "badRequest") {
+      toast({
+        description: <Text dir="rtl">خطا از سمت سرور</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
+    } 
+    setResult("");
+  }, [result]);
+
   return (
     <Box position="relative">
       <ResetPassNav />
@@ -121,19 +101,41 @@ export const ResetPassword = () => {
                 رمز جدیدت رو وارد کن!
               </Heading>
               <FormControl h="500px" w="300px">
-                <PasswordField>رمز جدید</PasswordField>
-                <PasswordField>تکرار رمز جدید</PasswordField>
+                <PasswordField
+                  id="password"
+                  value={password}
+                  onChange={(value) => setPassword(value)}
+                >
+                  رمز جدید
+                </PasswordField>
+                <PasswordField
+                  id="confirm"
+                  value={passwordConfirm}
+                  onChange={(value) => setPasswordConfirm(value)}
+                >
+                  تکرار رمز جدید
+                </PasswordField>
               </FormControl>
-              <RedButton position="absolute" bottom="100px">
+              <RedButton
+                position="absolute"
+                bottom="100px"
+                onClick={() => resetPassReq(password)}
+              >
                 تایید
               </RedButton>
             </VStack>
             <Image src={Confused_tomato} boxSize="250px" />
           </HStack>
         </Box>
-          <Image src={BG_bottom_right} position="fixed" bottom="0px" right="0px"/>
-          <Image src={BG_bottom_left} position="fixed" top="60px" left="0px" />
+        <Image
+          src={BG_bottom_right}
+          position="fixed"
+          bottom="0px"
+          right="0px"
+        />
+        <Image src={BG_bottom_left} position="fixed" top="60px" left="0px" />
       </Center>
     </Box>
   );
 };
+
