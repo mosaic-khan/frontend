@@ -383,6 +383,15 @@ export interface GetCitiesResponse {
      */
     cities: City[];
 }
+/**
+ * @generated from protobuf message KhanAPI.DeleteAccountRequest
+ */
+export interface DeleteAccountRequest {
+    /**
+     * @generated from protobuf field: string password = 1;
+     */
+    password: string;
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class User$Type extends MessageType<User> {
     constructor() {
@@ -1805,6 +1814,53 @@ class GetCitiesResponse$Type extends MessageType<GetCitiesResponse> {
  * @generated MessageType for protobuf message KhanAPI.GetCitiesResponse
  */
 export const GetCitiesResponse = new GetCitiesResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class DeleteAccountRequest$Type extends MessageType<DeleteAccountRequest> {
+    constructor() {
+        super("KhanAPI.DeleteAccountRequest", [
+            { no: 1, name: "password", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<DeleteAccountRequest>): DeleteAccountRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.password = "";
+        if (value !== undefined)
+            reflectionMergePartial<DeleteAccountRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: DeleteAccountRequest): DeleteAccountRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string password */ 1:
+                    message.password = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: DeleteAccountRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string password = 1; */
+        if (message.password !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.password);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.DeleteAccountRequest
+ */
+export const DeleteAccountRequest = new DeleteAccountRequest$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.UserAPI
  */
@@ -1824,5 +1880,6 @@ export const UserAPI = new ServiceType("KhanAPI.UserAPI", [
     { name: "ChangePassword", options: {}, I: ChangePasswordRequest, O: Empty },
     { name: "ChangeProfilePic", options: {}, I: ChangeProfilePicRequest, O: Empty },
     { name: "GetProfile", options: {}, I: GetProfileRequests, O: GetProfileResponse },
-    { name: "GetCities", options: {}, I: GetCitiesRequest, O: GetCitiesResponse }
+    { name: "GetCities", options: {}, I: GetCitiesRequest, O: GetCitiesResponse },
+    { name: "DeleteAccount", options: {}, I: DeleteAccountRequest, O: Empty }
 ]);

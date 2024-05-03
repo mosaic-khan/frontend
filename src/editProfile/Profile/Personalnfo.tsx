@@ -2,8 +2,15 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel, Input, Select, Box } from "@chakra-ui/react";
 import { ShamsiCalendarButton } from "../../components/Buttons";
 import { setCityName } from "./HandleCity";
+import { User } from "../../api/clients/user";
+import { Dispatch, SetStateAction, useState } from "react";
 
-const PerosonalInfo = () => {
+interface Props {
+  user: User;
+  setUser: Dispatch<SetStateAction<User>>;
+}
+
+const PerosonalInfo = ({ user, setUser }: Props) => {
   return (
     <Box
       h="500px"
@@ -19,17 +26,35 @@ const PerosonalInfo = () => {
     >
       <FormControl id="name" marginBottom="10px">
         <FormLabel paddingRight="10px">نام</FormLabel>
-        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
+        <Input
+          value={user.fName}
+          onChange={(e) => {
+            setUser({ ...user, fName: e.target.value });
+          }}
+          variant="filled"
+          _placeholder={{ color: "gray.200" }}
+        />
       </FormControl>
 
       <FormControl id="FullName" marginBottom="10px">
         <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
+        <Input
+          value={user.lName}
+          onChange={(e) => {
+            setUser({ ...user, lName: e.target.value });
+          }}
+          variant="filled"
+          _placeholder={{ color: "gray.200" }}
+        />
       </FormControl>
       <FormControl id="sex" marginBottom="10px">
         <FormLabel paddingRight="10px">جنسیت</FormLabel>
 
         <Select
+          value={user.gender}
+          onChange={(e) => {
+            setUser({ ...user, gender: e.target.value });
+          }}
           variant="filled"
           _placeholder={{ color: "gray.200" }}
           icon={<ChevronDownIcon marginLeft="30px" paddingRight="10px" />}
@@ -48,7 +73,11 @@ const PerosonalInfo = () => {
       <FormControl id="city" marginBottom="10px">
         <FormLabel paddingRight="10px">شهر</FormLabel>
         <Input
-          onChange={(e) => setCityName(e.target.value, true)}
+          value={user.city}
+          onChange={(e) => {
+            setUser({ ...user, city: e.target.value });
+            setCityName(e.target.value, true);
+          }}
           variant="filled"
           _placeholder={{ color: "gray.200" }}
         />
