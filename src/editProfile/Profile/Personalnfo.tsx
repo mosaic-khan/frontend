@@ -11,15 +11,21 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { ShamsiCalendarButton } from "../../components/Buttons";
-
 import userClient from "../../api/services/user-service";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { User } from "../../api/clients/user";
+
 type City = {
   id: number;
   name: string;
 };
 
-const PerosonalInfo = () => {
+interface Props {
+  user: User;
+  setUser: Dispatch<SetStateAction<User>>;
+}
+
+const PerosonalInfo = ({ user, setUser }: Props) => {
   const [cities, setCities] = useState<City[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -66,17 +72,35 @@ const PerosonalInfo = () => {
     >
       <FormControl id="name" marginBottom="10px">
         <FormLabel paddingRight="10px">نام</FormLabel>
-        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
+        <Input
+          value={user.fName}
+          onChange={(e) => {
+            setUser({ ...user, fName: e.target.value });
+          }}
+          variant="filled"
+          _placeholder={{ color: "gray.200" }}
+        />
       </FormControl>
 
       <FormControl id="FullName" marginBottom="10px">
         <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-        <Input variant="filled" _placeholder={{ color: "gray.200" }} />
+        <Input
+          value={user.lName}
+          onChange={(e) => {
+            setUser({ ...user, lName: e.target.value });
+          }}
+          variant="filled"
+          _placeholder={{ color: "gray.200" }}
+        />
       </FormControl>
       <FormControl id="sex" marginBottom="10px">
         <FormLabel paddingRight="10px">جنسیت</FormLabel>
 
         <Select
+          value={user.gender}
+          onChange={(e) => {
+            setUser({ ...user, gender: e.target.value });
+          }}
           variant="filled"
           _placeholder={{ color: "gray.200" }}
           icon={<ChevronDownIcon marginLeft="30px" paddingRight="10px" />}
