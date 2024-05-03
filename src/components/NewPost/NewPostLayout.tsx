@@ -10,11 +10,13 @@ import Image2 from "../../assets/dark-night-car-vehicle.jpg";
 import Image3 from "../../assets/prev.jpg";
 import STagBox from "./SimpleTagBox";
 import { GradientRedButton } from "../Buttons";
+import SelectIngredients from "../selectIngredients/SelectIngredients";
 
 const NewPostLayout = () => {
   const [images, setImages] = useState<File[]>([]);
   const [caption, setCaption] = useState<string>("");
   const [Title, setTitle] = useState<string>("");
+  const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [numimages, setnumimg] = useState<number>(0);
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState<string>("");
@@ -32,6 +34,14 @@ const NewPostLayout = () => {
     else if (numimages == 0) setError("!حداقل یک تصویر لازم است");
   };
 
+  const handleIngredientsChange = (ingredients: string[][]) => {
+    var dict: { [key: string]: string } = {};
+    for (let index = 0; index < ingredients.length; index++) {
+      dict[ingredients[index][0]] = ingredients[index][1];
+    }
+    setIngredients(dict);
+  };
+
   const handleRemoveImage = (index: number) => {
     const newImages = [...images];
     newImages.splice(index, 1);
@@ -40,19 +50,26 @@ const NewPostLayout = () => {
   };
   useEffect(() => {
     if (isSaved) {
-      /*  postClient
-      .setPost(
-        { post={title:Title, description: caption, numImages:numimages, ingredients:  } }
-        { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-      )
-      .then((res) => {
-        console.log(res.response.post);
-      })
-      .catch((err) => {
-        console.log("error fetching post: ", err);
-      }); */
+      postClient
+        .setPost(
+          {
+            post: {
+              title: Title,
+              description: caption,
+              numImages: numimages,
+              ingredients: ingredients,
+            },
+          },
+          { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+        )
+        .then((res) => {
+          console.log("setPost response: ", res);
+        })
+        .catch((err) => {
+          console.log("setPost error: ", err);
+        });
     }
-  }, []);
+  }, [isSaved]);
   return (
     <HStack bg="gray.200" width="100%" height="1000px" spacing="15px">
       <Box
@@ -101,6 +118,7 @@ const NewPostLayout = () => {
             onChange={(event) => setTitle(event.target.value)}
           ></Input>
           <CaptionBox caption={caption} setCaption={setCaption} />
+          <SelectIngredients onChange={handleIngredientsChange} />
           <STagBox />
           <VStack spacing={4} align="flex-start">
             <Box display="flex" flexWrap="wrap">

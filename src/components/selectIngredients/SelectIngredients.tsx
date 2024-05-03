@@ -66,7 +66,7 @@ const SelectIngredients = ({ onChange }: Props) => {
   }, [ingredients]);
 
   return (
-    <VStack>
+    <VStack textColor="white">
       <HStack dir="rtl">
         <Popover
           initialFocusRef={nameRef}
