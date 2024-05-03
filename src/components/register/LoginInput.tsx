@@ -15,12 +15,15 @@ import {
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
+import client from "../../api/services/user-service";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   forgotPage: () => void;
 }
 
 const LoginInput = ({ forgotPage }: Props) => {
+  const navigate = useNavigate();
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +58,28 @@ const LoginInput = ({ forgotPage }: Props) => {
         .then((res) => {
           console.log("login response: ", res);
           localStorage.setItem("jwt", res.response.jwtToken);
-          setResult("ok");
+          userClient
+            .getUserInfo(
+              {},
+              {
+                meta: {
+                  Authorization: `Bearer ${res.response.jwtToken}`,
+                },
+              }
+            )
+            .then((res) => {
+              console.log("getUserInfo response: ", res);
+              if (res.response.user) {
+                localStorage.setItem("username", res.response.user.username);
+                setResult("ok");
+              } else {
+                setResult("request");
+              }
+            })
+            .catch((err) => {
+              console.log("getUserInfo error: ", err);
+              setResult("request");
+            });
         })
         .catch((err) => {
           console.log("login error: ", err);
@@ -89,6 +113,7 @@ const LoginInput = ({ forgotPage }: Props) => {
         duration: 4000,
         position: "bottom-left",
       });
+      navigate("/home");
     }
     setResult("");
   }, [result]);
