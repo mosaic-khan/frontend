@@ -31,7 +31,7 @@ const IngredientsTable = ({ ingredients }: Props) => {
           w="100%"
           justifyContent="space-between"
           borderRadius="10px"
-          bg={index % 2 === 1 ? "brand.50" : ""}
+          bg={index % 2 === 1 ? "brand.900" : ""}
         >
           <Text margin={textMargin} dir="rtl">
             {item[1]}

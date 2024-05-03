@@ -37,7 +37,7 @@ const IngredientsSuggestion = ({ inputText, onSelect }: Props) => {
   }, [inputText]);
 
   return (
-    <VStack w="100%">
+    <VStack w="100%" textColor="black">
       {suggestions.length > 0 ? (
         suggestions.map((item, index) => (
           <Text
