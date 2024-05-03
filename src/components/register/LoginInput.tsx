@@ -15,6 +15,7 @@ import {
 import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
+import client from "../../api/services/user-service";
 
 interface Props {
   forgotPage: () => void;
@@ -54,6 +55,7 @@ const LoginInput = ({ forgotPage }: Props) => {
         })
         .then((res) => {
           console.log("login response: ", res);
+          localStorage.setItem("jwt", res.response.jwtToken);
           setResult("ok");
         })
         .catch((err) => {
