@@ -1,0 +1,137 @@
+import { HStack, VStack, Box, Heading } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Image, IconButton } from "@chakra-ui/react";
+import { AddIcon, CloseIcon } from "@chakra-ui/icons";
+import Slideshow from "./PostPreview";
+import CaptionBox from "./CaptionBox";
+import UserInfo from "./UserInfo";
+
+import Image2 from "../../assets/dark-night-car-vehicle.jpg";
+import Image3 from "../../assets/prev.jpg";
+import STagBox from "./SimpleTagBox";
+
+const NewPostLayout = () => {
+  const [images, setImages] = useState<File[]>([]);
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+
+    setImages([...images, ...files]);
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+  };
+  return (
+    <HStack bg="gray.200" width="100%" height="1000px" spacing="15px">
+      <Box
+        bg="white"
+        height="90%"
+        width="50%"
+        border="1px solid #ccc"
+        marginLeft="50px"
+        borderRadius="15px"
+        backgroundImage={Image3}
+        backgroundSize="cover"
+        backgroundPosition="center"
+      >
+        <Slideshow images={images} />
+      </Box>
+      <Box
+        bg="white"
+        height="90%"
+        width="50%"
+        border="1px solid #ccc"
+        marginRight="50px"
+        borderRadius="15px"
+        backgroundImage={Image2}
+        backgroundSize="cover"
+        backgroundPosition="center"
+      >
+        <VStack width="100%">
+          <Box marginTop="10px" width="100%" borderBottom="1px solid #ccc">
+            <Heading
+              textAlign="right"
+              paddingRight="5%"
+              paddingBottom="10px"
+              color="white"
+            >
+              پست جدید
+            </Heading>
+          </Box>
+          <UserInfo />
+          <CaptionBox />
+          <STagBox />
+          <VStack spacing={4} align="flex-start">
+            <Box display="flex" flexWrap="wrap">
+              {images.map((image, index) => (
+                <Box
+                  key={index}
+                  position="relative"
+                  width="100px"
+                  height="100px"
+                  margin="2"
+                >
+                  <Image
+                    src={URL.createObjectURL(image)}
+                    alt={`Image ${index}`}
+                    objectFit="cover"
+                    width="100%"
+                    height="100%"
+                    borderRadius="10%"
+                  />
+
+                  <IconButton
+                    icon={<CloseIcon />}
+                    aria-label="Remove image"
+                    position="absolute"
+                    size="5px"
+                    bg="brand.500"
+                    top="1"
+                    right="1"
+                    onClick={() => handleRemoveImage(index)}
+                  />
+                </Box>
+              ))}
+              <Box
+                key="empty-image-box"
+                position="relative"
+                width="100px"
+                height="100px"
+                margin="2"
+                borderRadius="10%"
+                border="1px"
+                borderColor="gray.400"
+                // display="flex"
+                justifyContent="center"
+                alignItems="center"
+                cursor="pointer"
+                onClick={() => document.getElementById("image-upload")?.click()}
+              >
+                <IconButton
+                  icon={<AddIcon />}
+                  aria-label="Add image"
+                  position="absolute"
+                  bg="white"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                />
+              </Box>
+            </Box>
+            <input
+              type="file"
+              id="image-upload"
+              multiple
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+          </VStack>
+        </VStack>
+      </Box>
+    </HStack>
+  );
+};
+
+export default NewPostLayout;

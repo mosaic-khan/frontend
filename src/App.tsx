@@ -4,6 +4,7 @@ import { useColorMode } from "@chakra-ui/react";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import { EditProfile } from "./components/EditProfile";
+import NewPost from "./pages/NewPost";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -12,10 +13,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<Home />} />
+          <Route index element={<Landing />} />
           <Route path="Home" element={<Home />} />
           <Route path="Register" element={<Register />} />
           <Route path="EditProfile" element={<EditProfile />} />
+          <Route path="NewPost" element={<NewPost />} />
         </Route>
       </Routes>
     </BrowserRouter>
