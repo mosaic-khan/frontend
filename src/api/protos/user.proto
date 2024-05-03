@@ -128,6 +128,7 @@ message EditProfileInfoRequest {
 
 message ChangeUsernameRequest {
   string newUsername = 1;
+<<<<<<< HEAD
 }
 
 message ChangeEmailRequest {
@@ -175,3 +176,53 @@ message City {
 message GetCitiesResponse {
   repeated City cities = 1;
 }
+=======
+}
+
+message ChangeEmailRequest {
+  string newEmail = 1;
+}
+
+message ChangeEmailResponse {
+  string changeEmailToken = 1;
+}
+
+message ConfirmChangeEmailRequest {
+  string changeEmailToken = 1;
+  string code = 2;
+}
+
+message ChangePasswordRequest {
+  string oldPassword = 1;
+  string newPassword = 2;
+}
+
+message ChangeProfilePicRequest {
+  string newProfilePicPath = 1;
+  string accessToken = 2;
+}
+
+// EditProfile End
+
+message GetProfileRequests {
+  optional string username = 1;
+}
+
+message GetProfileResponse {
+  Profile profile = 1;
+}
+
+message GetCitiesRequest {
+  string cityPattern = 1;
+}
+
+message City {
+  int32 id = 1;
+  string name = 2;
+}
+
+message GetCitiesResponse {
+  repeated City cities = 1;
+}
+
+>>>>>>> c8a64f7cb7f6dce89325cf982c70a0cef76788ad
