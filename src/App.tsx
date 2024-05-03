@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { useColorMode } from "@chakra-ui/react";
 import Register from "./pages/Register";
+import { EditProfile } from "./pages/EditProfile";
 import Home from "./pages/Home";
-import { EditProfile } from "./components/EditProfile";
 import NewPost from "./pages/NewPost";
+import MyPosts from "./pages/MyPosts";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -18,6 +19,7 @@ function App() {
           <Route path="Register" element={<Register />} />
           <Route path="EditProfile" element={<EditProfile />} />
           <Route path="NewPost" element={<NewPost />} />
+          <Route path="MyPosts" element={<MyPosts />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -3,17 +3,16 @@ import {
   Box,
   keyframes,
   HStack,
-  ScaleFade,
   VStack,
   Image,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import SignUpInput from "./SignUpInput";
-import LoginInput from "./LoginInput";
 import LoginInfo from "./LoginInfo";
 import SignUpInfo from "./SignUpInfo";
 import BG_top_left from "../../assets/BG_top_left.svg";
 import BG_bottom_right from "../../assets/BG_bottom_right.svg";
+import SignUpProcess from "./SignUpProcess";
+import LoginProcess from "./LoginProcess";
 
 const moveMargin = (from: number, to: number) => {
   return keyframes`  
@@ -22,51 +21,61 @@ const moveMargin = (from: number, to: number) => {
 `;
 };
 
+const moveWidth = (from: number, to: number) => {
+  return keyframes`  
+  from {width: ${from}%;}   
+  to {width: ${to}%;} 
+`;
+};
+
 const h = 500;
 const w = 800;
+const percent1 = 30;
+const percent2 = 70;
 const topM = 120;
-const fadeScale = 0.2;
 
 const RegisterMainLayout = () => {
   const [layoutState, setLayoutState] = useState(0);
 
-  const margin = () => {
+  const calculateWidth = (x: number, y: number) => {
     switch (layoutState) {
-      case 0 - 1:
-        return "0%";
+      case 0:
+      case 1:
+        return `${x}%`;
       case 2:
-        return "50%";
+        return `${y}%`;
     }
   };
 
-  const contentMargin = () => {
-    switch (layoutState) {
-      case 0 - 1:
-        return "0%";
-      case 2:
-        return "-100%";
-    }
-  };
-
-  const moveAnimation = () => {
+  const moveAnimation = (x: number, y: number) => {
     switch (layoutState) {
       case 0:
         return "";
       case 1:
-        return `${moveMargin(50, 0)} 0.2s ease-out`;
+        return `${moveWidth(y, x)} 0.2s ease-out`;
       case 2:
-        return `${moveMargin(0, 50)} 0.2s ease-out`;
+        return `${moveWidth(x, y)} 0.2s ease-out`;
     }
   };
 
-  const moveContentAnimation = () => {
+  const calculateMargin = (x: number, y: number) => {
+    switch (layoutState) {
+      case 0:
+      case 1:
+        return `${x}%`;
+      case 2:
+        return `${y}%`;
+    }
+  };
+
+  const moveMarginAnimation = (x: number, y: number) => {
     switch (layoutState) {
       case 0:
         return "";
       case 1:
-        return `${moveMargin(-100, 0)} 0.2s ease-out`;
+        return `${moveMargin(y, x)} 0.2s ease-out`;
       case 2:
-        return `${moveMargin(0, -100)} 0.2s ease-out`;
+        return `${moveMargin(x, y)} 0.2s ease-out`;
     }
   };
 
@@ -87,42 +96,44 @@ const RegisterMainLayout = () => {
           borderRadius="10px"
           overflow="hidden"
         >
-          <HStack height="100%" width="100%" spacing="0px">
-            <Center width="50%" height="100%">
-              <ScaleFade initialScale={fadeScale} in={layoutState == 2}>
-                <SignUpInput />
-              </ScaleFade>
+          <HStack
+            height="100%"
+            width="100%"
+            spacing="0px"
+            marginLeft={calculateMargin(30, 0)}
+            animation={moveMarginAnimation(30, 0)}
+          >
+            <Center height="100%" width={`${percent2}%`}>
+              <LoginProcess
+                h={h}
+                active={layoutState == 0 || layoutState == 1}
+              />
             </Center>
-            <Center height="100%" width="50%">
-              <ScaleFade
-                initialScale={fadeScale}
-                in={layoutState == 0 || layoutState == 1}
-              >
-                <LoginInput />
-              </ScaleFade>
+            <Center height="100%" width={`${percent1}%`}>
+              <SignUpInfo toggle={togglePosition} />
             </Center>
           </HStack>
           <Box
-            bg="brand.500"
+            bgGradient="linear(brand.500,brand.300)"
             height="100%"
-            width="50%"
             overflow="hidden"
             position="relative"
             top={`-${h}px`}
-            marginLeft={margin()}
-            animation={moveAnimation()}
+            width={calculateWidth(percent1, percent2)}
+            animation={moveAnimation(percent1, percent2)}
           >
             <HStack
               height="100%"
               width="200%"
-              marginLeft={contentMargin()}
-              animation={moveContentAnimation()}
+              spacing="0px"
+              marginLeft={calculateMargin(0, -100)}
+              animation={moveMarginAnimation(0, -100)}
             >
               <Center height="100%" width="100%">
                 <LoginInfo toggle={togglePosition} />
               </Center>
               <Center height="100%" width="100%">
-                <SignUpInfo toggle={togglePosition} />
+                <SignUpProcess h={h} active={layoutState == 2} />
               </Center>
             </HStack>
           </Box>

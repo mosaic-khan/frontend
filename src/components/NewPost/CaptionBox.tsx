@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Box, Heading, Textarea } from "@chakra-ui/react";
 
-const CaptionBox = () => {
-  const [caption, setCaption] = useState<string>("");
+const CaptionBox = ({
+  caption,
+  setCaption,
+}: {
+  caption: string;
+  setCaption: Dispatch<SetStateAction<string>>;
+}) => {
+  //const [caption, setCaption] = useState<string>("");
   const detectLanguage = (text: string): "ltr" | "rtl" => {
     if (!text) return "rtl"; // Default to RTL if text is empty
     // Check if the first character is in Persian range
     const persianRegex = /[\u0600-\u06FF\u0750-\u077F]/;
     return persianRegex.test(text.charAt(0)) ? "rtl" : "ltr";
+  };
+  const handleChange = (event) => {
+    setCaption(event.target.value);
   };
   return (
     <Box width="90%" border="1px solid #ccc" borderRadius="5px">
@@ -18,7 +27,7 @@ const CaptionBox = () => {
         placeholder="متن خود را وارد كنيد"
         style={{ direction: detectLanguage(caption) }}
         value={caption}
-        onChange={(event) => setCaption(event.target.value)}
+        onChange={handleChange}
         width="80%"
         marginLeft="5%"
         marginBottom="5%"

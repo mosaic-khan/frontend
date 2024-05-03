@@ -34,7 +34,7 @@ const LandingTop = () => {
           >
             اشتراک گذاری دستورهای آشپزی
           </Text>
-          <SearchBar />
+          <SearchBar width="500px" />
           <LoginSignUpButton onClick={() => navigate("/register")} />
         </VStack>
       </HStack>
