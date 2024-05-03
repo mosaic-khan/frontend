@@ -23,11 +23,16 @@ import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserSideBar from "../components/Navigation/UserSideBar";
 import DeletPassChildren from "../editProfile/Accordions/DeletPassChildren";
 =======
 
+=======
+import UserNavigation from "../components/Navigation/ProfileNavigation";
+import UserSideBar from "../components/Navigation/UserSideBar";
+>>>>>>> 87ea5a53957ebdaf038d7b8e94ce27b604ca1414
 import PerosonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
@@ -66,6 +71,7 @@ export const EditProfile = () => {
     setImgAfterCrop(imgCroppedArea);
     setCurrentPage("choose-img");
   };
+
   const handleSubmitProfile = () => {
     userClient
       .editProfileInfo(

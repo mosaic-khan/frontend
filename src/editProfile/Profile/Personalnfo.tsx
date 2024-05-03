@@ -1,9 +1,24 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { FormControl, FormLabel, Input, Select, Box } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Box,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 import { ShamsiCalendarButton } from "../../components/Buttons";
-import { setCityName } from "./HandleCity";
-import { User } from "../../api/clients/user";
+import userClient from "../../api/services/user-service";
 import { Dispatch, SetStateAction, useState } from "react";
+import { User } from "../../api/clients/user";
+
+type City = {
+  id: number;
+  name: string;
+};
 
 interface Props {
   user: User;
@@ -11,6 +26,37 @@ interface Props {
 }
 
 const PerosonalInfo = ({ user, setUser }: Props) => {
+  const [cities, setCities] = useState<City[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const fetchCities = (input: string) => {
+    if (!input) {
+      setIsOpen(false);
+      return;
+    }
+    userClient
+      .getCities(
+        { cityPattern: input },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setCities(res.response.cities);
+        console.log(cities);
+      })
+      .catch((err) => {
+        console.error("GetCities error: ", err);
+      });
+  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+    fetchCities(value);
+  };
+
   return (
     <Box
       h="500px"
@@ -72,18 +118,27 @@ const PerosonalInfo = ({ user, setUser }: Props) => {
 
       <FormControl id="city" marginBottom="10px">
         <FormLabel paddingRight="10px">شهر</FormLabel>
-        <Input
-          value={user.city}
-          onChange={(e) => {
-            setUser({ ...user, city: e.target.value });
-            setCityName(e.target.value, true);
-          }}
-          variant="filled"
-          _placeholder={{ color: "gray.200" }}
-        />
-        {/* {Cities.map((city) => (
-                    <option key={city.length}>{city}</option>
-                  ))} */}
+        <Popover
+          isOpen={isOpen && cities.length > 0}
+          onClose={() => setIsOpen(false)}
+        >
+          <PopoverTrigger>
+            <Input
+              value={inputValue}
+              onChange={handleInputChange}
+              variant="filled"
+            />
+          </PopoverTrigger>
+          <PopoverContent width="auto">
+            <PopoverBody>
+              {cities.map((city) => (
+                <div key={city.id} tabIndex={0}>
+                  {city.name}
+                </div>
+              ))}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </FormControl>
     </Box>
   );
