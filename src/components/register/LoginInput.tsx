@@ -54,6 +54,7 @@ const LoginInput = ({ forgotPage }: Props) => {
         })
         .then((res) => {
           console.log("login response: ", res);
+          localStorage.setItem("jwt", res.response.jwtToken);
           setResult("ok");
         })
         .catch((err) => {
