@@ -36,7 +36,28 @@ const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
       .then((res) => {
         console.log("codeVerification response: ", res);
         localStorage.setItem("jwt", res.response.jwtToken);
-        setResult("ok");
+        userClient
+          .getUserInfo(
+            {},
+            {
+              meta: {
+                Authorization: `Bearer ${res.response.jwtToken}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log("getUserInfo response: ", res);
+            if (res.response.user) {
+              localStorage.setItem("username", res.response.user.username);
+              setResult("ok");
+            } else {
+              setResult("request");
+            }
+          })
+          .catch((err) => {
+            console.log("getUserInfo error: ", err);
+            setResult("request");
+          });
       })
       .catch((err) => {
         console.log("codeVerification error: ", err);
