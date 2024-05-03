@@ -1,4 +1,4 @@
-import { HStack, VStack, Box, Heading, Input } from "@chakra-ui/react";
+import { HStack, VStack, Box, Heading, Input, Text } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Image, IconButton } from "@chakra-ui/react";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
@@ -9,18 +9,27 @@ import postClient from "../../api/services/post-service";
 import Image2 from "../../assets/dark-night-car-vehicle.jpg";
 import Image3 from "../../assets/prev.jpg";
 import STagBox from "./SimpleTagBox";
+import { GradientRedButton } from "../Buttons";
 
 const NewPostLayout = () => {
   const [images, setImages] = useState<File[]>([]);
   const [caption, setCaption] = useState<string>("");
   const [Title, setTitle] = useState<string>("");
   const [numimages, setnumimg] = useState<number>(0);
- 
-
+  const [isSaved, setIsSaved] = useState(false);
+  const [error, setError] = useState<string>("");
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     setnumimg(numimages + 1);
     setImages([...images, ...files]);
+  };
+  const handleSave = () => {
+    if (Title != "" && caption != "" && numimages != 0) {
+      setIsSaved(true);
+      setError("!پست با موفقیت ذخیره شد");
+    } else if (Title == "") setError("!عنوان نمی تواند خالی باشد");
+    else if (caption == "") setError("!توضیحات نمی تواند خالی باشد");
+    else if (numimages == 0) setError("!حداقل یک تصویر لازم است");
   };
 
   const handleRemoveImage = (index: number) => {
@@ -30,7 +39,8 @@ const NewPostLayout = () => {
     setImages(newImages);
   };
   useEffect(() => {
-    postClient
+    if (isSaved) {
+      /*  postClient
       .setPost(
         { post={title:Title, description: caption, numImages:numimages, ingredients:  } }
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
@@ -40,7 +50,8 @@ const NewPostLayout = () => {
       })
       .catch((err) => {
         console.log("error fetching post: ", err);
-      });
+      }); */
+    }
   }, []);
   return (
     <HStack bg="gray.200" width="100%" height="1000px" spacing="15px">
@@ -156,6 +167,14 @@ const NewPostLayout = () => {
               style={{ display: "none" }}
             />
           </VStack>
+          <GradientRedButton
+            onClick={handleSave}
+            marginTop="20px"
+            textColor="white"
+          >
+            ذخیره پست
+          </GradientRedButton>
+          <Text textColor="white">{error}</Text>
         </VStack>
       </Box>
     </HStack>
