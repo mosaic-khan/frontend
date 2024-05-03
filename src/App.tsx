@@ -22,7 +22,6 @@ function App() {
           <Route path="Register" element={<Register />} />
           <Route path="EditProfile" element={<EditProfile />} />
           <Route path="NewPost" element={<NewPost />} />
-          <Route path="MyPosts" element={<MyPosts />} />
           <Route path="ResetPassword" element={<ResetPassword/>}/>  
           <Route path="MyProfile" element={<UserProfile/>}/>
           <Route path="OtherProfile" element={<OtherProfile/>}/> 
