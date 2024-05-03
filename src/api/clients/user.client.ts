@@ -4,436 +4,6 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { UserAPI } from "./user";
-import type { GetCitiesResponse } from "./user";
-import type { GetCitiesRequest } from "./user";
-import type { GetProfileResponse } from "./user";
-import type { GetProfileRequests } from "./user";
-import type { ChangeProfilePicRequest } from "./user";
-import type { ChangePasswordRequest } from "./user";
-import type { ConfirmChangeEmailRequest } from "./user";
-import type { ChangeEmailResponse } from "./user";
-import type { ChangeEmailRequest } from "./user";
-import type { ChangeUsernameRequest } from "./user";
-import type { GetUserInfoResponse } from "./user";
-import type { EditProfileInfoRequest } from "./user";
-import type { PersonalInfoCompletionRequest } from "./user";
-import type { CodeVerificationResponse } from "./user";
-import type { CodeVerificationRequest } from "./user";
-import type { SignUpResponse } from "./user";
-import type { SignUpRequest } from "./user";
-import type { NewPasswordWithTokenRequest } from "./user";
-import type { ForgetPasswordRequest } from "./user";
-import type { LoginResponse } from "./user";
-import type { LoginRequest } from "./user";
-import { stackIntercept } from "@protobuf-ts/runtime-rpc";
-import type { RefreshTokenResponse } from "./user";
-import type { Empty } from "./google/protobuf/empty";
-import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
-import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
-/**
- * @generated from protobuf service KhanAPI.UserAPI
- */
-export interface IUserAPIClient {
-  /**
-   * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
-   */
-  refreshToken(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, RefreshTokenResponse>;
-  /**
-   * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
-   */
-  login(
-    input: LoginRequest,
-    options?: RpcOptions
-  ): UnaryCall<LoginRequest, LoginResponse>;
-  /**
-   * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
-   */
-  forgetPassword(
-    input: ForgetPasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ForgetPasswordRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
-   */
-  newPasswordWithToken(
-    input: NewPasswordWithTokenRequest,
-    options?: RpcOptions
-  ): UnaryCall<NewPasswordWithTokenRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
-   */
-  signUp(
-    input: SignUpRequest,
-    options?: RpcOptions
-  ): UnaryCall<SignUpRequest, SignUpResponse>;
-  /**
-   * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
-   */
-  codeVerification(
-    input: CodeVerificationRequest,
-    options?: RpcOptions
-  ): UnaryCall<CodeVerificationRequest, CodeVerificationResponse>;
-  /**
-   * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
-   */
-  personalInfoCompletion(
-    input: PersonalInfoCompletionRequest,
-    options?: RpcOptions
-  ): UnaryCall<PersonalInfoCompletionRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
-   */
-  editProfileInfo(
-    input: EditProfileInfoRequest,
-    options?: RpcOptions
-  ): UnaryCall<EditProfileInfoRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
-   */
-  getUserInfo(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, GetUserInfoResponse>;
-  /**
-   * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
-   */
-  changeUsername(
-    input: ChangeUsernameRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeUsernameRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
-   */
-  changeEmail(
-    input: ChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeEmailRequest, ChangeEmailResponse>;
-  /**
-   * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
-   */
-  confirmChangeEmail(
-    input: ConfirmChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ConfirmChangeEmailRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
-   */
-  changePassword(
-    input: ChangePasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangePasswordRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
-   */
-  changeProfilePic(
-    input: ChangeProfilePicRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeProfilePicRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
-   */
-  getProfile(
-    input: GetProfileRequests,
-    options?: RpcOptions
-  ): UnaryCall<GetProfileRequests, GetProfileResponse>;
-  /**
-   * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
-   */
-  getCities(
-    input: GetCitiesRequest,
-    options?: RpcOptions
-  ): UnaryCall<GetCitiesRequest, GetCitiesResponse>;
-}
-/**
- * @generated from protobuf service KhanAPI.UserAPI
- */
-export class UserAPIClient implements IUserAPIClient, ServiceInfo {
-  typeName = UserAPI.typeName;
-  methods = UserAPI.methods;
-  options = UserAPI.options;
-  constructor(private readonly _transport: RpcTransport) {}
-  /**
-   * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
-   */
-  refreshToken(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, RefreshTokenResponse> {
-    const method = this.methods[0],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<Empty, RefreshTokenResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
-   */
-  login(
-    input: LoginRequest,
-    options?: RpcOptions
-  ): UnaryCall<LoginRequest, LoginResponse> {
-    const method = this.methods[1],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<LoginRequest, LoginResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
-   */
-  forgetPassword(
-    input: ForgetPasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ForgetPasswordRequest, Empty> {
-    const method = this.methods[2],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ForgetPasswordRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
-   */
-  newPasswordWithToken(
-    input: NewPasswordWithTokenRequest,
-    options?: RpcOptions
-  ): UnaryCall<NewPasswordWithTokenRequest, Empty> {
-    const method = this.methods[3],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<NewPasswordWithTokenRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
-   */
-  signUp(
-    input: SignUpRequest,
-    options?: RpcOptions
-  ): UnaryCall<SignUpRequest, SignUpResponse> {
-    const method = this.methods[4],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<SignUpRequest, SignUpResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
-   */
-  codeVerification(
-    input: CodeVerificationRequest,
-    options?: RpcOptions
-  ): UnaryCall<CodeVerificationRequest, CodeVerificationResponse> {
-    const method = this.methods[5],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<CodeVerificationRequest, CodeVerificationResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
-   */
-  personalInfoCompletion(
-    input: PersonalInfoCompletionRequest,
-    options?: RpcOptions
-  ): UnaryCall<PersonalInfoCompletionRequest, Empty> {
-    const method = this.methods[6],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<PersonalInfoCompletionRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
-   */
-  editProfileInfo(
-    input: EditProfileInfoRequest,
-    options?: RpcOptions
-  ): UnaryCall<EditProfileInfoRequest, Empty> {
-    const method = this.methods[7],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<EditProfileInfoRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
-   */
-  getUserInfo(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, GetUserInfoResponse> {
-    const method = this.methods[8],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<Empty, GetUserInfoResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
-   */
-  changeUsername(
-    input: ChangeUsernameRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeUsernameRequest, Empty> {
-    const method = this.methods[9],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeUsernameRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
-   */
-  changeEmail(
-    input: ChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeEmailRequest, ChangeEmailResponse> {
-    const method = this.methods[10],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeEmailRequest, ChangeEmailResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
-   */
-  confirmChangeEmail(
-    input: ConfirmChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ConfirmChangeEmailRequest, Empty> {
-    const method = this.methods[11],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ConfirmChangeEmailRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
-   */
-  changePassword(
-    input: ChangePasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangePasswordRequest, Empty> {
-    const method = this.methods[12],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangePasswordRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
-   */
-  changeProfilePic(
-    input: ChangeProfilePicRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeProfilePicRequest, Empty> {
-    const method = this.methods[13],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeProfilePicRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
-   */
-  getProfile(
-    input: GetProfileRequests,
-    options?: RpcOptions
-  ): UnaryCall<GetProfileRequests, GetProfileResponse> {
-    const method = this.methods[14],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<GetProfileRequests, GetProfileResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
-   */
-  getCities(
-    input: GetCitiesRequest,
-    options?: RpcOptions
-  ): UnaryCall<GetCitiesRequest, GetCitiesResponse> {
-    const method = this.methods[15],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<GetCitiesRequest, GetCitiesResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-}
-// @generated by protobuf-ts 2.9.4
-// @generated from protobuf file "user.proto" (package "KhanAPI", syntax proto3)
-// tslint:disable
-import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
-import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
-import { UserAPI } from "./user";
 import type { DeleteAccountRequest } from "./user";
 import type { GetCitiesResponse } from "./user";
 import type { GetCitiesRequest } from "./user";
@@ -465,421 +35,201 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  * @generated from protobuf service KhanAPI.UserAPI
  */
 export interface IUserAPIClient {
-  /**
-   * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
-   */
-  refreshToken(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, RefreshTokenResponse>;
-  /**
-   * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
-   */
-  login(
-    input: LoginRequest,
-    options?: RpcOptions
-  ): UnaryCall<LoginRequest, LoginResponse>;
-  /**
-   * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
-   */
-  forgetPassword(
-    input: ForgetPasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ForgetPasswordRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
-   */
-  newPasswordWithToken(
-    input: NewPasswordWithTokenRequest,
-    options?: RpcOptions
-  ): UnaryCall<NewPasswordWithTokenRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
-   */
-  signUp(
-    input: SignUpRequest,
-    options?: RpcOptions
-  ): UnaryCall<SignUpRequest, SignUpResponse>;
-  /**
-   * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
-   */
-  codeVerification(
-    input: CodeVerificationRequest,
-    options?: RpcOptions
-  ): UnaryCall<CodeVerificationRequest, CodeVerificationResponse>;
-  /**
-   * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
-   */
-  personalInfoCompletion(
-    input: PersonalInfoCompletionRequest,
-    options?: RpcOptions
-  ): UnaryCall<PersonalInfoCompletionRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
-   */
-  editProfileInfo(
-    input: EditProfileInfoRequest,
-    options?: RpcOptions
-  ): UnaryCall<EditProfileInfoRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
-   */
-  getUserInfo(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, GetUserInfoResponse>;
-  /**
-   * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
-   */
-  changeUsername(
-    input: ChangeUsernameRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeUsernameRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
-   */
-  changeEmail(
-    input: ChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeEmailRequest, ChangeEmailResponse>;
-  /**
-   * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
-   */
-  confirmChangeEmail(
-    input: ConfirmChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ConfirmChangeEmailRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
-   */
-  changePassword(
-    input: ChangePasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangePasswordRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
-   */
-  changeProfilePic(
-    input: ChangeProfilePicRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeProfilePicRequest, Empty>;
-  /**
-   * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
-   */
-  getProfile(
-    input: GetProfileRequests,
-    options?: RpcOptions
-  ): UnaryCall<GetProfileRequests, GetProfileResponse>;
-  /**
-   * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
-   */
-  getCities(
-    input: GetCitiesRequest,
-    options?: RpcOptions
-  ): UnaryCall<GetCitiesRequest, GetCitiesResponse>;
-  /**
-   * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
-   */
-  deleteAccount(
-    input: DeleteAccountRequest,
-    options?: RpcOptions
-  ): UnaryCall<DeleteAccountRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
+     */
+    refreshToken(input: Empty, options?: RpcOptions): UnaryCall<Empty, RefreshTokenResponse>;
+    /**
+     * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
+     */
+    login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse>;
+    /**
+     * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
+     */
+    forgetPassword(input: ForgetPasswordRequest, options?: RpcOptions): UnaryCall<ForgetPasswordRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
+     */
+    newPasswordWithToken(input: NewPasswordWithTokenRequest, options?: RpcOptions): UnaryCall<NewPasswordWithTokenRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
+     */
+    signUp(input: SignUpRequest, options?: RpcOptions): UnaryCall<SignUpRequest, SignUpResponse>;
+    /**
+     * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
+     */
+    codeVerification(input: CodeVerificationRequest, options?: RpcOptions): UnaryCall<CodeVerificationRequest, CodeVerificationResponse>;
+    /**
+     * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
+     */
+    personalInfoCompletion(input: PersonalInfoCompletionRequest, options?: RpcOptions): UnaryCall<PersonalInfoCompletionRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
+     */
+    editProfileInfo(input: EditProfileInfoRequest, options?: RpcOptions): UnaryCall<EditProfileInfoRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
+     */
+    getUserInfo(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetUserInfoResponse>;
+    /**
+     * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
+     */
+    changeUsername(input: ChangeUsernameRequest, options?: RpcOptions): UnaryCall<ChangeUsernameRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
+     */
+    changeEmail(input: ChangeEmailRequest, options?: RpcOptions): UnaryCall<ChangeEmailRequest, ChangeEmailResponse>;
+    /**
+     * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
+     */
+    confirmChangeEmail(input: ConfirmChangeEmailRequest, options?: RpcOptions): UnaryCall<ConfirmChangeEmailRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
+     */
+    changePassword(input: ChangePasswordRequest, options?: RpcOptions): UnaryCall<ChangePasswordRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
+     */
+    changeProfilePic(input: ChangeProfilePicRequest, options?: RpcOptions): UnaryCall<ChangeProfilePicRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
+     */
+    getProfile(input: GetProfileRequests, options?: RpcOptions): UnaryCall<GetProfileRequests, GetProfileResponse>;
+    /**
+     * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
+     */
+    getCities(input: GetCitiesRequest, options?: RpcOptions): UnaryCall<GetCitiesRequest, GetCitiesResponse>;
+    /**
+     * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
+     */
+    deleteAccount(input: DeleteAccountRequest, options?: RpcOptions): UnaryCall<DeleteAccountRequest, Empty>;
 }
 /**
  * @generated from protobuf service KhanAPI.UserAPI
  */
 export class UserAPIClient implements IUserAPIClient, ServiceInfo {
-  typeName = UserAPI.typeName;
-  methods = UserAPI.methods;
-  options = UserAPI.options;
-  constructor(private readonly _transport: RpcTransport) {}
-  /**
-   * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
-   */
-  refreshToken(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, RefreshTokenResponse> {
-    const method = this.methods[0],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<Empty, RefreshTokenResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
-   */
-  login(
-    input: LoginRequest,
-    options?: RpcOptions
-  ): UnaryCall<LoginRequest, LoginResponse> {
-    const method = this.methods[1],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<LoginRequest, LoginResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
-   */
-  forgetPassword(
-    input: ForgetPasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ForgetPasswordRequest, Empty> {
-    const method = this.methods[2],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ForgetPasswordRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
-   */
-  newPasswordWithToken(
-    input: NewPasswordWithTokenRequest,
-    options?: RpcOptions
-  ): UnaryCall<NewPasswordWithTokenRequest, Empty> {
-    const method = this.methods[3],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<NewPasswordWithTokenRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
-   */
-  signUp(
-    input: SignUpRequest,
-    options?: RpcOptions
-  ): UnaryCall<SignUpRequest, SignUpResponse> {
-    const method = this.methods[4],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<SignUpRequest, SignUpResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
-   */
-  codeVerification(
-    input: CodeVerificationRequest,
-    options?: RpcOptions
-  ): UnaryCall<CodeVerificationRequest, CodeVerificationResponse> {
-    const method = this.methods[5],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<CodeVerificationRequest, CodeVerificationResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
-   */
-  personalInfoCompletion(
-    input: PersonalInfoCompletionRequest,
-    options?: RpcOptions
-  ): UnaryCall<PersonalInfoCompletionRequest, Empty> {
-    const method = this.methods[6],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<PersonalInfoCompletionRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
-   */
-  editProfileInfo(
-    input: EditProfileInfoRequest,
-    options?: RpcOptions
-  ): UnaryCall<EditProfileInfoRequest, Empty> {
-    const method = this.methods[7],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<EditProfileInfoRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
-   */
-  getUserInfo(
-    input: Empty,
-    options?: RpcOptions
-  ): UnaryCall<Empty, GetUserInfoResponse> {
-    const method = this.methods[8],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<Empty, GetUserInfoResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
-   */
-  changeUsername(
-    input: ChangeUsernameRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeUsernameRequest, Empty> {
-    const method = this.methods[9],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeUsernameRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
-   */
-  changeEmail(
-    input: ChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeEmailRequest, ChangeEmailResponse> {
-    const method = this.methods[10],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeEmailRequest, ChangeEmailResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
-   */
-  confirmChangeEmail(
-    input: ConfirmChangeEmailRequest,
-    options?: RpcOptions
-  ): UnaryCall<ConfirmChangeEmailRequest, Empty> {
-    const method = this.methods[11],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ConfirmChangeEmailRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
-   */
-  changePassword(
-    input: ChangePasswordRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangePasswordRequest, Empty> {
-    const method = this.methods[12],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangePasswordRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
-   */
-  changeProfilePic(
-    input: ChangeProfilePicRequest,
-    options?: RpcOptions
-  ): UnaryCall<ChangeProfilePicRequest, Empty> {
-    const method = this.methods[13],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<ChangeProfilePicRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
-   */
-  getProfile(
-    input: GetProfileRequests,
-    options?: RpcOptions
-  ): UnaryCall<GetProfileRequests, GetProfileResponse> {
-    const method = this.methods[14],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<GetProfileRequests, GetProfileResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
-   */
-  getCities(
-    input: GetCitiesRequest,
-    options?: RpcOptions
-  ): UnaryCall<GetCitiesRequest, GetCitiesResponse> {
-    const method = this.methods[15],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<GetCitiesRequest, GetCitiesResponse>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
-  /**
-   * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
-   */
-  deleteAccount(
-    input: DeleteAccountRequest,
-    options?: RpcOptions
-  ): UnaryCall<DeleteAccountRequest, Empty> {
-    const method = this.methods[16],
-      opt = this._transport.mergeOptions(options);
-    return stackIntercept<DeleteAccountRequest, Empty>(
-      "unary",
-      this._transport,
-      method,
-      opt,
-      input
-    );
-  }
+    typeName = UserAPI.typeName;
+    methods = UserAPI.methods;
+    options = UserAPI.options;
+    constructor(private readonly _transport: RpcTransport) {
+    }
+    /**
+     * @generated from protobuf rpc: RefreshToken(google.protobuf.Empty) returns (KhanAPI.RefreshTokenResponse);
+     */
+    refreshToken(input: Empty, options?: RpcOptions): UnaryCall<Empty, RefreshTokenResponse> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, RefreshTokenResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: Login(KhanAPI.LoginRequest) returns (KhanAPI.LoginResponse);
+     */
+    login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse> {
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<LoginRequest, LoginResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ForgetPassword(KhanAPI.ForgetPasswordRequest) returns (google.protobuf.Empty);
+     */
+    forgetPassword(input: ForgetPasswordRequest, options?: RpcOptions): UnaryCall<ForgetPasswordRequest, Empty> {
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ForgetPasswordRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: NewPasswordWithToken(KhanAPI.NewPasswordWithTokenRequest) returns (google.protobuf.Empty);
+     */
+    newPasswordWithToken(input: NewPasswordWithTokenRequest, options?: RpcOptions): UnaryCall<NewPasswordWithTokenRequest, Empty> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<NewPasswordWithTokenRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: SignUp(KhanAPI.SignUpRequest) returns (KhanAPI.SignUpResponse);
+     */
+    signUp(input: SignUpRequest, options?: RpcOptions): UnaryCall<SignUpRequest, SignUpResponse> {
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
+        return stackIntercept<SignUpRequest, SignUpResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: CodeVerification(KhanAPI.CodeVerificationRequest) returns (KhanAPI.CodeVerificationResponse);
+     */
+    codeVerification(input: CodeVerificationRequest, options?: RpcOptions): UnaryCall<CodeVerificationRequest, CodeVerificationResponse> {
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CodeVerificationRequest, CodeVerificationResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: PersonalInfoCompletion(KhanAPI.PersonalInfoCompletionRequest) returns (google.protobuf.Empty);
+     */
+    personalInfoCompletion(input: PersonalInfoCompletionRequest, options?: RpcOptions): UnaryCall<PersonalInfoCompletionRequest, Empty> {
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        return stackIntercept<PersonalInfoCompletionRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: EditProfileInfo(KhanAPI.EditProfileInfoRequest) returns (google.protobuf.Empty);
+     */
+    editProfileInfo(input: EditProfileInfoRequest, options?: RpcOptions): UnaryCall<EditProfileInfoRequest, Empty> {
+        const method = this.methods[7], opt = this._transport.mergeOptions(options);
+        return stackIntercept<EditProfileInfoRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetUserInfo(google.protobuf.Empty) returns (KhanAPI.GetUserInfoResponse);
+     */
+    getUserInfo(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetUserInfoResponse> {
+        const method = this.methods[8], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, GetUserInfoResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ChangeUsername(KhanAPI.ChangeUsernameRequest) returns (google.protobuf.Empty);
+     */
+    changeUsername(input: ChangeUsernameRequest, options?: RpcOptions): UnaryCall<ChangeUsernameRequest, Empty> {
+        const method = this.methods[9], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ChangeUsernameRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ChangeEmail(KhanAPI.ChangeEmailRequest) returns (KhanAPI.ChangeEmailResponse);
+     */
+    changeEmail(input: ChangeEmailRequest, options?: RpcOptions): UnaryCall<ChangeEmailRequest, ChangeEmailResponse> {
+        const method = this.methods[10], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ChangeEmailRequest, ChangeEmailResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ConfirmChangeEmail(KhanAPI.ConfirmChangeEmailRequest) returns (google.protobuf.Empty);
+     */
+    confirmChangeEmail(input: ConfirmChangeEmailRequest, options?: RpcOptions): UnaryCall<ConfirmChangeEmailRequest, Empty> {
+        const method = this.methods[11], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ConfirmChangeEmailRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ChangePassword(KhanAPI.ChangePasswordRequest) returns (google.protobuf.Empty);
+     */
+    changePassword(input: ChangePasswordRequest, options?: RpcOptions): UnaryCall<ChangePasswordRequest, Empty> {
+        const method = this.methods[12], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ChangePasswordRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: ChangeProfilePic(KhanAPI.ChangeProfilePicRequest) returns (google.protobuf.Empty);
+     */
+    changeProfilePic(input: ChangeProfilePicRequest, options?: RpcOptions): UnaryCall<ChangeProfilePicRequest, Empty> {
+        const method = this.methods[13], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ChangeProfilePicRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetProfile(KhanAPI.GetProfileRequests) returns (KhanAPI.GetProfileResponse);
+     */
+    getProfile(input: GetProfileRequests, options?: RpcOptions): UnaryCall<GetProfileRequests, GetProfileResponse> {
+        const method = this.methods[14], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetProfileRequests, GetProfileResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
+     */
+    getCities(input: GetCitiesRequest, options?: RpcOptions): UnaryCall<GetCitiesRequest, GetCitiesResponse> {
+        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetCitiesRequest, GetCitiesResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
+     */
+    deleteAccount(input: DeleteAccountRequest, options?: RpcOptions): UnaryCall<DeleteAccountRequest, Empty> {
+        const method = this.methods[16], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeleteAccountRequest, Empty>("unary", this._transport, method, opt, input);
+    }
 }
