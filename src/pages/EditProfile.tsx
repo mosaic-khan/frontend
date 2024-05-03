@@ -22,26 +22,13 @@ import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
-import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserSideBar from  "../components/navigation/UserSideBar";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
+import UserSideBar from "../components/Navigation/UserSideBar";
 import PerosonalInfo from "../editProfile/Profile/Personalnfo";
-import userClient from "../api/services/user-service";
-import { User } from "../api/clients/user";
 
 export const EditProfile = () => {
   const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = useState<User>({
-    fName: "",
-    lName: "",
-    bio: "",
-    city: "",
-    birthDay: "",
-    profilePicUrl: "",
-    gender: "",
-    username: "",
-    email: "",
-  });
 
   const onChooseImg = () => {
     if (inputRef.current) {
@@ -61,49 +48,6 @@ export const EditProfile = () => {
     setImgAfterCrop(imgCroppedArea);
     setCurrentPage("choose-img");
   };
-  const handleSubmitProfile = () => {
-    userClient
-      .editProfileInfo(
-        {
-          bio: user.bio,
-          fName: user.fName,
-          lName: user.lName,
-          gender: user.gender,
-        },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("editProfileInfo response: ", res);
-      })
-      .catch((err) => {
-        console.log("editProfileInfo error: ", err);
-      });
-  };
-
-  useEffect(() => {
-    userClient
-      .getUserInfo(
-        {},
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("getProfile response: ", res.response.user);
-        if (res.response.user) {
-          setUser(res.response.user);
-        }
-      })
-      .catch((err) => {
-        console.log("getProfile error: ", err);
-      });
-  }, []);
 
   useEffect(() => {
     if (currentPage === "crop-img") {
@@ -166,7 +110,7 @@ export const EditProfile = () => {
               top="20px"
             >
               <HStack>
-                <PerosonalInfo user={user} setUser={setUser} />
+                <PerosonalInfo />
 
                 <VStack
                   width="300px"
@@ -226,16 +170,12 @@ export const EditProfile = () => {
                       ></Avatar>
                     </Box>
                   </Box>
-                  <BiographyBox user={user} setUser={setUser} />
+                  <BiographyBox />
                 </VStack>
               </HStack>
             </Box>
           </Center>
-          <GradientRedButton
-            position="absolute"
-            bottom="50px"
-            onClick={handleSubmitProfile}
-          >
+          <GradientRedButton position="absolute" bottom="50px">
             ذخیره
           </GradientRedButton>
         </Box>
