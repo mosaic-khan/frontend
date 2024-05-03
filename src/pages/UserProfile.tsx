@@ -2,11 +2,10 @@ import { Box, HStack, VStack } from "@chakra-ui/react";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserHeader from "../components/header/UserHeader";
 import UserSideBar from "../components/Navigation/UserSideBar";
-import Post from "../components/MyPosts/Post";
 
 const UserProfile = () => {
   return (
-    <Box h="100%" bgColor="gray.100" position="relative">
+    <Box h="100vh" bgColor="gray.100" position="relative">
       <Box position="fixed" w="full" h="10%">
         {/* navbar */}
         <UserNavigation />
@@ -15,10 +14,9 @@ const UserProfile = () => {
         <HStack>
           {/* sidebar */}
           <UserSideBar />
-          <VStack w="85%" h="100%" marginTop="5%">
+          <VStack w="85%" h="full">
             {/* Header */}
             <UserHeader />
-            <Post></Post>
             {/* Latest Box */}
             <Box w="full"></Box>
           </VStack>

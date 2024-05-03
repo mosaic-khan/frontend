@@ -246,4 +246,3 @@ const SignUpInput = ({ onSubmit }: Props) => {
 };
 
 export default SignUpInput;
-
