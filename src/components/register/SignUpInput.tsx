@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Center,
   FormControl,
@@ -10,10 +10,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PassWordField";
-import { RedButton } from "../Buttons";
+import { WhiteButton } from "../Buttons";
+import userClient from "../../api/services/user-service";
 
 interface Props {
-  onSubmit: () => void;
+  onSubmit: (token: string) => void;
 }
 
 const SignUpInput = ({ onSubmit }: Props) => {
@@ -22,6 +23,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [result, setResult] = useState("");
+  const [token, setToken] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [usernameError, setUsernameError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
@@ -31,17 +34,18 @@ const SignUpInput = ({ onSubmit }: Props) => {
     password: string,
     username: string,
     passwordConfirm: string
-  ): string => {
+  ): boolean => {
     // Define regex patterns
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const usernamePattern = /^[a-zA-Z0-9_-]{3,20}$/;
     const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_]).{8,72}$/;
 
     // Validate email
     if (!email.match(emailPattern)) {
       setEmailError(true);
-      return "email";
+      setResult("email");
+      return false;
     } else {
       setEmailError(false);
     }
@@ -49,7 +53,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
     // Validate username
     if (!username.match(usernamePattern)) {
       setUsernameError(true);
-      return "username";
+      setResult("username");
+      return false;
     } else if (username) {
       setUsernameError(false);
     } else;
@@ -57,32 +62,51 @@ const SignUpInput = ({ onSubmit }: Props) => {
     // Validate password
     if (!password.match(passwordPattern)) {
       setPasswordError(true);
-      return "password";
+      setResult("password");
+      return false;
     } else {
       setPasswordError(false);
     }
 
     if (password !== passwordConfirm) {
       setPasswordConfirmError(true);
-      return "confirm";
+      setResult("confirm");
+      return false;
     } else if (passwordConfirm) {
       setPasswordConfirmError(false);
     } else;
-    //Add backend support here
 
-    // All validations passed
-    return "ok";
+    return true;
   };
 
   const handleSignUp = (
     email: string,
     password: string,
-
     username: string,
     passwordconfirm: string
   ) => {
-    const error = evaluateSignUp(email, password, username, passwordconfirm);
-    if (error === "email") {
+    const valid = evaluateSignUp(email, password, username, passwordconfirm);
+    if (valid) {
+      userClient
+        .signUp({
+          email: email,
+          password: password,
+          username: username,
+        })
+        .then((res) => {
+          console.log("signUp response: ", res);
+          setToken(res.response.token);
+          setResult("ok");
+        })
+        .catch((err) => {
+          console.log("signUp error: ", err);
+          setResult("request");
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (result === "email") {
       toast({
         description: <Text dir="rtl">فرمت ایمیل درست نیست.</Text>,
         status: "error",
@@ -90,7 +114,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (error === "password") {
+    } else if (result === "password") {
       toast({
         description: <Text dir="rtl">رمز عبور وارد شده مورد قبول نیست.</Text>,
         status: "error",
@@ -98,7 +122,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (error === "username") {
+    } else if (result === "username") {
       toast({
         description: <Text dir="rtl">نام کاربری انتخاب شده مجاز نیست.</Text>,
         status: "error",
@@ -106,7 +130,7 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (error === "confirm") {
+    } else if (result === "confirm") {
       toast({
         description: <Text dir="rtl">رمز عبور تطابق ندارد.</Text>,
         status: "error",
@@ -114,7 +138,15 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else {
+    } else if (result === "request") {
+      toast({
+        description: <Text dir="rtl">خطا از سمت سرور</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
+    } else if (result == "ok") {
       toast({
         description: (
           <Text dir="rtl">
@@ -126,11 +158,13 @@ const SignUpInput = ({ onSubmit }: Props) => {
         duration: 4000,
         position: "bottom-left",
       });
-      onSubmit();
+      onSubmit(token);
     }
-  };
+    setResult("");
+  }, [result]);
+
   return (
-    <VStack spacing="4px">
+    <VStack spacing="4px" textColor="white">
       <Center marginBottom="20px">
         <Heading size="md">ایجاد حساب کاربری</Heading>
       </Center>
@@ -147,8 +181,9 @@ const SignUpInput = ({ onSubmit }: Props) => {
             setEmail(e.target.value), setEmailError(false);
           }}
           borderColor={emailError ? "red.500" : "gray.200"}
+          textColor="black"
+          bgColor="white"
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <FormControl>
@@ -164,8 +199,9 @@ const SignUpInput = ({ onSubmit }: Props) => {
             setUsername(e.target.value), setUsernameError(false);
           }}
           borderColor={usernameError ? "red.500" : "gray.200"}
+          textColor="black"
+          bgColor="white"
           focusBorderColor="green.600"
-
         />
       </FormControl>
       <PasswordField
@@ -174,6 +210,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
         onChange={(value) => {
           setPassword(value), setPasswordError(false);
         }}
+        textColor="black"
+        bgColor="white"
         borderColor={passwordError ? "red.500" : "gray.200"}
       >
         رمز عبور
@@ -184,6 +222,8 @@ const SignUpInput = ({ onSubmit }: Props) => {
         onChange={(value) => {
           setPasswordConfirm(value), setPasswordConfirmError(false);
         }}
+        textColor="black"
+        bgColor="white"
         borderColor={passwordConfirmError ? "red.500" : "gray.200"}
       >
         تکرار رمز عبور
@@ -192,14 +232,14 @@ const SignUpInput = ({ onSubmit }: Props) => {
         {/* <RedButton marginTop="30px" onClick={onSubmit}>
           ثبت‌نام{" "}
         </RedButton> */}
-        <RedButton
+        <WhiteButton
           marginTop="30px"
           onClick={() =>
             handleSignUp(email, password, username, passwordConfirm)
           }
         >
           ثبت‌نام
-        </RedButton>
+        </WhiteButton>
       </Center>
     </VStack>
   );

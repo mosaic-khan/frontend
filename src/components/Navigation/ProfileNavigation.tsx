@@ -1,17 +1,18 @@
-import {AddIcon } from "@chakra-ui/icons";
-import { Box, Button, Spacer } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Box, Button, Spacer, HStack } from "@chakra-ui/react";
 import HeartIcon from "../Icons/HeartIcon";
 import HomeIcon from "../Icons/HomeIcon";
 import QuestionIcon from "../Icons/QuestionMark";
 import SettingsIcon from "../Icons/SettingIcon";
 
-const  UserNavigation = () => {
-    return (
-      <Box bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
+const UserNavigation = () => {
+  return (
+    <Box>
+      <HStack bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
         <Box>
           <HomeIcon />
           <QuestionIcon />
-          <SettingsIcon/>
+          <SettingsIcon />
           <HeartIcon />
 
           <Button
@@ -33,8 +34,9 @@ const  UserNavigation = () => {
           </Button>
         </Box>
         <Spacer />
-      </Box>
-    );
-  }
+      </HStack>
+    </Box>
+  );
+};
 
-  export default UserNavigation;
+export default UserNavigation;

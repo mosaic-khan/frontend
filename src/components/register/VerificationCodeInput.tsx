@@ -7,25 +7,95 @@ import {
   PinInputField,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import { RedButton } from "../Buttons";
+import { WhiteButton } from "../Buttons";
+import { useEffect, useState } from "react";
+import userClient from "../../api/services/user-service";
 
 interface Props {
+  token: string;
   onSubmit: () => void;
   onCancel: () => void;
 }
-const VerificationCodeInput = ({ onSubmit, onCancel }: Props) => {
+const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
+  const toast = useToast();
+  const [code, setCode] = useState("");
+  const [result, setResult] = useState("");
+
+  const handleSubmit = () => {
+    if (code.length != 6) {
+      return;
+    }
+    console.log("code: ", code);
+    userClient
+      .codeVerification({
+        code: code,
+        signUpToken: token,
+      })
+      .then((res) => {
+        console.log("codeVerification response: ", res);
+        localStorage.setItem("jwt", res.response.jwtToken);
+        userClient
+          .getUserInfo(
+            {},
+            {
+              meta: {
+                Authorization: `Bearer ${res.response.jwtToken}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log("getUserInfo response: ", res);
+            if (res.response.user) {
+              localStorage.setItem("username", res.response.user.username);
+              setResult("ok");
+            } else {
+              setResult("request");
+            }
+          })
+          .catch((err) => {
+            console.log("getUserInfo error: ", err);
+            setResult("request");
+          });
+      })
+      .catch((err) => {
+        console.log("codeVerification error: ", err);
+        setResult("request");
+      });
+  };
+
+  useEffect(() => {
+    if (result === "request") {
+      toast({
+        description: <Text dir="rtl">خطا از سمت سرور</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
+    } else if (result == "ok") {
+      toast({
+        description: <Text dir="rtl">ثبت نام شما با موفقیت تایید شد</Text>,
+        status: "success",
+        isClosable: true,
+        duration: 4000,
+        position: "bottom-left",
+      });
+      onSubmit();
+    }
+    setResult("");
+  }, [result]);
+
   return (
-    <VStack spacing="30px">
+    <VStack spacing="30px" textColor="white">
       <Center>
         <Heading size="md">کد تایید</Heading>
       </Center>
       <VStack spacing="0px">
-        <Text fontSize="16px" color="gray.700">
-          ایمیل حاوی کد تایید برای شما ارسال شد
-        </Text>
+        <Text fontSize="16px">ایمیل حاوی کد تایید برای شما ارسال شد</Text>
         <Button
-          color="gray.500"
+          color="brand.50"
           variant="text"
           fontSize="12px"
           onClick={onCancel}
@@ -35,7 +105,14 @@ const VerificationCodeInput = ({ onSubmit, onCancel }: Props) => {
         </Button>
       </VStack>
       <HStack>
-        <PinInput>
+        <PinInput
+          type="alphanumeric"
+          onChange={(c) => {
+            setCode(c);
+          }}
+        >
+          <PinInputField borderColor={"brand.100"} />
+          <PinInputField borderColor={"brand.100"} />
           <PinInputField borderColor={"brand.100"} />
           <PinInputField borderColor={"brand.100"} />
           <PinInputField borderColor={"brand.100"} />
@@ -43,7 +120,7 @@ const VerificationCodeInput = ({ onSubmit, onCancel }: Props) => {
         </PinInput>
       </HStack>
       <Center>
-        <RedButton onClick={onSubmit}>تایید</RedButton>
+        <WhiteButton onClick={handleSubmit}>تایید</WhiteButton>
       </Center>
     </VStack>
   );

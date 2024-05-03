@@ -6,7 +6,7 @@ const SettingsIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
-      as={isHovered ?  IoSettings: IoSettingsOutline}
+      as={isHovered ? IoSettings : IoSettingsOutline}
       boxSize={6}
       color={isHovered ? "brand.800" : "black.100"}
       mr={4}
