@@ -28,6 +28,7 @@ import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserSideBar from "../components/Navigation/UserSideBar";
+import DeletPassChildren from "../editProfile/Accordions/DeletPassChildren";
 
 export const EditProfile = () => {
   // let Cities = ["تهران", "اسلامشهر", "کرج", "رباط کریم"];
@@ -269,7 +270,7 @@ export const EditProfile = () => {
           <ChangePassChildren />
         </ChangePassAccordion>
         <DeletePassAccordion>
-          <>TODO</>
+          <DeletPassChildren />
         </DeletePassAccordion>
       </VStack>
     </Box>

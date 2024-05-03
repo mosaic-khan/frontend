@@ -12,7 +12,7 @@ const DeletePassAccordion = ({ children }: Props) => {
     <AccordionComponent>
       <AccordionItem border="none">
         <DeletePassButton />
-        <AccordionPanel pb={4}>{children}</AccordionPanel>
+        <AccordionPanel pb={3}>{children}</AccordionPanel>
       </AccordionItem>
     </AccordionComponent>
   );
