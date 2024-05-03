@@ -22,6 +22,7 @@ import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
 import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
 import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
+import DeletPassChildren from "../editProfile/Accordions/DeletPassChildren";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserSideBar from "../components/Navigation/UserSideBar";
 import PerosonalInfo from "../editProfile/Profile/Personalnfo";
@@ -244,7 +245,7 @@ export const EditProfile = () => {
           <ChangePassChildren />
         </ChangePassAccordion>
         <DeletePassAccordion>
-          <>TODO</>
+          <DeletPassChildren />
         </DeletePassAccordion>
       </VStack>
     </Box>
