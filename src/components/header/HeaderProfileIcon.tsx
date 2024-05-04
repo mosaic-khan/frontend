@@ -5,7 +5,7 @@ const HeaderProfileIcon = () => {
     <HStack>
       <Avatar size="md" src="https://bit.ly/broken-link" />
       <Text color="gray.700" fontWeight="bold">
-        نام کاربری
+        {localStorage.getItem("username")}
       </Text>
     </HStack>
   );

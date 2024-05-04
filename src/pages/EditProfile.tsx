@@ -1,129 +1,253 @@
-import { ChevronDownIcon, EditIcon } from "@chakra-ui/icons";
+import { useRef, useState, useEffect } from "react";
+import { EditIcon } from "@chakra-ui/icons";
+import { ImageUpload } from "../components/UploadImage/ImageUpload";
+import { ImageCropper } from "../components/UploadImage/ImageCropper";
 import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  useDisclosure,
   Box,
-  FormControl,
-  FormLabel,
   HStack,
   Icon,
-  Image,
-  Input,
-  Select,
+  Img,
+  Avatar,
+  VStack,
+  Center,
 } from "@chakra-ui/react";
-import { ShamsiCalendarButton, GradientRedButton } from "../components/Buttons";
+import { GradientRedButton } from "../components/Buttons";
 import tomato from "../assets/tomato-logo.png";
+import ChangePassAccordion from "../editProfile/Accordions/ChangePassAccordion";
+import ChangePassChildren from "../editProfile/Accordions/ChangePassChildren";
+import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
+import BiographyBox from "../editProfile/Profile/Biography";
+import DeletPassChildren from "../editProfile/Accordions/DeletPassChildren";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
+import UserSideBar from "../components/Navigation/UserSideBar";
+import PerosonalInfo from "../editProfile/Profile/Personalnfo";
+import userClient from "../api/services/user-service";
+import { User } from "../api/clients/user";
 
 export const EditProfile = () => {
+  const inputRef = useRef<any>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [user, setUser] = useState<User>({
+    fName: "",
+    lName: "",
+    bio: "",
+    city: "",
+    birthDay: "",
+    profilePicUrl: "",
+    gender: "",
+    username: "",
+    email: "",
+  });
+
+  const onChooseImg = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+  const [image, setImage] = useState("");
+  const [currentPage, setCurrentPage] = useState("choose-img");
+  const [imgAfterCrop, setImgAfterCrop] = useState("");
+
+  const onImageSelected = (selectedImg: string) => {
+    setImage(selectedImg);
+    setCurrentPage("crop-img");
+  };
+
+  const onCropDone = (imgCroppedArea: string) => {
+    setImgAfterCrop(imgCroppedArea);
+    setCurrentPage("choose-img");
+  };
+
+  const handleSubmitProfile = () => {
+    userClient
+      .editProfileInfo(
+        {
+          bio: user.bio,
+          fName: user.fName,
+          lName: user.lName,
+          gender: user.gender,
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("editProfileInfo response: ", res);
+      })
+      .catch((err) => {
+        console.log("editProfileInfo error: ", err);
+      });
+  };
+
+  useEffect(() => {
+    userClient
+      .getUserInfo(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.user);
+        if (res.response.user) {
+          setUser(res.response.user);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (currentPage === "crop-img") {
+      onOpen();
+    }
+  }, [currentPage, onOpen]);
   return (
-    <Box
-    position="relative"
-      w="100%"
-      h="100vh"
-      bgColor="#ffd2c8"
-    >
-      <Image boxSize="250px" position="absolute" right='0' bottom="0" src={tomato} borderColor="#ffd2c8"></Image>
-      <Box position="absolute" width="800px" left="25%" top="25%">
-        <Box
-          boxShadow="2xl"
-          bg="gray.50"
-          h="400px"
-          w="600px"
-          color="white"
-          borderRadius="10px"
-          position="relative"
-          marginLeft="5%"
-          top="20px"
+    <Box position="relative" w="100%" h="100%" bgColor="gray.100">
+      <UserNavigation />
+      <UserSideBar />
+      <Img
+        boxSize="200px"
+        position="fixed"
+        right="60px"
+        bottom="0"
+        src={tomato}
+        borderColor="#ffd2c8"
+      ></Img>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          setCurrentPage("choose-img");
+        }}
+        isCentered
+        size="xxl"
+      >
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+
+        <ModalContent
+          width={"400px"}
+          height={"400px"}
+          borderRadius={0}
+          bg={"transparent"}
+          justifyContent={"center"}
         >
-          <HStack>
-            <Box
-              h="400px"
-              w="60%"
-              dir="rtl"
-              position="absolute"
-              right="0"
-              top="0"
-              paddingTop="30px"
-              paddingRight="30px"
-              textColor="black"
-              justifyContent="space-between"
-            >
-              <FormControl id="name" marginBottom="10px">
-                <FormLabel paddingRight="10px">نام</FormLabel>
-                <Input variant="filled" _placeholder={{ color: "gray.200" }} />
-              </FormControl>
+          <ModalCloseButton top={"0%"} left={"100%"} color={"black"} />
 
-              <FormControl id="FullName" marginBottom="10px">
-                <FormLabel paddingRight="10px">نام خانوادگی</FormLabel>
-                <Input variant="filled" _placeholder={{ color: "gray.200" }} />
-              </FormControl>
-              <FormControl id="sex" marginBottom="10px">
-                <FormLabel paddingRight="10px">جنسیت</FormLabel>
-                <Select
-                  variant="filled"
-                  _placeholder={{ color: "gray.200" }}
-                  icon={
-                    <ChevronDownIcon marginLeft="30px" paddingRight="10px" />
-                  }
+          <ImageCropper
+            image={image}
+            onCropDone={(imgCroppedArea: string) => {
+              onCropDone(imgCroppedArea);
+              onClose();
+              setCurrentPage("choose-img");
+            }}
+          />
+        </ModalContent>
+      </Modal>
+      <VStack boxSize="80%" marginLeft="30px" marginTop="10px">
+        <Box position="relative" width="900px" height="600px">
+          <Center>
+            <Box
+              boxShadow="2xl"
+              bg="gray.50"
+              h="500px"
+              w="800px"
+              color="white"
+              borderRadius="lg"
+              position="relative"
+              top="20px"
+            >
+              <HStack>
+                <PerosonalInfo user={user} setUser={setUser} />
+
+                <VStack
+                  width="300px"
+                  height="500px"
+                  justifyContent="space-between"
+                  spacing="50px"
                 >
-                  <option value="female">خانم</option>
-                  <option value="male">آقا</option>
-                  <option value="other">ترجیح می‌دهم نگویم</option>
-                </Select>
-              </FormControl>
+                  <Box
+                    position="absolute"
+                    width="150px"
+                    height="150px"
+                    top="10%"
+                  >
+                    {/*Icon with avatar*/}
+                    <Box
+                      width="100%"
+                      height="100%"
+                      borderRadius="full"
+                      overflow="hidden"
+                    >
+                      {/* Icon */}
+                      <Box
+                        position="absolute"
+                        bottom="0"
+                        right="0"
+                        width="40px"
+                        height="40px"
+                        borderRadius={100}
+                        bg="white"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        boxShadow="0 2px 4px rgba(0,0,0,0.1)"
+                        zIndex={1}
+                      >
+                        <Icon
+                          as={EditIcon}
+                          color="gray.600"
+                          onClick={onChooseImg}
+                          cursor="pointer"
+                        />
+                        {currentPage === "choose-img" ? (
+                          <ImageUpload
+                            ref={inputRef}
+                            onImageSelected={onImageSelected}
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </Box>
 
-              <FormControl id="birthday" marginBottom="10px">
-                <FormLabel paddingRight="10px">تاریخ تولد</FormLabel>
-                <ShamsiCalendarButton></ShamsiCalendarButton>
-              </FormControl>
+                      <Avatar
+                        src={imgAfterCrop}
+                        width="100%"
+                        height="100%"
+                        borderRadius={100}
+                      ></Avatar>
+                    </Box>
+                  </Box>
+                  <BiographyBox user={user} setUser={setUser} />
+                </VStack>
+              </HStack>
             </Box>
-            <Box
-              position="absolute"
-              width="170px"
-              height="170px"
-              left="5%"
-              top="15%"
-            >
-              <Box
-                width="100%"
-                height="100%"
-                borderRadius="full"
-                overflow="hidden"
-              >
-                <Image
-                  src="https://bit.ly/dan-abramov"
-                  alt="Profile Image"
-                  fallbackSrc="https://via.placeholder.com/150"
-                  width="100%"
-                  height="100%"
-                />
-              </Box>
-              <Box
-                position="absolute"
-                bottom="0"
-                right="0"
-                width="40px"
-                height="40px"
-                borderRadius="full"
-                bg="white"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                boxShadow="0 2px 4px rgba(0,0,0,0.1)"
-              >
-                <Icon
-                  as={EditIcon}
-                  color="gray.600"
-                  onClick={() => console.log("TODO")}
-                  cursor="pointer"
-                />
-              </Box>
-            </Box>
-          </HStack>
+          </Center>
+          <GradientRedButton
+            position="absolute"
+            bottom="50px"
+            onClick={handleSubmitProfile}
+          >
+            ذخیره
+          </GradientRedButton>
         </Box>
-
-        <GradientRedButton position="relative" bottom="10px">
-          ذخیره
-        </GradientRedButton>
-      </Box>
+        <ChangePassAccordion>
+          <ChangePassChildren />
+        </ChangePassAccordion>
+        <DeletePassAccordion>
+          <DeletPassChildren />
+        </DeletePassAccordion>
+      </VStack>
     </Box>
   );
 };

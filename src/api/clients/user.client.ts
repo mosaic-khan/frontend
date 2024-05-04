@@ -4,6 +4,7 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { UserAPI } from "./user";
+import type { DeleteAccountRequest } from "./user";
 import type { GetCitiesResponse } from "./user";
 import type { GetCitiesRequest } from "./user";
 import type { GetProfileResponse } from "./user";
@@ -98,6 +99,10 @@ export interface IUserAPIClient {
      * @generated from protobuf rpc: GetCities(KhanAPI.GetCitiesRequest) returns (KhanAPI.GetCitiesResponse);
      */
     getCities(input: GetCitiesRequest, options?: RpcOptions): UnaryCall<GetCitiesRequest, GetCitiesResponse>;
+    /**
+     * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
+     */
+    deleteAccount(input: DeleteAccountRequest, options?: RpcOptions): UnaryCall<DeleteAccountRequest, Empty>;
 }
 /**
  * @generated from protobuf service KhanAPI.UserAPI
@@ -219,5 +224,12 @@ export class UserAPIClient implements IUserAPIClient, ServiceInfo {
     getCities(input: GetCitiesRequest, options?: RpcOptions): UnaryCall<GetCitiesRequest, GetCitiesResponse> {
         const method = this.methods[15], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetCitiesRequest, GetCitiesResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeleteAccount(KhanAPI.DeleteAccountRequest) returns (google.protobuf.Empty);
+     */
+    deleteAccount(input: DeleteAccountRequest, options?: RpcOptions): UnaryCall<DeleteAccountRequest, Empty> {
+        const method = this.methods[16], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeleteAccountRequest, Empty>("unary", this._transport, method, opt, input);
     }
 }
