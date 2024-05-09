@@ -23,8 +23,8 @@ const ChakraBox = chakra(motion.div, {
 const UserOfTopUsers = ({ Username, image }: Props) => {
   const [isHover, setHover] = useState(false);
 
-  const boxRef = useRef(null);
-  const imgRef = useRef(null);
+  const boxRef = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLInputElement>(null);
 
   return (
     <LinkBox
