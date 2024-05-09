@@ -9,8 +9,8 @@ const theme = extendTheme({
   config,
   colors: colors,
   fonts: {
-    heading: `Vazir`,
-    body: `Vazir`,
+    heading: `Vazirmatn`,
+    body: `Vazirmatn`,
   },
 });
 
