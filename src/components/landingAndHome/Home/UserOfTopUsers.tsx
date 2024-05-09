@@ -8,7 +8,7 @@ import {
   shouldForwardProp,
 } from "@chakra-ui/react";
 import { isValidMotionProp, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface Props {
   Username: string;
