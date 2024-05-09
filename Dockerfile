@@ -1,8 +1,15 @@
-FROM node:18-apline
+FROM node:21-alpine
+
 WORKDIR /app
-COPY package.json .
+
+COPY package*.json  .
+
 RUN npm install
+
 COPY . .
+
 RUN npm run build
-EXPOSE 8081
+
+EXPOSE 3000
+
 CMD ["npm", "run", "preview"]
