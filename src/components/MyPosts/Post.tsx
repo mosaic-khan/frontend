@@ -1,12 +1,7 @@
-import React, { ReactNode } from "react";
-
 import {
   VStack,
-  Heading,
   Grid,
   GridItem,
-  Box,
-  Text,
   LinkOverlay,
   Image,
   LinkBox,
@@ -24,7 +19,7 @@ type Post = {
 };
 
 const Post = () => {
-  const [posts, setPosts] = useState<Post[]>([
+  const [posts] = useState<Post[]>([
     {
       id: 1,
       title: "Post 1",

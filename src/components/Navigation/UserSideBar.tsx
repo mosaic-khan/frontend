@@ -1,7 +1,6 @@
 import { SearchIcon, BellIcon, SettingsIcon } from "@chakra-ui/icons";
 import { Box, HStack, VStack, Text, Image } from "@chakra-ui/react";
 import { BiUser } from "react-icons/bi";
-import Header from "../header/Header";
 
 const UserSideBar = () => {
   return (
