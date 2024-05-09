@@ -1,4 +1,4 @@
-import { Box, Circle, HStack, Heading, VStack, Image } from "@chakra-ui/react";
+import { Box, HStack, Heading, VStack, Image } from "@chakra-ui/react";
 import UserOfTopUsers from "./UserOfTopUsers";
 import Image1 from "../../../assets/Userpic3.png";
 import Image2 from "../../../assets/chef_kitchen.jpg";

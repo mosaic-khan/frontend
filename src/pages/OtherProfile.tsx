@@ -1,6 +1,6 @@
 import { Box, HStack, VStack } from "@chakra-ui/react";
-import UserNavigation from "../components/navigation/ProfileNavigation";
-import UserSideBar from "../components/navigation/UserSideBar";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
+import UserSideBar from "../components/Navigation/UserSideBar";
 import OtherHeader from "../components/header/OtherHeader";
 
 const OtherProfile = () => {

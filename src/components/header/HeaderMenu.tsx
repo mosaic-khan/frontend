@@ -1,4 +1,4 @@
-import { Box, Center, HStack, ScaleFade, VStack } from "@chakra-ui/react";
+import { Box, Center, ScaleFade, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { chakra, shouldForwardProp } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { Input, Button, VStack, Flex, Box, Heading } from "@chakra-ui/react";
 
 const TagBox = () => {
