@@ -8,6 +8,7 @@ import NewPost from "./pages/NewPost";
 import { ResetPassword } from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
 import OtherProfile from "./pages/OtherProfile";
+import PostPage from "./pages/PostPage";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -24,6 +25,7 @@ function App() {
           <Route path="ResetPassword" element={<ResetPassword/>}/>  
           <Route path="MyProfile" element={<UserProfile/>}/>
           <Route path="OtherProfile" element={<OtherProfile/>}/> 
+          <Route path="Post" element={<PostPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
