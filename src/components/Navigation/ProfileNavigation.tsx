@@ -4,7 +4,6 @@ import HeartIcon from "../Icons/HeartIcon";
 import HomeIcon from "../Icons/HomeIcon";
 import QuestionIcon from "../Icons/QuestionMark";
 import SettingsIcon from "../Icons/SettingIcon";
-
 const UserNavigation = () => {
   return (
     <Box>
@@ -14,7 +13,6 @@ const UserNavigation = () => {
           <QuestionIcon />
           <SettingsIcon />
           <HeartIcon />
-
           <Button
             boxSize="30px"
             bgGradient="linear(to-bl, brand.400, brand.500, brand.700)"
