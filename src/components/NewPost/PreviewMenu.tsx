@@ -1,28 +1,18 @@
-import React from "react";
 import {
   MenuButton,
   IconButton,
   MenuList,
   MenuItem,
   Menu,
-  Icon,
 } from "@chakra-ui/react";
 import {
-  EditIcon,
-  HamburgerIcon,
-  StarIcon,
   QuestionOutlineIcon,
   ViewOffIcon,
   WarningIcon,
 } from "@chakra-ui/icons";
-import {
-  IoEllipsisHorizontal,
-  IoPerson,
-  IoPaperPlaneOutline,
-  IoHeart,
-} from "react-icons/io5";
+import { IoEllipsisHorizontal, IoPerson } from "react-icons/io5";
 
-import { BsHeart, BsHeartFill, BsStar } from "react-icons/bs";
+import { BsStar } from "react-icons/bs";
 
 const PreviewMenu = () => {
   return (

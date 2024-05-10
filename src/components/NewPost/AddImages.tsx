@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, VStack, Image, IconButton, Text } from "@chakra-ui/react";
+import { Box, VStack, Image, IconButton } from "@chakra-ui/react";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import Slideshow from "./PostPreview";
 

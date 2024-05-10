@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Box, Text, Input, useToast } from "@chakra-ui/react";
 import { User } from "../../api/clients/user";
 

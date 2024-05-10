@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Box, Heading, Textarea } from "@chakra-ui/react";
 
 const CaptionBox = ({
@@ -15,7 +15,7 @@ const CaptionBox = ({
     const persianRegex = /[\u0600-\u06FF\u0750-\u077F]/;
     return persianRegex.test(text.charAt(0)) ? "rtl" : "ltr";
   };
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCaption(event.target.value);
   };
   return (

@@ -1,7 +1,5 @@
-import { EditIcon } from "@chakra-ui/icons";
-
-import { Box, Button, Icon, Input } from "@chakra-ui/react";
-import { useRef, forwardRef, ChangeEventHandler } from "react";
+import { Input } from "@chakra-ui/react";
+import { forwardRef, ChangeEventHandler } from "react";
 
 export interface ImageUploadProps {
   onImageSelected: (selectedImg: string) => void;
@@ -14,6 +12,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = function (e) {
+          console.debug(e);
           if (reader.result) onImageSelected(reader.result as string);
         };
       }
