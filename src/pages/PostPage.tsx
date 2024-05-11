@@ -18,17 +18,17 @@ const H = 500;
 const W = 1000;
 const PostPage = () => {
   return (
-    <Box h="100vh" bgColor="gray.100" position="relative">
-      <Box position="fixed" w="full" h="10%">
+    <Box h="100vh" bgColor="gray.100">
+      <Box w="full" h="10%" position="fixed" zIndex={10}>
         {/* navbar */}
         <UserNavigation />
       </Box>
-      <Center position="relative" boxSize="100%" paddingBottom={10}>
+      <Center position="relative">
         <CrossButton
-          onClick={() => console.log("todo")}
           position="absolute"
-          top="22%"
-          left={"200px"}
+          left="200px"
+          top="20%"
+          onClick={() => console.log("todo")}
         />
         <HStack
           h={`${H}px`}
