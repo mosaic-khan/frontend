@@ -4,9 +4,13 @@ import HeartIcon from "../Icons/HeartIcon";
 import HomeIcon from "../Icons/HomeIcon";
 import QuestionIcon from "../Icons/QuestionMark";
 import SettingsIcon from "../Icons/SettingIcon";
-const UserNavigation = () => {
+import UserSideBar from "./UserSideBar";
+interface Props {
+  isTrue: Boolean;
+}
+const UserNavigation = (isTrue: Props) => {
   return (
-    <Box>
+    <Box position="fixed" w="100%" zIndex="10">
       <HStack bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
         <Box>
           <HomeIcon />
@@ -32,6 +36,8 @@ const UserNavigation = () => {
           </Button>
         </Box>
         <Spacer />
+
+        {isTrue ? <UserSideBar /> : <></>}
       </HStack>
     </Box>
   );

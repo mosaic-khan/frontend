@@ -110,26 +110,27 @@ export const GradientRedButton = ({ children, ...rest }: Props) => {
 
 export const ShamsiCalendarButton = () => {
   return (
-    <DatePicker
-      dateFormat="yy/MM/dd"
-      placeholder="--/--/--"
-      persianDigits
-      calendarProps={{
-        theme: brandCalendar,
-      }}
-      style={{
-        width: "100%",
-        backgroundColor: "#EDF2F7",
-        borderRadius: "0.375rem",
-        padding: "0.5rem",
-        color: "black",
-        fontSize: "1rem",
-      }}
-    ></DatePicker>
+      <DatePicker
+        dateFormat="yy/MM/dd"
+        placeholder="--/--/--"
+        persianDigits
+        calendarProps={{
+          theme: brandCalendar,
+        }}
+        style={{
+          width: "100%",
+          backgroundColor: "#EDF2F7",
+          borderRadius: "0.375rem",
+          padding: "0.5rem",
+          color: "black",
+          fontSize: "1rem",
+        }}
+      ></DatePicker>
+      
   );
 };
 
-export const BackButton = ({onClick}:ButtonProps) => {
+export const BackButton = ({ onClick }: ButtonProps) => {
   return (
     <IconButton
       h="30px"
