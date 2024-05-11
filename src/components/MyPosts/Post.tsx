@@ -1,15 +1,14 @@
 import {
-  VStack,
   Grid,
   GridItem,
-  LinkOverlay,
   Image,
-  LinkBox,
+  Box,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import Image1 from "../../assets/ForgotPass_tomato.png";
-import Image2 from "../../assets/Burger_2_with_icons.png";
-import Image3 from "../../assets/Fruits.png";
+import Image1 from "../../assets/Home1.jpg";
+import Image2 from "../../assets/3.webp";
+import Image3 from "../../assets/Home4.jpg";
+import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
 type Post = {
   id: number;
@@ -42,7 +41,7 @@ const Post = () => {
       id: 4,
       title: "Post 4",
       content: "This is the content of Post 2",
-      imageUrl: Image2,
+      imageUrl: Image4,
     },
   ]);
 
@@ -61,31 +60,38 @@ const Post = () => {
   }, []);
 
   return (
-    <VStack spacing={8} alignItems="flex-start" padding={4}>
-      <Grid templateColumns="repeat(3, 1fr)" gap={4} width="100%">
+    <Box bg="white" w="85%" boxShadow="md" borderRadius="lg" marginTop="10px">
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        justifyItems="center"
+        rowGap={10}
+        paddingTop={10}
+        paddingBottom={10}
+      >
         {posts.map((post) => (
-          <GridItem key={post.id}>
-            <LinkBox
-              p={4}
-              borderWidth="1px"
-              borderRadius="md"
-              height="200px"
-              width="200px"
-            >
-              <LinkOverlay href="#">
-                <Image
-                  width="100%"
-                  height="100%"
-                  src={post.imageUrl}
-                  alt={post.title}
-                  mb={4}
-                />
-              </LinkOverlay>
-            </LinkBox>
+          <GridItem
+            key={post.id}
+            height="300px"
+            width="300px"
+            borderRadius="xl"
+            overflow="hidden"
+          >
+            {/* <LinkBoxheight="300px" width="300px" bg="black">
+              <LinkOverlay href="#"> */}
+            <Image
+              width="100%"
+              boxShadow="md"
+              height="100%"
+              src={post.imageUrl}
+              alt={post.title}
+              mb={4}
+            />
+            {/* </LinkOverlay>
+            </LinkBox> */}
           </GridItem>
         ))}
       </Grid>
-    </VStack>
+    </Box>
   );
 };
 
