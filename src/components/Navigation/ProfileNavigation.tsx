@@ -5,10 +5,12 @@ import HomeIcon from "../Icons/HomeIcon";
 import QuestionIcon from "../Icons/QuestionMark";
 import SettingsIcon from "../Icons/SettingIcon";
 import UserSideBar from "./UserSideBar";
+import { useNavigate } from "react-router-dom";
 interface Props {
   isTrue: Boolean;
 }
 const UserNavigation = (isTrue: Props) => {
+  const navigate = useNavigate();
   return (
     <Box position="fixed" w="100%" zIndex="10">
       <HStack bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
@@ -24,6 +26,7 @@ const UserNavigation = (isTrue: Props) => {
             borderColor="gray.200"
             boxShadow="xl"
             fontWeight="bold"
+            onClick={() => navigate("/newpost")}
             _hover={{
               transition: "background-color 0.4s ease-in-out",
               fontWeight: "bold",
