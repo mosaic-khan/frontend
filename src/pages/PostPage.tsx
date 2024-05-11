@@ -14,6 +14,8 @@ import LikeIcon from "../components/Icons/LikeIcon";
 import CommentsIcon from "../components/Icons/CommensIcon";
 import { CrossButton } from "../components/Buttons";
 import CaptionDetails from "../components/postPage/CaptionSection";
+import userClient from "../../api/services/user-service";
+import PostClient from "../../api/service";
 const H = 500;
 const W = 1000;
 const PostPage = () => {
@@ -34,8 +36,6 @@ const PostPage = () => {
           <HStack
             h={`${H}px`}
             w={`${W}px`}
-            // marginTop="10%"
-            marginTop="0%"
             borderRadius="md"
             overflow="hidden"
             bg="gray.50"

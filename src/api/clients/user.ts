@@ -324,13 +324,9 @@ export interface ChangePasswordRequest {
  */
 export interface ChangeProfilePicRequest {
     /**
-     * @generated from protobuf field: string newProfilePicPath = 1;
+     * @generated from protobuf field: string profilePicToken = 1;
      */
-    newProfilePicPath: string;
-    /**
-     * @generated from protobuf field: string accessToken = 2;
-     */
-    accessToken: string;
+    profilePicToken: string;
 }
 // EditProfile End
 
@@ -1522,14 +1518,12 @@ export const ChangePasswordRequest = new ChangePasswordRequest$Type();
 class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> {
     constructor() {
         super("KhanAPI.ChangeProfilePicRequest", [
-            { no: 1, name: "newProfilePicPath", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "accessToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "profilePicToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ChangeProfilePicRequest>): ChangeProfilePicRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.newProfilePicPath = "";
-        message.accessToken = "";
+        message.profilePicToken = "";
         if (value !== undefined)
             reflectionMergePartial<ChangeProfilePicRequest>(this, message, value);
         return message;
@@ -1539,11 +1533,8 @@ class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string newProfilePicPath */ 1:
-                    message.newProfilePicPath = reader.string();
-                    break;
-                case /* string accessToken */ 2:
-                    message.accessToken = reader.string();
+                case /* string profilePicToken */ 1:
+                    message.profilePicToken = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1557,12 +1548,9 @@ class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> 
         return message;
     }
     internalBinaryWrite(message: ChangeProfilePicRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string newProfilePicPath = 1; */
-        if (message.newProfilePicPath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.newProfilePicPath);
-        /* string accessToken = 2; */
-        if (message.accessToken !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.accessToken);
+        /* string profilePicToken = 1; */
+        if (message.profilePicToken !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.profilePicToken);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
