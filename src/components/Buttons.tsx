@@ -5,6 +5,7 @@ import "@react-shamsi/timepicker/dist/styles.css";
 import { DatePicker } from "@react-shamsi/datepicker";
 import { TThemeClasses } from "@react-shamsi/calendar";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { IoCloseOutline } from "react-icons/io5";
 
 const brandCalendar: TThemeClasses = {
   headerBackgroundColor: "#FF004B",
@@ -129,7 +130,7 @@ export const ShamsiCalendarButton = () => {
   );
 };
 
-export const BackButton = ({onClick}:ButtonProps) => {
+export const BackButton = ({ onClick }: ButtonProps) => {
   return (
     <IconButton
       h="30px"
@@ -144,6 +145,35 @@ export const BackButton = ({onClick}:ButtonProps) => {
         transform: "translateY(-3px)",
       }}
       onClick={onClick}
+    ></IconButton>
+  );
+};
+
+export const CrossButton = ({ onClick, ...rest }: ButtonProps) => {
+  return (
+    <IconButton
+      aria-label="Close post"
+      icon={<IoCloseOutline />}
+      bgGradient="radial-gradient(ellipse at top, #B10019, #8C002A), radial-gradient(ellipse at bottom, #8C002A, #B10019)"
+      color="white"
+      variant="outline"
+      borderColor="white"
+      borderWidth="thin"
+      boxShadow="2xl"
+      zIndex={10}
+      size="lg"
+      isRound={true}
+      onClick={onClick}
+      _hover={{
+        transition: "0.7s easeInOut",
+        transform: "translateY(-1px)",
+      }}
+      _active={{
+        bgGradient:
+          "radial-gradient(ellipse at bottom, #B10019, #8C002A), radial-gradient(ellipse at top, #8C002A, #B10019)",
+        borderColor: "white",
+      }}
+      {...rest}
     ></IconButton>
   );
 };
