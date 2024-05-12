@@ -9,20 +9,8 @@ on:
     - feature/dockerize
 
 jobs:
-
-  manual-trigger-build:
-    runs-on: ubuntu-latest
-    outputs:
-      CONTINUE_JOBS: ${{ steps.manual-trigger.outputs.CONTINUE_JOBS }}
-    steps:
-    - name: manual-trigger
-      id: manual-trigger
-      uses: benhamiltonpro/manual-trigger@v1
-      with:
-        RUN_NAME: "build"
         
   build:
-    needs: manual-trigger-build
     runs-on: ubuntu-latest
     steps:
     -
