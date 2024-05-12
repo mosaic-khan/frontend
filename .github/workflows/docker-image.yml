@@ -10,15 +10,7 @@ on:
 
 jobs:
 
-  tsc:
-    runs-on: ubuntu-latest
-    steps:
-    -
-      name: Npm run tsc
-      run: npm run tsc
-      
   manual-trigger-build:
-    needs: tsc
     runs-on: ubuntu-latest
     outputs:
       CONTINUE_JOBS: ${{ steps.manual-trigger.outputs.CONTINUE_JOBS }}

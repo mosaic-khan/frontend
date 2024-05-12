@@ -120,6 +120,7 @@ export const EditProfile = () => {
         right="60px"
         bottom="0"
         src={tomato}
+        zIndex={10}
         borderColor="#ffd2c8"
       ></Img>
       <Modal
