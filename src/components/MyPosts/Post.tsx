@@ -1,12 +1,4 @@
-import {
-  Grid,
-  GridItem,
-  Image,
-  Box,
-  HStack,
-  VStack,
-  Text,
-} from "@chakra-ui/react";
+import { Grid, GridItem, Image, Box, HStack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import Image1 from "../../assets/Home1.jpg";
 import Image2 from "../../assets/3.webp";
@@ -23,7 +15,6 @@ type Post = {
 };
 
 const Post = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const [posts] = useState<Post[]>([
     {
       id: 1,
