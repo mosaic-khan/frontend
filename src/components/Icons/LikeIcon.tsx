@@ -29,6 +29,7 @@ const LikeIcon = ({ isHoveredColor, color, boxSize, marginRight }: Props) => {
       _hover={{
         cursor: "pointer",
         transform: "scale(1.1)",
+        transition: "transform 0.3s ease-in-out",
       }}
     />
   );
