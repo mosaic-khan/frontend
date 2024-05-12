@@ -7,9 +7,9 @@ import Post from "../components/MyPosts/Post";
 const UserProfile = () => {
   return (
     <Box bgSize="contain" bgColor="gray.100" position="relative">
-       <Flex position="fixed" w="100%" zIndex="10" bg="white">
+      <Flex position="fixed" w="100%" zIndex="10" bg="white">
         {/* navbar */}
-        <UserNavigation isTrue={true}/>
+        <UserNavigation isTrue={true} />
       </Flex>
       <Box h="90%" position="relative" paddingTop={10}>
         <HStack>
@@ -18,7 +18,7 @@ const UserProfile = () => {
           <VStack w="85%" h="full">
             {/* Header */}
             <UserHeader />
-            <Post/>
+            <Post />
             {/* Latest Box */}
             <Box w="full"></Box>
           </VStack>

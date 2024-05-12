@@ -3,6 +3,9 @@ import {
   GridItem,
   Image,
   Box,
+  HStack,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import Image1 from "../../assets/Home1.jpg";
@@ -10,6 +13,8 @@ import Image2 from "../../assets/3.webp";
 import Image3 from "../../assets/Home4.jpg";
 import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
+import LikeIcon from "../Icons/LikeIcon";
+import CommentsIcon from "../Icons/CommensIcon";
 type Post = {
   id: number;
   title: string;
@@ -18,6 +23,7 @@ type Post = {
 };
 
 const Post = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const [posts] = useState<Post[]>([
     {
       id: 1,
@@ -58,7 +64,6 @@ const Post = () => {
         console.log("error fetching post: ", err);
       });
   }, []);
-
   return (
     <Box bg="white" w="85%" boxShadow="md" borderRadius="lg" marginTop="10px">
       <Grid
@@ -78,14 +83,54 @@ const Post = () => {
           >
             {/* <LinkBoxheight="300px" width="300px" bg="black">
               <LinkOverlay href="#"> */}
-            <Image
-              width="100%"
-              boxShadow="md"
-              height="100%"
-              src={post.imageUrl}
-              alt={post.title}
-              mb={4}
-            />
+            <Box
+              position="relative"
+              _hover={{
+                cursor: "pointer",
+                "& > img": {
+                  transform: "scale(1.04)",
+                  transition: "transform 0.2s ease-in-out",
+                  filter: "auto",
+                  brightness: "40%",
+                },
+                "& > div": {
+                  display: "block",
+                },
+              }}
+            >
+              <Image
+                width="100%"
+                boxShadow="md"
+                height="100%"
+                src={post.imageUrl}
+                alt={post.title}
+                mb={4}
+              />
+              <Box
+                position="absolute"
+                top="50%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                display="none"
+              >
+                <HStack spacing={4}>
+                  <LikeIcon isHoveredColor="white" color="white" boxSize={8} />
+                  <Text fontSize="14" textColor="white">
+                    hello
+                  </Text>
+
+                  <CommentsIcon
+                    isHoveredColor="white"
+                    color="white"
+                    boxSize={8}
+                  />
+                  <Text fontSize="14" textColor="white">
+                    hello
+                  </Text>
+                </HStack>
+              </Box>
+            </Box>
+
             {/* </LinkOverlay>
             </LinkBox> */}
           </GridItem>

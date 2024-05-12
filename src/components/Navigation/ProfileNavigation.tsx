@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   isTrue: Boolean;
 }
-const UserNavigation = (isTrue: Props) => {
+const UserNavigation = ({ isTrue }: Props) => {
+  console.log(isTrue);
   const navigate = useNavigate();
   return (
     <Box position="fixed" w="100%" zIndex="10">
@@ -38,9 +39,8 @@ const UserNavigation = (isTrue: Props) => {
             <AddIcon boxSize={3} color="black" />
           </Button>
         </Box>
+        {isTrue && <UserSideBar />}
         <Spacer />
-
-        {isTrue ? <UserSideBar /> : <></>}
       </HStack>
     </Box>
   );
