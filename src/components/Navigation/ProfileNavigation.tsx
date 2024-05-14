@@ -10,7 +10,7 @@ interface Props {
   isTrue: Boolean;
 }
 const UserNavigation = ({ isTrue }: Props) => {
-  console.log(isTrue);
+  console.debug(isTrue);
   const navigate = useNavigate();
   return (
     <Box position="fixed" w="100%" zIndex="10">

@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 import { Box, Text, Input, useToast } from "@chakra-ui/react";
-import { User } from "../../api/clients/user";
+import { UserEditInfo } from "../../pages/EditProfile";
 
 interface Props {
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
+  userEditInfo: UserEditInfo;
+  setUserEditInfo: Dispatch<SetStateAction<UserEditInfo>>;
 }
 
-const BiographyBox = ({ user, setUser }: Props) => {
+const BiographyBox = ({ userEditInfo, setUserEditInfo }: Props) => {
   const toast = useToast();
 
   const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,10 @@ const BiographyBox = ({ user, setUser }: Props) => {
         isClosable: true,
       });
     } else {
-      setUser({ ...user, bio: inputBio });
+      setUserEditInfo({
+        ...userEditInfo,
+        user: { ...userEditInfo.user, bio: inputBio },
+      });
     }
   };
 
@@ -37,7 +40,9 @@ const BiographyBox = ({ user, setUser }: Props) => {
       position="absolute"
       top="50%"
       border="1px solid"
-      borderColor={user.bio.split(" ").length > 50 ? "red.500" : "gray.200"}
+      borderColor={
+        userEditInfo.user.bio.split(" ").length > 50 ? "red.500" : "gray.200"
+      }
       dir="rtl"
     >
       <Text fontSize="md" color="gray.600" mb={1}>
@@ -45,7 +50,7 @@ const BiographyBox = ({ user, setUser }: Props) => {
       </Text>
       <Input
         variant="filled"
-        value={user.bio}
+        value={userEditInfo.user.bio}
         onChange={handleBioChange}
         placeholder="توضیحی کوتاه درباره خود.."
         fontSize="xs"
