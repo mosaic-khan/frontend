@@ -32,7 +32,6 @@ const CitySuggestion = ({ inputText, onSelect }: Props) => {
           }
         )
         .then((res) => {
-          console.log("suggestIngredient response: ", res);
           setSuggestions(res.response.cities);
         })
         .catch((err) => {

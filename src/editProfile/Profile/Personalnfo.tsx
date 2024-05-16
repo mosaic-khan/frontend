@@ -10,10 +10,10 @@ import {
   PopoverTrigger,
   useBoolean,
 } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import DatePickerInput from "./DatePickerInput";
-import CitySuggestion from "./citySuggestion";
 import { UserEditInfo } from "../../pages/EditProfile";
+import CitySuggestion from "./CitySuggestion";
 
 interface Props {
   userEditInfo: UserEditInfo;
