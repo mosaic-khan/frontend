@@ -10,10 +10,10 @@ import {
   PopoverTrigger,
   useBoolean,
 } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import DatePickerInput from "./DatePickerInput";
-import CitySuggestion from "./citySuggestion";
 import { UserEditInfo } from "../../pages/EditProfile";
+import CitySuggestion from "./CitySuggestion";
 
 interface Props {
   userEditInfo: UserEditInfo;
@@ -95,7 +95,8 @@ const PersonalInfo = ({ userEditInfo, setUserEditInfo }: Props) => {
         >
           <option value="female">خانم</option>
           <option value="male">آقا</option>
-          <option value="other">ترجیح می‌دهم نگویم</option>
+          <option value="other">دیگر</option>
+          <option value="prefer not to say">ترجیح می‌دهم نگویم</option>
         </Select>
       </FormControl>
 

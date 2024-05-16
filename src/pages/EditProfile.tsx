@@ -231,7 +231,14 @@ export const EditProfile = () => {
                       </Box>
 
                       <Avatar
-                        src={imgAfterCrop}
+                        src={
+                          imgAfterCrop != ""
+                            ? imgAfterCrop
+                            : userEdit.user.profilePicUrl != ""
+                            ? "http://back.khanmedia.ir:9290/" +
+                              userEdit.user.profilePicUrl
+                            : ""
+                        }
                         width="100%"
                         height="100%"
                         borderRadius={100}
