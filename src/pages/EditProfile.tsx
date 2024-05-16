@@ -66,6 +66,24 @@ export const EditProfile = () => {
 
   const onCropDone = (imgCroppedArea: string) => {
     setImgAfterCrop(imgCroppedArea);
+    userClient
+      .changeProfilePic(
+        {
+          profilePicToken: imgAfterCrop,
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("editProfileInfo response: ", res);
+      })
+      .catch((err) => {
+        console.log("editProfileInfo error: ", err);
+      });
+
     setCurrentPage("choose-img");
   };
 

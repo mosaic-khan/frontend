@@ -85,6 +85,18 @@ export interface Profile {
      * @generated from protobuf field: string profilePicUrl = 8;
      */
     profilePicUrl: string;
+    /**
+     * @generated from protobuf field: int64 followerCnt = 9;
+     */
+    followerCnt: bigint;
+    /**
+     * @generated from protobuf field: int64 followingCnt = 10;
+     */
+    followingCnt: bigint;
+    /**
+     * @generated from protobuf field: bool isFollowed = 11;
+     */
+    isFollowed: boolean;
 }
 /**
  * @generated from protobuf message KhanAPI.RefreshTokenResponse
@@ -324,13 +336,9 @@ export interface ChangePasswordRequest {
  */
 export interface ChangeProfilePicRequest {
     /**
-     * @generated from protobuf field: string newProfilePicPath = 1;
+     * @generated from protobuf field: string profilePicToken = 1;
      */
-    newProfilePicPath: string;
-    /**
-     * @generated from protobuf field: string accessToken = 2;
-     */
-    accessToken: string;
+    profilePicToken: string;
 }
 // EditProfile End
 
@@ -391,6 +399,99 @@ export interface DeleteAccountRequest {
      * @generated from protobuf field: string password = 1;
      */
     password: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchUsernameRequest
+ */
+export interface SearchUsernameRequest {
+    /**
+     * @generated from protobuf field: string username = 1;
+     */
+    username: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchUsernameResponse
+ */
+export interface SearchUsernameResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"];
+     */
+    profilePreview: ProfilePreview[];
+}
+/**
+ * @generated from protobuf message KhanAPI.ProfilePreview
+ */
+export interface ProfilePreview {
+    /**
+     * @generated from protobuf field: int64 profileID = 1;
+     */
+    profileID: bigint;
+    /**
+     * @generated from protobuf field: string username = 2;
+     */
+    username: string;
+    /**
+     * @generated from protobuf field: string name = 3;
+     */
+    name: string;
+    /**
+     * @generated from protobuf field: string profilePicUrl = 4;
+     */
+    profilePicUrl: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.FollowRequest
+ */
+export interface FollowRequest {
+    /**
+     * @generated from protobuf field: int64 profileID = 1;
+     */
+    profileID: bigint;
+}
+/**
+ * @generated from protobuf message KhanAPI.UnfollowRequest
+ */
+export interface UnfollowRequest {
+    /**
+     * @generated from protobuf field: int64 profileID = 1;
+     */
+    profileID: bigint;
+}
+/**
+ * @generated from protobuf message KhanAPI.GetFollowingListRequest
+ */
+export interface GetFollowingListRequest {
+    /**
+     * @generated from protobuf field: int64 profileID = 1;
+     */
+    profileID: bigint;
+}
+/**
+ * @generated from protobuf message KhanAPI.GetFollowingListResponse
+ */
+export interface GetFollowingListResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.ProfilePreview profilePreview = 1;
+     */
+    profilePreview: ProfilePreview[];
+}
+/**
+ * @generated from protobuf message KhanAPI.GetFollowerListRequest
+ */
+export interface GetFollowerListRequest {
+    /**
+     * @generated from protobuf field: int64 profileID = 1;
+     */
+    profileID: bigint;
+}
+/**
+ * @generated from protobuf message KhanAPI.GetFollowerListResponse
+ */
+export interface GetFollowerListResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.ProfilePreview profilePreview = 1;
+     */
+    profilePreview: ProfilePreview[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class User$Type extends MessageType<User> {
@@ -513,7 +614,10 @@ class Profile$Type extends MessageType<Profile> {
             { no: 5, name: "pronouns", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "bio", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 7, name: "city", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 8, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 8, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 9, name: "followerCnt", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 10, name: "followingCnt", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 11, name: "isFollowed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<Profile>): Profile {
@@ -525,6 +629,9 @@ class Profile$Type extends MessageType<Profile> {
         message.bio = "";
         message.city = "";
         message.profilePicUrl = "";
+        message.followerCnt = 0n;
+        message.followingCnt = 0n;
+        message.isFollowed = false;
         if (value !== undefined)
             reflectionMergePartial<Profile>(this, message, value);
         return message;
@@ -554,6 +661,15 @@ class Profile$Type extends MessageType<Profile> {
                     break;
                 case /* string profilePicUrl */ 8:
                     message.profilePicUrl = reader.string();
+                    break;
+                case /* int64 followerCnt */ 9:
+                    message.followerCnt = reader.int64().toBigInt();
+                    break;
+                case /* int64 followingCnt */ 10:
+                    message.followingCnt = reader.int64().toBigInt();
+                    break;
+                case /* bool isFollowed */ 11:
+                    message.isFollowed = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -588,6 +704,15 @@ class Profile$Type extends MessageType<Profile> {
         /* string profilePicUrl = 8; */
         if (message.profilePicUrl !== "")
             writer.tag(8, WireType.LengthDelimited).string(message.profilePicUrl);
+        /* int64 followerCnt = 9; */
+        if (message.followerCnt !== 0n)
+            writer.tag(9, WireType.Varint).int64(message.followerCnt);
+        /* int64 followingCnt = 10; */
+        if (message.followingCnt !== 0n)
+            writer.tag(10, WireType.Varint).int64(message.followingCnt);
+        /* bool isFollowed = 11; */
+        if (message.isFollowed !== false)
+            writer.tag(11, WireType.Varint).bool(message.isFollowed);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1522,14 +1647,12 @@ export const ChangePasswordRequest = new ChangePasswordRequest$Type();
 class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> {
     constructor() {
         super("KhanAPI.ChangeProfilePicRequest", [
-            { no: 1, name: "newProfilePicPath", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "accessToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "profilePicToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ChangeProfilePicRequest>): ChangeProfilePicRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.newProfilePicPath = "";
-        message.accessToken = "";
+        message.profilePicToken = "";
         if (value !== undefined)
             reflectionMergePartial<ChangeProfilePicRequest>(this, message, value);
         return message;
@@ -1539,11 +1662,8 @@ class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string newProfilePicPath */ 1:
-                    message.newProfilePicPath = reader.string();
-                    break;
-                case /* string accessToken */ 2:
-                    message.accessToken = reader.string();
+                case /* string profilePicToken */ 1:
+                    message.profilePicToken = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1557,12 +1677,9 @@ class ChangeProfilePicRequest$Type extends MessageType<ChangeProfilePicRequest> 
         return message;
     }
     internalBinaryWrite(message: ChangeProfilePicRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string newProfilePicPath = 1; */
-        if (message.newProfilePicPath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.newProfilePicPath);
-        /* string accessToken = 2; */
-        if (message.accessToken !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.accessToken);
+        /* string profilePicToken = 1; */
+        if (message.profilePicToken !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.profilePicToken);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1861,6 +1978,453 @@ class DeleteAccountRequest$Type extends MessageType<DeleteAccountRequest> {
  * @generated MessageType for protobuf message KhanAPI.DeleteAccountRequest
  */
 export const DeleteAccountRequest = new DeleteAccountRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchUsernameRequest$Type extends MessageType<SearchUsernameRequest> {
+    constructor() {
+        super("KhanAPI.SearchUsernameRequest", [
+            { no: 1, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SearchUsernameRequest>): SearchUsernameRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.username = "";
+        if (value !== undefined)
+            reflectionMergePartial<SearchUsernameRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchUsernameRequest): SearchUsernameRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string username */ 1:
+                    message.username = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchUsernameRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string username = 1; */
+        if (message.username !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.username);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchUsernameRequest
+ */
+export const SearchUsernameRequest = new SearchUsernameRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchUsernameResponse$Type extends MessageType<SearchUsernameResponse> {
+    constructor() {
+        super("KhanAPI.SearchUsernameResponse", [
+            { no: 1, name: "ProfilePreview", kind: "message", jsonName: "ProfilePreview", repeat: 1 /*RepeatType.PACKED*/, T: () => ProfilePreview }
+        ]);
+    }
+    create(value?: PartialMessage<SearchUsernameResponse>): SearchUsernameResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profilePreview = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchUsernameResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchUsernameResponse): SearchUsernameResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"];*/ 1:
+                    message.profilePreview.push(ProfilePreview.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchUsernameResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"]; */
+        for (let i = 0; i < message.profilePreview.length; i++)
+            ProfilePreview.internalBinaryWrite(message.profilePreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchUsernameResponse
+ */
+export const SearchUsernameResponse = new SearchUsernameResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class ProfilePreview$Type extends MessageType<ProfilePreview> {
+    constructor() {
+        super("KhanAPI.ProfilePreview", [
+            { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<ProfilePreview>): ProfilePreview {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profileID = 0n;
+        message.username = "";
+        message.name = "";
+        message.profilePicUrl = "";
+        if (value !== undefined)
+            reflectionMergePartial<ProfilePreview>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ProfilePreview): ProfilePreview {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 profileID */ 1:
+                    message.profileID = reader.int64().toBigInt();
+                    break;
+                case /* string username */ 2:
+                    message.username = reader.string();
+                    break;
+                case /* string name */ 3:
+                    message.name = reader.string();
+                    break;
+                case /* string profilePicUrl */ 4:
+                    message.profilePicUrl = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: ProfilePreview, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 profileID = 1; */
+        if (message.profileID !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.profileID);
+        /* string username = 2; */
+        if (message.username !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.username);
+        /* string name = 3; */
+        if (message.name !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.name);
+        /* string profilePicUrl = 4; */
+        if (message.profilePicUrl !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.profilePicUrl);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.ProfilePreview
+ */
+export const ProfilePreview = new ProfilePreview$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class FollowRequest$Type extends MessageType<FollowRequest> {
+    constructor() {
+        super("KhanAPI.FollowRequest", [
+            { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
+        ]);
+    }
+    create(value?: PartialMessage<FollowRequest>): FollowRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profileID = 0n;
+        if (value !== undefined)
+            reflectionMergePartial<FollowRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FollowRequest): FollowRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 profileID */ 1:
+                    message.profileID = reader.int64().toBigInt();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: FollowRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 profileID = 1; */
+        if (message.profileID !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.profileID);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.FollowRequest
+ */
+export const FollowRequest = new FollowRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UnfollowRequest$Type extends MessageType<UnfollowRequest> {
+    constructor() {
+        super("KhanAPI.UnfollowRequest", [
+            { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
+        ]);
+    }
+    create(value?: PartialMessage<UnfollowRequest>): UnfollowRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profileID = 0n;
+        if (value !== undefined)
+            reflectionMergePartial<UnfollowRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UnfollowRequest): UnfollowRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 profileID */ 1:
+                    message.profileID = reader.int64().toBigInt();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: UnfollowRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 profileID = 1; */
+        if (message.profileID !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.profileID);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.UnfollowRequest
+ */
+export const UnfollowRequest = new UnfollowRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetFollowingListRequest$Type extends MessageType<GetFollowingListRequest> {
+    constructor() {
+        super("KhanAPI.GetFollowingListRequest", [
+            { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
+        ]);
+    }
+    create(value?: PartialMessage<GetFollowingListRequest>): GetFollowingListRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profileID = 0n;
+        if (value !== undefined)
+            reflectionMergePartial<GetFollowingListRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFollowingListRequest): GetFollowingListRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 profileID */ 1:
+                    message.profileID = reader.int64().toBigInt();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetFollowingListRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 profileID = 1; */
+        if (message.profileID !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.profileID);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetFollowingListRequest
+ */
+export const GetFollowingListRequest = new GetFollowingListRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetFollowingListResponse$Type extends MessageType<GetFollowingListResponse> {
+    constructor() {
+        super("KhanAPI.GetFollowingListResponse", [
+            { no: 1, name: "profilePreview", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => ProfilePreview }
+        ]);
+    }
+    create(value?: PartialMessage<GetFollowingListResponse>): GetFollowingListResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profilePreview = [];
+        if (value !== undefined)
+            reflectionMergePartial<GetFollowingListResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFollowingListResponse): GetFollowingListResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.ProfilePreview profilePreview */ 1:
+                    message.profilePreview.push(ProfilePreview.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetFollowingListResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.ProfilePreview profilePreview = 1; */
+        for (let i = 0; i < message.profilePreview.length; i++)
+            ProfilePreview.internalBinaryWrite(message.profilePreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetFollowingListResponse
+ */
+export const GetFollowingListResponse = new GetFollowingListResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetFollowerListRequest$Type extends MessageType<GetFollowerListRequest> {
+    constructor() {
+        super("KhanAPI.GetFollowerListRequest", [
+            { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
+        ]);
+    }
+    create(value?: PartialMessage<GetFollowerListRequest>): GetFollowerListRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profileID = 0n;
+        if (value !== undefined)
+            reflectionMergePartial<GetFollowerListRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFollowerListRequest): GetFollowerListRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 profileID */ 1:
+                    message.profileID = reader.int64().toBigInt();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetFollowerListRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 profileID = 1; */
+        if (message.profileID !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.profileID);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetFollowerListRequest
+ */
+export const GetFollowerListRequest = new GetFollowerListRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetFollowerListResponse$Type extends MessageType<GetFollowerListResponse> {
+    constructor() {
+        super("KhanAPI.GetFollowerListResponse", [
+            { no: 1, name: "profilePreview", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => ProfilePreview }
+        ]);
+    }
+    create(value?: PartialMessage<GetFollowerListResponse>): GetFollowerListResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.profilePreview = [];
+        if (value !== undefined)
+            reflectionMergePartial<GetFollowerListResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFollowerListResponse): GetFollowerListResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.ProfilePreview profilePreview */ 1:
+                    message.profilePreview.push(ProfilePreview.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetFollowerListResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.ProfilePreview profilePreview = 1; */
+        for (let i = 0; i < message.profilePreview.length; i++)
+            ProfilePreview.internalBinaryWrite(message.profilePreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetFollowerListResponse
+ */
+export const GetFollowerListResponse = new GetFollowerListResponse$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.UserAPI
  */
@@ -1881,5 +2445,10 @@ export const UserAPI = new ServiceType("KhanAPI.UserAPI", [
     { name: "ChangeProfilePic", options: {}, I: ChangeProfilePicRequest, O: Empty },
     { name: "GetProfile", options: {}, I: GetProfileRequests, O: GetProfileResponse },
     { name: "GetCities", options: {}, I: GetCitiesRequest, O: GetCitiesResponse },
-    { name: "DeleteAccount", options: {}, I: DeleteAccountRequest, O: Empty }
+    { name: "DeleteAccount", options: {}, I: DeleteAccountRequest, O: Empty },
+    { name: "SearchUsername", options: {}, I: SearchUsernameRequest, O: SearchUsernameResponse },
+    { name: "Follow", options: {}, I: FollowRequest, O: Empty },
+    { name: "Unfollow", options: {}, I: UnfollowRequest, O: Empty },
+    { name: "GetFollowingList", options: {}, I: GetFollowingListRequest, O: GetFollowingListResponse },
+    { name: "GetFollowerList", options: {}, I: GetFollowerListRequest, O: GetFollowerListResponse }
 ]);

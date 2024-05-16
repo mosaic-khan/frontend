@@ -10,17 +10,40 @@ service PostAPI {
   rpc GetPost (GetPostRequest) returns (GetPostResponse);
   rpc SetPost (SetPostRequest) returns (google.protobuf.Empty);
   rpc SuggestIngredient (SuggestIngredientRequest) returns (SuggestIngredientResponse);
+  rpc AddImageForPost (AddImageForPostRequest) returns (google.protobuf.Empty);
+  rpc Like (LikeRequest) returns (google.protobuf.Empty);
+  rpc Dislike (DislikeRequest) returns (google.protobuf.Empty);
+  rpc AddComment (AddCommentRequest) returns (google.protobuf.Empty);
+  rpc GetComments (GetCommentsRequest) returns (GetCommentsResponse);
 }
 
 message Post {
-  string title = 1;
-  map<string, string> ingredients = 2;
-  string description = 3;
-  int32 numImages = 4; 
+  int64 id = 1;
+  string title = 2;
+  map<string, string> ingredients = 3;
+  string description = 4;
+  int32 numImages = 5;
+  int32 numLikes = 6;
+  bool like = 7;
+  repeated string imageUrls = 8;
+  string username = 9; 
+  string profilePicUrl = 10;
+  string category = 11;
+}
+
+message PostPreview {
+  int64 id = 1;
+  string title = 2;
+  string ShortDescription = 3;
+  string image = 4;
 }
 
 message SetPostRequest {
-  Post post = 1;
+  string title = 1;
+  map<string, string> ingredients = 2;
+  string description = 3;
+  int32 categoryID = 4;
+  int32 numImages = 5;
 }
 
 message GetProfilePostsRequests {
@@ -28,7 +51,7 @@ message GetProfilePostsRequests {
 }
 
 message GetProfilePostsResponse {
-  repeated Post post = 1;
+  repeated PostPreview postPreview = 1;
 }
 
 message GetPostRequest {
@@ -44,5 +67,38 @@ message SuggestIngredientRequest {
 }
 
 message SuggestIngredientResponse {
-  repeated string ingerdients = 1;
+  repeated string ingredients = 1;
+}
+
+message AddImageForPostRequest {
+  string PostImageToken = 1;
+}
+
+message LikeRequest {
+  int64 post_id = 1;
+}
+
+message DislikeRequest {
+  int64 post_id = 1;
+}
+
+
+message AddCommentRequest {
+  string comment = 1;
+  int64 postID = 2;
+}
+
+message GetCommentsRequest {
+  int64 postID = 1;
+}
+
+message GetCommentsResponse {
+  repeated Comment comments = 1;
+}
+
+message Comment {
+  string name = 1;
+  string username = 2;
+  string profileUrl = 3;
+  string comment = 4;
 }
