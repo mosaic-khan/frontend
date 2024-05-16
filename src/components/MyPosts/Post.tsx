@@ -5,6 +5,7 @@ import Image2 from "../../assets/3.webp";
 import Image3 from "../../assets/Home4.jpg";
 import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
+import userClient from "../../api/services/user-service";
 import LikeIcon from "../Icons/LikeIcon";
 import CommentsIcon from "../Icons/CommensIcon";
 type Post = {
@@ -12,6 +13,17 @@ type Post = {
   title: string;
   content: string;
   imageUrl: string;
+  // id: bigint;
+  // title: string;
+  // ingredients: { [key: string]: string };
+  // description: string;
+  // numImages: number;
+  // numLikes: number;
+  // like: boolean;
+  // imageUrls: string[];
+  // username: string;
+  // profilePicUrl: string;
+  // category: string;
 };
 
 const Post = () => {
