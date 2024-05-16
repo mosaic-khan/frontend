@@ -49,46 +49,32 @@ import { MessageType } from "@protobuf-ts/runtime";
  *       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
  *     }
  *
+ * The JSON representation for `Empty` is empty JSON object `{}`.
  *
  * @generated from protobuf message google.protobuf.Empty
  */
-export interface Empty {}
+export interface Empty {
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class Empty$Type extends MessageType<Empty> {
-  constructor() {
-    super("google.protobuf.Empty", []);
-  }
-  create(value?: PartialMessage<Empty>): Empty {
-    const message = globalThis.Object.create(this.messagePrototype!);
-    if (value !== undefined)
-      reflectionMergePartial<Empty>(this, message, value);
-    return message;
-  }
-  internalBinaryRead(
-    reader: IBinaryReader,
-    length: number,
-    options: BinaryReadOptions,
-    target?: Empty
-  ): Empty {
-    console.log("reader: ", reader);
-    console.log("length: ", length);
-    console.log("options: ", options);
-    return target ?? this.create();
-  }
-  internalBinaryWrite(
-    message: Empty,
-    writer: IBinaryWriter,
-    options: BinaryWriteOptions
-  ): IBinaryWriter {
-    let u = options.writeUnknownFields;
-    if (u !== false)
-      (u == true ? UnknownFieldHandler.onWrite : u)(
-        this.typeName,
-        message,
-        writer
-      );
-    return writer;
-  }
+    constructor() {
+        super("google.protobuf.Empty", []);
+    }
+    create(value?: PartialMessage<Empty>): Empty {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<Empty>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Empty): Empty {
+        return target ?? this.create();
+    }
+    internalBinaryWrite(message: Empty, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
 }
 /**
  * @generated MessageType for protobuf message google.protobuf.Empty

@@ -1,22 +1,99 @@
-import {
-  Avatar,
-  Box,
-  Center,
-  HStack,
-  Heading,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import UserNavigation from "../components/Navigation/ProfileNavigation";
-import ImageSection from "../components/postPage/ImageSection";
-import CommentSection from "../components/postPage/CommentSection";
-import LikeIcon from "../components/Icons/LikeIcon";
-import CommentsIcon from "../components/Icons/CommensIcon";
+import { useEffect, useState } from "react";
+import HandlePostRequest from "../components/postPage/HandlePost";
+import PostApi from "../api/services/post-service";
+import { Center, HStack, VStack, Avatar, Heading, Box, Text } from "@chakra-ui/react";
 import { CrossButton } from "../components/Buttons";
+import CommentsIcon from "../components/Icons/CommensIcon";
+import LikeIcon from "../components/Icons/LikeIcon";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
+import CommentSection from "../components/postPage/CommentSection";
+import ImageSection from "../components/postPage/ImageSection";
+
 const H = 500;
 const W = 1000;
+type Post = {
+  id: bigint;
+  title: string;
+  ingredients: { [key: string]: string };
+  description: string;
+  numImages: number;
+  numLikes: number;
+  like: boolean;
+  imageUrls: string[];
+  username: string;
+  profilePicUrl: string;
+  category: string;
+};
+
 const PostPage = () => {
+  const [post, setPost] = useState<Post | null>(null);
+  const [shouldUpdate, setShouldUpdate] = useState<boolean>(true);
+  useEffect(() => {
+    if (shouldUpdate) {
+      HandlePostRequest()
+        .then((fetchedPost) => {
+          if (fetchedPost) {
+            setPost(fetchedPost as Post);
+            setShouldUpdate(false); // Set to false to avoid refetching
+          } else {
+            console.error("Received undefined post data");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [shouldUpdate]);
+
+  function sendLikeRequest(postId: bigint, action: string) {
+    return new Promise((resolve, reject) => {
+      if (action == "LikeAction") {
+        PostApi.like(
+          { postId: postId },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
+          .then((res) => {
+            resolve(res);
+            setShouldUpdate(true);
+          })
+          .catch((res) => {
+            reject(res);
+          });
+      } else if (action == "DisLikeAction") {
+        PostApi.dislike(
+          { postId: postId },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
+          .then((res) => {
+            resolve(res);
+            setShouldUpdate(true);
+
+
+          })
+          .catch((res) => {
+            reject(res);
+          });
+      } else {
+        reject("some weird error occured.");
+      }
+    });
+  }
+  const handleLikeClick = () => {
+    if (post?.like) {
+      sendLikeRequest(post?.id, "DisLikeAction")
+    } else {
+      sendLikeRequest(post?.id ? post.id : BigInt(1), "LikeAction");
+    }
+  };
   return (
     <Box h="100vh" bgColor="gray.100">
       <Box w="full" h="10%" position="fixed" zIndex={10}>
@@ -45,15 +122,18 @@ const PostPage = () => {
           <VStack h="full" w="400px" alignItems="right" padding={4}>
             {/*User Info*/}
             <HStack dir="rtl" spacing="20px">
-              <Avatar />
+              <Avatar src={post?.profilePicUrl} />
               <Heading fontSize="30px" textColor="gray.700">
-                نام کاربری
+                {post?.username}
               </Heading>
             </HStack>
 
             {/*Post Detail*/}
             <HStack h="400px" w="full" dir="rtl" padding={2}>
-              <CaptionDetails/>
+              <CaptionDetails
+                ingredients={post?.ingredients ? post.ingredients : {}}
+                description={post?.description ? post.description : ""}
+              />
             </HStack>
             <HStack dir="rtl" justifyContent="space-between">
               <Text
@@ -64,10 +144,14 @@ const PostPage = () => {
                   color: "brand.900",
                 }}
               >
-                <b>۵۰۰</b> لایک
+                <b>{post?.numLikes}</b> لایک
               </Text>
               <HStack marginLeft={2}>
-                <LikeIcon />
+                <LikeIcon
+                onclick={handleLikeClick}
+                  postId={post?.id ? post.id : BigInt(0)}
+                  like={post?.like ? post.like : false}
+                />
                 <CommentsIcon />
               </HStack>
             </HStack>
