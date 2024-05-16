@@ -95,7 +95,8 @@ const PersonalInfo = ({ userEditInfo, setUserEditInfo }: Props) => {
         >
           <option value="female">خانم</option>
           <option value="male">آقا</option>
-          <option value="other">ترجیح می‌دهم نگویم</option>
+          <option value="other">دیگر</option>
+          <option value="prefer not to say">ترجیح می‌دهم نگویم</option>
         </Select>
       </FormControl>
 
