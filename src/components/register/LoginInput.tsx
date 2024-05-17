@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Center,
@@ -16,6 +16,7 @@ import { PasswordField } from "./PassWordField";
 import { RedButton } from "../Buttons";
 import userClient from "../../api/services/user-service";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../api/auth/AuthController";
 
 interface Props {
   forgotPage: () => void;
@@ -29,6 +30,7 @@ const LoginInput = ({ forgotPage }: Props) => {
   const [result, setResult] = useState("");
   let [emailError, setEmailError] = useState(false);
   let [passwordError, setPasswordError] = useState(false);
+  const authContext = useContext(AuthContext);
 
   const evaluateSignIn = (email: string): boolean => {
     // Define regex patterns
@@ -57,6 +59,8 @@ const LoginInput = ({ forgotPage }: Props) => {
         .then((res) => {
           console.log("login response: ", res);
           localStorage.setItem("jwt", res.response.jwtToken);
+          localStorage.setItem("refreshToken", res.response.refreshToken);
+          authContext.setToken(res.response.jwtToken);
           userClient
             .getUserInfo(
               {},

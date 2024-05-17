@@ -10,8 +10,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { WhiteButton } from "../Buttons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import userClient from "../../api/services/user-service";
+import { AuthContext } from "../../api/auth/AuthController";
 
 interface Props {
   token: string;
@@ -22,6 +23,7 @@ const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
   const toast = useToast();
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
+  const authContext = useContext(AuthContext);
 
   const handleSubmit = () => {
     if (code.length != 6) {
@@ -36,6 +38,8 @@ const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
       .then((res) => {
         console.log("codeVerification response: ", res);
         localStorage.setItem("jwt", res.response.jwtToken);
+        localStorage.setItem("refreshToken", res.response.refreshToken);
+        authContext.setToken(res.response.jwtToken);
         userClient
           .getUserInfo(
             {},
