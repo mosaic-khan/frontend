@@ -105,7 +105,7 @@ const OtherHeader = ({ username }: Props) => {
               borderRadius="20px"
               onClick={() =>
                 onClick(
-                  userProfile?.isFollowed ? userProfile?.isFollowed : true
+                  userProfile?.isFollowed ? userProfile?.isFollowed : false
                 )
               }
             >
