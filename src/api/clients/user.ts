@@ -127,9 +127,13 @@ export interface LoginRequest {
  */
 export interface LoginResponse {
     /**
-     * @generated from protobuf field: string jwtToken = 2;
+     * @generated from protobuf field: string jwtToken = 1;
      */
     jwtToken: string;
+    /**
+     * @generated from protobuf field: string refreshToken = 2;
+     */
+    refreshToken: string;
 }
 // login end
 
@@ -208,6 +212,10 @@ export interface CodeVerificationResponse {
      * @generated from protobuf field: string jwtToken = 1;
      */
     jwtToken: string;
+    /**
+     * @generated from protobuf field: string refreshToken = 2;
+     */
+    refreshToken: string;
 }
 /**
  * token in header
@@ -829,12 +837,14 @@ export const LoginRequest = new LoginRequest$Type();
 class LoginResponse$Type extends MessageType<LoginResponse> {
     constructor() {
         super("KhanAPI.LoginResponse", [
-            { no: 2, name: "jwtToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "jwtToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "refreshToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<LoginResponse>): LoginResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.jwtToken = "";
+        message.refreshToken = "";
         if (value !== undefined)
             reflectionMergePartial<LoginResponse>(this, message, value);
         return message;
@@ -844,8 +854,11 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string jwtToken */ 2:
+                case /* string jwtToken */ 1:
                     message.jwtToken = reader.string();
+                    break;
+                case /* string refreshToken */ 2:
+                    message.refreshToken = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -859,9 +872,12 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
         return message;
     }
     internalBinaryWrite(message: LoginResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string jwtToken = 2; */
+        /* string jwtToken = 1; */
         if (message.jwtToken !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.jwtToken);
+            writer.tag(1, WireType.LengthDelimited).string(message.jwtToken);
+        /* string refreshToken = 2; */
+        if (message.refreshToken !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.refreshToken);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1143,12 +1159,14 @@ export const CodeVerificationRequest = new CodeVerificationRequest$Type();
 class CodeVerificationResponse$Type extends MessageType<CodeVerificationResponse> {
     constructor() {
         super("KhanAPI.CodeVerificationResponse", [
-            { no: 1, name: "jwtToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "jwtToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "refreshToken", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CodeVerificationResponse>): CodeVerificationResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.jwtToken = "";
+        message.refreshToken = "";
         if (value !== undefined)
             reflectionMergePartial<CodeVerificationResponse>(this, message, value);
         return message;
@@ -1160,6 +1178,9 @@ class CodeVerificationResponse$Type extends MessageType<CodeVerificationResponse
             switch (fieldNo) {
                 case /* string jwtToken */ 1:
                     message.jwtToken = reader.string();
+                    break;
+                case /* string refreshToken */ 2:
+                    message.refreshToken = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1176,6 +1197,9 @@ class CodeVerificationResponse$Type extends MessageType<CodeVerificationResponse
         /* string jwtToken = 1; */
         if (message.jwtToken !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.jwtToken);
+        /* string refreshToken = 2; */
+        if (message.refreshToken !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.refreshToken);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
