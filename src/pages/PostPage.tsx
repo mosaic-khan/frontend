@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import HandlePostRequest from "../components/postPage/HandlePost";
 import PostApi from "../api/services/post-service";
-import { Center, HStack, VStack, Avatar, Heading, Box, Text } from "@chakra-ui/react";
+import {
+  Center,
+  HStack,
+  VStack,
+  Avatar,
+  Heading,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 import { CrossButton } from "../components/Buttons";
 import CommentsIcon from "../components/Icons/CommensIcon";
 import LikeIcon from "../components/Icons/LikeIcon";
@@ -9,7 +17,7 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
-
+import { useUpdateState } from "../components/postPage/hooks/UpdateState";
 const H = 500;
 const W = 1000;
 type Post = {
@@ -28,14 +36,14 @@ type Post = {
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
-  const [shouldUpdate, setShouldUpdate] = useState<boolean>(true);
+  const { update, triggerUpdate } = useUpdateState();
   useEffect(() => {
-    if (shouldUpdate) {
+    if (update) {
       HandlePostRequest()
         .then((fetchedPost) => {
           if (fetchedPost) {
             setPost(fetchedPost as Post);
-            setShouldUpdate(false); // Set to false to avoid refetching
+            triggerUpdate(false);
           } else {
             console.error("Received undefined post data");
           }
@@ -44,7 +52,7 @@ const PostPage = () => {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [shouldUpdate]);
+  }, [update, triggerUpdate]);
 
   function sendLikeRequest(postId: bigint, action: string) {
     return new Promise((resolve, reject) => {
@@ -59,7 +67,7 @@ const PostPage = () => {
         )
           .then((res) => {
             resolve(res);
-            setShouldUpdate(true);
+            triggerUpdate(true);
           })
           .catch((res) => {
             reject(res);
@@ -75,9 +83,7 @@ const PostPage = () => {
         )
           .then((res) => {
             resolve(res);
-            setShouldUpdate(true);
-
-
+            triggerUpdate(true);
           })
           .catch((res) => {
             reject(res);
@@ -89,7 +95,7 @@ const PostPage = () => {
   }
   const handleLikeClick = () => {
     if (post?.like) {
-      sendLikeRequest(post?.id, "DisLikeAction")
+      sendLikeRequest(post?.id, "DisLikeAction");
     } else {
       sendLikeRequest(post?.id ? post.id : BigInt(1), "LikeAction");
     }
@@ -148,8 +154,7 @@ const PostPage = () => {
               </Text>
               <HStack marginLeft={2}>
                 <LikeIcon
-                onclick={handleLikeClick}
-                  postId={post?.id ? post.id : BigInt(0)}
+                  onclick={handleLikeClick}
                   like={post?.like ? post.like : false}
                 />
                 <CommentsIcon />

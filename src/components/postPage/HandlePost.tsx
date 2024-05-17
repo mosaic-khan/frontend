@@ -1,9 +1,8 @@
-import { useParams } from "react-router-dom";
 import PostApi from "../../api/services/post-service";
 
 function HandlePostRequest() {
   //   const { profileId, postId } = useParams();
-  const postId = 2;
+  const postId = 4;
   if (postId === undefined) {
     console.error("postId is undefined");
     return Promise.reject(new Error("postId is undefined"));
@@ -18,8 +17,10 @@ function HandlePostRequest() {
       .then((res) => {
         resolve(res.response.post);
       })
-      .catch((err) => {reject(console.log(err)); console.log(console.error())}
-      );
+      .catch((err) => {
+        reject(console.log(err));
+        console.log(console.error());
+      });
   });
 }
 export default HandlePostRequest;

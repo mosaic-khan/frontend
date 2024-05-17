@@ -1,10 +1,10 @@
-import { Box, Text } from "@chakra-ui/react";
-interface Props{
+import { Box, HStack, StackDivider, Text, VStack } from "@chakra-ui/react";
+interface Props {
   ingredients: { [key: string]: string };
   description: string;
 }
 
-const CaptionDetails = ({ingredients, description}:Props) => {
+const CaptionDetails = ({ ingredients, description }: Props) => {
   return (
     <>
       <Box
@@ -17,10 +17,9 @@ const CaptionDetails = ({ingredients, description}:Props) => {
         maxHeight="300px"
         p={4}
       >
-        توضیحات:
-        <Text fontSize="sm">
-         {description}
-        </Text>
+        <Text>توضیحات:</Text>
+
+        <Text fontSize="sm">{description}</Text>
       </Box>
       <Box
         h="full"
@@ -32,10 +31,22 @@ const CaptionDetails = ({ingredients, description}:Props) => {
         maxHeight="300px"
         p={4}
       >
-        مواد اولیه:
-        <Text fontSize="sm">
-         {ingredients[1]}
-        </Text>
+        <Text>مواد اولیه:</Text>
+        <VStack
+          divider={<StackDivider borderColor="gray.300" overflowY="auto" />}
+        >
+          {Object.entries(ingredients).map(([key, value]) => (
+            <HStack
+              key={key}
+              justifyContent="space-between"
+              w="full"
+              fontSize="small"
+            >
+              <Text>{key}</Text>
+              <Text>{value}</Text>
+            </HStack>
+          ))}
+        </VStack>
       </Box>
     </>
   );

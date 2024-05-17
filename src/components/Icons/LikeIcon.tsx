@@ -1,9 +1,7 @@
 import { Icon } from "@chakra-ui/icons";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
-import PostApi from "../../api/services/post-service";
 
 interface Props {
-  postId: bigint;
   like: boolean;
   onclick: () => void;
 }
@@ -44,7 +42,7 @@ interface Props {
 //     }
 //   });
 // }
-const LikeIcon = ({ postId, like , onclick}: Props) => {
+const LikeIcon = ({ like , onclick}: Props) => {
   
   console.log(like);
   return (

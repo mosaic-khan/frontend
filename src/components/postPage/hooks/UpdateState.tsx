@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
-function UpdateUseState(shouldUpdate?: boolean) {
-  const [update, setUpdate] = useState(true);
-  if (shouldUpdate) setUpdate(true);
-  else setUpdate(false);
+export function useUpdateState() {
+  const [update, setUpdate] = useState(false);
 
-  return { update, setUpdate };
+  const triggerUpdate = useCallback((shouldUpdate: boolean) => {
+    setUpdate(shouldUpdate);
+  }, []);
+
+  return { update, triggerUpdate };
 }
-export default UpdateUseState;
