@@ -15,7 +15,7 @@ const Post = () => {
   useEffect(() => {
     PostApi.getProfilePosts(
       {
-        profileID: profileId,
+        profileID: BigInt(profileId),
       },
       { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
     ).then((res) => {
@@ -31,7 +31,6 @@ const Post = () => {
       )
       .then((res) => {
         console.log("some", res.response.postPreview);
-        
       })
       .catch((err) => {
         console.log("error fetching post: ", err);
@@ -54,61 +53,56 @@ const Post = () => {
             borderRadius="xl"
             overflow="hidden"
           >
-             <Link to={`/Post/${post.id}`}>
-            <Box
-              position="relative"
-              _hover={{
-                cursor: "pointer",
-                "& > img": {
-                  transform: "scale(1.04)",
-                  transition: "transform 0.2s ease-in-out",
-                  filter: "auto",
-                  brightness: "40%",
-                },
-                "& > div": {
-                  display: "block",
-                },
-              }}
-            >
-              <Image
-                width="100%"
-                boxShadow="md"
-                height="100%"
-                src={"http://back.khanmedia.ir:9290/" + post.image}
-                alt={post.title}
-                mb={4}
-              />
+            <Link to={`/Post/${post.id}`}>
               <Box
-                position="absolute"
-                top="50%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                display="none"
+                position="relative"
+                _hover={{
+                  cursor: "pointer",
+                  "& > img": {
+                    transform: "scale(1.04)",
+                    transition: "transform 0.2s ease-in-out",
+                    filter: "auto",
+                    brightness: "40%",
+                  },
+                  "& > div": {
+                    display: "block",
+                  },
+                }}
               >
-                <HStack spacing={4}>
-                  <LikeIcon
-                    isHoveredColor="white"
-                    color="white"
-                    boxSize={8}
-                    like={true} //toDo
-                    onclick={() => {}}
-                  />
-                  <Text fontSize="14" textColor="white">
-                    
-                  </Text>
+                <Image
+                  width="100%"
+                  boxShadow="md"
+                  height="100%"
+                  src={"http://back.khanmedia.ir:9290/" + post.image}
+                  alt={post.title}
+                  mb={4}
+                />
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                  display="none"
+                >
+                  <HStack spacing={4}>
+                    <LikeIcon
+                      isHoveredColor="white"
+                      color="white"
+                      boxSize={8}
+                      like={true} //toDo
+                      onclick={() => {}}
+                    />
+                    <Text fontSize="14" textColor="white"></Text>
 
-                  <CommentsIcon
-                    isHoveredColor="white"
-                    color="white"
-                    boxSize={8}
-                  />
-                  <Text fontSize="14" textColor="white">
-                    
-                  </Text>
-                </HStack>
+                    <CommentsIcon
+                      isHoveredColor="white"
+                      color="white"
+                      boxSize={8}
+                    />
+                    <Text fontSize="14" textColor="white"></Text>
+                  </HStack>
+                </Box>
               </Box>
-            </Box>
-
             </Link>
           </GridItem>
         ))}
