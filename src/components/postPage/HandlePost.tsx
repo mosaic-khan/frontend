@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import PostApi from "../../api/services/post-service";
 
 function HandlePostRequest() {
-  const { postId } = useParams();
-  // const postId = 2
+  // const { postId } = useParams();
+  const postId = 2;
 
   if (postId === undefined) {
     console.error("postId is undefined");

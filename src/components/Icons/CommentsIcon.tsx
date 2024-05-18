@@ -3,9 +3,9 @@ import { useState } from "react";
 import { AiOutlineComment } from "react-icons/ai";
 
 interface Props {
-  isHoveredColor: string;
-  color: string;
-  boxSize: number;
+  isHoveredColor?: string;
+  color?: string;
+  boxSize?: number;
 
   marginRight?:
     | number
@@ -20,19 +20,16 @@ interface Props {
     | undefined;
 }
 const CommentsIcon = ({
-  isHoveredColor,
-  color,
-  boxSize,
   marginRight,
+  boxSize = 6,
+  isHoveredColor = "brand.900",
+  color = "black.100",
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
       as={AiOutlineComment}
-      // boxSize={6}
-      // color={isHovered ? "brand.900" : "black.100"}
-      // mr={4}
-      boxSize={boxSize} //6 default
+      boxSize={boxSize}
       color={isHovered ? isHoveredColor : color}
       mr={marginRight} //marginright 4 for onepost
       onClick={() => console.log("TODO")}

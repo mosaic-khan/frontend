@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { CrossButton } from "../components/Buttons";
-import CommentsIcon from "../components/Icons/CommensIcon";
+import CommentsIcon from "../components/Icons/CommentsIcon";
 import LikeIcon from "../components/Icons/LikeIcon";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
@@ -122,7 +122,7 @@ const PostPage = () => {
           shadow="2xl"
         >
           {/*Image section*/}
-          <ImageSection />
+          <ImageSection src={post?.imageUrls[0]} />
           {/*Caption section*/}
           <VStack h="full" w="400px" alignItems="right" padding={4}>
             {/*User Info*/}
@@ -155,11 +155,9 @@ const PostPage = () => {
                 <LikeIcon
                   onclick={handleLikeClick}
                   like={post?.like ? post.like : false}
-                  isHoveredColor={""}
-                  color={""}
-                  boxSize={0}
+                  boxSize={6}
                 />
-                <CommentsIcon isHoveredColor={""} color={""} boxSize={0} />
+                <CommentsIcon boxSize={6} />
               </HStack>
             </HStack>
             {/*Comment section*/}

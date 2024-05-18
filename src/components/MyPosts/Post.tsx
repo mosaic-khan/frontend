@@ -7,7 +7,7 @@ import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
 
 import LikeIcon from "../Icons/LikeIcon";
-import CommentsIcon from "../Icons/CommensIcon";
+import CommentsIcon from "../Icons/CommentsIcon";
 type Post = {
   id: number;
   title: string;
