@@ -17,21 +17,9 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
+import { Post } from "../api/clients/post";
 const H = 500;
 const W = 1000;
-type Post = {
-  id: bigint;
-  title: string;
-  ingredients: { [key: string]: string };
-  description: string;
-  numImages: number;
-  numLikes: number;
-  like: boolean;
-  imageUrls: string[];
-  username: string;
-  profilePicUrl: string;
-  category: string;
-};
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
