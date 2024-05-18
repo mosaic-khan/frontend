@@ -1,6 +1,6 @@
 import { Box, HStack, Avatar, VStack, Heading, Text } from "@chakra-ui/react";
 import userClient from "../../api/services/user-service";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type Profile = {
   id: bigint;
   name: string;
@@ -15,24 +15,26 @@ type Profile = {
 };
 const UserHeader = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
-  userClient
-    .getProfile(
-      {},
-      {
-        meta: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    )
-    .then((res) => {
-      // console.log("getProfile response: ", res.response.profile);
-      if (res.response.profile) {
-        setUserProfile(res.response.profile);
-      }
-    });
-  // .catch((err) => {
-  //   // console.log("getProfile error: ", err);
-  // });
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
   return (
     <HStack
       bg="white"
