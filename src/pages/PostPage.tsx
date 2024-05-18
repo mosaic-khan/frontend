@@ -36,7 +36,7 @@ type Post = {
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
-  const { update, triggerUpdate } = useUpdateState();
+  const [ update, triggerUpdate ] = useState(true);
   useEffect(() => {
     if (update) {
       HandlePostRequest()
@@ -52,7 +52,7 @@ const PostPage = () => {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [update, triggerUpdate]);
+  }, [update]);
 
   function sendLikeRequest(postId: bigint, action: string) {
     return new Promise((resolve, reject) => {

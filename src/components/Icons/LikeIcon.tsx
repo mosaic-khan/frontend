@@ -44,7 +44,6 @@ interface Props {
 // }
 const LikeIcon = ({ like , onclick}: Props) => {
   
-  console.log(like);
   return (
     <Icon
       as={like ? IoHeart : IoHeartOutline}
