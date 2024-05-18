@@ -4,17 +4,22 @@ import HeartIcon from "../Icons/HeartIcon";
 import HomeIcon from "../Icons/HomeIcon";
 import QuestionIcon from "../Icons/QuestionMark";
 import SettingsIcon from "../Icons/SettingIcon";
-
-const UserNavigation = () => {
+import UserSideBar from "./UserSideBar";
+import { useNavigate } from "react-router-dom";
+interface Props {
+  isTrue: Boolean;
+}
+const UserNavigation = ({ isTrue }: Props) => {
+  console.debug(isTrue);
+  const navigate = useNavigate();
   return (
-    <Box>
+    <Box position="fixed" w="100%" zIndex="10">
       <HStack bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
         <Box>
           <HomeIcon />
           <QuestionIcon />
           <SettingsIcon />
           <HeartIcon />
-
           <Button
             boxSize="30px"
             bgGradient="linear(to-bl, brand.400, brand.500, brand.700)"
@@ -22,6 +27,7 @@ const UserNavigation = () => {
             borderColor="gray.200"
             boxShadow="xl"
             fontWeight="bold"
+            onClick={() => navigate("/newpost")}
             _hover={{
               transition: "background-color 0.4s ease-in-out",
               fontWeight: "bold",
@@ -33,6 +39,7 @@ const UserNavigation = () => {
             <AddIcon boxSize={3} color="black" />
           </Button>
         </Box>
+        {isTrue && <UserSideBar />}
         <Spacer />
       </HStack>
     </Box>

@@ -8,10 +8,14 @@ import NewPost from "./pages/NewPost";
 import { ResetPassword } from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
 import OtherProfile from "./pages/OtherProfile";
+
 import PostPage from "./pages/PostPage";
+import { AuthContext, RefreshToken } from "./api/auth/AuthController";
+
 
 function App() {
   const { setColorMode } = useColorMode();
+  const { token, loggedIn, setToken } = RefreshToken();
   setColorMode("light"); // light dark
   return (
     <BrowserRouter>
@@ -29,6 +33,16 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <AuthContext.Provider
+      value={{
+        token: token,
+        isLoggedIn: loggedIn,
+        setToken: setToken,
+      }}
+    >
+     
+    </AuthContext.Provider>
+
   );
 }
 

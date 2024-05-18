@@ -1,6 +1,5 @@
 import { Box, HStack, VStack } from "@chakra-ui/react";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
-import UserSideBar from "../components/Navigation/UserSideBar";
 import OtherHeader from "../components/header/OtherHeader";
 
 const OtherProfile = () => {
@@ -8,12 +7,12 @@ const OtherProfile = () => {
     <Box h="100vh" bgColor="gray.100" position="relative">
       <Box position="fixed" w="full" h="10%">
         {/* navbar */}
-        <UserNavigation />
+        <UserNavigation isTrue={true} />
       </Box>
       <Box h="90%" position="relative" top="10%">
         <HStack>
           {/* sidebar */}
-          <UserSideBar />
+          {/* <UserSideBar /> */}
           <VStack w="85%" h="full">
             {/* Header */}
             <OtherHeader />

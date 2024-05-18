@@ -2,38 +2,9 @@ import { Button, ButtonProps, IconButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import "@react-shamsi/calendar/dist/styles.css";
 import "@react-shamsi/timepicker/dist/styles.css";
-import { DatePicker } from "@react-shamsi/datepicker";
-import { TThemeClasses } from "@react-shamsi/calendar";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { IoCloseOutline } from "react-icons/io5";
 
-const brandCalendar: TThemeClasses = {
-  headerBackgroundColor: "#FF004B",
-  headerTextColor: "white",
-  chevronRightColor: "black",
-  chevronLeftColor: "black",
-  topBarTextColor: "black",
-  bodyBackgroundColor: "white",
-  weekDaysTextColor: "white",
-  weekDaysBackgroundColor: "#B52B41",
-  daysColor: "black",
-  daysBackgroundColor: "white",
-  todayBorderColor: "white",
-  daysSelectedColor: "white",
-  daysSelectedBackgroundColor: "#FF004B",
-  offDaysColor: "#FF004B",
-  offDaysSelectedColor: "white",
-  footerBackgroundColor: "white",
-  footerButtonColor: "black",
-  clock: {
-    backgroundColor: "white",
-    clockBackgroundColor: "#FF004B",
-    clockLabelsColor: "white",
-    pointerBackgroundColor: "gray",
-    amPmColor: "white",
-    amPmActiveBackgroundColor: "#FF004B",
-  },
-};
 interface Props extends ButtonProps {
   children: ReactNode;
 }
@@ -108,6 +79,7 @@ export const GradientRedButton = ({ children, ...rest }: Props) => {
     </Button>
   );
 };
+
 
 export const ShamsiCalendarButton = () => {
   return (
