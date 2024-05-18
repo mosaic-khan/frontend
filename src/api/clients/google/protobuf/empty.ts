@@ -70,9 +70,9 @@ class Empty$Type extends MessageType<Empty> {
     options: BinaryReadOptions,
     target?: Empty
   ): Empty {
-    console.log("reader: ", reader);
-    console.log("length: ", length);
-    console.log("options: ", options);
+    console.debug("reader: ", reader);
+    console.debug("length: ", length);
+    console.debug("options: ", options);
     return target ?? this.create();
   }
   internalBinaryWrite(

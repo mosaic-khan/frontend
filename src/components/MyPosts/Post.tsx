@@ -5,13 +5,25 @@ import Image2 from "../../assets/3.webp";
 import Image3 from "../../assets/Home4.jpg";
 import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
+
 import LikeIcon from "../Icons/LikeIcon";
-import CommentsIcon from "../Icons/CommensIcon";
+import CommentsIcon from "../Icons/CommentsIcon";
 type Post = {
   id: number;
   title: string;
   content: string;
   imageUrl: string;
+  // id: bigint;
+  // title: string;
+  // ingredients: { [key: string]: string };
+  // description: string;
+  // numImages: number;
+  // numLikes: number;
+  // like: boolean;
+  // imageUrls: string[];
+  // username: string;
+  // profilePicUrl: string;
+  // category: string;
 };
 
 const Post = () => {
@@ -49,7 +61,7 @@ const Post = () => {
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
       )
       .then((res) => {
-        console.log(res.response.post);
+        console.log(res.response);
       })
       .catch((err) => {
         console.log("error fetching post: ", err);
@@ -105,7 +117,13 @@ const Post = () => {
                 display="none"
               >
                 <HStack spacing={4}>
-                  <LikeIcon isHoveredColor="white" color="white" boxSize={8} />
+                  <LikeIcon
+                    isHoveredColor="white"
+                    color="white"
+                    boxSize={8}
+                    like={true} //toDo
+                    onclick={() => {}}
+                  />
                   <Text fontSize="14" textColor="white">
                     hello
                   </Text>

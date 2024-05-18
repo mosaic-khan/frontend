@@ -3,7 +3,6 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import UserHeader from "../components/header/UserHeader";
 import UserSideBar from "../components/Navigation/UserSideBar";
 import Post from "../components/MyPosts/Post";
-
 const UserProfile = () => {
   return (
     <Box bgSize="contain" bgColor="gray.100" position="relative">

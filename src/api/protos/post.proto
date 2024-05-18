@@ -8,19 +8,62 @@ option go_package = "./../../pkg/PostAPIService";
 service PostAPI {
   rpc GetProfilePosts (GetProfilePostsRequests) returns (GetProfilePostsResponse);
   rpc GetPost (GetPostRequest) returns (GetPostResponse);
-  rpc SetPost (SetPostRequest) returns (google.protobuf.Empty);
+  rpc SetPost (SetPostRequest) returns (SetPostResponse);
   rpc SuggestIngredient (SuggestIngredientRequest) returns (SuggestIngredientResponse);
+  rpc AddImageForPost (AddImageForPostRequest) returns (google.protobuf.Empty);
+  rpc Like (LikeRequest) returns (google.protobuf.Empty);
+  rpc Dislike (DislikeRequest) returns (google.protobuf.Empty);
+  rpc AddComment (AddCommentRequest) returns (google.protobuf.Empty);
+  rpc AddReply (AddReplyRequest) returns (google.protobuf.Empty);
+  rpc GetComments (GetCommentsRequest) returns (GetCommentsResponse);
+  rpc SearchCategories (SearchCategoriesRequest) returns (SearchCategoriesResponse);
+  rpc GetReplies (GetRepliesRequest) returns (GetRepliesResponse);
+  rpc LikeComment (LikeCommentRequest) returns (google.protobuf.Empty);
+  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse);
+  rpc SearchFoodByName (SearchFoodByNameRequest) returns (SearchFoodByNameResponse);
+  rpc SearchFoodByIngredient (SearchFoodByIngredientRequest) returns (SearchFoodByIngredientResponse);
 }
 
 message Post {
-  string title = 1;
-  map<string, string> ingredients = 2;
-  string description = 3;
-  int32 numImages = 4; 
+  int64 id = 1;
+  string title = 2;
+  map<string, string> ingredients = 3;
+  string description = 4;
+  int32 numImages = 5;
+  int32 numLikes = 6;
+  bool like = 7;
+  repeated string imageUrls = 8;
+  string username = 9;
+  string profilePicUrl = 10;
+  string category = 11;
+}
+
+message PostPreview {
+  int64 id = 1;
+  string title = 2;
+  string ShortDescription = 3;
+  string image = 4;
+}
+
+message PostPreviewExplore {
+  int64 id = 1;
+  string title = 2;
+  string shortDescription = 3;
+  string postImage = 4;
+  string username = 5;
+  string profile_pic_url = 6;
 }
 
 message SetPostRequest {
-  Post post = 1;
+  string title = 1;
+  map<string, string> ingredients = 2;
+  string description = 3;
+  int32 categoryID = 4;
+  int32 numImages = 5;
+}
+
+message SetPostResponse {
+  int64 id = 1;
 }
 
 message GetProfilePostsRequests {
@@ -28,7 +71,7 @@ message GetProfilePostsRequests {
 }
 
 message GetProfilePostsResponse {
-  repeated Post post = 1;
+  repeated PostPreview postPreview = 1;
 }
 
 message GetPostRequest {
@@ -44,5 +87,98 @@ message SuggestIngredientRequest {
 }
 
 message SuggestIngredientResponse {
-  repeated string ingerdients = 1;
+  repeated string ingredients = 1;
+}
+
+message AddImageForPostRequest {
+  string PostImageToken = 1;
+}
+
+message LikeRequest {
+  int64 post_id = 1;
+}
+
+message DislikeRequest {
+  int64 post_id = 1;
+}
+
+
+message AddCommentRequest {
+  string comment = 1;
+  int64 postID = 2;
+}
+
+message AddReplyRequest {
+  string comment = 1;
+  int64 postID = 2;
+  int64 commentID = 3;
+}
+
+message GetCommentsRequest {
+  int64 postID = 1;
+}
+
+message GetCommentsResponse {
+  repeated Comment comments = 1;
+}
+
+message Comment {
+  int64 ID = 1;
+  string name = 2;
+  string username = 3;
+  string profileUrl = 4;
+  string comment = 5;
+  string time = 6;
+  bool hasReplies = 7;
+  bool isLiked = 8;
+}
+
+message GetRepliesRequest {
+  int64 commentID = 1;
+}
+
+message GetRepliesResponse {
+  repeated Comment comments = 1;
+}
+
+message LikeCommentRequest {
+  int64 commentID = 1;
+}
+
+message Category {
+  int32 id = 1;
+  string name = 2;
+  int32 level = 3;
+  optional int32 parent =4;
+}
+
+message GetCategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message SearchCategoriesRequest {
+  repeated int32 categoryID = 1;
+}
+
+message SearchCategoriesResponse {
+  repeated PostPreviewExplore posts = 1;
+}
+
+message SearchFoodByNameRequest {
+  string name = 1;
+  optional int32 pageNumber = 2;
+}
+
+message SearchFoodByNameResponse {
+  repeated PostPreviewExplore postPreview = 1;
+}
+
+message SearchFoodByIngredientRequest {
+    repeated string include = 1;
+    repeated string exclude = 2;
+    optional int32 pageNumber = 3;
+}
+
+message SearchFoodByIngredientResponse {
+  repeated PostPreviewExplore postPreview = 1;
 }

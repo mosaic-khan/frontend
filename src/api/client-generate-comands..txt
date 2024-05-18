@@ -1,3 +1,2 @@
 npx protoc --ts_out src/api/clients --proto_path src/api/protos src/api/protos/user.proto
 npx protoc --ts_out src/api/clients --proto_path src/api/protos src/api/protos/post.proto
-npx protoc --ts_out src/api/clients --proto_path src/api/protos src/api/protos/media.proto

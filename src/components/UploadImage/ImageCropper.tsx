@@ -6,7 +6,7 @@ const ASPECT_RATIO = 1;
 
 export interface ImageCropperProps {
   image: string;
-  onCropDone: (croppedImage: string) => void;
+  onCropDone: (croppedImage: HTMLCanvasElement) => void;
 }
 
 export const ImageCropper: FC<ImageCropperProps> = ({ image, onCropDone }) => {
@@ -61,7 +61,7 @@ export const ImageCropper: FC<ImageCropperProps> = ({ image, onCropDone }) => {
       h
     );
 
-    return canvas.toDataURL("image/jpeg");
+    return canvas;
   };
 
   return (

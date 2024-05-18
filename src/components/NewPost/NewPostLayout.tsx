@@ -5,7 +5,6 @@ import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import Slideshow from "./PostPreview";
 import CaptionBox from "./CaptionBox";
 import UserInfo from "./UserInfo";
-import postClient from "../../api/services/post-service";
 import Image2 from "../../assets/dark-night-car-vehicle.jpg";
 import Image3 from "../../assets/prev.jpg";
 import STagBox from "./SimpleTagBox";
@@ -17,6 +16,7 @@ const NewPostLayout = () => {
   const [caption, setCaption] = useState<string>("");
   const [Title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
+  console.debug(ingredients);
   const [numimages, setnumimg] = useState<number>(0);
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState<string>("");
@@ -50,24 +50,24 @@ const NewPostLayout = () => {
   };
   useEffect(() => {
     if (isSaved) {
-      postClient
-        .setPost(
-          {
-            post: {
-              title: Title,
-              description: caption,
-              numImages: numimages,
-              ingredients: ingredients,
-            },
-          },
-          { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-        )
-        .then((res) => {
-          console.log("setPost response: ", res);
-        })
-        .catch((err) => {
-          console.log("setPost error: ", err);
-        });
+      // postClient
+      //   .setPost(
+      //     {
+      //       post: {
+      //         title: Title,
+      //         description: caption,
+      //         numImages: numimages,
+      //         ingredients: ingredients,
+      //       },
+      //     },
+      //     { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+      //   )
+      //   .then((res) => {
+      //     console.log("setPost response: ", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("setPost error: ", err);
+      //   });
     }
   }, [isSaved]);
   return (
