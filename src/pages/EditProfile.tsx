@@ -24,24 +24,30 @@ import DeletePassAccordion from "../editProfile/Accordions/DeletPassAccordion";
 import BiographyBox from "../editProfile/Profile/Biography";
 import DeletPassChildren from "../editProfile/Accordions/DeletPassChildren";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
-import UserSideBar from "../components/Navigation/UserSideBar";
-import PerosonalInfo from "../editProfile/Profile/Personalnfo";
+import PersonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
+
+export interface UserEditInfo {
+  user: User;
+  cityId?: number;
+}
 
 export const EditProfile = () => {
   const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = useState<User>({
-    fName: "",
-    lName: "",
-    bio: "",
-    city: "",
-    birthDay: "",
-    profilePicUrl: "",
-    gender: "",
-    username: "",
-    email: "",
+  const [userEdit, setUserEdit] = useState<UserEditInfo>({
+    user: {
+      fName: "",
+      lName: "",
+      bio: "",
+      city: "",
+      birthDay: "",
+      profilePicUrl: "",
+      gender: "",
+      username: "",
+      email: "",
+    },
   });
 
   const onChooseImg = () => {
@@ -67,10 +73,12 @@ export const EditProfile = () => {
     userClient
       .editProfileInfo(
         {
-          bio: user.bio,
-          fName: user.fName,
-          lName: user.lName,
-          gender: user.gender,
+          bio: userEdit.user.bio,
+          fName: userEdit.user.fName,
+          lName: userEdit.user.lName,
+          gender: userEdit.user.gender,
+          birthDay: userEdit.user.birthDay.substring(0, 10),
+          ...{ ...(userEdit.cityId ? { cityID: userEdit.cityId } : {}) },
         },
         {
           meta: {
@@ -99,7 +107,7 @@ export const EditProfile = () => {
       .then((res) => {
         console.log("getProfile response: ", res.response.user);
         if (res.response.user) {
-          setUser(res.response.user);
+          setUserEdit({ user: res.response.user });
         }
       })
       .catch((err) => {
@@ -113,15 +121,15 @@ export const EditProfile = () => {
     }
   }, [currentPage, onOpen]);
   return (
-    <Box position="relative" w="100%" h="100%" bgColor="gray.100">
-      <UserNavigation />
-      <UserSideBar />
+    <Box position="relative" boxSize="100%" bgColor="gray.100">
+      <UserNavigation isTrue={true} />
       <Img
         boxSize="200px"
         position="fixed"
         right="60px"
         bottom="0"
         src={tomato}
+        zIndex={10}
         borderColor="#ffd2c8"
       ></Img>
       <Modal
@@ -154,7 +162,7 @@ export const EditProfile = () => {
           />
         </ModalContent>
       </Modal>
-      <VStack boxSize="80%" marginLeft="30px" marginTop="10px">
+      <VStack boxSize="80%" paddingTop={20}>
         <Box position="relative" width="900px" height="600px">
           <Center>
             <Box
@@ -168,8 +176,10 @@ export const EditProfile = () => {
               top="20px"
             >
               <HStack>
-                <PerosonalInfo user={user} setUser={setUser} />
-
+                <PersonalInfo
+                  userEditInfo={userEdit}
+                  setUserEditInfo={setUserEdit}
+                />
                 <VStack
                   width="300px"
                   height="500px"
@@ -221,14 +231,24 @@ export const EditProfile = () => {
                       </Box>
 
                       <Avatar
-                        src={imgAfterCrop}
+                        src={
+                          imgAfterCrop != ""
+                            ? imgAfterCrop
+                            : userEdit.user.profilePicUrl != ""
+                            ? "http://back.khanmedia.ir:9290/" +
+                              userEdit.user.profilePicUrl
+                            : ""
+                        }
                         width="100%"
                         height="100%"
                         borderRadius={100}
                       ></Avatar>
                     </Box>
                   </Box>
-                  <BiographyBox user={user} setUser={setUser} />
+                  <BiographyBox
+                    userEditInfo={userEdit}
+                    setUserEditInfo={setUserEdit}
+                  />
                 </VStack>
               </HStack>
             </Box>

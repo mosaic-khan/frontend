@@ -27,14 +27,16 @@ const STagBox = () => {
   };
 
   return (
-    <Box width="90%" border="1px solid #ccc" borderRadius="5px">
+    <Box width="80%" borderRadius="5px">
       <Heading padding="10px" textAlign="right" fontSize="20px" color="white">
         اضافه کردن تگ
       </Heading>
       <VStack>
         <Input
+          bg="#f00000"
+          marginBottom="2%"
           placeholder="تگ را وارد کنید"
-          _placeholder={{ color: "white" }}
+          _placeholder={{ textColor: "white" }}
           textColor="white"
           value={tagInput}
           dir="rtl"
