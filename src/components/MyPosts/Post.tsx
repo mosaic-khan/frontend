@@ -7,7 +7,7 @@ import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
 
 import LikeIcon from "../Icons/LikeIcon";
-import CommentsIcon from "../Icons/CommensIcon";
+import CommentsIcon from "../Icons/CommentsIcon";
 type Post = {
   id: number;
   title: string;
@@ -117,7 +117,13 @@ const Post = () => {
                 display="none"
               >
                 <HStack spacing={4}>
-                  <LikeIcon isHoveredColor="white" color="white" boxSize={8} />
+                  <LikeIcon
+                    isHoveredColor="white"
+                    color="white"
+                    boxSize={8}
+                    like={true} //toDo
+                    onclick={() => {}}
+                  />
                   <Text fontSize="14" textColor="white">
                     hello
                   </Text>

@@ -1,4 +1,5 @@
 import { Icon } from "@chakra-ui/icons";
+
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 
 // function sendLikeRequest(postId: bigint, action: string) {
@@ -40,9 +41,9 @@ import { IoHeart, IoHeartOutline } from "react-icons/io5";
 // }
 
 interface Props {
-  isHoveredColor: string;
-  color: string;
-  boxSize: number;
+  like: boolean;
+  onclick: () => void;
+  boxSize?: number;
   marginRight?:
     | number
     | (string & {})
@@ -54,11 +55,17 @@ interface Props {
     | "unset"
     | "auto"
     | undefined;
-  like: boolean;
-  onclick: () => void;
+  isHoveredColor?: string;
+  color?: string;
 }
-const LikeIcon = ({ isHoveredColor, color, boxSize, marginRight, like , onclick }: Props) => {
-  const [isHovered, setIsHovered] = useState(false);
+const LikeIcon = ({
+  like,
+  onclick,
+  marginRight,
+  boxSize = 6,
+  isHoveredColor = "brand.800",
+  color = "black.100",
+}: Props) => {
   return (
     <Icon
       as={like ? IoHeart : IoHeartOutline}

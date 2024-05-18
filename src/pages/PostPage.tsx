@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { CrossButton } from "../components/Buttons";
-import CommentsIcon from "../components/Icons/CommensIcon";
+import CommentsIcon from "../components/Icons/CommentsIcon";
 import LikeIcon from "../components/Icons/LikeIcon";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
@@ -35,7 +35,7 @@ type Post = {
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
-  const [ update, triggerUpdate ] = useState(true);
+  const [update, triggerUpdate] = useState(true);
   useEffect(() => {
     if (update) {
       HandlePostRequest()
@@ -103,7 +103,7 @@ const PostPage = () => {
     <Box h="100vh" bgColor="gray.100">
       <Box w="full" h="10%" position="fixed" zIndex={10}>
         {/* navbar */}
-        <UserNavigation />
+        <UserNavigation isTrue={false} />
       </Box>
       <Center position="relative">
         <CrossButton
@@ -122,7 +122,7 @@ const PostPage = () => {
           shadow="2xl"
         >
           {/*Image section*/}
-          <ImageSection />
+          <ImageSection src={post?.imageUrls[0]} />
           {/*Caption section*/}
           <VStack h="full" w="400px" alignItems="right" padding={4}>
             {/*User Info*/}
@@ -155,8 +155,9 @@ const PostPage = () => {
                 <LikeIcon
                   onclick={handleLikeClick}
                   like={post?.like ? post.like : false}
+                  boxSize={6}
                 />
-                <CommentsIcon />
+                <CommentsIcon boxSize={6} />
               </HStack>
             </HStack>
             {/*Comment section*/}
