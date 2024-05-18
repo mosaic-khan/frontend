@@ -1,7 +1,6 @@
-import { Image, Box, Button, VStack, HStack } from "@chakra-ui/react";
+import { Image, Box, Button, VStack } from "@chakra-ui/react";
 import { ArrowBigLeft, ArrowBigRight, Circle, CircleDot } from "lucide-react";
 import { useState } from "react";
-
 
 type ImageSliderProps = {
   images: string[];
@@ -21,13 +20,11 @@ const ImageSection = ({ images }: ImageSliderProps) => {
     });
   }
   return (
-    
     <VStack pos="relative" h="80%" w="50%" bg="black" borderRadius="md">
       <Image
         h="100%"
         w="100%"
         src={"http://back.khanmedia.ir:9290" + images[imageIndex]}
-        
       />
       <Box pos="absolute" bottom={0}>
         <Button onClick={showPrevImage} left={0} top={0}>
