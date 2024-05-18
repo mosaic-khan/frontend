@@ -3,7 +3,8 @@ import PostApi from "../../api/services/post-service";
 
 function HandlePostRequest() {
   // const { postId } = useParams();
-  const postId = 2;
+  const postId = 6;
+  console.log('postId:', postId);
 
   if (postId === undefined) {
     console.error("postId is undefined");
