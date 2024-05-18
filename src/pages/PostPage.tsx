@@ -17,7 +17,6 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
-import { useUpdateState } from "../components/postPage/hooks/UpdateState";
 const H = 500;
 const W = 1000;
 type Post = {

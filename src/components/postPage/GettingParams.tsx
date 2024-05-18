@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-
+// to be used
 function GettingParams() {
     const { profileId, postId } = useParams();
 
