@@ -49,7 +49,7 @@ const UserHeader = () => {
         boxSize="150px"
         name={userProfile?.username}
         bgColor="brand.400"
-        src={userProfile?.profilePicUrl}
+        src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
         boxShadow="md"
       />
       <HStack alignItems="start" spacing={"50px"}>

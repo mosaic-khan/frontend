@@ -1,6 +1,6 @@
 import { Box, HStack, Avatar, VStack, Heading, Text } from "@chakra-ui/react";
 import { GradientRedButton } from "../Buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import userClient from "../../api/services/user-service";
 
 interface Props {
@@ -20,23 +20,26 @@ type Profile = {
 };
 const OtherHeader = ({ username }: Props) => {
   const [userProfile, setUserProfile] = useState<Profile>();
-  userClient
-    .getProfile(
-      {
-        username: username,
-      },
-      {
-        meta: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {
+          username: username,
         },
-      }
-    )
-    .then((res) => {
-      // console.log("getProfile response: ", res.response.profile);
-      if (res.response.profile) {
-        setUserProfile(res.response.profile);
-      }
-    });
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        // console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+        }
+      });
+  });
 
   const onClick = (isFollowed: boolean) => {
     if (isFollowed) {
@@ -88,12 +91,12 @@ const OtherHeader = ({ username }: Props) => {
         boxSize="150px"
         name={userProfile?.username}
         bgColor="brand.400"
-        src={userProfile?.profilePicUrl}
+        src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
         boxShadow="md"
       />
-      <HStack spacing="50px">
-        <VStack dir="rtl" alignItems="flex-start">
-          <HStack spacing="50px">
+      <HStack alignItems="start" spacing={"100px"}>
+        <VStack dir="rtl" spacing="20px">
+          <HStack spacing="40px">
             <Heading fontWeight="bold" dir="rtl">
               {userProfile?.username}
             </Heading>
@@ -113,14 +116,14 @@ const OtherHeader = ({ username }: Props) => {
               {userProfile?.isFollowed ? "حذف" : "دنبال کردن "}
             </GradientRedButton>
           </HStack>
-          <Text fontSize="sm" color="gray.300">
-            {userProfile?.city}
-          </Text>
-          <Text color="gray.500">{userProfile?.bio}</Text>
           <HStack spacing={5} fontSize="sm">
             <Text>{userProfile?.followerCnt.toString()} دنبال کننده</Text>
             <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
           </HStack>
+          <Text color="gray.500">{userProfile?.bio}</Text>
+          <Text fontSize="sm" color="gray.300">
+            {userProfile?.city}
+          </Text>
         </VStack>
         <HStack margin={5}>
           <Box boxSize={"100px"} bgColor={"gray.200"} borderRadius={"md"}></Box>
