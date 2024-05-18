@@ -1,4 +1,5 @@
 import {
+  Box,
   HStack,
   Input,
   Popover,
@@ -6,6 +7,12 @@ import {
   PopoverTrigger,
   VStack,
   useBoolean,
+  Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import IngredientsTable from "./IngredientsTable";
@@ -25,7 +32,7 @@ const SelectIngredients = ({ onChange }: Props) => {
   const [showPopover, setShowPopover] = useBoolean(false);
   const [ingredients, setIngredients] = useState<string[][]>([]);
   const nameRef = useRef(null);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleChangeName = (event: any) => {
     setName(event.target.value);
     setNameError.off();
@@ -45,6 +52,7 @@ const SelectIngredients = ({ onChange }: Props) => {
       setAmountError.on();
       return;
     }
+
     setIngredients([...ingredients, [name, amount]]);
     setName("");
     setAmount("");
@@ -66,51 +74,88 @@ const SelectIngredients = ({ onChange }: Props) => {
   }, [ingredients]);
 
   return (
-    <VStack textColor="white">
-      <HStack dir="rtl">
-        <Popover
-          initialFocusRef={nameRef}
-          isOpen={showPopover}
-          returnFocusOnClose={false}
-          placement="bottom-end"
-        >
-          <PopoverTrigger>
-            <Input
-              ref={nameRef}
-              value={name}
-              onFocus={() => {
-                setIsEditingName.on();
-              }}
-              onBlur={() => {
-                setIsEditingName.off();
-              }}
-              onChange={handleChangeName}
-              {...(nameError ? { borderColor: "brand.500" } : {})}
-              size="lg"
-              dir="rtl"
-            />
-          </PopoverTrigger>
-          <PopoverContent w="400px">
-            <IngredientsSuggestion
-              inputText={name}
-              onSelect={(ingredient) => {
-                setName(ingredient);
-                setShowPopover.off();
-              }}
-            />
-          </PopoverContent>
-        </Popover>
-        <Input
-          value={amount}
-          onChange={handleChangeAmount}
-          {...(amountError ? { borderColor: "brand.500" } : {})}
-          size="lg"
-          dir="rtl"
+    <Box bgGradient="linear(to-l, #ff0000,brand.400)" borderRadius="25px">
+      <Heading
+        padding="10px"
+        textAlign="right"
+        fontSize="20px"
+        textColor="white"
+        borderBottom="1px"
+      >
+        مواد اولیه
+      </Heading>
+      <VStack textColor="white">
+        <HStack dir="rtl">
+          <Popover
+            initialFocusRef={nameRef}
+            isOpen={showPopover}
+            returnFocusOnClose={false}
+            placement="bottom-end"
+          >
+            <PopoverTrigger>
+              <Input
+                w="40%"
+                marginTop="2%"
+                marginRight="5%"
+                ref={nameRef}
+                value={name}
+                onFocus={() => {
+                  setIsEditingName.on();
+                }}
+                onBlur={() => {
+                  setIsEditingName.off();
+                }}
+                onChange={handleChangeName}
+                {...(nameError ? { borderColor: "brand.500" } : {})}
+                size="lg"
+                dir="rtl"
+              />
+            </PopoverTrigger>
+            <PopoverContent w="400px">
+              <IngredientsSuggestion
+                inputText={name}
+                onSelect={(ingredient) => {
+                  setName(ingredient);
+                  setShowPopover.off();
+                }}
+              />
+            </PopoverContent>
+          </Popover>
+          <Input
+            w="40%"
+            marginTop="2%"
+            marginRight="5%"
+            value={amount}
+            onChange={handleChangeAmount}
+            {...(amountError ? { borderColor: "brand.500" } : {})}
+            size="lg"
+            dir="rtl"
+          />
+        </HStack>
+
+        <RedButton
+          marginTop="4%"
+          bg="brand.900"
+          children={"ثبت مواد اولیه"}
+          onClick={onSubmit}
         />
-      </HStack>
-      <RedButton children={"ثبت مواد اولیه"} onClick={onSubmit} />
-      <IngredientsTable ingredients={ingredients} />
-    </VStack>
+        <RedButton
+          marginTop="4%"
+          marginBottom="4%"
+          bg="brand.900"
+          children={"مشاهده مواد اولیه"}
+          onClick={onOpen}
+        />
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalBody py={20}>
+              <IngredientsTable ingredients={ingredients} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </VStack>
+    </Box>
   );
 };
 

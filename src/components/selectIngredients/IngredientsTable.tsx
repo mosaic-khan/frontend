@@ -1,4 +1,4 @@
-import { HStack, Text, VStack } from "@chakra-ui/react";
+import { HStack, Text, VStack, Box } from "@chakra-ui/react";
 
 interface Props {
   ingredients: string[][];
@@ -8,13 +8,7 @@ const textMargin = "5px 15px 5px 15px";
 
 const IngredientsTable = ({ ingredients }: Props) => {
   return (
-    <VStack
-      w="100%"
-      padding="20px"
-      borderRadius="20px"
-      borderWidth="2px"
-      borderColor="brand.100"
-    >
+    <VStack w="100%" padding="20px">
       <HStack
         w="100%"
         justifyContent="space-between"
@@ -31,7 +25,7 @@ const IngredientsTable = ({ ingredients }: Props) => {
           w="100%"
           justifyContent="space-between"
           borderRadius="10px"
-          bg={index % 2 === 1 ? "brand.900" : ""}
+          bg={index % 2 === 1 ? "brand.100" : "brand.400"}
         >
           <Text margin={textMargin} dir="rtl">
             {item[1]}
