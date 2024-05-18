@@ -43,23 +43,27 @@ export interface Post {
      */
     numLikes: number;
     /**
-     * @generated from protobuf field: bool like = 7;
+     * @generated from protobuf field: int32 numComments = 7;
+     */
+    numComments: number;
+    /**
+     * @generated from protobuf field: bool like = 8;
      */
     like: boolean;
     /**
-     * @generated from protobuf field: repeated string imageUrls = 8;
+     * @generated from protobuf field: repeated string imageUrls = 9;
      */
     imageUrls: string[];
     /**
-     * @generated from protobuf field: string username = 9;
+     * @generated from protobuf field: string username = 10;
      */
     username: string;
     /**
-     * @generated from protobuf field: string profilePicUrl = 10;
+     * @generated from protobuf field: string profilePicUrl = 11;
      */
     profilePicUrl: string;
     /**
-     * @generated from protobuf field: string category = 11;
+     * @generated from protobuf field: string category = 12;
      */
     category: string;
 }
@@ -448,11 +452,12 @@ class Post$Type extends MessageType<Post> {
             { no: 4, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "numImages", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 6, name: "numLikes", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 7, name: "like", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 8, name: "imageUrls", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 9, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 10, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 11, name: "category", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 7, name: "numComments", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 8, name: "like", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 9, name: "imageUrls", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 10, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 11, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 12, name: "category", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<Post>): Post {
@@ -463,6 +468,7 @@ class Post$Type extends MessageType<Post> {
         message.description = "";
         message.numImages = 0;
         message.numLikes = 0;
+        message.numComments = 0;
         message.like = false;
         message.imageUrls = [];
         message.username = "";
@@ -495,19 +501,22 @@ class Post$Type extends MessageType<Post> {
                 case /* int32 numLikes */ 6:
                     message.numLikes = reader.int32();
                     break;
-                case /* bool like */ 7:
+                case /* int32 numComments */ 7:
+                    message.numComments = reader.int32();
+                    break;
+                case /* bool like */ 8:
                     message.like = reader.bool();
                     break;
-                case /* repeated string imageUrls */ 8:
+                case /* repeated string imageUrls */ 9:
                     message.imageUrls.push(reader.string());
                     break;
-                case /* string username */ 9:
+                case /* string username */ 10:
                     message.username = reader.string();
                     break;
-                case /* string profilePicUrl */ 10:
+                case /* string profilePicUrl */ 11:
                     message.profilePicUrl = reader.string();
                     break;
-                case /* string category */ 11:
+                case /* string category */ 12:
                     message.category = reader.string();
                     break;
                 default:
@@ -556,21 +565,24 @@ class Post$Type extends MessageType<Post> {
         /* int32 numLikes = 6; */
         if (message.numLikes !== 0)
             writer.tag(6, WireType.Varint).int32(message.numLikes);
-        /* bool like = 7; */
+        /* int32 numComments = 7; */
+        if (message.numComments !== 0)
+            writer.tag(7, WireType.Varint).int32(message.numComments);
+        /* bool like = 8; */
         if (message.like !== false)
-            writer.tag(7, WireType.Varint).bool(message.like);
-        /* repeated string imageUrls = 8; */
+            writer.tag(8, WireType.Varint).bool(message.like);
+        /* repeated string imageUrls = 9; */
         for (let i = 0; i < message.imageUrls.length; i++)
-            writer.tag(8, WireType.LengthDelimited).string(message.imageUrls[i]);
-        /* string username = 9; */
+            writer.tag(9, WireType.LengthDelimited).string(message.imageUrls[i]);
+        /* string username = 10; */
         if (message.username !== "")
-            writer.tag(9, WireType.LengthDelimited).string(message.username);
-        /* string profilePicUrl = 10; */
+            writer.tag(10, WireType.LengthDelimited).string(message.username);
+        /* string profilePicUrl = 11; */
         if (message.profilePicUrl !== "")
-            writer.tag(10, WireType.LengthDelimited).string(message.profilePicUrl);
-        /* string category = 11; */
+            writer.tag(11, WireType.LengthDelimited).string(message.profilePicUrl);
+        /* string category = 12; */
         if (message.category !== "")
-            writer.tag(11, WireType.LengthDelimited).string(message.category);
+            writer.tag(12, WireType.LengthDelimited).string(message.category);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
