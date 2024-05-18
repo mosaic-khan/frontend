@@ -1,6 +1,23 @@
-import { MediaAPIClient } from "../clients/media.client";
-import transport from "./api-transport";
+import axios from "axios";
 
-const client = new MediaAPIClient(transport);
+interface Props {
+  path: "upload-profile-image" | "upload-post-image";
+}
 
-export default client;
+const axiosClient = axios.create({
+  baseURL: "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI/",
+});
+
+const useUploadImage = ({ path }: Props) => {
+  const uploadImagePromise = (imageFile: FormData) =>
+    axiosClient.post(path, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+
+  return uploadImagePromise;
+};
+
+export default useUploadImage;

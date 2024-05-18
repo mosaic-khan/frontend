@@ -1,6 +1,32 @@
 import { Box, HStack, Avatar, VStack, Heading, Text } from "@chakra-ui/react";
+import userClient from "../../api/services/user-service";
+import { useEffect, useState } from "react";
+import { setProfileId } from "../userProfile/ProfileIdStorage";
+import { Profile } from "../../api/clients/user";
 
 const UserHeader = () => {
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+          setProfileId(res.response.profile.id);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
   return (
     <HStack
       bg="white"
@@ -13,31 +39,28 @@ const UserHeader = () => {
       <Avatar
         margin="50px"
         boxSize="150px"
-        name="Bruno Maltor"
+        name={userProfile?.username}
         bgColor="brand.400"
-        src="https://bit.ly/dan-abramov"
+        src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
         boxShadow="md"
       />
       <HStack alignItems="start" spacing={"50px"}>
         <VStack dir="rtl">
           <Heading fontWeight="bold" dir="rtl">
-            نام کاربری
+            {userProfile?.username}
           </Heading>
           <Text fontSize="sm" color="gray.300">
-            {" "}
-            لوکیشن
+            {userProfile?.city ? userProfile?.city : "شهر"}
           </Text>
-          <Text color="gray.500">بیو بیو بیو بیو بیو بیو این یک بیو است</Text>
+          <Text color="gray.500">
+            {userProfile?.bio ? userProfile?.bio : "بیو"}
+          </Text>
           <HStack spacing={5} fontSize="sm">
-            <Text>
+            {/* <Text>
               <b>۷۷۵</b> پست
-            </Text>
-            <Text>
-              <b>۱۶۵k</b> دنبال کننده
-            </Text>
-            <Text>
-              <b>۶۰۶</b> دنبال شونده
-            </Text>
+            </Text> */}
+            <Text>{userProfile?.followerCnt.toString()} دنبال کننده</Text>
+            <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
           </HStack>
         </VStack>
         <HStack margin={5}>

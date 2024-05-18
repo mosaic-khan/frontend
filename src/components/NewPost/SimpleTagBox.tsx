@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   VStack,
   Input,
@@ -9,9 +9,9 @@ import {
   Heading,
   Box,
 } from "@chakra-ui/react";
-
+//
 const STagBox = () => {
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
 
   const handleAddTag = () => {
@@ -21,7 +21,7 @@ const STagBox = () => {
     }
   };
 
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     const updatedTags = tags.filter((tag) => tag !== tagToRemove);
     setTags(updatedTags);
   };

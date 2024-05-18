@@ -27,6 +27,12 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import PersonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
+import useUploadImage from "../api/services/media-service";
+
+export interface UserEditInfo {
+  user: User;
+  cityId?: number;
+}
 
 export interface UserEditInfo {
   user: User;
@@ -58,14 +64,47 @@ export const EditProfile = () => {
   const [image, setImage] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
+  const uploadImagePromise = useUploadImage({
+    path: "upload-profile-image",
+  });
 
   const onImageSelected = (selectedImg: string) => {
     setImage(selectedImg);
     setCurrentPage("crop-img");
   };
 
-  const onCropDone = (imgCroppedArea: string) => {
-    setImgAfterCrop(imgCroppedArea);
+  const onCropDone = (imgCanvas: HTMLCanvasElement) => {
+    setImgAfterCrop(imgCanvas.toDataURL("image/jpeg"));
+    imgCanvas.toBlob((blob) => {
+      if (blob) {
+        const formData = new FormData();
+        formData.append("uploadFile", blob);
+        uploadImagePromise(formData)
+          .then((res) => {
+            console.log("Upload profile image response : ", res);
+            userClient
+              .changeProfilePic(
+                {
+                  profilePicToken: res.data,
+                },
+                {
+                  meta: {
+                    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                  },
+                }
+              )
+              .then((res) => {
+                console.log("editProfileInfo response: ", res);
+              })
+              .catch((err) => {
+                console.log("editProfileInfo error: ", err);
+              });
+          })
+          .catch((err) => {
+            console.log("Error on upload profile image. error : ", err);
+          });
+      }
+    });
     setCurrentPage("choose-img");
   };
 
@@ -154,7 +193,7 @@ export const EditProfile = () => {
 
           <ImageCropper
             image={image}
-            onCropDone={(imgCroppedArea: string) => {
+            onCropDone={(imgCroppedArea: HTMLCanvasElement) => {
               onCropDone(imgCroppedArea);
               onClose();
               setCurrentPage("choose-img");

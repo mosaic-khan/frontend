@@ -19,9 +19,6 @@ import {
   IoHeartOutline,
   IoBookmarkOutline,
 } from "react-icons/io5";
-import { BsHeart, BsHeartFill, BsStar } from "react-icons/bs";
-import { PiTelegramLogoThin } from "react-icons/pi";
-import { color } from "framer-motion";
 
 interface SlideshowProps {
   images: File[];
@@ -132,7 +129,10 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
                 borderRadius="full"
                 mx="1"
                 cursor="pointer"
-                onClick={() => handleDotClick(index)}
+                onClick={() => {
+                  handleDotClick(index);
+                  console.debug(image);
+                }}
               />
             ))}
           </Flex>
