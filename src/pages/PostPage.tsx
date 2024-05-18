@@ -17,6 +17,7 @@ import UserNavigation from "../components/Navigation/ProfileNavigation";
 import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
+
 const H = 500;
 const W = 1000;
 type Post = {
@@ -36,6 +37,9 @@ type Post = {
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [update, triggerUpdate] = useState(true);
+  {
+    console.log(post?.imageUrls);
+  }
   useEffect(() => {
     if (update) {
       HandlePostRequest()
@@ -43,6 +47,7 @@ const PostPage = () => {
           if (fetchedPost) {
             setPost(fetchedPost as Post);
             triggerUpdate(false);
+            console.log("posttttt", post?.imageUrls);
           } else {
             console.error("Received undefined post data");
           }
@@ -120,9 +125,12 @@ const PostPage = () => {
           overflow="hidden"
           bg="gray.50"
           shadow="2xl"
+          spacing="50px"
+          paddingLeft={10}
         >
           {/*Image section*/}
-          <ImageSection src={post?.imageUrls[0]} />
+
+          <ImageSection images={post?.imageUrls ? post?.imageUrls : []} />
           {/*Caption section*/}
           <VStack h="full" w="400px" alignItems="right" padding={4}>
             {/*User Info*/}
