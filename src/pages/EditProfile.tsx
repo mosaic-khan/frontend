@@ -34,6 +34,11 @@ export interface UserEditInfo {
   cityId?: number;
 }
 
+export interface UserEditInfo {
+  user: User;
+  cityId?: number;
+}
+
 export const EditProfile = () => {
   const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();

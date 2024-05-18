@@ -4,6 +4,10 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { PostAPI } from "./post";
+
+import type { DislikeRequest } from "./post";
+import type { LikeRequest } from "./post";
+
 import type { SearchFoodByIngredientResponse } from "./post";
 import type { SearchFoodByIngredientRequest } from "./post";
 import type { SearchFoodByNameResponse } from "./post";
@@ -21,6 +25,7 @@ import type { AddCommentRequest } from "./post";
 import type { DislikeRequest } from "./post";
 import type { LikeRequest } from "./post";
 import type { Empty } from "./google/protobuf/empty";
+
 import type { AddImageForPostRequest } from "./post";
 import type { SuggestIngredientResponse } from "./post";
 import type { SuggestIngredientRequest } from "./post";
@@ -65,6 +70,7 @@ export interface IPostAPIClient {
      * @generated from protobuf rpc: Dislike(KhanAPI.DislikeRequest) returns (google.protobuf.Empty);
      */
     dislike(input: DislikeRequest, options?: RpcOptions): UnaryCall<DislikeRequest, Empty>;
+
     /**
      * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (google.protobuf.Empty);
      */
@@ -223,4 +229,5 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         const method = this.methods[15], opt = this._transport.mergeOptions(options);
         return stackIntercept<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse>("unary", this._transport, method, opt, input);
     }
+
 }

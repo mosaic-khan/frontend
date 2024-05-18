@@ -12,25 +12,26 @@ const Post = () => {
   const profileId = getProfileId();
   const [posts, setPosts] = useState<PostPreview[] | null>();
 
-  useEffect(() => {
-    PostApi.getProfilePosts(
-      {
-        profileID: BigInt(profileId),
-      },
-      { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-    ).then((res) => {
-      setPosts(res.response.postPreview);
-    });
-  }, []);
+  // useEffect(() => {
+  //   PostApi.getProfilePosts(
+  //     {
+  //       profileID: BigInt(profileId),
+  //     },
+  //     { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+  //   ).then((res) => {
+  //     setPosts(res.response.postPreview);
+  //   });
+  // }, []);
 
   useEffect(() => {
     postClient
       .getProfilePosts(
-        { profileID: BigInt(1) },
+        { profileID: BigInt(3) },
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
       )
       .then((res) => {
         console.log("some", res.response.postPreview);
+        setPosts(res.response.postPreview);
       })
       .catch((err) => {
         console.log("error fetching post: ", err);
