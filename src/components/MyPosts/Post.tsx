@@ -1,58 +1,27 @@
 import { Grid, GridItem, Image, Box, HStack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import Image1 from "../../assets/Home1.jpg";
-import Image2 from "../../assets/3.webp";
-import Image3 from "../../assets/Home4.jpg";
-import Image4 from "../../assets/Home3.jpg";
 import postClient from "../../api/services/post-service";
-
 import LikeIcon from "../Icons/LikeIcon";
 import CommentsIcon from "../Icons/CommentsIcon";
-type Post = {
-  id: number;
-  title: string;
-  content: string;
-  imageUrl: string;
-  // id: bigint;
-  // title: string;
-  // ingredients: { [key: string]: string };
-  // description: string;
-  // numImages: number;
-  // numLikes: number;
-  // like: boolean;
-  // imageUrls: string[];
-  // username: string;
-  // profilePicUrl: string;
-  // category: string;
-};
+import { PostPreview } from "../../api/clients/post";
+import PostApi from "../../api/services/post-service";
+import { getProfileId } from "../userProfile/ProfileIdStorage";
+import { Link } from "react-router-dom";
 
 const Post = () => {
-  const [posts] = useState<Post[]>([
-    {
-      id: 1,
-      title: "Post 1",
-      content: "This is the content of Post 1",
-      imageUrl: Image1,
-    },
-    {
-      id: 2,
-      title: "Post 2",
-      content: "This is the content of Post 2",
-      imageUrl: Image2,
-    },
-    {
-      id: 3,
-      title: "Post 3",
-      content: "This is the content of Post 2",
-      imageUrl: Image3,
-    },
-    {
-      id: 4,
-      title: "Post 4",
-      content: "This is the content of Post 2",
-      imageUrl: Image4,
-    },
-  ]);
+  const profileId = getProfileId();
+  const [posts, setPosts] = useState<PostPreview[] | null>();
+
+  useEffect(() => {
+    PostApi.getProfilePosts(
+      {
+        profileID: profileId,
+      },
+      { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+    ).then((res) => {
+      setPosts(res.response.postPreview);
+    });
+  }, []);
 
   useEffect(() => {
     postClient
@@ -61,7 +30,8 @@ const Post = () => {
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
       )
       .then((res) => {
-        console.log(res.response);
+        console.log("some", res.response.postPreview);
+        
       })
       .catch((err) => {
         console.log("error fetching post: ", err);
@@ -76,7 +46,7 @@ const Post = () => {
         paddingTop={10}
         paddingBottom={10}
       >
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <GridItem
             key={post.id}
             height="300px"
@@ -84,8 +54,7 @@ const Post = () => {
             borderRadius="xl"
             overflow="hidden"
           >
-            {/* <LinkBoxheight="300px" width="300px" bg="black">
-              <LinkOverlay href="#"> */}
+             <Link to={`/Post/${post.id}`}>
             <Box
               position="relative"
               _hover={{
@@ -105,7 +74,7 @@ const Post = () => {
                 width="100%"
                 boxShadow="md"
                 height="100%"
-                src={post.imageUrl}
+                src={"http://back.khanmedia.ir:9290/" + post.image}
                 alt={post.title}
                 mb={4}
               />
@@ -125,7 +94,7 @@ const Post = () => {
                     onclick={() => {}}
                   />
                   <Text fontSize="14" textColor="white">
-                    hello
+                    
                   </Text>
 
                   <CommentsIcon
@@ -134,14 +103,13 @@ const Post = () => {
                     boxSize={8}
                   />
                   <Text fontSize="14" textColor="white">
-                    hello
+                    
                   </Text>
                 </HStack>
               </Box>
             </Box>
 
-            {/* </LinkOverlay>
-            </LinkBox> */}
+            </Link>
           </GridItem>
         ))}
       </Grid>

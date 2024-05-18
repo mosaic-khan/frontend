@@ -36,7 +36,7 @@ function App() {
             <Route path="ResetPassword" element={<ResetPassword />} />
             <Route path="MyProfile" element={<UserProfile />} />
             <Route path="OtherProfile" element={<OtherProfile />} />
-            <Route path="Post/:postId" element={<PostPage />} />
+            <Route path="post/:postId" element={<PostPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

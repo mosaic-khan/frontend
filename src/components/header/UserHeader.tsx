@@ -1,18 +1,9 @@
 import { Box, HStack, Avatar, VStack, Heading, Text } from "@chakra-ui/react";
 import userClient from "../../api/services/user-service";
 import { useEffect, useState } from "react";
-type Profile = {
-  id: bigint;
-  name: string;
-  username: string;
-  pronouns: string;
-  bio: string;
-  city: string;
-  profilePicUrl: string;
-  followerCnt: bigint;
-  followingCnt: bigint;
-  isFollowed: boolean;
-};
+import { setProfileId } from "../userProfile/ProfileIdStorage";
+import { Profile } from "../../api/clients/user";
+
 const UserHeader = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
   useEffect(() => {
@@ -29,6 +20,7 @@ const UserHeader = () => {
         console.log("getProfile response: ", res.response.profile);
         if (res.response.profile) {
           setUserProfile(res.response.profile);
+          setProfileId(res.response.profile.id);
         }
       })
       .catch((err) => {
