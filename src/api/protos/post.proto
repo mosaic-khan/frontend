@@ -84,6 +84,9 @@ message LikeRequest {
 
 message DislikeRequest {
   int64 post_id = 1;
+
+}
+
 }
 
 
@@ -138,3 +141,4 @@ message Category {
 message GetCategoriesResponse {
   repeated Category categories = 1;
 }
+

@@ -1,6 +1,44 @@
 import { Icon } from "@chakra-ui/icons";
-import { useState } from "react";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
+
+// function sendLikeRequest(postId: bigint, action: string) {
+//   return new Promise((resolve, reject) => {
+//     if (action == "LikeAction") {
+//       PostApi.like(
+//         { postId: postId },
+//         {
+//           meta: {
+//             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+//           },
+//         }
+//       )
+//         .then((res) => {
+//           resolve(res);
+//         })
+//         .catch((res) => {
+//           reject(res);
+//         });
+//     } else if (action == "DisLikeAction") {
+//       PostApi.dislike(
+//         { postId: postId },
+//         {
+//           meta: {
+//             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+//           },
+//         }
+//       )
+//         .then((res) => {
+//           resolve(res);
+//         })
+//         .catch((res) => {
+//           reject(res);
+//         });
+//     } else {
+//       reject("some weird error occured.");
+//     }
+//   });
+// }
+
 interface Props {
   isHoveredColor: string;
   color: string;
@@ -16,16 +54,18 @@ interface Props {
     | "unset"
     | "auto"
     | undefined;
+  like: boolean;
+  onclick: () => void;
 }
-const LikeIcon = ({ isHoveredColor, color, boxSize, marginRight }: Props) => {
+const LikeIcon = ({ isHoveredColor, color, boxSize, marginRight, like , onclick }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
-      as={isHovered ? IoHeart : IoHeartOutline}
+      as={like ? IoHeart : IoHeartOutline}
       boxSize={boxSize} //6 default
-      color={isHovered ? isHoveredColor : color}
+      color={like ? isHoveredColor : color}
       mr={marginRight ? marginRight : 0} //marginright 4 for onepost
-      onClick={() => setIsHovered(!isHovered)}
+      onClick={onclick}
       _hover={{
         cursor: "pointer",
         transform: "scale(1.1)",

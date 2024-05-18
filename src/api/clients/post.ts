@@ -191,6 +191,7 @@ export interface DislikeRequest {
      * @generated from protobuf field: int64 post_id = 1;
      */
     postId: bigint;
+
 }
 /**
  * @generated from protobuf message KhanAPI.AddCommentRequest
@@ -329,6 +330,7 @@ export interface GetCategoriesResponse {
      * @generated from protobuf field: repeated KhanAPI.Category categories = 1;
      */
     categories: Category[];
+
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Post$Type extends MessageType<Post> {
@@ -1061,6 +1063,7 @@ class DislikeRequest$Type extends MessageType<DislikeRequest> {
  * @generated MessageType for protobuf message KhanAPI.DislikeRequest
  */
 export const DislikeRequest = new DislikeRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class AddCommentRequest$Type extends MessageType<AddCommentRequest> {
     constructor() {
@@ -1636,6 +1639,9 @@ export const PostAPI = new ServiceType("KhanAPI.PostAPI", [
     { name: "SuggestIngredient", options: {}, I: SuggestIngredientRequest, O: SuggestIngredientResponse },
     { name: "AddImageForPost", options: {}, I: AddImageForPostRequest, O: Empty },
     { name: "Like", options: {}, I: LikeRequest, O: Empty },
+
+    { name: "Dislike", options: {}, I: DislikeRequest, O: Empty }
+
     { name: "Dislike", options: {}, I: DislikeRequest, O: Empty },
     { name: "AddComment", options: {}, I: AddCommentRequest, O: Empty },
     { name: "AddReply", options: {}, I: AddReplyRequest, O: Empty },
@@ -1643,4 +1649,5 @@ export const PostAPI = new ServiceType("KhanAPI.PostAPI", [
     { name: "GetReplies", options: {}, I: GetRepliesRequest, O: GetRepliesResponse },
     { name: "LikeComment", options: {}, I: LikeCommentRequest, O: Empty },
     { name: "GetCategories", options: {}, I: Empty, O: GetCategoriesResponse }
+
 ]);

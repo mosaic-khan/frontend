@@ -4,14 +4,6 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { PostAPI } from "./post";
-import type { GetCategoriesResponse } from "./post";
-import type { LikeCommentRequest } from "./post";
-import type { GetRepliesResponse } from "./post";
-import type { GetRepliesRequest } from "./post";
-import type { GetCommentsResponse } from "./post";
-import type { GetCommentsRequest } from "./post";
-import type { AddReplyRequest } from "./post";
-import type { AddCommentRequest } from "./post";
 import type { DislikeRequest } from "./post";
 import type { LikeRequest } from "./post";
 import type { AddImageForPostRequest } from "./post";
@@ -26,6 +18,14 @@ import type { GetProfilePostsResponse } from "./post";
 import type { GetProfilePostsRequests } from "./post";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
+import type { GetCategoriesResponse } from "./post";
+import type { LikeCommentRequest } from "./post";
+import type { GetRepliesResponse } from "./post";
+import type { GetRepliesRequest } from "./post";
+import type { GetCommentsResponse } from "./post";
+import type { GetCommentsRequest } from "./post";
+import type { AddReplyRequest } from "./post";
+import type { AddCommentRequest } from "./post";
 /**
  * @generated from protobuf service KhanAPI.PostAPI
  */
@@ -141,6 +141,7 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         const method = this.methods[6], opt = this._transport.mergeOptions(options);
         return stackIntercept<DislikeRequest, Empty>("unary", this._transport, method, opt, input);
     }
+
     /**
      * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (google.protobuf.Empty);
      */
