@@ -1,3 +1,5 @@
+
+import React, { useEffect, useState } from "react";
 import {
   MenuButton,
   IconButton,
@@ -21,11 +23,12 @@ const PreviewMenu = () => {
         as={IconButton}
         aria-label="Options"
         icon={<IoEllipsisHorizontal />}
-        color="white"
+        color="black"
         _hover={{ bg: "none" }}
         size="40px"
         border="none"
         variant="outline"
+        marginLeft="36px"
       />
       <MenuList>
         <MenuItem icon={<BsStar />}>اضافه کردن به علاقه مندیها</MenuItem>

@@ -29,7 +29,7 @@ const IngredientsSuggestion = ({ inputText, onSelect }: Props) => {
       )
       .then((res) => {
         console.log("suggestIngredient response: ", res);
-        setSuggestions(res.response.ingerdients);
+        setSuggestions(res.response.ingredients);
       })
       .catch((err) => {
         console.log(err);

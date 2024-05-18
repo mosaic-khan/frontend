@@ -45,6 +45,15 @@ message PostPreview {
   string image = 4;
 }
 
+message SetPostRequest {
+  string title = 1;
+  map<string, string> ingredients = 2;
+  string description = 3;
+  int32 categoryID = 4;
+  int32 numImages = 5;
+
+}
+
 message PostPreviewExplore {
   int64 id = 1;
   string title = 2;
@@ -64,6 +73,7 @@ message SetPostRequest {
 
 message SetPostResponse {
   int64 id = 1;
+
 }
 
 message GetProfilePostsRequests {
