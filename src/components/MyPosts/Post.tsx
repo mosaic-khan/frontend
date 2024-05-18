@@ -117,7 +117,13 @@ const Post = () => {
                 display="none"
               >
                 <HStack spacing={4}>
-                  <LikeIcon isHoveredColor="white" color="white" boxSize={8} />
+                  <LikeIcon
+                    isHoveredColor="white"
+                    color="white"
+                    boxSize={8}
+                    like={true} //toDo
+                    onclick={() => {}}
+                  />
                   <Text fontSize="14" textColor="white">
                     hello
                   </Text>

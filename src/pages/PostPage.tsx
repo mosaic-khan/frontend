@@ -35,7 +35,7 @@ type Post = {
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
-  const [ update, triggerUpdate ] = useState(true);
+  const [update, triggerUpdate] = useState(true);
   useEffect(() => {
     if (update) {
       HandlePostRequest()
@@ -103,7 +103,7 @@ const PostPage = () => {
     <Box h="100vh" bgColor="gray.100">
       <Box w="full" h="10%" position="fixed" zIndex={10}>
         {/* navbar */}
-        <UserNavigation />
+        <UserNavigation isTrue={false} />
       </Box>
       <Center position="relative">
         <CrossButton
@@ -155,8 +155,11 @@ const PostPage = () => {
                 <LikeIcon
                   onclick={handleLikeClick}
                   like={post?.like ? post.like : false}
+                  isHoveredColor={""}
+                  color={""}
+                  boxSize={0}
                 />
-                <CommentsIcon />
+                <CommentsIcon isHoveredColor={""} color={""} boxSize={0} />
               </HStack>
             </HStack>
             {/*Comment section*/}

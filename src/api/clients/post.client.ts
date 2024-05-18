@@ -4,12 +4,27 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { PostAPI } from "./post";
+import type { SearchFoodByIngredientResponse } from "./post";
+import type { SearchFoodByIngredientRequest } from "./post";
+import type { SearchFoodByNameResponse } from "./post";
+import type { SearchFoodByNameRequest } from "./post";
+import type { GetCategoriesResponse } from "./post";
+import type { LikeCommentRequest } from "./post";
+import type { GetRepliesResponse } from "./post";
+import type { GetRepliesRequest } from "./post";
+import type { SearchCategoriesResponse } from "./post";
+import type { SearchCategoriesRequest } from "./post";
+import type { GetCommentsResponse } from "./post";
+import type { GetCommentsRequest } from "./post";
+import type { AddReplyRequest } from "./post";
+import type { AddCommentRequest } from "./post";
 import type { DislikeRequest } from "./post";
 import type { LikeRequest } from "./post";
+import type { Empty } from "./google/protobuf/empty";
 import type { AddImageForPostRequest } from "./post";
 import type { SuggestIngredientResponse } from "./post";
 import type { SuggestIngredientRequest } from "./post";
-import type { Empty } from "./google/protobuf/empty";
+import type { SetPostResponse } from "./post";
 import type { SetPostRequest } from "./post";
 import type { GetPostResponse } from "./post";
 import type { GetPostRequest } from "./post";
@@ -18,14 +33,6 @@ import type { GetProfilePostsResponse } from "./post";
 import type { GetProfilePostsRequests } from "./post";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
-import type { GetCategoriesResponse } from "./post";
-import type { LikeCommentRequest } from "./post";
-import type { GetRepliesResponse } from "./post";
-import type { GetRepliesRequest } from "./post";
-import type { GetCommentsResponse } from "./post";
-import type { GetCommentsRequest } from "./post";
-import type { AddReplyRequest } from "./post";
-import type { AddCommentRequest } from "./post";
 /**
  * @generated from protobuf service KhanAPI.PostAPI
  */
@@ -39,9 +46,9 @@ export interface IPostAPIClient {
      */
     getPost(input: GetPostRequest, options?: RpcOptions): UnaryCall<GetPostRequest, GetPostResponse>;
     /**
-     * @generated from protobuf rpc: SetPost(KhanAPI.SetPostRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: SetPost(KhanAPI.SetPostRequest) returns (KhanAPI.SetPostResponse);
      */
-    setPost(input: SetPostRequest, options?: RpcOptions): UnaryCall<SetPostRequest, Empty>;
+    setPost(input: SetPostRequest, options?: RpcOptions): UnaryCall<SetPostRequest, SetPostResponse>;
     /**
      * @generated from protobuf rpc: SuggestIngredient(KhanAPI.SuggestIngredientRequest) returns (KhanAPI.SuggestIngredientResponse);
      */
@@ -71,6 +78,10 @@ export interface IPostAPIClient {
      */
     getComments(input: GetCommentsRequest, options?: RpcOptions): UnaryCall<GetCommentsRequest, GetCommentsResponse>;
     /**
+     * @generated from protobuf rpc: SearchCategories(KhanAPI.SearchCategoriesRequest) returns (KhanAPI.SearchCategoriesResponse);
+     */
+    searchCategories(input: SearchCategoriesRequest, options?: RpcOptions): UnaryCall<SearchCategoriesRequest, SearchCategoriesResponse>;
+    /**
      * @generated from protobuf rpc: GetReplies(KhanAPI.GetRepliesRequest) returns (KhanAPI.GetRepliesResponse);
      */
     getReplies(input: GetRepliesRequest, options?: RpcOptions): UnaryCall<GetRepliesRequest, GetRepliesResponse>;
@@ -82,6 +93,14 @@ export interface IPostAPIClient {
      * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
      */
     getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse>;
+    /**
+     * @generated from protobuf rpc: SearchFoodByName(KhanAPI.SearchFoodByNameRequest) returns (KhanAPI.SearchFoodByNameResponse);
+     */
+    searchFoodByName(input: SearchFoodByNameRequest, options?: RpcOptions): UnaryCall<SearchFoodByNameRequest, SearchFoodByNameResponse>;
+    /**
+     * @generated from protobuf rpc: SearchFoodByIngredient(KhanAPI.SearchFoodByIngredientRequest) returns (KhanAPI.SearchFoodByIngredientResponse);
+     */
+    searchFoodByIngredient(input: SearchFoodByIngredientRequest, options?: RpcOptions): UnaryCall<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.PostAPI
@@ -107,11 +126,11 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<GetPostRequest, GetPostResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: SetPost(KhanAPI.SetPostRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: SetPost(KhanAPI.SetPostRequest) returns (KhanAPI.SetPostResponse);
      */
-    setPost(input: SetPostRequest, options?: RpcOptions): UnaryCall<SetPostRequest, Empty> {
+    setPost(input: SetPostRequest, options?: RpcOptions): UnaryCall<SetPostRequest, SetPostResponse> {
         const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SetPostRequest, Empty>("unary", this._transport, method, opt, input);
+        return stackIntercept<SetPostRequest, SetPostResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: SuggestIngredient(KhanAPI.SuggestIngredientRequest) returns (KhanAPI.SuggestIngredientResponse);
@@ -141,7 +160,6 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         const method = this.methods[6], opt = this._transport.mergeOptions(options);
         return stackIntercept<DislikeRequest, Empty>("unary", this._transport, method, opt, input);
     }
-
     /**
      * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (google.protobuf.Empty);
      */
@@ -164,24 +182,45 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<GetCommentsRequest, GetCommentsResponse>("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: SearchCategories(KhanAPI.SearchCategoriesRequest) returns (KhanAPI.SearchCategoriesResponse);
+     */
+    searchCategories(input: SearchCategoriesRequest, options?: RpcOptions): UnaryCall<SearchCategoriesRequest, SearchCategoriesResponse> {
+        const method = this.methods[10], opt = this._transport.mergeOptions(options);
+        return stackIntercept<SearchCategoriesRequest, SearchCategoriesResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: GetReplies(KhanAPI.GetRepliesRequest) returns (KhanAPI.GetRepliesResponse);
      */
     getReplies(input: GetRepliesRequest, options?: RpcOptions): UnaryCall<GetRepliesRequest, GetRepliesResponse> {
-        const method = this.methods[10], opt = this._transport.mergeOptions(options);
+        const method = this.methods[11], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetRepliesRequest, GetRepliesResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: LikeComment(KhanAPI.LikeCommentRequest) returns (google.protobuf.Empty);
      */
     likeComment(input: LikeCommentRequest, options?: RpcOptions): UnaryCall<LikeCommentRequest, Empty> {
-        const method = this.methods[11], opt = this._transport.mergeOptions(options);
+        const method = this.methods[12], opt = this._transport.mergeOptions(options);
         return stackIntercept<LikeCommentRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
      */
     getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse> {
-        const method = this.methods[12], opt = this._transport.mergeOptions(options);
+        const method = this.methods[13], opt = this._transport.mergeOptions(options);
         return stackIntercept<Empty, GetCategoriesResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: SearchFoodByName(KhanAPI.SearchFoodByNameRequest) returns (KhanAPI.SearchFoodByNameResponse);
+     */
+    searchFoodByName(input: SearchFoodByNameRequest, options?: RpcOptions): UnaryCall<SearchFoodByNameRequest, SearchFoodByNameResponse> {
+        const method = this.methods[14], opt = this._transport.mergeOptions(options);
+        return stackIntercept<SearchFoodByNameRequest, SearchFoodByNameResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: SearchFoodByIngredient(KhanAPI.SearchFoodByIngredientRequest) returns (KhanAPI.SearchFoodByIngredientResponse);
+     */
+    searchFoodByIngredient(input: SearchFoodByIngredientRequest, options?: RpcOptions): UnaryCall<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse> {
+        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        return stackIntercept<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse>("unary", this._transport, method, opt, input);
     }
 }

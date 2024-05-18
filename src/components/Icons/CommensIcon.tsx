@@ -2,9 +2,6 @@ import { Icon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { AiOutlineComment } from "react-icons/ai";
 
-
-const CommentsIcon = () => {
-
 interface Props {
   isHoveredColor: string;
   color: string;
@@ -28,20 +25,16 @@ const CommentsIcon = ({
   boxSize,
   marginRight,
 }: Props) => {
-
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Icon
       as={AiOutlineComment}
-
-      boxSize={6}
-      color={isHovered ? "brand.900" : "black.100"}
-      mr={4}
-
+      // boxSize={6}
+      // color={isHovered ? "brand.900" : "black.100"}
+      // mr={4}
       boxSize={boxSize} //6 default
       color={isHovered ? isHoveredColor : color}
       mr={marginRight} //marginright 4 for onepost
-
       onClick={() => console.log("TODO")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -54,4 +47,3 @@ const CommentsIcon = ({
   );
 };
 export default CommentsIcon;
-

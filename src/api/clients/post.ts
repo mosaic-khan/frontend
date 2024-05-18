@@ -85,6 +85,35 @@ export interface PostPreview {
     image: string;
 }
 /**
+ * @generated from protobuf message KhanAPI.PostPreviewExplore
+ */
+export interface PostPreviewExplore {
+    /**
+     * @generated from protobuf field: int64 id = 1;
+     */
+    id: bigint;
+    /**
+     * @generated from protobuf field: string title = 2;
+     */
+    title: string;
+    /**
+     * @generated from protobuf field: string shortDescription = 3;
+     */
+    shortDescription: string;
+    /**
+     * @generated from protobuf field: string postImage = 4;
+     */
+    postImage: string;
+    /**
+     * @generated from protobuf field: string username = 5;
+     */
+    username: string;
+    /**
+     * @generated from protobuf field: string profile_pic_url = 6;
+     */
+    profilePicUrl: string;
+}
+/**
  * @generated from protobuf message KhanAPI.SetPostRequest
  */
 export interface SetPostRequest {
@@ -110,6 +139,15 @@ export interface SetPostRequest {
      * @generated from protobuf field: int32 numImages = 5;
      */
     numImages: number;
+}
+/**
+ * @generated from protobuf message KhanAPI.SetPostResponse
+ */
+export interface SetPostResponse {
+    /**
+     * @generated from protobuf field: int64 id = 1;
+     */
+    id: bigint;
 }
 /**
  * @generated from protobuf message KhanAPI.GetProfilePostsRequests
@@ -191,7 +229,6 @@ export interface DislikeRequest {
      * @generated from protobuf field: int64 post_id = 1;
      */
     postId: bigint;
-
 }
 /**
  * @generated from protobuf message KhanAPI.AddCommentRequest
@@ -246,31 +283,35 @@ export interface GetCommentsResponse {
  */
 export interface Comment {
     /**
-     * @generated from protobuf field: string name = 1;
+     * @generated from protobuf field: int64 ID = 1 [json_name = "ID"];
+     */
+    iD: bigint;
+    /**
+     * @generated from protobuf field: string name = 2;
      */
     name: string;
     /**
-     * @generated from protobuf field: string username = 2;
+     * @generated from protobuf field: string username = 3;
      */
     username: string;
     /**
-     * @generated from protobuf field: string profileUrl = 3;
+     * @generated from protobuf field: string profileUrl = 4;
      */
     profileUrl: string;
     /**
-     * @generated from protobuf field: string comment = 4;
+     * @generated from protobuf field: string comment = 5;
      */
     comment: string;
     /**
-     * @generated from protobuf field: string time = 5;
+     * @generated from protobuf field: string time = 6;
      */
     time: string;
     /**
-     * @generated from protobuf field: bool hasReplies = 6;
+     * @generated from protobuf field: bool hasReplies = 7;
      */
     hasReplies: boolean;
     /**
-     * @generated from protobuf field: bool isLiked = 7;
+     * @generated from protobuf field: bool isLiked = 8;
      */
     isLiked: boolean;
 }
@@ -330,7 +371,72 @@ export interface GetCategoriesResponse {
      * @generated from protobuf field: repeated KhanAPI.Category categories = 1;
      */
     categories: Category[];
-
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchCategoriesRequest
+ */
+export interface SearchCategoriesRequest {
+    /**
+     * @generated from protobuf field: repeated int32 categoryID = 1;
+     */
+    categoryID: number[];
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchCategoriesResponse
+ */
+export interface SearchCategoriesResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.PostPreviewExplore posts = 1;
+     */
+    posts: PostPreviewExplore[];
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchFoodByNameRequest
+ */
+export interface SearchFoodByNameRequest {
+    /**
+     * @generated from protobuf field: string name = 1;
+     */
+    name: string;
+    /**
+     * @generated from protobuf field: optional int32 pageNumber = 2;
+     */
+    pageNumber?: number;
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchFoodByNameResponse
+ */
+export interface SearchFoodByNameResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.PostPreviewExplore postPreview = 1;
+     */
+    postPreview: PostPreviewExplore[];
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchFoodByIngredientRequest
+ */
+export interface SearchFoodByIngredientRequest {
+    /**
+     * @generated from protobuf field: repeated string include = 1;
+     */
+    include: string[];
+    /**
+     * @generated from protobuf field: repeated string exclude = 2;
+     */
+    exclude: string[];
+    /**
+     * @generated from protobuf field: optional int32 pageNumber = 3;
+     */
+    pageNumber?: number;
+}
+/**
+ * @generated from protobuf message KhanAPI.SearchFoodByIngredientResponse
+ */
+export interface SearchFoodByIngredientResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.PostPreviewExplore postPreview = 1;
+     */
+    postPreview: PostPreviewExplore[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Post$Type extends MessageType<Post> {
@@ -547,6 +653,93 @@ class PostPreview$Type extends MessageType<PostPreview> {
  */
 export const PostPreview = new PostPreview$Type();
 // @generated message type with reflection information, may provide speed optimized methods
+class PostPreviewExplore$Type extends MessageType<PostPreviewExplore> {
+    constructor() {
+        super("KhanAPI.PostPreviewExplore", [
+            { no: 1, name: "id", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "shortDescription", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "postImage", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "profile_pic_url", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<PostPreviewExplore>): PostPreviewExplore {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0n;
+        message.title = "";
+        message.shortDescription = "";
+        message.postImage = "";
+        message.username = "";
+        message.profilePicUrl = "";
+        if (value !== undefined)
+            reflectionMergePartial<PostPreviewExplore>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: PostPreviewExplore): PostPreviewExplore {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 id */ 1:
+                    message.id = reader.int64().toBigInt();
+                    break;
+                case /* string title */ 2:
+                    message.title = reader.string();
+                    break;
+                case /* string shortDescription */ 3:
+                    message.shortDescription = reader.string();
+                    break;
+                case /* string postImage */ 4:
+                    message.postImage = reader.string();
+                    break;
+                case /* string username */ 5:
+                    message.username = reader.string();
+                    break;
+                case /* string profile_pic_url */ 6:
+                    message.profilePicUrl = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: PostPreviewExplore, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 id = 1; */
+        if (message.id !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.id);
+        /* string title = 2; */
+        if (message.title !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.title);
+        /* string shortDescription = 3; */
+        if (message.shortDescription !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.shortDescription);
+        /* string postImage = 4; */
+        if (message.postImage !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.postImage);
+        /* string username = 5; */
+        if (message.username !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.username);
+        /* string profile_pic_url = 6; */
+        if (message.profilePicUrl !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.profilePicUrl);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.PostPreviewExplore
+ */
+export const PostPreviewExplore = new PostPreviewExplore$Type();
+// @generated message type with reflection information, may provide speed optimized methods
 class SetPostRequest$Type extends MessageType<SetPostRequest> {
     constructor() {
         super("KhanAPI.SetPostRequest", [
@@ -641,6 +834,53 @@ class SetPostRequest$Type extends MessageType<SetPostRequest> {
  * @generated MessageType for protobuf message KhanAPI.SetPostRequest
  */
 export const SetPostRequest = new SetPostRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SetPostResponse$Type extends MessageType<SetPostResponse> {
+    constructor() {
+        super("KhanAPI.SetPostResponse", [
+            { no: 1, name: "id", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SetPostResponse>): SetPostResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0n;
+        if (value !== undefined)
+            reflectionMergePartial<SetPostResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SetPostResponse): SetPostResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int64 id */ 1:
+                    message.id = reader.int64().toBigInt();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SetPostResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int64 id = 1; */
+        if (message.id !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.id);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SetPostResponse
+ */
+export const SetPostResponse = new SetPostResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetProfilePostsRequests$Type extends MessageType<GetProfilePostsRequests> {
     constructor() {
@@ -1063,7 +1303,6 @@ class DislikeRequest$Type extends MessageType<DislikeRequest> {
  * @generated MessageType for protobuf message KhanAPI.DislikeRequest
  */
 export const DislikeRequest = new DislikeRequest$Type();
-
 // @generated message type with reflection information, may provide speed optimized methods
 class AddCommentRequest$Type extends MessageType<AddCommentRequest> {
     constructor() {
@@ -1280,17 +1519,19 @@ export const GetCommentsResponse = new GetCommentsResponse$Type();
 class Comment$Type extends MessageType<Comment> {
     constructor() {
         super("KhanAPI.Comment", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "profileUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "comment", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "time", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "hasReplies", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 7, name: "isLiked", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "ID", kind: "scalar", jsonName: "ID", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "profileUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "comment", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "time", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "hasReplies", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 8, name: "isLiked", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<Comment>): Comment {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.iD = 0n;
         message.name = "";
         message.username = "";
         message.profileUrl = "";
@@ -1307,25 +1548,28 @@ class Comment$Type extends MessageType<Comment> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* int64 ID = 1 [json_name = "ID"];*/ 1:
+                    message.iD = reader.int64().toBigInt();
+                    break;
+                case /* string name */ 2:
                     message.name = reader.string();
                     break;
-                case /* string username */ 2:
+                case /* string username */ 3:
                     message.username = reader.string();
                     break;
-                case /* string profileUrl */ 3:
+                case /* string profileUrl */ 4:
                     message.profileUrl = reader.string();
                     break;
-                case /* string comment */ 4:
+                case /* string comment */ 5:
                     message.comment = reader.string();
                     break;
-                case /* string time */ 5:
+                case /* string time */ 6:
                     message.time = reader.string();
                     break;
-                case /* bool hasReplies */ 6:
+                case /* bool hasReplies */ 7:
                     message.hasReplies = reader.bool();
                     break;
-                case /* bool isLiked */ 7:
+                case /* bool isLiked */ 8:
                     message.isLiked = reader.bool();
                     break;
                 default:
@@ -1340,27 +1584,30 @@ class Comment$Type extends MessageType<Comment> {
         return message;
     }
     internalBinaryWrite(message: Comment, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* int64 ID = 1 [json_name = "ID"]; */
+        if (message.iD !== 0n)
+            writer.tag(1, WireType.Varint).int64(message.iD);
+        /* string name = 2; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string username = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.name);
+        /* string username = 3; */
         if (message.username !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.username);
-        /* string profileUrl = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.username);
+        /* string profileUrl = 4; */
         if (message.profileUrl !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.profileUrl);
-        /* string comment = 4; */
+            writer.tag(4, WireType.LengthDelimited).string(message.profileUrl);
+        /* string comment = 5; */
         if (message.comment !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.comment);
-        /* string time = 5; */
+            writer.tag(5, WireType.LengthDelimited).string(message.comment);
+        /* string time = 6; */
         if (message.time !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.time);
-        /* bool hasReplies = 6; */
+            writer.tag(6, WireType.LengthDelimited).string(message.time);
+        /* bool hasReplies = 7; */
         if (message.hasReplies !== false)
-            writer.tag(6, WireType.Varint).bool(message.hasReplies);
-        /* bool isLiked = 7; */
+            writer.tag(7, WireType.Varint).bool(message.hasReplies);
+        /* bool isLiked = 8; */
         if (message.isLiked !== false)
-            writer.tag(7, WireType.Varint).bool(message.isLiked);
+            writer.tag(8, WireType.Varint).bool(message.isLiked);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1629,25 +1876,336 @@ class GetCategoriesResponse$Type extends MessageType<GetCategoriesResponse> {
  * @generated MessageType for protobuf message KhanAPI.GetCategoriesResponse
  */
 export const GetCategoriesResponse = new GetCategoriesResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchCategoriesRequest$Type extends MessageType<SearchCategoriesRequest> {
+    constructor() {
+        super("KhanAPI.SearchCategoriesRequest", [
+            { no: 1, name: "categoryID", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SearchCategoriesRequest>): SearchCategoriesRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.categoryID = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchCategoriesRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchCategoriesRequest): SearchCategoriesRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated int32 categoryID */ 1:
+                    if (wireType === WireType.LengthDelimited)
+                        for (let e = reader.int32() + reader.pos; reader.pos < e;)
+                            message.categoryID.push(reader.int32());
+                    else
+                        message.categoryID.push(reader.int32());
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchCategoriesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated int32 categoryID = 1; */
+        if (message.categoryID.length) {
+            writer.tag(1, WireType.LengthDelimited).fork();
+            for (let i = 0; i < message.categoryID.length; i++)
+                writer.int32(message.categoryID[i]);
+            writer.join();
+        }
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchCategoriesRequest
+ */
+export const SearchCategoriesRequest = new SearchCategoriesRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchCategoriesResponse$Type extends MessageType<SearchCategoriesResponse> {
+    constructor() {
+        super("KhanAPI.SearchCategoriesResponse", [
+            { no: 1, name: "posts", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => PostPreviewExplore }
+        ]);
+    }
+    create(value?: PartialMessage<SearchCategoriesResponse>): SearchCategoriesResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.posts = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchCategoriesResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchCategoriesResponse): SearchCategoriesResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.PostPreviewExplore posts */ 1:
+                    message.posts.push(PostPreviewExplore.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchCategoriesResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.PostPreviewExplore posts = 1; */
+        for (let i = 0; i < message.posts.length; i++)
+            PostPreviewExplore.internalBinaryWrite(message.posts[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchCategoriesResponse
+ */
+export const SearchCategoriesResponse = new SearchCategoriesResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchFoodByNameRequest$Type extends MessageType<SearchFoodByNameRequest> {
+    constructor() {
+        super("KhanAPI.SearchFoodByNameRequest", [
+            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "pageNumber", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SearchFoodByNameRequest>): SearchFoodByNameRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.name = "";
+        if (value !== undefined)
+            reflectionMergePartial<SearchFoodByNameRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchFoodByNameRequest): SearchFoodByNameRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string name */ 1:
+                    message.name = reader.string();
+                    break;
+                case /* optional int32 pageNumber */ 2:
+                    message.pageNumber = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchFoodByNameRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string name = 1; */
+        if (message.name !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.name);
+        /* optional int32 pageNumber = 2; */
+        if (message.pageNumber !== undefined)
+            writer.tag(2, WireType.Varint).int32(message.pageNumber);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchFoodByNameRequest
+ */
+export const SearchFoodByNameRequest = new SearchFoodByNameRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchFoodByNameResponse$Type extends MessageType<SearchFoodByNameResponse> {
+    constructor() {
+        super("KhanAPI.SearchFoodByNameResponse", [
+            { no: 1, name: "postPreview", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => PostPreviewExplore }
+        ]);
+    }
+    create(value?: PartialMessage<SearchFoodByNameResponse>): SearchFoodByNameResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.postPreview = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchFoodByNameResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchFoodByNameResponse): SearchFoodByNameResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.PostPreviewExplore postPreview */ 1:
+                    message.postPreview.push(PostPreviewExplore.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchFoodByNameResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.PostPreviewExplore postPreview = 1; */
+        for (let i = 0; i < message.postPreview.length; i++)
+            PostPreviewExplore.internalBinaryWrite(message.postPreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchFoodByNameResponse
+ */
+export const SearchFoodByNameResponse = new SearchFoodByNameResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchFoodByIngredientRequest$Type extends MessageType<SearchFoodByIngredientRequest> {
+    constructor() {
+        super("KhanAPI.SearchFoodByIngredientRequest", [
+            { no: 1, name: "include", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "exclude", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "pageNumber", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SearchFoodByIngredientRequest>): SearchFoodByIngredientRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.include = [];
+        message.exclude = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchFoodByIngredientRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchFoodByIngredientRequest): SearchFoodByIngredientRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated string include */ 1:
+                    message.include.push(reader.string());
+                    break;
+                case /* repeated string exclude */ 2:
+                    message.exclude.push(reader.string());
+                    break;
+                case /* optional int32 pageNumber */ 3:
+                    message.pageNumber = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchFoodByIngredientRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated string include = 1; */
+        for (let i = 0; i < message.include.length; i++)
+            writer.tag(1, WireType.LengthDelimited).string(message.include[i]);
+        /* repeated string exclude = 2; */
+        for (let i = 0; i < message.exclude.length; i++)
+            writer.tag(2, WireType.LengthDelimited).string(message.exclude[i]);
+        /* optional int32 pageNumber = 3; */
+        if (message.pageNumber !== undefined)
+            writer.tag(3, WireType.Varint).int32(message.pageNumber);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchFoodByIngredientRequest
+ */
+export const SearchFoodByIngredientRequest = new SearchFoodByIngredientRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SearchFoodByIngredientResponse$Type extends MessageType<SearchFoodByIngredientResponse> {
+    constructor() {
+        super("KhanAPI.SearchFoodByIngredientResponse", [
+            { no: 1, name: "postPreview", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => PostPreviewExplore }
+        ]);
+    }
+    create(value?: PartialMessage<SearchFoodByIngredientResponse>): SearchFoodByIngredientResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.postPreview = [];
+        if (value !== undefined)
+            reflectionMergePartial<SearchFoodByIngredientResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchFoodByIngredientResponse): SearchFoodByIngredientResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.PostPreviewExplore postPreview */ 1:
+                    message.postPreview.push(PostPreviewExplore.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: SearchFoodByIngredientResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.PostPreviewExplore postPreview = 1; */
+        for (let i = 0; i < message.postPreview.length; i++)
+            PostPreviewExplore.internalBinaryWrite(message.postPreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.SearchFoodByIngredientResponse
+ */
+export const SearchFoodByIngredientResponse = new SearchFoodByIngredientResponse$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.PostAPI
  */
 export const PostAPI = new ServiceType("KhanAPI.PostAPI", [
     { name: "GetProfilePosts", options: {}, I: GetProfilePostsRequests, O: GetProfilePostsResponse },
     { name: "GetPost", options: {}, I: GetPostRequest, O: GetPostResponse },
-    { name: "SetPost", options: {}, I: SetPostRequest, O: Empty },
+    { name: "SetPost", options: {}, I: SetPostRequest, O: SetPostResponse },
     { name: "SuggestIngredient", options: {}, I: SuggestIngredientRequest, O: SuggestIngredientResponse },
     { name: "AddImageForPost", options: {}, I: AddImageForPostRequest, O: Empty },
     { name: "Like", options: {}, I: LikeRequest, O: Empty },
-
-    { name: "Dislike", options: {}, I: DislikeRequest, O: Empty }
-
     { name: "Dislike", options: {}, I: DislikeRequest, O: Empty },
     { name: "AddComment", options: {}, I: AddCommentRequest, O: Empty },
     { name: "AddReply", options: {}, I: AddReplyRequest, O: Empty },
     { name: "GetComments", options: {}, I: GetCommentsRequest, O: GetCommentsResponse },
+    { name: "SearchCategories", options: {}, I: SearchCategoriesRequest, O: SearchCategoriesResponse },
     { name: "GetReplies", options: {}, I: GetRepliesRequest, O: GetRepliesResponse },
     { name: "LikeComment", options: {}, I: LikeCommentRequest, O: Empty },
-    { name: "GetCategories", options: {}, I: Empty, O: GetCategoriesResponse }
-
+    { name: "GetCategories", options: {}, I: Empty, O: GetCategoriesResponse },
+    { name: "SearchFoodByName", options: {}, I: SearchFoodByNameRequest, O: SearchFoodByNameResponse },
+    { name: "SearchFoodByIngredient", options: {}, I: SearchFoodByIngredientRequest, O: SearchFoodByIngredientResponse }
 ]);
