@@ -201,13 +201,13 @@ export const EditProfile = () => {
           />
         </ModalContent>
       </Modal>
-      <VStack boxSize="80%" paddingTop={20}>
+      <VStack paddingTop={20}>
         <Box position="relative" width="900px" height="600px">
           <Center>
             <Box
               boxShadow="2xl"
               bg="gray.50"
-              h="500px"
+              h="520px"
               w="800px"
               color="white"
               borderRadius="lg"
@@ -294,7 +294,8 @@ export const EditProfile = () => {
           </Center>
           <GradientRedButton
             position="absolute"
-            bottom="50px"
+            bottom="20px"
+            borderRadius="40px"
             onClick={handleSubmitProfile}
           >
             ذخیره
