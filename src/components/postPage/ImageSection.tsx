@@ -20,7 +20,7 @@ const ImageSection = ({ images }: ImageSliderProps) => {
     });
   }
   return (
-    <VStack pos="relative" h="80%" w="50%" bg="black" borderRadius="md">
+    <VStack pos="relative" h="80%" w="50%" borderRadius="md">
       <Image
         h="100%"
         w="100%"

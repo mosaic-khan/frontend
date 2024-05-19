@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Image,
@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Image1 from "../../assets/Userpic3.png";
 import PreviewMenu from "./PreviewMenu";
+import userClient from "../../api/services/user-service";
 import {
   IoPaperPlaneOutline,
   IoChatbubbleOutline,
@@ -25,51 +26,90 @@ interface SlideshowProps {
 
 const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const [username, setusername] = useState<string>("");
+  
   const handleDotClick = (index: number) => {
     setCurrentImageIndex(index);
   };
   const [liked, setLiked] = useState(false);
 
   const handleClick = () => {
-    setLiked(!liked); // Toggle the liked state
+    setLiked(!liked);
   };
+
+  useEffect(() => {
+    userClient
+      .getUserInfo(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.user);
+        if (res.response.user) {
+          setusername(res.response.user.username);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
 
   if (images.length === 0) {
     return (
-      <VStack>
-        <Heading marginTop="5%" textColor="white" marginLeft="6%">
-          پیش نمایش
-        </Heading>
+      <VStack height="685px">
+        <Box
+          borderBottom="50px"
+          borderColor="black"
+          bg="#ff0000"
+          w="100%"
+          borderTopRadius="25px"
+          h="80px"
+        >
+          <Heading textAlign="center" marginTop="4%" textColor="white">
+            پیش نمایش
+          </Heading>
+        </Box>
       </VStack>
     );
   }
   return (
     <VStack>
-      <Heading marginTop="5%" textColor="white" marginLeft="6%">
-        پیش نمایش
-      </Heading>
-
-      <HStack justifyContent="space-between" marginTop="15%">
+      <Box
+        borderBottom="50px"
+        borderColor="black"
+        bg="#ff0000"
+        w="100%"
+        borderTopRadius="25px"
+        h="80px"
+      >
+        <Heading textAlign="center" marginTop="4%" textColor="white">
+          پیش نمایش
+        </Heading>
+      </Box>
+      <HStack justifyContent="space-between" marginTop="5%">
         <Image borderRadius="100%" width="40px" marginTop="3px" src={Image1} />
-        <Text fontWeight="bold" marginRight="200px" textColor="white">
-          MAHDI_A
+        <Text fontWeight="bold" marginRight="100px">
+          {username}
         </Text>
-        <PreviewMenu />
+        <PreviewMenu  />
       </HStack>
 
       <Flex
-        justifyContent="center"
-        alignItems="center"
         width="100%"
         height="100%"
+        justifyContent="center"
+        alignItems="center"
       >
         <Box position="relative">
           <Image
             src={URL.createObjectURL(images[currentImageIndex])}
             objectFit="cover"
-            width="50%"
-            marginLeft="25%"
+            width="60%"
+            marginLeft="20%"
             height="400px"
             borderRadius="md"
           />
@@ -98,14 +138,14 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
           </Flex>
         </Box>
       </Flex>
-      <HStack spacing="15px">
+      <HStack spacing="15px" marginBottom="15%">
         <IconButton
           aria-label="Like"
           icon={
             liked ? (
-              <IoHeartOutline size="35px" color="white" />
-            ) : (
               <IoHeart size="35px" color="red" />
+            ) : (
+              <IoHeartOutline size="35px" />
             )
           }
           bg="none"
@@ -116,14 +156,12 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
           aria-label="Like"
           icon={<IoChatbubbleOutline size="30px" />}
           bg="none"
-          color="white"
           _hover={{ bg: "none" }}
         />
         <IconButton
           aria-label="Like"
           icon={<IoPaperPlaneOutline size="30px" />}
           bg="none"
-          color="white"
           _hover={{ bg: "none" }}
         />
 
@@ -132,7 +170,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
             aria-label="Like"
             icon={<IoBookmarkOutline size="30px" />}
             bg="none"
-            color="white"
             _hover={{ bg: "none" }}
           />
         </Box>

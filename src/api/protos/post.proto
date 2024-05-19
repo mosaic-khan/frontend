@@ -31,11 +31,12 @@ message Post {
   string description = 4;
   int32 numImages = 5;
   int32 numLikes = 6;
-  bool like = 7;
-  repeated string imageUrls = 8;
-  string username = 9;
-  string profilePicUrl = 10;
-  string category = 11;
+  int32 numComments = 7;
+  bool like = 8;
+  repeated string imageUrls = 9;
+  string username = 10;
+  string profilePicUrl = 11;
+  string category = 12;
 }
 
 message PostPreview {
@@ -43,6 +44,15 @@ message PostPreview {
   string title = 2;
   string ShortDescription = 3;
   string image = 4;
+}
+
+message SetPostRequest {
+  string title = 1;
+  map<string, string> ingredients = 2;
+  string description = 3;
+  int32 categoryID = 4;
+  int32 numImages = 5;
+
 }
 
 message PostPreviewExplore {
@@ -64,6 +74,7 @@ message SetPostRequest {
 
 message SetPostResponse {
   int64 id = 1;
+
 }
 
 message GetProfilePostsRequests {
