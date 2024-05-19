@@ -28,16 +28,26 @@ import PersonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
 import useUploadImage from "../api/services/media-service";
+import useToastUtil, { ToastUtilProps } from "../components/util/useToastUtil";
 
 export interface UserEditInfo {
   user: User;
   cityId?: number;
 }
 
-export interface UserEditInfo {
-  user: User;
-  cityId?: number;
-}
+const successToast: ToastUtilProps = {
+  active: true,
+  title: "ثبت اطلاعات",
+  description: "تغییرات پروفایل با موفیقت ثبت شد",
+  status: "success",
+};
+
+const serverErrorToast: ToastUtilProps = {
+  active: true,
+  title: "خطا از سمت سرور",
+  description: "تغییرات پروفایل ثبت نشد",
+  status: "error",
+};
 
 export const EditProfile = () => {
   const inputRef = useRef<any>();
@@ -55,6 +65,7 @@ export const EditProfile = () => {
       email: "",
     },
   });
+  const setToastInfo = useToastUtil({ position: "bottom-left" });
 
   const onChooseImg = () => {
     if (inputRef.current) {
@@ -95,13 +106,16 @@ export const EditProfile = () => {
               )
               .then((res) => {
                 console.log("editProfileInfo response: ", res);
+                setToastInfo(successToast);
               })
               .catch((err) => {
                 console.log("editProfileInfo error: ", err);
+                setToastInfo(serverErrorToast);
               });
           })
           .catch((err) => {
             console.log("Error on upload profile image. error : ", err);
+            setToastInfo(serverErrorToast);
           });
       }
     });
@@ -127,9 +141,11 @@ export const EditProfile = () => {
       )
       .then((res) => {
         console.log("editProfileInfo response: ", res);
+        setToastInfo(successToast);
       })
       .catch((err) => {
         console.log("editProfileInfo error: ", err);
+        setToastInfo(serverErrorToast);
       });
   };
 
