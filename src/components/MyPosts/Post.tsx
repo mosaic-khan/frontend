@@ -12,16 +12,16 @@ const Post = () => {
   const profileId = getProfileId();
   const [posts, setPosts] = useState<PostPreview[] | null>();
 
-  // useEffect(() => {
-  //   PostApi.getProfilePosts(
-  //     {
-  //       profileID: BigInt(profileId),
-  //     },
-  //     { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-  //   ).then((res) => {
-  //     setPosts(res.response.postPreview);
-  //   });
-  // }, []);
+  useEffect(() => {
+    PostApi.getProfilePosts(
+      {
+        profileID: BigInt(profileId),
+      },
+      { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+    ).then((res) => {
+      setPosts(res.response.postPreview);
+    });
+  }, []);
 
   useEffect(() => {
     postClient
@@ -40,6 +40,8 @@ const Post = () => {
   return (
     <Box bg="white" w="85%" boxShadow="md" borderRadius="lg" marginTop="10px">
       <Grid
+        // bg="black"
+        columnGap={10}
         templateColumns="repeat(3, 1fr)"
         justifyItems="center"
         rowGap={10}
@@ -49,8 +51,10 @@ const Post = () => {
         {posts?.map((post) => (
           <GridItem
             key={post.id}
-            height="300px"
-            width="300px"
+            // height="300px"
+            // width="300px"
+            height="90%"
+            width="90%"
             borderRadius="xl"
             overflow="hidden"
           >
