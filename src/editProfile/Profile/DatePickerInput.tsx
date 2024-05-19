@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { TThemeClasses } from "@react-shamsi/calendar";
 import { DatePicker } from "@react-shamsi/datepicker";
-import { toJalaali } from "jalaali-js/dist/jalaali";
+import moment from "jalali-moment";
 
 
 const brandCalendar: TThemeClasses = {
@@ -40,9 +40,8 @@ interface Props {
 const DatePickerInput = ({ placeHolderDate, onChange }: Props) => {
   let placeholder = "--/--/----";
   if (placeHolderDate != "0001-01-01") {
-    let x = placeHolderDate.split("-");
-    let d = toJalaali(Number(x[0]), Number(x[1]), Number(x[2]));
-    let date = `${d.jy}/${d.jm}/${d.jd}`;
+    moment.locale("fa", { useGregorianParser: true });
+    let date = moment(placeHolderDate).format("YYYY/MM/DD");
     let pNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     placeholder = date.replace(/[0-9]/g, (d) => pNumbers[Number(d)]);
   }
