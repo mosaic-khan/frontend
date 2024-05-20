@@ -37,6 +37,7 @@ const UserHeader = () => {
         console.log("getProfile error: ", err);
       });
   }, []);
+
   return (
     <HStack
       bg="white"
@@ -45,56 +46,51 @@ const UserHeader = () => {
       boxShadow="md"
       borderRadius="lg"
       marginTop="50px"
-
-      // padding={1}
     >
-      <Box bg="white" w="50%" h="100%" pos="relative">
-        <HStack alignItems="start" pos="inherit">
+      <Box bg="white" w="50%" h="100%">
+        <HStack alignItems="start" pl={10} >
           <Avatar
-            margin="10%"
-            boxSize="30%"
+            ml={50}
+            mt={2}
+            boxSize="150px"
             name={userProfile?.username}
             bgColor="brand.400"
             src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
             boxShadow="md"
           />
 
-          <VStack dir="rtl" paddingTop="10%" h="100%" w="100%" pos="relative">
-            <Heading fontWeight="bold" dir="rtl" pos="inherit">
+          <VStack dir="rtl" paddingTop="5%" h="100%" w="100%">
+            <Heading fontWeight="bold" dir="rtl" >
               {userProfile?.username}
             </Heading>
-            <HStack spacing={5} fontSize="sm">
-              {/* <Text>
-              <b>۷۷۵</b> پست
-            </Text> */}
-
+            <HStack fontSize="sm">
               <Text>{userProfile?.followerCnt.toString()} دنبال کننده</Text>
               <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
             </HStack>
+            <VStack spacing={1} pb={3}>
             <Text color="gray.500">
               {userProfile?.bio ? userProfile?.bio : "بیو"}
             </Text>
             <Text fontSize="sm" color="gray.300">
               {userProfile?.city ? userProfile?.city : "شهر"}
             </Text>
+            </VStack>
           </VStack>
         </HStack>
       </Box>
       <Spacer />
       <Grid
-        w="35%"
+        w="45%"
         h="100%"
         templateColumns="repeat(3, 1fr)"
         pos="relative"
-        paddingRight={10}
+        pr={10}
+        pl={10}
       >
         <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
         <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
         <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
       </Grid>
-      {/* <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box> */}
     </HStack>
   );
 };
