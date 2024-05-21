@@ -1,12 +1,33 @@
-import { Box, HStack } from "@chakra-ui/react";
+import { Avatar, HStack, Text } from "@chakra-ui/react";
+import { GradientRedButton } from "../Buttons";
+import { ProfilePreview } from "../../api/clients/user";
 
-const UserDisplayItem = () => {
+interface Props {
+  profilePreview: ProfilePreview;
+}
+
+const UserDisplayItem = ({ profilePreview }: Props) => {
   return (
-    <HStack w="450px" justifyContent="space-between" bg="red.200" dir="rtl">
-      <Box w="80px" h="80px" bg="red" />
-      <Box w="80px" h="50px" bg="red" />
-      <Box w="80px" h="50px" bg="red" />
-      <Box w="80px" h="50px" bg="red" />
+    <HStack
+      w="430px"
+      justifyContent="space-between"
+      bg="brand.50"
+      dir="rtl"
+      borderRadius="100px"
+    >
+      <Avatar boxSize="70px" />
+      <Text w="200px">{profilePreview.name}</Text>
+      <Text w="200px">{profilePreview.username}</Text>
+      <GradientRedButton
+        width="90px"
+        height="30px"
+        color="white"
+        fontSize="sm"
+        borderRadius="20px"
+        marginLeft="20px"
+      >
+        دنبال کردن
+      </GradientRedButton>
     </HStack>
   );
 };
