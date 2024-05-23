@@ -13,55 +13,19 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { GradientRedButton } from "../Buttons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import userClient from "../../api/services/user-service";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
+import { Profile } from "../../api/clients/user";
 
 interface Props {
-  username: string;
+  userProfile: Profile | undefined;
+  isLoading: boolean;
 }
-type Profile = {
-  id: bigint;
-  name: string;
-  username: string;
-  pronouns: string;
-  bio: string;
-  city: string;
-  profilePicUrl: string;
-  followerCnt: bigint;
-  followingCnt: bigint;
-  isFollowed: boolean;
-};
-const OtherHeader = ({ username }: Props) => {
-  const [userProfile, setUserProfile] = useState<Profile>();
+
+const OtherHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    userClient
-      .getProfile(
-        {
-          username: username,
-        },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        // console.log("getProfile response: ", res.response.profile);
-        if (res.response.profile) {
-          setUserProfile(res.response.profile);
-          setIsLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log("getProfile error: ", err);
-        setIsLoading(true);
-      });
-  });
 
   const onClick = (isFollowed: boolean) => {
     if (isFollowed) {
@@ -169,11 +133,11 @@ const OtherHeader = ({ username }: Props) => {
                     {userProfile?.followingCnt.toString()} دنبال شونده
                   </Text>
                 </HStack>
-                <Text color="gray.500">
-                  {userProfile?.bio ? userProfile?.bio : "بیو"}
-                </Text>
                 <Text fontSize="sm" color="gray.300">
                   {userProfile?.city ? userProfile?.city : "شهر"}
+                </Text>
+                <Text color="gray.500" textAlign="center" fontSize="xs" maxW="150px">
+                  {userProfile?.bio ? userProfile?.bio : "بیو"}
                 </Text>
               </VStack>
             </HStack>

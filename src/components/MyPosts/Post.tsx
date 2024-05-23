@@ -15,20 +15,20 @@ import LikeIcon from "../Icons/LikeIcon";
 import CommentsIcon from "../Icons/CommentsIcon";
 import { PostPreview } from "../../api/clients/post";
 import PostApi from "../../api/services/post-service";
-import { getProfileId } from "../userProfile/ProfileIdStorage";
 import { Link } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
 
-const Post = () => {
-  const profileId = getProfileId();
-  const [posts, setPosts] = useState<PostPreview[] | null>(null);
+interface Props {
+  profileId: bigint;
+}
+const Post = ({ profileId }: Props) => {
+  const [posts, setPosts] = useState<PostPreview[] | null>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     PostApi.getProfilePosts(
       {
-        profileID: BigInt(profileId),
+        profileID: profileId,
       },
       { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
     )
@@ -40,7 +40,7 @@ const Post = () => {
         console.error("Error fetching posts:", err);
         setIsLoading(true);
       });
-  }, [profileId]);
+  });
 
   return (
     <Box

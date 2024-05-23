@@ -2,11 +2,39 @@ import { Box, HStack, VStack } from "@chakra-ui/react";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import OtherHeader from "../components/header/OtherHeader";
 import Post from "../components/MyPosts/Post";
+import { useEffect, useState } from "react";
+import userClient from "../api/services/user-service";
+import { Profile } from "../api/clients/user";
+import { useParams } from "react-router-dom";
 
 const OtherProfile = () => {
-  // const [username, setUserName] = useState<string>("MakanJavadi");
-  // setUserName("MakanJavadi");
-  const username = "elham";
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
+  const {username} = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {
+          username: username,
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+        setIsLoading(true);
+      });
+  });
 
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">
@@ -27,8 +55,8 @@ const OtherProfile = () => {
           {/* <UserSideBar /> */}
           <VStack w="88%" h="full">
             {/* Header */}
-            <OtherHeader username={username} />
-            <Post/>
+            <OtherHeader userProfile={userProfile} isLoading={isLoading}/>
+            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)}/>
           </VStack>
         </HStack>
       </Box>
@@ -37,3 +65,4 @@ const OtherProfile = () => {
 };
 
 export default OtherProfile;
+
