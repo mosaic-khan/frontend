@@ -85,7 +85,7 @@ const UserHeader = () => {
             </Box>
 
             <VStack paddingTop="5%" h="100%" w="100%">
-              <Heading fontWeight="bold" color="gray.900">
+              <Heading  color="gray.900">
                 {userProfile?.username}
               </Heading>
               <HStack fontSize="sm">

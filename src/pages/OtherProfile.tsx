@@ -1,7 +1,7 @@
 import { Box, HStack, VStack } from "@chakra-ui/react";
 import UserNavigation from "../components/Navigation/ProfileNavigation";
 import OtherHeader from "../components/header/OtherHeader";
-// import { useState } from "react";
+import Post from "../components/MyPosts/Post";
 
 const OtherProfile = () => {
   // const [username, setUserName] = useState<string>("MakanJavadi");
@@ -14,15 +14,21 @@ const OtherProfile = () => {
         {/* navbar */}
         <UserNavigation isTrue={true} />
       </Box>
-      <Box h="90%" position="relative" top="10%">
+      <Box
+        h="full"
+        position="relative"
+        pt={"5%"}
+        pb={"5%"}
+        pl={"10%"}
+        overflowY="auto"
+      >
         <HStack>
           {/* sidebar */}
           {/* <UserSideBar /> */}
-          <VStack w="85%" h="full">
+          <VStack w="88%" h="full">
             {/* Header */}
             <OtherHeader username={username} />
-            {/* Latest Box */}
-            <Box w="full"></Box>
+            <Post/>
           </VStack>
         </HStack>
       </Box>
