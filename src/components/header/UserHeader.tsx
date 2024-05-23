@@ -8,14 +8,19 @@ import {
   Grid,
   GridItem,
   Spacer,
+  useDisclosure,
 } from "@chakra-ui/react";
 import userClient from "../../api/services/user-service";
 import { useEffect, useState } from "react";
 import { setProfileId } from "../userProfile/ProfileIdStorage";
 import { Profile } from "../../api/clients/user";
+import FollowerFollowingModal from "../userList/FollowerFollowingModal";
 
 const UserHeader = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [followTab, setFollowTab] = useState<number>(0);
+
   useEffect(() => {
     userClient
       .getProfile(
@@ -80,11 +85,11 @@ const UserHeader = () => {
                 {userProfile?.city ? userProfile?.city : "شهر"}
               </Text>
             </VStack>
-          </VStack>
+            </VStack>
         </HStack>
       </Box>
       <Spacer />
-      <Grid
+       <Grid
         w="45%"
         h="100%"
         templateColumns="repeat(3, 1fr)"
@@ -97,6 +102,13 @@ const UserHeader = () => {
         <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
       </Grid>
     </HStack>
+     <FollowerFollowingModal
+        profileId={BigInt(userProfile ? userProfile.id : 0)}
+        isOpen={isOpen}
+        onClose={onClose}
+        startIndex={followTab}
+      />
+    </>
   );
 };
 

@@ -62,7 +62,7 @@ const LoginInput = ({ forgotPage }: Props) => {
           localStorage.setItem("refreshToken", res.response.refreshToken);
           authContext.setToken(res.response.jwtToken);
           userClient
-            .getUserInfo(
+            .getProfile(
               {},
               {
                 meta: {
@@ -72,8 +72,12 @@ const LoginInput = ({ forgotPage }: Props) => {
             )
             .then((res) => {
               console.log("getUserInfo response: ", res);
-              if (res.response.user) {
-                localStorage.setItem("username", res.response.user.username);
+              if (res.response.profile) {
+                localStorage.setItem("username", res.response.profile.username);
+                localStorage.setItem(
+                  "profileId",
+                  res.response.profile.id.toString()
+                );
                 setResult("ok");
               } else {
                 setResult("request");
