@@ -1,6 +1,6 @@
 import { Avatar, HStack, Text } from "@chakra-ui/react";
-import { GradientRedButton } from "../Buttons";
 import { ProfilePreview } from "../../api/clients/user";
+import FollowButton from "./FollowButton";
 
 interface Props {
   profilePreview: ProfilePreview;
@@ -15,19 +15,13 @@ const UserDisplayItem = ({ profilePreview }: Props) => {
       dir="rtl"
       borderRadius="100px"
     >
-      <Avatar boxSize="70px" />
+      <Avatar
+        boxSize="70px"
+        src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
+      />
       <Text w="200px">{profilePreview.name}</Text>
       <Text w="200px">{profilePreview.username}</Text>
-      <GradientRedButton
-        width="90px"
-        height="30px"
-        color="white"
-        fontSize="sm"
-        borderRadius="20px"
-        marginLeft="20px"
-      >
-        دنبال کردن
-      </GradientRedButton>
+      <FollowButton isFollowed={false} profileId={profilePreview.profileID} />
     </HStack>
   );
 };

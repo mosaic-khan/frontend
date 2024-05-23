@@ -110,10 +110,10 @@ const FollowerFollowingModal = ({
           </TabList>
           <TabPanels>
             <TabPanel>
-              <UserList profileList={followerList} />
+              <UserList profileList={followingList} />
             </TabPanel>
             <TabPanel>
-              <UserList profileList={followingList} />
+              <UserList profileList={followerList} />
             </TabPanel>
           </TabPanels>
         </Tabs>
