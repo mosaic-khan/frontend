@@ -42,55 +42,42 @@ const UserHeader = () => {
         console.log("getProfile error: ", err);
       });
   }, []);
+
   return (
-    <>
-      <HStack
-        bg="white"
-        w="85%"
-        h="100%"
-        boxShadow="md"
-        borderRadius="lg"
-        marginTop="50px"
+    <HStack
+      bg="white"
+      w="85%"
+      h="100%"
+      boxShadow="md"
+      borderRadius="lg"
+      marginTop="50px"
+    >
+      <Box bg="white" w="50%" h="100%">
+        <HStack alignItems="start" pl={10}>
+          <Box bg="gray.200" ml={50} m={3} borderRadius={100}>
+            <Box bg="gray.50" borderRadius={100} m={1}>
+              <Avatar
+                boxSize="150px"
+                m={1}
+                name={userProfile?.username}
+                bgColor="brand.400"
+                src={
+                  "http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl
+                }
+                boxShadow="md"
+              />
+            </Box>
+          </Box>
 
-        // padding={1}
-      >
-        <Box bg="white" w="50%" h="100%" pos="relative">
-          <HStack alignItems="start" pos="inherit">
-            <Avatar
-              margin="10%"
-              boxSize="30%"
-              name={userProfile?.username}
-              bgColor="brand.400"
-              src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
-              boxShadow="md"
-            />
-
-            <VStack dir="rtl" paddingTop="10%" h="100%" w="100%" pos="relative">
-              <Heading fontWeight="bold" dir="rtl" pos="inherit">
-                {userProfile?.username}
-              </Heading>
-              <HStack spacing={5} fontSize="sm">
-                {/* <Text>
-              <b>۷۷۵</b> پست
-            </Text> */}
-
-                <Text
-                  onClick={() => {
-                    setFollowTab(1);
-                    onOpen();
-                  }}
-                >
-                  {userProfile?.followerCnt.toString()} دنبال کننده
-                </Text>
-                <Text
-                  onClick={() => {
-                    setFollowTab(0);
-                    onOpen();
-                  }}
-                >
-                  {userProfile?.followingCnt.toString()} دنبال شونده
-                </Text>
-              </HStack>
+          <VStack paddingTop="5%" h="100%" w="100%">
+            <Heading fontWeight="bold" color="gray.900">
+              {userProfile?.username}
+            </Heading>
+            <HStack fontSize="sm">
+              <Text>{userProfile?.followerCnt.toString()} دنبال کننده</Text>
+              <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
+            </HStack>
+            <VStack spacing={1} pb={3}>
               <Text color="gray.500">
                 {userProfile?.bio ? userProfile?.bio : "بیو"}
               </Text>
@@ -98,25 +85,24 @@ const UserHeader = () => {
                 {userProfile?.city ? userProfile?.city : "شهر"}
               </Text>
             </VStack>
-          </HStack>
-        </Box>
-        <Spacer />
-        <Grid
-          w="35%"
-          h="100%"
-          templateColumns="repeat(3, 1fr)"
-          pos="relative"
-          paddingRight={10}
-        >
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-        </Grid>
-        {/* <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box> */}
-      </HStack>
-      <FollowerFollowingModal
+            </VStack>
+        </HStack>
+      </Box>
+      <Spacer />
+       <Grid
+        w="45%"
+        h="100%"
+        templateColumns="repeat(3, 1fr)"
+        pos="relative"
+        pr={10}
+        pl={10}
+      >
+        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+      </Grid>
+    </HStack>
+     <FollowerFollowingModal
         profileId={BigInt(userProfile ? userProfile.id : 0)}
         isOpen={isOpen}
         onClose={onClose}
