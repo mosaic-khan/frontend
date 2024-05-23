@@ -21,26 +21,32 @@ import { FaCameraRetro } from "react-icons/fa";
 interface Props {
   profileId: bigint;
 }
+
 const Post = ({ profileId }: Props) => {
-  const [posts, setPosts] = useState<PostPreview[] | null>();
+  const [posts, setPosts] = useState<PostPreview[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    PostApi.getProfilePosts(
-      {
-        profileID: profileId,
-      },
-      { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-    )
-      .then((res) => {
-        setPosts(res.response.postPreview);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching posts:", err);
-        setIsLoading(true);
-      });
-  });
+    if (profileId !== BigInt(0)) {
+      setIsLoading(true); 
+      PostApi.getProfilePosts(
+        {
+          profileID: profileId,
+        },
+        { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+      )
+        .then((res) => {
+          setPosts(res.response.postPreview);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("!!Error fetching posts:", err);
+          setIsLoading(false);
+        });
+    } else {
+      console.log("error", isLoading);
+    }
+  }, [profileId]); 
 
   return (
     <Box

@@ -34,7 +34,7 @@ const OtherProfile = () => {
         console.log("getProfile error: ", err);
         setIsLoading(true);
       });
-  });
+  }, []);
 
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">

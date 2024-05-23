@@ -29,7 +29,7 @@ const UserProfile = () => {
         console.log("getProfile error: ", err);
         setIsLoading(true);
       });
-  });
+  }, []);
   return (
     <Box h="100vh" bgColor="gray.100" position="relative" overflowY="auto">
       <Flex position="fixed" w="100%" zIndex="10" bg="white">
@@ -48,7 +48,7 @@ const UserProfile = () => {
           <VStack w="88%" h="full">
             {/* Header */}
             <UserHeader userProfile={userProfile} isLoading={isLoading}/>
-            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)}/>
+            <Post profileId={userProfile?.id ? BigInt(userProfile.id) : BigInt(0)}/>
           </VStack>
         </HStack>
       </Box>

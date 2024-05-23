@@ -12,11 +12,10 @@ import {
   Spinner,
   Center,
 } from "@chakra-ui/react";
-import userClient from "../../api/services/user-service";
-import { useEffect, useState } from "react";
-import { setProfileId } from "../userProfile/ProfileIdStorage";
+
 import { Profile } from "../../api/clients/user";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
+import { useState } from "react";
 interface Props {
   userProfile: Profile | undefined;
   isLoading: boolean;
@@ -25,27 +24,6 @@ interface Props {
 const UserHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
-
-  useEffect(() => {
-    userClient
-      .getProfile(
-        {},
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("getProfile response: ", res.response.profile);
-        if (res.response.profile) {
-          setProfileId(res.response.profile.id);
-        }
-      })
-      .catch((err) => {
-        console.log("getProfile error: ", err);
-      });
-  }, []);
 
   return (
     <>
