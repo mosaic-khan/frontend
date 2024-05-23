@@ -6,7 +6,7 @@ import OtherHeader from "../components/header/OtherHeader";
 const OtherProfile = () => {
   // const [username, setUserName] = useState<string>("MakanJavadi");
   // setUserName("MakanJavadi");
-  const username = "elham";
+  const username = "Ali";
 
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">

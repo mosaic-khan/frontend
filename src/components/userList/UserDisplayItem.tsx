@@ -15,7 +15,10 @@ const UserDisplayItem = ({ profilePreview }: Props) => {
       dir="rtl"
       borderRadius="100px"
     >
-      <Avatar boxSize="70px" />
+      <Avatar
+        boxSize="70px"
+        src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
+      />
       <Text w="200px">{profilePreview.name}</Text>
       <Text w="200px">{profilePreview.username}</Text>
       <GradientRedButton
