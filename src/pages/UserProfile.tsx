@@ -12,8 +12,9 @@ const UserProfile = () => {
       <Box
         h="full"
         position="relative"
-        paddingTop={10}
-        paddingBottom={10}
+        pt={"5%"}
+        pb={"5%"}
+        pl={"10%"}
         overflowY="auto"
       >
         <HStack>

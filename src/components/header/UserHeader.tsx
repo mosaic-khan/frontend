@@ -48,19 +48,24 @@ const UserHeader = () => {
       marginTop="50px"
     >
       <Box bg="white" w="50%" h="100%">
-        <HStack alignItems="start" pl={10} >
-          <Avatar
-            ml={50}
-            mt={2}
-            boxSize="150px"
-            name={userProfile?.username}
-            bgColor="brand.400"
-            src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
-            boxShadow="md"
-          />
+        <HStack alignItems="start" pl={10}>
+          <Box bg="gray.200" ml={50} m={3} borderRadius={100}>
+            <Box bg="gray.50" borderRadius={100} m={1}>
+              <Avatar
+                boxSize="150px"
+                m={1}
+                name={userProfile?.username}
+                bgColor="brand.400"
+                src={
+                  "http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl
+                }
+                boxShadow="md"
+              />
+            </Box>
+          </Box>
 
-          <VStack dir="rtl" paddingTop="5%" h="100%" w="100%">
-            <Heading fontWeight="bold" dir="rtl" >
+          <VStack paddingTop="5%" h="100%" w="100%">
+            <Heading fontWeight="bold" color="gray.900">
               {userProfile?.username}
             </Heading>
             <HStack fontSize="sm">
@@ -68,12 +73,12 @@ const UserHeader = () => {
               <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
             </HStack>
             <VStack spacing={1} pb={3}>
-            <Text color="gray.500">
-              {userProfile?.bio ? userProfile?.bio : "بیو"}
-            </Text>
-            <Text fontSize="sm" color="gray.300">
-              {userProfile?.city ? userProfile?.city : "شهر"}
-            </Text>
+              <Text color="gray.500">
+                {userProfile?.bio ? userProfile?.bio : "بیو"}
+              </Text>
+              <Text fontSize="sm" color="gray.300">
+                {userProfile?.city ? userProfile?.city : "شهر"}
+              </Text>
             </VStack>
           </VStack>
         </HStack>

@@ -8,6 +8,7 @@ import {
   Center,
   Icon,
   VStack,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import LikeIcon from "../Icons/LikeIcon";
@@ -20,53 +21,25 @@ import { FaCameraRetro } from "react-icons/fa";
 
 const Post = () => {
   const profileId = getProfileId();
-  const [posts, setPosts] = useState<PostPreview[] | null>();
-  //   {
-  //     id: BigInt(1),
-  //     title: "Sunset Boulevard",
-  //     shortDescription:
-  //       "Experience the serene beauty of the sunset along the famous boulevard.",
-  //     image: "sunset-boulevard.jpg",
-  //   },
-  //   {
-  //     id: BigInt(2),
-  //     title: "Gastronomy Adventure",
-  //     shortDescription:
-  //       "Join us on a journey of taste, exploring the world's best culinary delights.",
-  //     image: "gastronomy-adventure.jpg",
-  //   },
-  //   {
-  //     id: BigInt(3),
-  //     title: "Tech Innovations",
-  //     shortDescription:
-  //       "Dive into the latest breakthroughs in technology that are shaping our future.",
-  //     image: "tech-innovations.jpg",
-  //   },
-  //   {
-  //     id: BigInt(4),
-  //     title: "Artistic Expressions",
-  //     shortDescription:
-  //       "Discover the stories behind the masterpieces of modern art.",
-  //     image: "artistic-expressions.jpg",
-  //   },
-  //   {
-  //     id: BigInt(5),
-  //     title: "Wildlife Wonders",
-  //     shortDescription:
-  //       "Explore the untamed wilderness and the majestic creatures that call it home.",
-  //     image: "wildlife-wonders.jpg",
-  //   },
-  // ]);
+  const [posts, setPosts] = useState<PostPreview[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     PostApi.getProfilePosts(
       {
         profileID: BigInt(profileId),
       },
       { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-    ).then((res) => {
-      setPosts(res.response.postPreview);
-    });
+    )
+      .then((res) => {
+        setPosts(res.response.postPreview);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching posts:", err);
+        setIsLoading(true);
+      });
   }, [profileId]);
 
   return (
@@ -79,7 +52,11 @@ const Post = () => {
       marginTop="10px"
       overflowY="auto"
     >
-      {posts && posts.length > 0 ? (
+      {isLoading ? (
+        <Center w="100%" minH="50vh">
+          <Spinner size="xl" color="brand.500" />
+        </Center>
+      ) : posts && posts.length > 0 ? (
         <Grid
           columnGap={10}
           templateColumns="repeat(3, 1fr)"
@@ -91,11 +68,11 @@ const Post = () => {
           {posts?.map((post) => (
             <GridItem
               key={post.id}
-              height="300px" // Fixed height
-              width="300px" // Fixed width
+              height="300px"
+              width="300px"
               borderRadius="xl"
               overflow="hidden"
-              boxShadow="0 4px 8px 0 rgba(0,0,0,0.2)" // More pronounced shadow
+              boxShadow="0 4px 8px 0 rgba(0,0,0,0.2)"
             >
               <Link to={`/Post/${post.id}`}>
                 <Box
@@ -115,7 +92,7 @@ const Post = () => {
                 >
                   <Image
                     width="400px"
-                    height="250px" // Adjusted for caption space
+                    height="250px"
                     src={"http://back.khanmedia.ir:9290/" + post.image}
                     alt={post.title}
                     mb={4}
@@ -142,7 +119,7 @@ const Post = () => {
                         isHoveredColor="white"
                         color="white"
                         boxSize={8}
-                        like={true} //toDo
+                        like={true}
                         onclick={() => {}}
                       />
                       <Text fontSize="14" textColor="white"></Text>
