@@ -38,6 +38,7 @@ function App() {
             <Route path="OtherProfile" element={<OtherProfile />} />
             <Route path="post/:postId" element={<PostPage />} />
             <Route path="Search" element={<Search />} />
+            <Route path="Search/:searchTextParam" element={<Search />} />
           </Route>
         </Routes>
       </BrowserRouter>
