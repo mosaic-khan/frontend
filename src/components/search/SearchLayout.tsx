@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import SearchResult from "./SearchResult";
-import SearchFilters from "./SearchFilters";
+import SearchFilters from "./searchFilter/SearchFilters";
 
 const SearchLayout = () => {
   return (
