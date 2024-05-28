@@ -10,7 +10,8 @@ import {
   Spacer,
   useDisclosure,
   Spinner,
-  Center
+  Center,
+  Button,
 } from "@chakra-ui/react";
 import userClient from "../../api/services/user-service";
 import { useEffect, useState } from "react";
@@ -23,7 +24,6 @@ const UserHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,61 +61,61 @@ const UserHeader = () => {
         marginTop="50px"
       >
         <Box bg="white" w="50%" h="100%">
-        {
-          isLoading ? (
+          {isLoading ? (
             <Center w="100%" h="200px">
               <Spinner size="sm" color="brand.600" />
             </Center>
-          ) :
-       ( 
-          <HStack alignItems="start" pl={10}>
-            <Box bg="gray.200" ml={50} m={3} borderRadius={100}>
-              <Box bg="gray.50" borderRadius={100} m={1}>
-                <Avatar
-                  boxSize="150px"
-                  m={1}
-                  name={userProfile?.username}
-                  bgColor="brand.400"
-                  src={
-                    "http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl
-                  }
-                  boxShadow="md"
-                />
+          ) : (
+            <HStack alignItems="start" pl={10}>
+              <Box bg="gray.200" ml={50} m={3} borderRadius={100}>
+                <Box bg="gray.50" borderRadius={100} m={1}>
+                  <Avatar
+                    boxSize="150px"
+                    m={1}
+                    name={userProfile?.username}
+                    bgColor="brand.400"
+                    src={
+                      "http://back.khanmedia.ir:9290" +
+                      userProfile?.profilePicUrl
+                    }
+                    boxShadow="md"
+                  />
+                </Box>
               </Box>
-            </Box>
 
-            <VStack paddingTop="5%" h="100%" w="100%">
-              <Heading fontWeight="bold" color="gray.900">
-                {userProfile?.username}
-              </Heading>
-              <HStack fontSize="sm">
-                <Text
-                  onClick={() => {
-                    setFollowTab(1);
-                    onOpen();
-                  }}
-                >
-                  {userProfile?.followerCnt.toString()} دنبال کننده
+              <VStack paddingTop="5%" h="100%" w="100%">
+                <Heading fontWeight="bold" color="gray.900">
+                  {userProfile?.username}
+                </Heading>
+                <HStack fontSize="sm">
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(1);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followerCnt.toString()} دنبال کننده
+                  </Button>
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(0);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followingCnt.toString()} دنبال شونده
+                  </Button>
+                </HStack>
+                <Text color="gray.500">
+                  {userProfile?.bio ? userProfile?.bio : "بیو"}
                 </Text>
-                <Text
-                  onClick={() => {
-                    setFollowTab(0);
-                    onOpen();
-                  }}
-                >
-                  {userProfile?.followingCnt.toString()} دنبال شونده
+                <Text fontSize="sm" color="gray.300">
+                  {userProfile?.city ? userProfile?.city : "شهر"}
                 </Text>
-              </HStack>
-              <Text color="gray.500">
-                {userProfile?.bio ? userProfile?.bio : "بیو"}
-              </Text>
-              <Text fontSize="sm" color="gray.300">
-                {userProfile?.city ? userProfile?.city : "شهر"}
-              </Text>
-            </VStack>
-          </HStack>
-        )
-        }
+              </VStack>
+            </HStack>
+          )}
         </Box>
         <Spacer />
         <Grid

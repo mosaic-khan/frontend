@@ -409,24 +409,6 @@ export interface DeleteAccountRequest {
     password: string;
 }
 /**
- * @generated from protobuf message KhanAPI.SearchUsernameRequest
- */
-export interface SearchUsernameRequest {
-    /**
-     * @generated from protobuf field: string username = 1;
-     */
-    username: string;
-}
-/**
- * @generated from protobuf message KhanAPI.SearchUsernameResponse
- */
-export interface SearchUsernameResponse {
-    /**
-     * @generated from protobuf field: repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"];
-     */
-    profilePreview: ProfilePreview[];
-}
-/**
  * @generated from protobuf message KhanAPI.ProfilePreview
  */
 export interface ProfilePreview {
@@ -446,6 +428,10 @@ export interface ProfilePreview {
      * @generated from protobuf field: string profilePicUrl = 4;
      */
     profilePicUrl: string;
+    /**
+     * @generated from protobuf field: bool isFollowed = 5;
+     */
+    isFollowed: boolean;
 }
 /**
  * @generated from protobuf message KhanAPI.FollowRequest
@@ -2003,107 +1989,14 @@ class DeleteAccountRequest$Type extends MessageType<DeleteAccountRequest> {
  */
 export const DeleteAccountRequest = new DeleteAccountRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class SearchUsernameRequest$Type extends MessageType<SearchUsernameRequest> {
-    constructor() {
-        super("KhanAPI.SearchUsernameRequest", [
-            { no: 1, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<SearchUsernameRequest>): SearchUsernameRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.username = "";
-        if (value !== undefined)
-            reflectionMergePartial<SearchUsernameRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchUsernameRequest): SearchUsernameRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string username */ 1:
-                    message.username = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: SearchUsernameRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string username = 1; */
-        if (message.username !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.username);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message KhanAPI.SearchUsernameRequest
- */
-export const SearchUsernameRequest = new SearchUsernameRequest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class SearchUsernameResponse$Type extends MessageType<SearchUsernameResponse> {
-    constructor() {
-        super("KhanAPI.SearchUsernameResponse", [
-            { no: 1, name: "ProfilePreview", kind: "message", jsonName: "ProfilePreview", repeat: 1 /*RepeatType.PACKED*/, T: () => ProfilePreview }
-        ]);
-    }
-    create(value?: PartialMessage<SearchUsernameResponse>): SearchUsernameResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.profilePreview = [];
-        if (value !== undefined)
-            reflectionMergePartial<SearchUsernameResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SearchUsernameResponse): SearchUsernameResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"];*/ 1:
-                    message.profilePreview.push(ProfilePreview.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: SearchUsernameResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated KhanAPI.ProfilePreview ProfilePreview = 1 [json_name = "ProfilePreview"]; */
-        for (let i = 0; i < message.profilePreview.length; i++)
-            ProfilePreview.internalBinaryWrite(message.profilePreview[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message KhanAPI.SearchUsernameResponse
- */
-export const SearchUsernameResponse = new SearchUsernameResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
 class ProfilePreview$Type extends MessageType<ProfilePreview> {
     constructor() {
         super("KhanAPI.ProfilePreview", [
             { no: 1, name: "profileID", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
             { no: 2, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "isFollowed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ProfilePreview>): ProfilePreview {
@@ -2112,6 +2005,7 @@ class ProfilePreview$Type extends MessageType<ProfilePreview> {
         message.username = "";
         message.name = "";
         message.profilePicUrl = "";
+        message.isFollowed = false;
         if (value !== undefined)
             reflectionMergePartial<ProfilePreview>(this, message, value);
         return message;
@@ -2132,6 +2026,9 @@ class ProfilePreview$Type extends MessageType<ProfilePreview> {
                     break;
                 case /* string profilePicUrl */ 4:
                     message.profilePicUrl = reader.string();
+                    break;
+                case /* bool isFollowed */ 5:
+                    message.isFollowed = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2157,6 +2054,9 @@ class ProfilePreview$Type extends MessageType<ProfilePreview> {
         /* string profilePicUrl = 4; */
         if (message.profilePicUrl !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.profilePicUrl);
+        /* bool isFollowed = 5; */
+        if (message.isFollowed !== false)
+            writer.tag(5, WireType.Varint).bool(message.isFollowed);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2470,7 +2370,6 @@ export const UserAPI = new ServiceType("KhanAPI.UserAPI", [
     { name: "GetProfile", options: {}, I: GetProfileRequests, O: GetProfileResponse },
     { name: "GetCities", options: {}, I: GetCitiesRequest, O: GetCitiesResponse },
     { name: "DeleteAccount", options: {}, I: DeleteAccountRequest, O: Empty },
-    { name: "SearchUsername", options: {}, I: SearchUsernameRequest, O: SearchUsernameResponse },
     { name: "Follow", options: {}, I: FollowRequest, O: Empty },
     { name: "Unfollow", options: {}, I: UnfollowRequest, O: Empty },
     { name: "GetFollowingList", options: {}, I: GetFollowingListRequest, O: GetFollowingListResponse },

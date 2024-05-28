@@ -21,7 +21,10 @@ const UserDisplayItem = ({ profilePreview }: Props) => {
       />
       <Text w="200px">{profilePreview.name}</Text>
       <Text w="200px">{profilePreview.username}</Text>
-      <FollowButton isFollowed={false} profileId={profilePreview.profileID} />
+      <FollowButton
+        isFollowed={profilePreview.isFollowed}
+        profileId={profilePreview.profileID}
+      />
     </HStack>
   );
 };
