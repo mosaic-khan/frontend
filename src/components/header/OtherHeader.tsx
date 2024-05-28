@@ -24,7 +24,21 @@ interface Props {
   isLoading: boolean;
 }
 
-const OtherHeader = ({ userProfile, isLoading }: Props) => {
+type Profile = {
+  id: bigint;
+  name: string;
+  username: string;
+  pronouns: string;
+  bio: string;
+  city: string;
+  profilePicUrl: string;
+  followerCnt: bigint;
+  followingCnt: bigint;
+  isFollowed: boolean;
+};
+const OtherHeader = ({ username }: Props) => {
+  const [userProfile, setUserProfile] = useState<Profile>();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
 
