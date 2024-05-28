@@ -16,6 +16,7 @@ import FollowerFollowingModal from "../userList/FollowerFollowingModal";
 interface Props {
   username: string;
 }
+//.
 type Profile = {
   id: bigint;
   name: string;
