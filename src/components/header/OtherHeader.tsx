@@ -6,6 +6,7 @@ import {
   Heading,
   Text,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import { GradientRedButton } from "../Buttons";
 import { useEffect, useState } from "react";
@@ -129,22 +130,24 @@ const OtherHeader = ({ username }: Props) => {
               </GradientRedButton>
             </HStack>
             <HStack spacing={5} fontSize="sm">
-              <Text
+              <Button
+                variant="text"
                 onClick={() => {
                   setFollowTab(1);
                   onOpen();
                 }}
               >
                 {userProfile?.followerCnt.toString()} دنبال کننده
-              </Text>
-              <Text
+              </Button>
+              <Button
+                variant="text"
                 onClick={() => {
                   setFollowTab(0);
                   onOpen();
                 }}
               >
                 {userProfile?.followingCnt.toString()} دنبال شونده
-              </Text>
+              </Button>
             </HStack>
             <Text color="gray.500">{userProfile?.bio}</Text>
             <Text fontSize="sm" color="gray.300">
