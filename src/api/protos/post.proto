@@ -9,19 +9,21 @@ service PostAPI {
   rpc GetProfilePosts (GetProfilePostsRequests) returns (GetProfilePostsResponse);
   rpc GetPost (GetPostRequest) returns (GetPostResponse);
   rpc SetPost (SetPostRequest) returns (SetPostResponse);
+  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse);
   rpc SuggestIngredient (SuggestIngredientRequest) returns (SuggestIngredientResponse);
   rpc AddImageForPost (AddImageForPostRequest) returns (google.protobuf.Empty);
   rpc Like (LikeRequest) returns (google.protobuf.Empty);
   rpc Dislike (DislikeRequest) returns (google.protobuf.Empty);
-  rpc AddComment (AddCommentRequest) returns (google.protobuf.Empty);
-  rpc AddReply (AddReplyRequest) returns (google.protobuf.Empty);
+  rpc AddComment (AddCommentRequest) returns (Comment);
+  rpc AddReply (AddReplyRequest) returns (Comment);
   rpc GetComments (GetCommentsRequest) returns (GetCommentsResponse);
-  rpc SearchCategories (SearchCategoriesRequest) returns (SearchCategoriesResponse);
   rpc GetReplies (GetRepliesRequest) returns (GetRepliesResponse);
   rpc LikeComment (LikeCommentRequest) returns (google.protobuf.Empty);
-  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse);
-  rpc SearchFoodByName (SearchFoodByNameRequest) returns (SearchFoodByNameResponse);
-  rpc SearchFoodByIngredient (SearchFoodByIngredientRequest) returns (SearchFoodByIngredientResponse);
+  rpc DislikeComment (DislikeCommentRequest) returns (google.protobuf.Empty);
+  rpc ReportComment (RepostCommentRequest) returns (google.protobuf.Empty);
+  rpc PinPost (PinPostRequest) returns (google.protobuf.Empty);
+  rpc UnpinPost (UnpinPostRequest) returns (google.protobuf.Empty);
+  rpc GetPins (google.protobuf.Empty) returns (GetPinsResponse);
 }
 
 message Post {
@@ -37,6 +39,7 @@ message Post {
   string username = 10;
   string profilePicUrl = 11;
   string category = 12;
+  optional bool pinned = 13;
 }
 
 message PostPreview {
@@ -44,25 +47,11 @@ message PostPreview {
   string title = 2;
   string ShortDescription = 3;
   string image = 4;
+  int32 numLikes = 6;
+  int32 numComments = 7;
+  bool isLiked = 8;
 }
 
-message SetPostRequest {
-  string title = 1;
-  map<string, string> ingredients = 2;
-  string description = 3;
-  int32 categoryID = 4;
-  int32 numImages = 5;
-
-}
-
-message PostPreviewExplore {
-  int64 id = 1;
-  string title = 2;
-  string shortDescription = 3;
-  string postImage = 4;
-  string username = 5;
-  string profile_pic_url = 6;
-}
 
 message SetPostRequest {
   string title = 1;
@@ -74,15 +63,16 @@ message SetPostRequest {
 
 message SetPostResponse {
   int64 id = 1;
-
 }
 
 message GetProfilePostsRequests {
   int64 profileID = 1;
+  optional int32 pageNumber = 2;
 }
 
 message GetProfilePostsResponse {
   repeated PostPreview postPreview = 1;
+  int32 pageNumber = 2;
 }
 
 message GetPostRequest {
@@ -121,8 +111,7 @@ message AddCommentRequest {
 
 message AddReplyRequest {
   string comment = 1;
-  int64 postID = 2;
-  int64 commentID = 3;
+  int64 commentID = 2;
 }
 
 message GetCommentsRequest {
@@ -142,6 +131,7 @@ message Comment {
   string time = 6;
   bool hasReplies = 7;
   bool isLiked = 8;
+  int32 numLikes = 9;
 }
 
 message GetRepliesRequest {
@@ -156,6 +146,14 @@ message LikeCommentRequest {
   int64 commentID = 1;
 }
 
+message DislikeCommentRequest {
+  int64 commentID = 1;
+}
+
+message RepostCommentRequest {
+  int64 id = 1;
+}
+
 message Category {
   int32 id = 1;
   string name = 2;
@@ -167,29 +165,19 @@ message GetCategoriesResponse {
   repeated Category categories = 1;
 }
 
-message SearchCategoriesRequest {
-  repeated int32 categoryID = 1;
+message PinPostRequest {
+  int64 id = 1;
 }
 
-message SearchCategoriesResponse {
-  repeated PostPreviewExplore posts = 1;
+message UnpinPostRequest {
+  int64 id = 1;
 }
 
-message SearchFoodByNameRequest {
-  string name = 1;
-  optional int32 pageNumber = 2;
+message PinedPost {
+  string title = 1;
+  string image_url = 2;
 }
 
-message SearchFoodByNameResponse {
-  repeated PostPreviewExplore postPreview = 1;
-}
-
-message SearchFoodByIngredientRequest {
-    repeated string include = 1;
-    repeated string exclude = 2;
-    optional int32 pageNumber = 3;
-}
-
-message SearchFoodByIngredientResponse {
-  repeated PostPreviewExplore postPreview = 1;
+message GetPinsResponse {
+  repeated PinedPost PinedPost = 1;
 }
