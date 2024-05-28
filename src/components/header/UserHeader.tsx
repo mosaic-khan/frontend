@@ -12,15 +12,18 @@ import {
   Spinner,
   Center,
   Button,
+
 } from "@chakra-ui/react";
-import userClient from "../../api/services/user-service";
-import { useEffect, useState } from "react";
-import { setProfileId } from "../userProfile/ProfileIdStorage";
+
 import { Profile } from "../../api/clients/user";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
+import { useState } from "react";
+interface Props {
+  userProfile: Profile | undefined;
+  isLoading: boolean;
+}
 
-const UserHeader = () => {
-  const [userProfile, setUserProfile] = useState<Profile | undefined>();
+const UserHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,23 +91,46 @@ const UserHeader = () => {
                   {userProfile?.username}
                 </Heading>
                 <HStack fontSize="sm">
+
+                  <Text
+
                   <Button
                     variant="text"
+
                     onClick={() => {
                       setFollowTab(1);
                       onOpen();
                     }}
                   >
                     {userProfile?.followerCnt.toString()} دنبال کننده
+
+                  </Text>
+                  <Text
+
                   </Button>
                   <Button
                     variant="text"
+
                     onClick={() => {
                       setFollowTab(0);
                       onOpen();
                     }}
                   >
                     {userProfile?.followingCnt.toString()} دنبال شونده
+
+                  </Text>
+                </HStack>
+                <Text fontSize="sm" color="gray.300">
+                  {userProfile?.city ? userProfile?.city : "شهر"}
+                </Text>
+                <Text
+                  color="gray.500"
+                  textAlign="center"
+                  fontSize="xs"
+                  maxW="150px"
+                >
+                  {userProfile?.bio ? userProfile?.bio : "بیو"}
+
                   </Button>
                 </HStack>
                 <Text color="gray.500">
@@ -112,6 +138,7 @@ const UserHeader = () => {
                 </Text>
                 <Text fontSize="sm" color="gray.300">
                   {userProfile?.city ? userProfile?.city : "شهر"}
+
                 </Text>
               </VStack>
             </HStack>
