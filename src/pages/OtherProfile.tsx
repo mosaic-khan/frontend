@@ -30,3 +30,5 @@ const OtherProfile = () => {
 };
 
 export default OtherProfile;
+
+
