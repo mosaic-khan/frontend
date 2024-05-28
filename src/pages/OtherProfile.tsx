@@ -21,6 +21,7 @@ const OtherProfile = () => {
           <VStack w="85%" h="full">
             {/* Header */}
             <OtherHeader username={username} />
+            {/* Latest Box */}
             <Box w="full"></Box>
           </VStack>
         </HStack>
@@ -30,5 +31,3 @@ const OtherProfile = () => {
 };
 
 export default OtherProfile;
-
-
