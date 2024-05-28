@@ -11,6 +11,7 @@ import {
   Box,
   Center,
   Spinner,
+  Button,
 } from "@chakra-ui/react";
 import { GradientRedButton } from "../Buttons";
 import { useState } from "react";
@@ -140,6 +141,55 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                   {userProfile?.bio ? userProfile?.bio : "بیو"}
                 </Text>
               </VStack>
+        <Avatar
+          margin="50px"
+          boxSize="150px"
+          name={userProfile?.username}
+          bgColor="brand.400"
+          src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
+          boxShadow="md"
+        />
+        <HStack alignItems="start" spacing={"100px"}>
+          <VStack dir="rtl" spacing="20px">
+            <HStack spacing="40px">
+              <Heading fontWeight="bold" dir="rtl">
+                {userProfile?.username}
+              </Heading>
+              <GradientRedButton
+                width="90px"
+                height="30px"
+                color="white"
+                fontSize="sm"
+                borderRadius="20px"
+                onClick={() =>
+                  onClick(
+                    userProfile?.isFollowed ? userProfile?.isFollowed : false
+                  )
+                }
+              >
+                {/* دنبال کردن */}
+                {userProfile?.isFollowed ? "حذف" : "دنبال کردن "}
+              </GradientRedButton>
+            </HStack>
+            <HStack spacing={5} fontSize="sm">
+              <Button
+                variant="text"
+                onClick={() => {
+                  setFollowTab(1);
+                  onOpen();
+                }}
+              >
+                {userProfile?.followerCnt.toString()} دنبال کننده
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => {
+                  setFollowTab(0);
+                  onOpen();
+                }}
+              >
+                {userProfile?.followingCnt.toString()} دنبال شونده
+              </Button>
             </HStack>
           )}
         </Box>

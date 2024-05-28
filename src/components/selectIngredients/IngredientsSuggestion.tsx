@@ -18,22 +18,26 @@ const IngredientsSuggestion = ({ inputText, onSelect }: Props) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
-    postClient
-      .suggestIngredient(
-        { name: inputText },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("suggestIngredient response: ", res);
-        setSuggestions(res.response.ingredients);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (inputText.trim() != "") {
+      postClient
+        .suggestIngredient(
+          { name: inputText },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("suggestIngredient response: ", res);
+          setSuggestions(res.response.ingredients);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setSuggestions([]);
+    }
   }, [inputText]);
 
   return (

@@ -11,6 +11,8 @@ import {
   useDisclosure,
   Spinner,
   Center,
+  Button,
+
 } from "@chakra-ui/react";
 
 import { Profile } from "../../api/clients/user";
@@ -24,6 +26,32 @@ interface Props {
 const UserHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+          setProfileId(res.response.profile.id);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+        setIsLoading(true);
+      });
+  }, []);
 
   return (
     <>
@@ -63,21 +91,33 @@ const UserHeader = ({ userProfile, isLoading }: Props) => {
                   {userProfile?.username}
                 </Heading>
                 <HStack fontSize="sm">
+
                   <Text
+
+                  <Button
+                    variant="text"
+
                     onClick={() => {
                       setFollowTab(1);
                       onOpen();
                     }}
                   >
                     {userProfile?.followerCnt.toString()} دنبال کننده
+
                   </Text>
                   <Text
+
+                  </Button>
+                  <Button
+                    variant="text"
+
                     onClick={() => {
                       setFollowTab(0);
                       onOpen();
                     }}
                   >
                     {userProfile?.followingCnt.toString()} دنبال شونده
+
                   </Text>
                 </HStack>
                 <Text fontSize="sm" color="gray.300">
@@ -90,6 +130,15 @@ const UserHeader = ({ userProfile, isLoading }: Props) => {
                   maxW="150px"
                 >
                   {userProfile?.bio ? userProfile?.bio : "بیو"}
+
+                  </Button>
+                </HStack>
+                <Text color="gray.500">
+                  {userProfile?.bio ? userProfile?.bio : "بیو"}
+                </Text>
+                <Text fontSize="sm" color="gray.300">
+                  {userProfile?.city ? userProfile?.city : "شهر"}
+
                 </Text>
               </VStack>
             </HStack>

@@ -11,13 +11,13 @@ import OtherProfile from "./pages/OtherProfile";
 
 import PostPage from "./pages/PostPage";
 import { AuthContext, RefreshToken } from "./api/auth/AuthController";
+import Search from "./pages/Search";
 
 function App() {
   const { setColorMode } = useColorMode();
   const { token, loggedIn, setToken } = RefreshToken();
   setColorMode("light"); // light dark
   return (
-
     <AuthContext.Provider
       value={{
         token: token,
@@ -37,6 +37,8 @@ function App() {
             <Route path="MyProfile" element={<UserProfile />} />
             <Route path="/profile/:username" element={<OtherProfile />} />
             <Route path="post/:postId" element={<PostPage />} />
+            <Route path="Search" element={<Search />} />
+            <Route path="Search/:searchTextParam" element={<Search />} />
           </Route>
         </Routes>
       </BrowserRouter>
