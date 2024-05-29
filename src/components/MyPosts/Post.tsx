@@ -22,7 +22,8 @@ interface Props {
 }
 
 const Post = ({ profileId }: Props) => {
-  const [posts, setPosts] = useState<PostPreview[] | null>(null);
+  const [posts, setPosts] = useState<PostPreview[] | null>();
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
