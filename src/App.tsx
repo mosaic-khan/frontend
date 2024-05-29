@@ -35,7 +35,7 @@ function App() {
             <Route path="NewPost" element={<NewPost />} />
             <Route path="ResetPassword" element={<ResetPassword />} />
             <Route path="MyProfile" element={<UserProfile />} />
-            <Route path="OtherProfile" element={<OtherProfile />} />
+            <Route path="/profile/:username" element={<OtherProfile />} />
             <Route path="post/:postId" element={<PostPage />} />
             <Route path="Search" element={<Search />} />
             <Route path="Search/:searchTextParam" element={<Search />} />

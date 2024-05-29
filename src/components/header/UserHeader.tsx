@@ -13,42 +13,17 @@ import {
   Center,
   Button,
 } from "@chakra-ui/react";
-import userClient from "../../api/services/user-service";
-import { useEffect, useState } from "react";
-import { setProfileId } from "../userProfile/ProfileIdStorage";
-import { Profile } from "../../api/clients/user";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
-
-const UserHeader = () => {
-  const [userProfile, setUserProfile] = useState<Profile | undefined>();
+import { useState } from "react";
+import { Profile } from "../../api/clients/user";
+interface Props {
+  userProfile: Profile | undefined;
+  isLoading: boolean;
+}
+const UserHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setIsLoading(true);
-    userClient
-      .getProfile(
-        {},
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("getProfile response: ", res.response.profile);
-        if (res.response.profile) {
-          setUserProfile(res.response.profile);
-          setProfileId(res.response.profile.id);
-          setIsLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log("getProfile error: ", err);
-        setIsLoading(true);
-      });
-  }, []);
 
   return (
     <>

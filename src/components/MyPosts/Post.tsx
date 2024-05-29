@@ -15,32 +15,38 @@ import LikeIcon from "../Icons/LikeIcon";
 import CommentsIcon from "../Icons/CommentsIcon";
 import { PostPreview } from "../../api/clients/post";
 import PostApi from "../../api/services/post-service";
-import { getProfileId } from "../userProfile/ProfileIdStorage";
 import { Link } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
+interface Props {
+  profileId: bigint;
+}
 
-const Post = () => {
-  const profileId = getProfileId();
+const Post = ({ profileId }: Props) => {
   const [posts, setPosts] = useState<PostPreview[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    PostApi.getProfilePosts(
-      {
-        profileID: BigInt(profileId),
-      },
-      { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-    )
-      .then((res) => {
-        setPosts(res.response.postPreview);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching posts:", err);
-        setIsLoading(true);
-      });
-  }, [profileId]);
+    if (profileId) {
+      setIsLoading(true); 
+      console.log(typeof(profileId))
+      PostApi.getProfilePosts(
+        {
+          profileID: profileId,
+        },
+        { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+      )
+        .then((res) => {
+          setPosts(res.response.postPreview);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("!!Error fetching posts:", err);
+          setIsLoading(false);
+        });
+    } else {
+      console.log("error", isLoading);
+    }
+  }, [profileId]); 
 
   return (
     <Box
