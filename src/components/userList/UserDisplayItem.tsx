@@ -1,12 +1,12 @@
-import { Avatar, HStack, Text } from "@chakra-ui/react";
+import { Avatar, BoxProps, HStack, Text, VStack } from "@chakra-ui/react";
 import { ProfilePreview } from "../../api/clients/user";
 import FollowButton from "./FollowButton";
 
-interface Props {
+interface Props extends BoxProps {
   profilePreview: ProfilePreview;
 }
 
-const UserDisplayItem = ({ profilePreview }: Props) => {
+const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
   return (
     <HStack
       w="430px"
@@ -14,13 +14,22 @@ const UserDisplayItem = ({ profilePreview }: Props) => {
       bg="brand.50"
       dir="rtl"
       borderRadius="100px"
+      {...rest}
     >
-      <Avatar
-        boxSize="70px"
-        src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
-      />
-      <Text w="200px">{profilePreview.name}</Text>
-      <Text w="200px">{profilePreview.username}</Text>
+      <HStack>
+        <Avatar
+          boxSize="70px"
+          src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
+          transition="1s"
+          _hover={{ boxSize: "100px" }}
+        />
+        <VStack spacing="0px">
+          <Text as="b" color="gray.700">
+            {profilePreview.username}
+          </Text>
+          <Text color="gray.500">{profilePreview.name}</Text>
+        </VStack>
+      </HStack>
       <FollowButton
         isFollowed={profilePreview.isFollowed}
         profileId={profilePreview.profileID}

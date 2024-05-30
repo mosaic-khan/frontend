@@ -50,8 +50,6 @@ const IngredientsInput = ({ onSelect }: Props) => {
       <PopoverTrigger>
         <Input
           w="100%"
-          marginTop="2%"
-          marginRight="5%"
           ref={nameRef}
           value={name}
           onFocus={() => {
@@ -61,7 +59,7 @@ const IngredientsInput = ({ onSelect }: Props) => {
             setIsEditingName.off();
           }}
           onChange={handleChangeName}
-          size="lg"
+          placeholder="نام مواد اولیه را وارد کنید"
           dir="rtl"
           bg="white"
           onKeyDown={(e) => {
@@ -69,7 +67,7 @@ const IngredientsInput = ({ onSelect }: Props) => {
           }}
         />
       </PopoverTrigger>
-      <PopoverContent w="400px">
+      <PopoverContent w="360px">
         <IngredientsSuggestion
           inputText={name}
           onSelect={(ingredient) => {
