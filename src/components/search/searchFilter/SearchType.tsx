@@ -1,10 +1,12 @@
 import { Button, HStack, VStack } from "@chakra-ui/react";
 import SearchFilterHeaders from "./SearchFilterHeaders";
-import { useState } from "react";
 
-const SearchType = () => {
-  const [type, setType] = useState<number>(0);
+interface Props {
+  type: number;
+  onTypeChange: (int: number) => void;
+}
 
+const SearchType = ({ type, onTypeChange }: Props) => {
   return (
     <VStack w="100%">
       <SearchFilterHeaders>نوع جستوجو</SearchFilterHeaders>
@@ -12,14 +14,14 @@ const SearchType = () => {
         <Button
           variant="ghost"
           color={type == 0 ? "brand.400" : "black"}
-          onClick={() => setType(0)}
+          onClick={() => onTypeChange(0)}
         >
           کاربر
         </Button>
         <Button
           variant="ghost"
           color={type == 1 ? "brand.400" : "black"}
-          onClick={() => setType(1)}
+          onClick={() => onTypeChange(1)}
         >
           پست ها
         </Button>
