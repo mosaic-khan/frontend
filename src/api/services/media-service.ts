@@ -5,7 +5,7 @@ interface Props {
 }
 
 const axiosClient = axios.create({
-  baseURL: "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI/",
+  baseURL: "http://185.80.196.246:8080/KhanAPI.MediaAPI/",
 });
 
 const useUploadImage = ({ path }: Props) => {
