@@ -1,5 +1,4 @@
 import {
-  Box,
   Image,
   Text,
   Flex,
@@ -50,11 +49,12 @@ const Post = ({
       borderColor="gray.200"
       bg="gray.50"
       borderRadius="lg"
-      overflow="hidden"
       w="md"
+      h="600px"
       shadow="md"
+      pb={2}
     >
-      <Flex align="center" p="2">
+      <Flex align="flex-end" p="2" w="full">
         <Avatar size="sm" src={userImage} />
         <Text fontWeight="bold" ml="2">
           {username}
@@ -62,10 +62,9 @@ const Post = ({
       </Flex>
       <Image src={postImage} alt="Post image" />
 
-      <Box p={2}>
-        <HStack dir="rtl" justifyContent="space-between">
+        <HStack dir="rtl" w="full" justifyContent="space-between">
           <Text
-            marginRight={2}
+            marginRight={5}
             onClick={() => console.log("todo")}
             _hover={{
               cursor: "pointer",
@@ -83,18 +82,18 @@ const Post = ({
             <CommentsIcon boxSize={6} />
           </HStack>
         </HStack>
-        <Text
-          p={2}
-          dir="rtl"
-          onClick={() => setIsExpanded(!isExpanded)}
-          _hover={{
-            cursor: "pointer",
-            textEmphasis: true,
-          }}
-        >
-          {filterCaption(caption)}
-        </Text>
-      </Box>
+        <Flex mt={1}>
+          <Text
+            p={2}
+            dir="rtl"
+            onClick={() => setIsExpanded(!isExpanded)}
+            _hover={{
+              cursor: "pointer",
+            }}
+          >
+            {filterCaption(caption)}
+          </Text>
+        </Flex>
     </VStack>
   );
 };
