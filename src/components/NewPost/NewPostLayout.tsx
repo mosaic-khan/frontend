@@ -6,48 +6,45 @@ import {
   Input,
   Text,
   useToast,
+  Center,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Image, IconButton } from "@chakra-ui/react";
-import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import Slideshow from "./PostPreview";
+import { Image } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 import CaptionBox from "./CaptionBox";
-import UserInfo from "./UserInfo";
 import postclient from "../../api/services/post-service";
-import STagBox from "./SimpleTagBox";
 import { GradientRedButton } from "../Buttons";
 import SelectIngredients from "../selectIngredients/SelectIngredients";
 import UserNavigation from "../Navigation/ProfileNavigation";
+import PostPreview from "./PostPreview";
+
+import { FaCameraRetro } from "react-icons/fa";
 
 const NewPostLayout = () => {
   const [images, setImages] = useState<File[]>([]);
   const [caption, setCaption] = useState<string>("");
-  const [Title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [numimages, setnumimg] = useState<number>(0);
-  const [isSaved, setIsSaved] = useState(false);
-  const [result, setError] = useState<string>("");
-  const [file, setFile] = useState(null);
+  // const [isSaved, setIsSaved] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [file, setFile] = useState<string | Blob>("");
   const BASE_URL = "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI";
+  const [imageError, setImageError] = useState("");
   const Toast = useToast();
 
-  const detectLanguage = (text: string): "ltr" | "rtl" => {
-    if (!text) return "rtl"; // Default to RTL if text is empty
-    // Check if the first character is in Persian range
-    const persianRegex = /[\u0600-\u06FF\u0750-\u077F]/;
-    return persianRegex.test(text.charAt(0)) ? "rtl" : "ltr";
-  };
-
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (numimages == 10) {
-      setError("NumImageLim");
-      return false;
-    }
-    const files = Array.from(event.target.files || []);
     setnumimg(numimages + 1);
-
+    const files = Array.from(event.target.files || []);
     setImages([...images, ...files]);
+    if (numimages == 4) {
+      setImageError("NumImageLim");
+      console.log("error");
+    } else {
+    }
   };
 
   const uploadPostImage = async () => {
@@ -61,14 +58,14 @@ const NewPostLayout = () => {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       });
-      console.log(response.data);
+      console.log(response.data.token);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    if (result === "Ok") {
+    if (error === "Ok") {
       Toast({
         description: <Text dir="rtl">پست با موفقیت ذخیره شد.</Text>,
         status: "success",
@@ -76,7 +73,7 @@ const NewPostLayout = () => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (result === "error") {
+    } else if (error === "error") {
       Toast({
         description: <Text dir="rtl">خطا از سمت سرور!</Text>,
         status: "error",
@@ -84,7 +81,7 @@ const NewPostLayout = () => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (result === "Title") {
+    } else if (error === "Title") {
       Toast({
         description: <Text dir="rtl">عنوان نمی تواند خالی باشد!</Text>,
         status: "error",
@@ -92,7 +89,7 @@ const NewPostLayout = () => {
         duration: 4000,
         position: "bottom-left",
       });
-    } else if (result === "Caption") {
+    } else if (error === "Caption") {
       Toast({
         description: <Text dir="rtl">توضیحات نمی تواند خالی باشد!</Text>,
         status: "error",
@@ -100,17 +97,7 @@ const NewPostLayout = () => {
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (result === "NumImageLim") {
-      Toast({
-        description: (
-          <Text dir="rtl">تعداد تصاویر نمی تواند بیشتر از 10 باشد!</Text>
-        ),
-        status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
-      });
-    } else if (result === "NumImages") {
+    } else if (error === "NumImages") {
       Toast({
         description: <Text dir="rtl">حداقل یک تصویر لازم است!</Text>,
         status: "error",
@@ -121,10 +108,10 @@ const NewPostLayout = () => {
     }
 
     setError("");
-  }, [result]);
+  }, [error]);
 
   const Save = () => {
-    if (Title == "") {
+    if (title == "") {
       setError("Title");
       return;
     } else if (caption == "") {
@@ -133,8 +120,8 @@ const NewPostLayout = () => {
     } else if (numimages == 0) {
       setError("NumImages");
       return;
-    } else if (Title != "" && caption != "" && numimages != 0) {
-      setIsSaved(true);
+    } else if (title != "" && caption != "" && numimages != 0) {
+      // setIsSaved(true);
       setError("Ok");
     }
 
@@ -144,7 +131,7 @@ const NewPostLayout = () => {
           numImages: numimages,
           description: caption,
           ingredients: ingredients,
-          title: Title,
+          title: title,
           categoryID: 1,
         },
         {
@@ -159,175 +146,194 @@ const NewPostLayout = () => {
       .catch((err) => {
         setError("error");
         console.log("errorx: ", err);
-        setIsSaved(false);
+        // setIsSaved(false);
       });
   };
 
-  const handleIngredientsChange = (ingredients: string[][]) => {
-    var dict: { [key: string]: string } = {};
-    for (let index = 0; index < ingredients.length; index++) {
-      dict[ingredients[index][0]] = ingredients[index][1];
-    }
-    setIngredients(dict);
-  };
+  // const handleIngredientsChange = (ingredients: string[][]) => {
+  //   var dict: { [key: string]: string } = {};
+  //   for (let index = 0; index < ingredients.length; index++) {
+  //     dict[ingredients[index][0]] = ingredients[index][1];
+  //   }
+  //   setIngredients(dict);
+  // };
 
   const handleRemoveImage = (index: number) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setnumimg(numimages - 1);
+    setImageError("");
     setImages(newImages);
   };
 
   return (
-    <Box position="relative" w="100%" h="100%" bgColor="gray.100">
-      <UserNavigation />
-      <HStack bg="gray.200" width="100%" height="90%" spacing="105px">
+    <Flex h="100vh" bgColor="gray.100" pos="relative">
+      {/* navbar */}
+      <UserNavigation isTrue={true} />
+      <HStack boxShadow="lg" pos="relative" w="100%" h="100%" px={10} pt={5}>
         <Box
+          h="85%"
+          w="30%"
+          pos="relative"
           bg="white"
-          height="90%"
-          width="40%"
-          border="1px solid #ccc"
-          marginLeft="50px"
-          borderRadius="5%"
-          marginBottom="8%"
+          borderRadius="15px"
+          boxShadow="lg"
         >
-          <Slideshow images={images} />
-        </Box>
-        <Box
-          bg="white"
-          height="90%"
-          width="60%"
-          border="1px solid #ccc"
-          marginRight="50px"
-          marginBottom="5%"
-          marginTop="6%"
-          borderRadius="5%"
-          backgroundSize="cover"
-          backgroundPosition="center"
-        >
-          <VStack width="100%">
-            <Box
-              width="100%"
-              h="80px"
-              borderBottom="1px solid #ccc"
-              bg="#ff0000"
-              borderTopRadius="25px"
-            >
-              <Heading
-                textAlign="right"
-                paddingRight="5%"
-                textColor="white"
-                marginTop="2%"
-              >
-                پست جدید
-              </Heading>
-            </Box>
-            <UserInfo />
-            <Input
-              placeholder="عنوان پست"
-              marginBottom="4%"
+          <VStack h="100%" w="100%" overflow="hidden" borderRadius="15px">
+            <Heading
+              bgGradient="radial-gradient(ellipse at bottom, #FF736F , #FF004C)"
+              w="100%"
+              borderTopRadius="15px"
+              h="15%"
+              alignContent="center"
+              textAlign="center"
               textColor="white"
-              width="40%"
-              style={{ direction: detectLanguage(Title) }}
-              _placeholder={{ textColor: "white" }}
-              value={Title}
-              border="none"
-              bgGradient="linear(to-l, #ff0000,brand.300)"
-              onChange={(event) => setTitle(event.target.value)}
-            ></Input>
-            <HStack spacing="10px">
-              <SelectIngredients onChange={handleIngredientsChange} />
-              <CaptionBox caption={caption} setCaption={setCaption} />
+              fontSize="24"
+              dir="rtl"
+            >
+              پیش نمایش
+            </Heading>
+            <PostPreview images={images} />
+          </VStack>
+        </Box>
+
+        <Spacer />
+        <Box
+          bg="white"
+          height="85%"
+          width="60%"
+          boxShadow="lg"
+          borderRadius="15px"
+          pos="relative"
+        >
+          <Heading
+            bgGradient="radial-gradient(ellipse at bottom, #FF736F , #FF004C)"
+            w="100%"
+            borderTopRadius="15px"
+            h="15%"
+            alignContent="center"
+            pr={10}
+            // textAlign="center"
+            textColor="white"
+            fontSize="24"
+            // fontWeight="light"
+            dir="rtl"
+          >
+            افزودن پست
+          </Heading>
+          <Box h="85%" w="100%" pos="relative">
+            {/* Spacer */}
+            <Box h="5%" w="100%" pos="relative"></Box>
+            {/* Spacer */}
+            <HStack h="60%" w="100%" pos="relative">
+              <Center h="100%" w="100%" pos="relative" dir="rtl">
+                <CaptionBox
+                  caption={caption}
+                  setCaption={setCaption}
+                  title={title}
+                  setTitle={setTitle}
+                />
+                {/* Spacer */}
+                <Box h="100%" w="10%"></Box>
+                {/* Spacer */}
+                <SelectIngredients />
+              </Center>
             </HStack>
-            <STagBox />
-            <VStack spacing={4}>
-              <Box
-                display="flex"
-                flexWrap="wrap"
-                width="100%"
-                flexDirection="row"
+            <Box h="4%" w="100%" pos="relative"></Box>
+            <Center h="28%" w="100%" pos="relative" dir="rtl">
+              <VStack
+                h="100%"
+                w="90%"
+                pos="relative"
+                align="start"
+                bg="gray.200"
+                borderRadius="lg"
+                pb={2}
               >
-                {images.map((image, index) => (
-                  <Box
-                    key={index}
-                    position="relative"
-                    width="100px"
-                    height="100px"
-                    margin="10px"
-                  >
-                    <Image
-                      src={URL.createObjectURL(image)}
-                      alt={`Image ${index}`}
-                      objectFit="cover"
-                      width="100%"
-                      height="100%"
-                      borderRadius="10%"
-                    />
-
-                    <IconButton
-                      icon={<CloseIcon />}
-                      aria-label="Remove image"
-                      position="absolute"
-                      size="5px"
-                      bg="brand.500"
-                      top="1"
-                      right="1"
-                      onClick={() => handleRemoveImage(index)}
-                    />
-                  </Box>
-                ))}
-                <Box
-                  key="empty-image-box"
-                  position="relative"
-                  width="100px"
-                  height="100px"
-                  borderRadius="10%"
-                  margin="10px"
-                  border="1px"
-                  borderColor="gray.400"
-                  // display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  cursor="pointer"
-                  onClick={() =>
-                    document.getElementById("image-upload")?.click()
-                  }
+                <Text
+                  pos="relative"
+                  right={0}
+                  fontSize="22"
+                  dir="rtl"
+                  pr={5}
+                  pt={2}
                 >
-                  <IconButton
-                    icon={<AddIcon />}
-                    aria-label="Add image"
-                    position="absolute"
-                    bg="white"
-                    top="50%"
-                    left="50%"
-                    transform="translate(-50%, -50%)"
-                  />
-                </Box>
-              </Box>
-              <input
-                type="file"
-                id="image-upload"
-                multiple
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-              />
-            </VStack>
+                  اضافه کردن عکس
+                </Text>
+                <HStack h="80%" w="90%" pos="relative" pr={5}>
+                  {images.map((image, index) => (
+                    <Box
+                      key={index}
+                      position="relative"
+                      width="75px"
+                      height="75px"
+                      // margin="10px"
+                    >
+                      <Image
+                        src={URL.createObjectURL(image)}
+                        alt={`Image ${index}`}
+                        objectFit="cover"
+                        width="100%"
+                        height="100%"
+                        borderRadius="10%"
+                      />
 
+                      <CloseIcon
+                        aria-label="Remove image"
+                        position="absolute"
+                        cursor="pointer"
+                        color="brand.200"
+                        top="1"
+                        right="1"
+                        onClick={() => handleRemoveImage(index)}
+                      />
+                    </Box>
+                  ))}
+                  <Center
+                    pos="relative"
+                    h="75px"
+                    w="75px"
+                    bg="gray.50"
+                    cursor="pointer"
+                    borderRadius="10%"
+                    display={imageError === "NumImageLim" ? "none" : "flex"}
+                    onClick={() =>
+                      document.getElementById("image-upload")?.click()
+                    }
+                  >
+                    <FaCameraRetro
+                      key="empty-image-box"
+                      size="40%"
+                    ></FaCameraRetro>
+                  </Center>
+                </HStack>
+
+                <Input
+                  type="file"
+                  id="image-upload"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                />
+              </VStack>
+            </Center>
             <GradientRedButton
-              onClick={function (event) {
+              onClick={function () {
                 uploadPostImage();
                 Save();
               }}
+              pos="absolute"
+              left={-10}
+              bottom={-10}
               textColor="white"
-              marginBottom="2%"
-              marginTop="2%"
-            >
-              ذخیره پست
-            </GradientRedButton>
-          </VStack>
+              children="ذخیره پست"
+            />
+          </Box>
         </Box>
       </HStack>
-    </Box>
+    </Flex>
+    // </Box>
   );
 };
 
