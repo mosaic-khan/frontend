@@ -8,7 +8,14 @@ interface Props {
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
-const CaptionBox = ({ caption, setCaption, title, setTitle }: Props) => {
+const CaptionBox = ({
+  caption,
+  setCaption,
+  title,
+  setTitle,
+}: // tag,
+// setTag,
+Props) => {
   //const [caption, setCaption] = useState<string>("");
   const handleCaptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCaption(event.target.value);
@@ -17,6 +24,10 @@ const CaptionBox = ({ caption, setCaption, title, setTitle }: Props) => {
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
+
+  // const handleTagChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setTag(event.target.value);
+  // };
 
   return (
     <Box w="40%" h="100%" borderTopRadius="15px" bg="white">

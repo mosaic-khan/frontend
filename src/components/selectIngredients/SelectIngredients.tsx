@@ -30,9 +30,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import IngredientsSuggestion from "./IngredientsSuggestion";
 
-interface Props {
-  onChange: (ingredients: string[][]) => void;
-}
 interface RowData {
   column1: string;
   column2: string;
@@ -142,187 +139,189 @@ const SelectIngredients = () => {
             fontSize="16"
             fontWeight="bold"
             onClick={onOpen}
-            bg="brand.200"
-            _hover={{ bg: "brand.100" }}
             overflow="hidden"
+            bgGradient="linear(to-r, brand.300, brand.500)"
+            transition=" 0.3s ease"
+            _hover={{
+              fontWeight: "bold",
+              boxShadow: "lg",
+              transform: "translateY(-3px)",
+            }}
+            _active={{
+              bgGradient: "linear(to-r, brand.300, brand.600)",
+              fontWeight: "bold",
+              boxShadow: "lg",
+              transform: "translateY(1px)",
+            }}
           >
             اضافه کردن
           </Button>
         </HStack>
       </Box>
+
       <Box
         w="100%"
         h="80%"
-        bg="gray.200"
         borderBottomRadius="15px"
         pos="relative"
+        overflowY="auto"
+        bg="gray.100"
       >
-        <Box
-          overflowY="auto"
-          w="100%"
-          h="100%"
-          borderBottomRadius="15px"
-          bg="gray.200"
-          pos="relative"
-        >
-          <Table
-            variant="simple"
-            h="100%"
-            w="100%"
+        <Table variant="simple" h="100%" w="100%" pos="relative">
+          <Thead
             pos="relative"
-            bg="gray.100"
+            bg="gray.300"
+            style={{ width: "100%", height: "25%" }}
           >
-            <Thead
-              pos="relative"
-              bg="gray.300"
-              style={{ width: "100%", height: "25%" }}
-            >
-              <Tr pos="relative" style={{ width: "100%", height: "100%" }}>
-                <Center w="100%" h="100%" pos="relative">
-                  <HStack w="100%" h="100%" pos="relative" gap={0}>
-                    <Th
-                      style={{ width: "50%", height: "100%" }}
-                      fontSize="16px"
-                      textAlign="center"
-                      borderLeft="1px solid white"
-                      borderBottom="2px solid white"
-                      pos="relative"
-                    >
-                      <Center h="100%" w="100%" pos="relative">
-                        مواد
-                      </Center>
-                    </Th>
-                    <Th
-                      style={{ width: "50%", height: "100%" }}
-                      fontSize="16px"
-                      textAlign="center"
-                      borderRight="1px solid white"
-                      borderBottom="2px solid white"
-                      pos="relative"
-                    >
-                      <Center h="100%" w="100%" pos="relative">
-                        مقدار
-                      </Center>
-                    </Th>
-                  </HStack>
-                </Center>
+            <Tr pos="relative" style={{ width: "100%", height: "100%" }}>
+              <Center w="100%" h="100%" pos="relative">
+                <HStack w="100%" h="100%" pos="relative" gap={0}>
+                  <Th
+                    style={{ width: "50%", height: "100%" }}
+                    fontSize="16px"
+                    textAlign="center"
+                    borderLeft="1px solid white"
+                    borderBottom="2px solid white"
+                    pos="relative"
+                  >
+                    <Center h="100%" w="100%" pos="relative">
+                      مواد
+                    </Center>
+                  </Th>
+                  <Th
+                    style={{ width: "50%", height: "100%" }}
+                    fontSize="16px"
+                    textAlign="center"
+                    borderRight="1px solid white"
+                    borderBottom="2px solid white"
+                    pos="relative"
+                  >
+                    <Center h="100%" w="100%" pos="relative">
+                      مقدار
+                    </Center>
+                  </Th>
+                </HStack>
+              </Center>
+            </Tr>
+          </Thead>
+          <Tbody
+            style={{ width: "100%", height: "75%" }}
+            pos="relative"
+            bg="gray.200"
+          >
+            {data.map((row, index) => (
+              <Tr key={index} h="30%" w="100%" pos="relative">
+                <HStack h="100%" w="100%" pos="relative" gap={0} spacing={0}>
+                  <Td
+                    style={{
+                      width: "50%",
+                      height: "100%",
+                    }}
+                    borderLeft="1px solid white"
+                    borderBottom="2px solid white"
+                    pos="relative"
+                  >
+                    <Center h="100%" w="100%" pos="relative">
+                      <Text
+                        fontSize="12px"
+                        fontWeight="bold"
+                        textAlign="center"
+                      >
+                        {row.column1}
+                      </Text>
+                    </Center>
+                  </Td>
+                  <Td
+                    style={{ width: "50%", height: "100%" }}
+                    borderRight="1px solid white"
+                    borderBottom="2px solid white"
+                  >
+                    <Center h="100%" w="100%" pos="relative">
+                      <Text
+                        fontSize="12px"
+                        fontWeight="bold"
+                        textAlign="center"
+                        alignItems="center"
+                      >
+                        {row.column2}
+                      </Text>
+                    </Center>
+                  </Td>
+                </HStack>
               </Tr>
-            </Thead>
-            <Tbody style={{ width: "100%", height: "75%" }} pos="relative">
-              {data.map((row, index) => (
-                <Tr key={index} h="30%" w="100%" pos="relative">
-                  <HStack h="100%" w="100%" pos="relative" gap={0} spacing={0}>
-                    <Td
-                      style={{
-                        width: "50%",
-                        height: "100%",
-                      }}
-                      borderLeft="1px solid white"
-                      borderBottom="2px solid white"
-                      pos="relative"
-                    >
-                      <Center h="100%" w="100%" pos="relative">
-                        <Text
-                          fontSize="12px"
-                          fontWeight="bold"
-                          textAlign="center"
-                        >
-                          {row.column1}
-                        </Text>
-                      </Center>
-                    </Td>
-                    <Td
-                      style={{ width: "50%", height: "100%" }}
-                      borderRight="1px solid white"
-                      borderBottom="2px solid white"
-                    >
-                      <Center h="100%" w="100%" pos="relative">
-                        <Text
-                          fontSize="12px"
-                          fontWeight="bold"
-                          textAlign="center"
-                          alignItems="center"
-                        >
-                          {row.column2}
-                        </Text>
-                      </Center>
-                    </Td>
-                  </HStack>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </Box>
-
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent dir="rtl">
-            <ModalHeader>اضافه کردن مواد اولیه</ModalHeader>
-
-            <ModalBody>
-              <FormControl id="column1" p={2}>
-                <FormLabel>مواد</FormLabel>
-
-                <Popover
-                  initialFocusRef={nameRef}
-                  isOpen={showPopover}
-                  returnFocusOnClose={false}
-                  placement="bottom-end"
-                >
-                  <PopoverTrigger>
-                    <Input
-                      onBlur={() => {
-                        setIsEditingName.off();
-                      }}
-                      onFocus={() => {
-                        setIsEditingName.on();
-                      }}
-                      value={newRow.column1}
-                      ref={nameRef}
-                      onChange={handleChangeName}
-                      {...(nameError ? { borderColor: "brand.500" } : {})}
-                    />
-                  </PopoverTrigger>
-
-                  <PopoverContent w="200px">
-                    <IngredientsSuggestion
-                      inputText={newRow.column1}
-                      onSelect={(ingredient) => {
-                        setNewRow({ ...newRow, column1: ingredient });
-                      }}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
-              <FormControl id="column2" p={2}>
-                <FormLabel>مقدار</FormLabel>
-                <Input
-                  value={newRow.column2}
-                  // onChange={(e) =>
-
-                  // }
-                  onChange={handleChangeAmount}
-                  {...(amountError ? { borderColor: "brand.500" } : {})}
-                />
-              </FormControl>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button
-                bg="brand.200"
-                _hover={{ bg: "brand.100" }}
-                mr={3}
-                onClick={handleAddRow}
-              >
-                ذخیره
-              </Button>
-              <Button variant="ghost" onClick={onClose}>
-                بستن
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+            ))}
+          </Tbody>
+        </Table>
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent dir="rtl">
+          <ModalHeader>اضافه کردن مواد اولیه</ModalHeader>
+
+          <ModalBody>
+            <FormControl id="column1" p={2}>
+              <FormLabel>مواد</FormLabel>
+
+              <Popover
+                initialFocusRef={nameRef}
+                isOpen={showPopover}
+                returnFocusOnClose={false}
+                placement="bottom-end"
+              >
+                <PopoverTrigger>
+                  <Input
+                    onBlur={() => {
+                      setIsEditingName.off();
+                    }}
+                    onFocus={() => {
+                      setIsEditingName.on();
+                    }}
+                    value={newRow.column1}
+                    ref={nameRef}
+                    onChange={handleChangeName}
+                    {...(nameError ? { borderColor: "brand.500" } : {})}
+                  />
+                </PopoverTrigger>
+
+                <PopoverContent w="200px">
+                  <IngredientsSuggestion
+                    inputText={newRow.column1}
+                    onSelect={(ingredient) => {
+                      setNewRow({ ...newRow, column1: ingredient });
+                    }}
+                  />
+                </PopoverContent>
+              </Popover>
+            </FormControl>
+            <FormControl id="column2" p={2}>
+              <FormLabel>مقدار</FormLabel>
+              <Input
+                value={newRow.column2}
+                // onChange={(e) =>
+
+                // }
+                onChange={handleChangeAmount}
+                {...(amountError ? { borderColor: "brand.500" } : {})}
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              bg="brand.200"
+              _hover={{ bg: "brand.100" }}
+              mr={3}
+              onClick={handleAddRow}
+            >
+              ذخیره
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              بستن
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
