@@ -17,7 +17,7 @@ const CaptionDetails = ({ ingredients, description }: Props) => {
         maxHeight="300px"
         p={4}
       >
-        <Text>توضیحات:</Text>
+        <Text fontWeight="bold">توضیحات:</Text>
 
         <Text fontSize="sm">{description}</Text>
       </Box>
@@ -31,7 +31,7 @@ const CaptionDetails = ({ ingredients, description }: Props) => {
         maxHeight="300px"
         p={4}
       >
-        <Text>مواد اولیه:</Text>
+        <Text fontWeight="bold">مواد اولیه:</Text>
         <VStack
           divider={<StackDivider borderColor="gray.300" overflowY="auto" />}
         >
