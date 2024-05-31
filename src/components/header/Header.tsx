@@ -1,6 +1,6 @@
 import { Divider, Flex, HStack, VStack } from "@chakra-ui/react";
 import LogoWithText from "../logo/LogoWithText";
-import { SearchBar } from "../landingAndHome/SearchBar";
+import { SearchBar } from "../search/SearchBar";
 import HeaderMenu from "./HeaderMenu";
 import HeaderProfileIcon from "./HeaderProfileIcon";
 

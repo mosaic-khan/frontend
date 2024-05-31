@@ -313,10 +313,6 @@ export interface Comment {
      * @generated from protobuf field: int32 numLikes = 9;
      */
     numLikes: number;
-    /**
-     * @generated from protobuf field: bool owned = 10;
-     */
-    owned: boolean;
 }
 /**
  * @generated from protobuf message KhanAPI.GetRepliesRequest
@@ -432,15 +428,6 @@ export interface GetPinsResponse {
      * @generated from protobuf field: repeated KhanAPI.PinedPost PinedPost = 1 [json_name = "PinedPost"];
      */
     pinedPost: PinedPost[];
-}
-/**
- * @generated from protobuf message KhanAPI.DeleteCommentRequest
- */
-export interface DeleteCommentRequest {
-    /**
-     * @generated from protobuf field: int64 id = 1;
-     */
-    id: bigint;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Post$Type extends MessageType<Post> {
@@ -1490,8 +1477,7 @@ class Comment$Type extends MessageType<Comment> {
             { no: 6, name: "time", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 7, name: "hasReplies", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 8, name: "isLiked", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 9, name: "numLikes", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 10, name: "owned", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 9, name: "numLikes", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<Comment>): Comment {
@@ -1505,7 +1491,6 @@ class Comment$Type extends MessageType<Comment> {
         message.hasReplies = false;
         message.isLiked = false;
         message.numLikes = 0;
-        message.owned = false;
         if (value !== undefined)
             reflectionMergePartial<Comment>(this, message, value);
         return message;
@@ -1541,9 +1526,6 @@ class Comment$Type extends MessageType<Comment> {
                     break;
                 case /* int32 numLikes */ 9:
                     message.numLikes = reader.int32();
-                    break;
-                case /* bool owned */ 10:
-                    message.owned = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1584,9 +1566,6 @@ class Comment$Type extends MessageType<Comment> {
         /* int32 numLikes = 9; */
         if (message.numLikes !== 0)
             writer.tag(9, WireType.Varint).int32(message.numLikes);
-        /* bool owned = 10; */
-        if (message.owned !== false)
-            writer.tag(10, WireType.Varint).bool(message.owned);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2145,53 +2124,6 @@ class GetPinsResponse$Type extends MessageType<GetPinsResponse> {
  * @generated MessageType for protobuf message KhanAPI.GetPinsResponse
  */
 export const GetPinsResponse = new GetPinsResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class DeleteCommentRequest$Type extends MessageType<DeleteCommentRequest> {
-    constructor() {
-        super("KhanAPI.DeleteCommentRequest", [
-            { no: 1, name: "id", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
-        ]);
-    }
-    create(value?: PartialMessage<DeleteCommentRequest>): DeleteCommentRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = 0n;
-        if (value !== undefined)
-            reflectionMergePartial<DeleteCommentRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: DeleteCommentRequest): DeleteCommentRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* int64 id */ 1:
-                    message.id = reader.int64().toBigInt();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: DeleteCommentRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 id = 1; */
-        if (message.id !== 0n)
-            writer.tag(1, WireType.Varint).int64(message.id);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message KhanAPI.DeleteCommentRequest
- */
-export const DeleteCommentRequest = new DeleteCommentRequest$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.PostAPI
  */
@@ -2211,7 +2143,6 @@ export const PostAPI = new ServiceType("KhanAPI.PostAPI", [
     { name: "LikeComment", options: {}, I: LikeCommentRequest, O: Empty },
     { name: "DislikeComment", options: {}, I: DislikeCommentRequest, O: Empty },
     { name: "ReportComment", options: {}, I: RepostCommentRequest, O: Empty },
-    { name: "DeleteComment", options: {}, I: DeleteCommentRequest, O: Empty },
     { name: "PinPost", options: {}, I: PinPostRequest, O: Empty },
     { name: "UnpinPost", options: {}, I: UnpinPostRequest, O: Empty },
     { name: "GetPins", options: {}, I: Empty, O: GetPinsResponse }

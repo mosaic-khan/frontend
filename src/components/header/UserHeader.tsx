@@ -8,94 +8,110 @@ import {
   Grid,
   GridItem,
   Spacer,
+  useDisclosure,
+  Spinner,
+  Center,
+  Button,
 } from "@chakra-ui/react";
-import userClient from "../../api/services/user-service";
-import { useEffect, useState } from "react";
-import { setProfileId } from "../userProfile/ProfileIdStorage";
+import FollowerFollowingModal from "../userList/FollowerFollowingModal";
+import { useState } from "react";
 import { Profile } from "../../api/clients/user";
+interface Props {
+  userProfile: Profile | undefined;
+  isLoading: boolean;
+}
+const UserHeader = ({ userProfile, isLoading }: Props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [followTab, setFollowTab] = useState<number>(0);
 
-const UserHeader = () => {
-  const [userProfile, setUserProfile] = useState<Profile | undefined>();
-  useEffect(() => {
-    userClient
-      .getProfile(
-        {},
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("getProfile response: ", res.response.profile);
-        if (res.response.profile) {
-          setUserProfile(res.response.profile);
-          setProfileId(res.response.profile.id);
-        }
-      })
-      .catch((err) => {
-        console.log("getProfile error: ", err);
-      });
-  }, []);
+
   return (
-    <HStack
-      bg="white"
-      w="85%"
-      h="100%"
-      boxShadow="md"
-      borderRadius="lg"
-      marginTop="50px"
-
-      // padding={1}
-    >
-      <Box bg="white" w="50%" h="100%" pos="relative">
-        <HStack alignItems="start" pos="inherit">
-          <Avatar
-            margin="10%"
-            boxSize="30%"
-            name={userProfile?.username}
-            bgColor="brand.400"
-            src={"http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl}
-            boxShadow="md"
-          />
-
-          <VStack dir="rtl" paddingTop="10%" h="100%" w="100%" pos="relative">
-            <Heading fontWeight="bold" dir="rtl" pos="inherit">
-              {userProfile?.username}
-            </Heading>
-            <HStack spacing={5} fontSize="sm">
-              {/* <Text>
-              <b>۷۷۵</b> پست
-            </Text> */}
-
-              <Text>{userProfile?.followerCnt.toString()} دنبال کننده</Text>
-              <Text>{userProfile?.followingCnt.toString()} دنبال شونده</Text>
-            </HStack>
-            <Text color="gray.500">
-              {userProfile?.bio ? userProfile?.bio : "بیو"}
-            </Text>
-            <Text fontSize="sm" color="gray.300">
-              {userProfile?.city ? userProfile?.city : "شهر"}
-            </Text>
-          </VStack>
-        </HStack>
-      </Box>
-      <Spacer />
-      <Grid
-        w="35%"
+    <>
+      <HStack
+        bg="white"
+        w="85%"
         h="100%"
-        templateColumns="repeat(3, 1fr)"
-        pos="relative"
-        paddingRight={10}
+        boxShadow="md"
+        borderRadius="lg"
+        marginTop="50px"
       >
-        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-        <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-      </Grid>
-      {/* <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box>
-          <Box boxSize="100px" bgColor={"gray.200"} borderRadius={"md"}></Box> */}
-    </HStack>
+        <Box bg="white" w="50%" h="100%">
+          {isLoading ? (
+            <Center w="100%" h="200px">
+              <Spinner size="sm" color="brand.600" />
+            </Center>
+          ) : (
+            <HStack alignItems="start" pl={10}>
+              <Box bg="gray.200" ml={50} m={3} borderRadius={100}>
+                <Box bg="gray.50" borderRadius={100} m={1}>
+                  <Avatar
+                    boxSize="150px"
+                    m={1}
+                    name={userProfile?.username}
+                    bgColor="brand.400"
+                    src={
+                      "http://back.khanmedia.ir:9290" +
+                      userProfile?.profilePicUrl
+                    }
+                    boxShadow="md"
+                  />
+                </Box>
+              </Box>
+
+              <VStack paddingTop="5%" h="100%" w="100%">
+                <Heading fontWeight="bold" color="gray.900">
+                  {userProfile?.username}
+                </Heading>
+                <HStack fontSize="sm">
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(1);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followerCnt.toString()} دنبال کننده
+                  </Button>
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(0);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followingCnt.toString()} دنبال شونده
+                  </Button>
+                </HStack>
+                <Text color="gray.500">
+                  {userProfile?.bio ? userProfile?.bio : "بیو"}
+                </Text>
+                <Text fontSize="sm" color="gray.300">
+                  {userProfile?.city ? userProfile?.city : "شهر"}
+                </Text>
+              </VStack>
+            </HStack>
+          )}
+        </Box>
+        <Spacer />
+        <Grid
+          w="45%"
+          h="100%"
+          templateColumns="repeat(3, 1fr)"
+          pos="relative"
+          paddingRight={10}
+        >
+          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+        </Grid>
+      </HStack>
+      <FollowerFollowingModal
+        profileId={BigInt(userProfile ? userProfile.id : 0)}
+        isOpen={isOpen}
+        onClose={onClose}
+        startIndex={followTab}
+      />
+    </>
   );
 };
 

@@ -21,7 +21,6 @@ service PostAPI {
   rpc LikeComment (LikeCommentRequest) returns (google.protobuf.Empty);
   rpc DislikeComment (DislikeCommentRequest) returns (google.protobuf.Empty);
   rpc ReportComment (RepostCommentRequest) returns (google.protobuf.Empty);
-  rpc DeleteComment (DeleteCommentRequest) returns (google.protobuf.Empty); 
   rpc PinPost (PinPostRequest) returns (google.protobuf.Empty);
   rpc UnpinPost (UnpinPostRequest) returns (google.protobuf.Empty);
   rpc GetPins (google.protobuf.Empty) returns (GetPinsResponse);
@@ -133,7 +132,6 @@ message Comment {
   bool hasReplies = 7;
   bool isLiked = 8;
   int32 numLikes = 9;
-  bool owned = 10;
 }
 
 message GetRepliesRequest {
@@ -182,8 +180,4 @@ message PinedPost {
 
 message GetPinsResponse {
   repeated PinedPost PinedPost = 1;
-}
-
-message DeleteCommentRequest {
-  int64 id = 1;
 }
