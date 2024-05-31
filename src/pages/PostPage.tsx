@@ -97,68 +97,72 @@ const PostPage = () => {
         {/* navbar */}
         <UserNavigation isTrue={false} />
       </Box>
-      <Center position="relative">
-        <CrossButton
-          position="absolute"
-          left="200px"
-          top="20%"
-          onClick={() => console.log("todo")}
-        />
-        <HStack
-          h={`${H}px`}
-          w={`${W}px`}
-          marginTop="10%"
-          borderRadius="md"
-          overflow="hidden"
-          bg="gray.50"
-          shadow="2xl"
-          spacing="50px"
-          paddingLeft={10}
-        >
-          {/*Image section*/}
+      <Center>
+        <Box position="relative" h={`${H}px`} w={`${W + 20}px`} marginTop="10%">
+          <CrossButton
+            position="absolute"
+            left="0"
+            top="0"
+            onClick={() => console.log("todo")}
+          />
+          <HStack
+            position="absolute"
+            right="0"
+            top="10px"
+            h={`${H}px`}
+            w={`${W}px`}
+            borderRadius="xl"
+            overflow="hidden"
+            bg="gray.50"
+            shadow="2xl"
+            spacing="50px"
+            paddingLeft={10}
+          >
+            {/*Image section*/}
 
-          <ImageSection images={post?.imageUrls ? post?.imageUrls : []} />
-          {/*Caption section*/}
-          <VStack h="full" w="400px" alignItems="right" padding={4}>
-            {/*User Info*/}
-            <HStack dir="rtl" spacing="20px">
-              <Avatar src={post?.profilePicUrl} />
-              <Heading fontSize="30px" textColor="gray.700">
-                {post?.username}
-              </Heading>
-            </HStack>
-
-            {/*Post Detail*/}
-            <HStack h="400px" w="full" dir="rtl" padding={2}>
-              <CaptionDetails
-                ingredients={post?.ingredients ? post.ingredients : {}}
-                description={post?.description ? post.description : ""}
-              />
-            </HStack>
-            <HStack dir="rtl" justifyContent="space-between">
-              <Text
-                marginRight={2}
-                onClick={() => console.log("todo")}
-                _hover={{
-                  cursor: "pointer",
-                  color: "brand.900",
-                }}
-              >
-                <b>{post?.numLikes}</b> لایک
-              </Text>
-              <HStack marginLeft={2}>
-                <LikeIcon
-                  onclick={handleLikeClick}
-                  like={post?.like ? post.like : false}
-                  boxSize={6}
-                />
-                <CommentsIcon boxSize={6} />
+            <ImageSection images={post?.imageUrls ? post?.imageUrls : []} />
+            {/*Caption section*/}
+            <VStack h="full" w="400px" alignItems="right" padding={4}>
+              {/*User Info*/}
+              <HStack dir="rtl" spacing="20px">
+                <Avatar src={post?.profilePicUrl} />
+                <Heading fontSize="lg" textColor="gray.700" fontWeight="bold">
+                  {post?.username}
+                </Heading>
               </HStack>
-            </HStack>
-            {/*Comment section*/}
-            <CommentSection />
-          </VStack>
-        </HStack>
+
+              {/*Post Detail*/}
+              <HStack h="400px" w="full" dir="rtl" padding={2}>
+                <CaptionDetails
+                  ingredients={post?.ingredients ? post.ingredients : {}}
+                  description={post?.description ? post.description : ""}
+                />
+              </HStack>
+              <HStack dir="rtl" justifyContent="space-between">
+                <Text
+                  marginRight={2}
+                  onClick={() => console.log("todo")}
+                  _hover={{
+                    cursor: "pointer",
+                    color: "brand.900",
+                  }}
+                >
+                  <b>{post?.numLikes}</b> لایک
+                </Text>
+                <HStack marginLeft={2}>
+                  <LikeIcon
+                    onclick={handleLikeClick}
+                    like={post?.like ? post.like : false}
+                    boxSize={6}
+                  />
+                  <CommentsIcon boxSize={6} />
+                </HStack>
+              </HStack>
+              {/*Comment section*/}
+              <CommentSection />
+            </VStack>
+          </HStack>
+        </Box>
       </Center>
     </Box>
   );

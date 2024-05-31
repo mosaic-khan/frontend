@@ -21,64 +21,65 @@ import { FaCameraRetro } from "react-icons/fa";
 interface Props {
   profileId: bigint;
 }
-
 const Post = ({ profileId }: Props) => {
-  const [posts, setPosts] = useState<PostPreview[] | null>([
-    {
-      id: BigInt(1),
-      title: "Post 1",
-      shortDescription: "This is the first post",
-      image: "src/assets/1.jpg",
-      numLikes: 10,
-      numComments: 2,
-      isLiked: true,
-    },
-    {
-      id: BigInt(2),
-      title: "Post 2",
-      shortDescription: "This is the second post",
-      image: "src/assets/Home1.jpg",
-      numLikes: 5,
-      numComments: 1,
-      isLiked: false,
-    },
-    {
-      id: BigInt(3),
-      title: "Post 3",
-      shortDescription: "This is the third post",
-      image: "image3.jpg",
-      numLikes: 8,
-      numComments: 3,
-      isLiked: true,
-    },
-    {
-      id: BigInt(1),
-      title: "Post 1",
-      shortDescription: "This is the first post",
-      image: "src/assets/1.jpg",
-      numLikes: 10,
-      numComments: 2,
-      isLiked: true,
-    },
-    {
-      id: BigInt(2),
-      title: "Post 2",
-      shortDescription: "This is the second post",
-      image: "src/assets/Home1.jpg",
-      numLikes: 5,
-      numComments: 1,
-      isLiked: false,
-    },
-    {
-      id: BigInt(3),
-      title: "Post 3",
-      shortDescription: "This is the third post",
-      image: "image3.jpg",
-      numLikes: 8,
-      numComments: 3,
-      isLiked: true,
-    },
-  ]);
+  const [posts, setPosts] = useState<PostPreview[] | null>();
+
+  // const [posts, setPosts] = useState<PostPreview[] | null>([
+  //   {
+  //     id: BigInt(1),
+  //     title: "Post 1",
+  //     shortDescription: "This is the first post",
+  //     image: "src/assets/1.jpg",
+  //     numLikes: 10,
+  //     numComments: 2,
+  //     isLiked: true,
+  //   },
+  //   {
+  //     id: BigInt(2),
+  //     title: "Post 2",
+  //     shortDescription: "This is the second post",
+  //     image: "src/assets/Home1.jpg",
+  //     numLikes: 5,
+  //     numComments: 1,
+  //     isLiked: false,
+  //   },
+  //   {
+  //     id: BigInt(3),
+  //     title: "Post 3",
+  //     shortDescription: "This is the third post",
+  //     image: "image3.jpg",
+  //     numLikes: 8,
+  //     numComments: 3,
+  //     isLiked: true,
+  //   },
+  //   {
+  //     id: BigInt(1),
+  //     title: "Post 1",
+  //     shortDescription: "This is the first post",
+  //     image: "src/assets/1.jpg",
+  //     numLikes: 10,
+  //     numComments: 2,
+  //     isLiked: true,
+  //   },
+  //   {
+  //     id: BigInt(2),
+  //     title: "Post 2",
+  //     shortDescription: "This is the second post",
+  //     image: "src/assets/Home1.jpg",
+  //     numLikes: 5,
+  //     numComments: 1,
+  //     isLiked: false,
+  //   },
+  //   {
+  //     id: BigInt(3),
+  //     title: "Post 3",
+  //     shortDescription: "This is the third post",
+  //     image: "image3.jpg",
+  //     numLikes: 8,
+  //     numComments: 3,
+  //     isLiked: true,
+  //   },
+  // ]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const Post = ({ profileId }: Props) => {
       setIsLoading(true);
       // setPosts(posts);
       // setIsLoading(false); for test
-
+      console.log(profileId);
       PostApi.getProfilePosts(
         {
           profileID: profileId,
