@@ -1,12 +1,17 @@
-import { Avatar, BoxProps, HStack, Text, VStack } from "@chakra-ui/react";
+import { Avatar, BoxProps, Button, HStack, VStack } from "@chakra-ui/react";
 import FollowButton from "./FollowButton";
 import { ProfilePreviewExplore } from "../../api/clients/search";
+import { useNavigate } from "react-router-dom";
 
 interface Props extends BoxProps {
   profilePreview: ProfilePreviewExplore;
 }
 
 const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
+  const navigate = useNavigate();
+  const openProfilePage = () => {
+    navigate("/profile/" + profilePreview.username);
+  };
   return (
     <HStack
       w="430px"
@@ -22,12 +27,21 @@ const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
           src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
           transition="1s"
           _hover={{ boxSize: "100px" }}
+          onClick={openProfilePage}
+          cursor="pointer"
         />
         <VStack spacing="0px">
-          <Text as="b" color="gray.700">
+          <Button color="gray.700" variant="text" onClick={openProfilePage}>
             {profilePreview.username}
-          </Text>
-          <Text color="gray.500">{profilePreview.name}</Text>
+          </Button>
+          <Button
+            marginTop="-20px"
+            color="gray.500"
+            variant="text"
+            onClick={openProfilePage}
+          >
+            {profilePreview.name}
+          </Button>
         </VStack>
       </HStack>
       <FollowButton
