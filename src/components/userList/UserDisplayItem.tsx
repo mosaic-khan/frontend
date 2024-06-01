@@ -1,9 +1,9 @@
 import { Avatar, BoxProps, HStack, Text, VStack } from "@chakra-ui/react";
-import { ProfilePreview } from "../../api/clients/user";
 import FollowButton from "./FollowButton";
+import { ProfilePreviewExplore } from "../../api/clients/search";
 
 interface Props extends BoxProps {
-  profilePreview: ProfilePreview;
+  profilePreview: ProfilePreviewExplore;
 }
 
 const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
@@ -31,7 +31,7 @@ const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
         </VStack>
       </HStack>
       <FollowButton
-        isFollowed={profilePreview.isFollowed}
+        isFollowed={profilePreview.isFollowed == BigInt(1)}
         profileId={profilePreview.profileID}
       />
     </HStack>

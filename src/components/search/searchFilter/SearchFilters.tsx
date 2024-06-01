@@ -25,7 +25,11 @@ const SearchFilters = ({
       <VStack padding="20px">
         <SearchType type={searchType} onTypeChange={onSearchTypeChange} />
         <SearchFilterDivider />
-        <SearchCategory />
+        <SearchCategory
+          onChange={(id) => {
+            onSearchPostInfoChange({ ...searchPostInfo, categoryID: [id] });
+          }}
+        />
         <SearchFilterDivider />
         <SearchFilterIngredientSelect
           onListChange={(list) => {

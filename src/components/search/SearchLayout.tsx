@@ -5,6 +5,10 @@ import searchClient from "../../api/services/search-service";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserSearchResult from "./UserSearchResult";
+import {
+  PostPreviewExplore,
+  ProfilePreviewExplore,
+} from "../../api/clients/search";
 
 interface SearchInfo {
   text: string;
@@ -30,6 +34,12 @@ const SearchLayout = () => {
     includeIng: [],
     excludeIng: [],
   });
+  const [userSearchResponse, setUserSearchResponse] = useState<
+    ProfilePreviewExplore[]
+  >([]);
+  const [postSearchResponse, setPostSearchResponse] = useState<
+    PostPreviewExplore[]
+  >([]);
 
   useEffect(() => {
     if (searchTextParam)
@@ -46,6 +56,7 @@ const SearchLayout = () => {
   };
 
   const applySearchUser = () => {
+    setUserSearchResponse([]);
     searchClient
       .searchUsername(
         { username: searchInfo.text },
@@ -57,6 +68,7 @@ const SearchLayout = () => {
       )
       .then((res) => {
         console.log("searchUsername response: ", res);
+        setUserSearchResponse(res.response.profilePreview);
       })
       .catch((err) => {
         console.log("searchUsername error: ", err);
@@ -64,6 +76,7 @@ const SearchLayout = () => {
   };
 
   const applySearchPost = () => {
+    setPostSearchResponse([]);
     searchClient
       .mixedSearch(
         {
@@ -80,6 +93,7 @@ const SearchLayout = () => {
       )
       .then((res) => {
         console.log("mixedSearch response: ", res);
+        setPostSearchResponse(res.response.posts);
       })
       .catch((err) => {
         console.log("mixedSearch error: ", err);
@@ -95,7 +109,11 @@ const SearchLayout = () => {
       marginTop="70px"
     >
       <GridItem area="main">
-        {searchInfo.tab == 0 ? <UserSearchResult /> : <SearchResult />}
+        {searchInfo.tab == 0 ? (
+          <UserSearchResult profiles={userSearchResponse} />
+        ) : (
+          <SearchResult />
+        )}
       </GridItem>
       <GridItem area="right" bg="gray.100">
         <SearchFilters
