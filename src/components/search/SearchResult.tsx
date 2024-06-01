@@ -1,6 +1,11 @@
 import { Box, HStack, VStack } from "@chakra-ui/react";
+import { PostPreviewExplore } from "../../api/clients/search";
 
-const SearchResult = () => {
+interface Props {
+  posts: PostPreviewExplore[];
+}
+
+const SearchResult = ({ posts }: Props) => {
   return (
     <HStack align="flex-start" justifyContent="space-between" padding="10px">
       <VStack w="100%">

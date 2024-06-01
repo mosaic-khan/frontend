@@ -112,7 +112,7 @@ const SearchLayout = () => {
         {searchInfo.tab == 0 ? (
           <UserSearchResult profiles={userSearchResponse} />
         ) : (
-          <SearchResult />
+          <SearchResult posts={postSearchResponse} />
         )}
       </GridItem>
       <GridItem area="right" bg="gray.100">
