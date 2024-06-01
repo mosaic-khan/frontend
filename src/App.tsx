@@ -12,6 +12,7 @@ import OtherProfile from "./pages/OtherProfile";
 import PostPage from "./pages/PostPage";
 import { AuthContext, RefreshToken } from "./api/auth/AuthController";
 import Search from "./pages/Search";
+import Timeline from "./pages/TimeLine";
 
 function App() {
   const { setColorMode } = useColorMode();
@@ -39,6 +40,7 @@ function App() {
             <Route path="post/:postId" element={<PostPage />} />
             <Route path="Search" element={<Search />} />
             <Route path="Search/:searchTextParam" element={<Search />} />
+            <Route path="timeLine" element={<Timeline/>} />
           </Route>
         </Routes>
       </BrowserRouter>
