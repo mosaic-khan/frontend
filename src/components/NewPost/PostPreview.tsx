@@ -12,7 +12,7 @@ import {
 import userClient from "../../api/services/user-service";
 import { User } from "../../api/clients/user";
 interface PostPreviewProps {
-  images: File[];
+  images: Blob[];
 }
 
 const PostPreview = ({ images }: PostPreviewProps) => {
@@ -99,7 +99,7 @@ const PostPreview = ({ images }: PostPreviewProps) => {
                     cursor="pointer"
                     onClick={() => {
                       handleDotClick(index);
-                      console.debug(image);
+                      console.debug(URL.createObjectURL(image));
                     }}
                   />
                 ))}

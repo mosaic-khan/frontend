@@ -10,9 +10,8 @@ import {
   Flex,
   Spacer,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Image } from "@chakra-ui/react";
+import { ChangeEventHandler, useEffect, useState } from "react";
+import { Img } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import CaptionBox from "./CaptionBox";
 import postclient from "../../api/services/post-service";
@@ -22,45 +21,72 @@ import UserNavigation from "../Navigation/ProfileNavigation";
 import PostPreview from "./PostPreview";
 
 import { FaCameraRetro } from "react-icons/fa";
+import useUploadImage from "../../api/services/media-service-post";
 
 const NewPostLayout = () => {
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<Blob[]>([]);
   const [caption, setCaption] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
-  const [numimages, setnumimg] = useState<number>(0);
-  // const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState<string>("");
-  const [file, setFile] = useState<string | Blob>("");
   const BASE_URL = "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI";
   const [imageError, setImageError] = useState("");
   const Toast = useToast();
+  const [token, setToken] = useState("");
+  const uploadImagePromise = useUploadImage();
+  const formData = new FormData();
+  const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setnumimg(numimages + 1);
-    const files = Array.from(event.target.files || []);
-    setImages([...images, ...files]);
-    if (numimages == 4) {
+      reader.readAsDataURL(file);
+
+      reader.onload = function (e) {
+        if (reader.result) {
+          const img = new Image();
+          img.src = reader.result.toString();
+
+          img.onload = function () {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+
+            if (ctx) {
+              ctx.drawImage(img, 0, 0);
+
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  setImages([...images, blob]);
+                }
+              });
+            }
+          };
+        }
+      };
+    }
+    if (images.length == 4) {
       setImageError("NumImageLim");
       console.log("error");
     } else {
+      setImageError("");
     }
   };
 
-  const uploadPostImage = async () => {
-    const formData = new FormData();
-    formData.append("uploadFile", file);
-
-    try {
-      const response = await axios.post(`${BASE_URL}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      });
-      console.log(response.data.token);
-    } catch (error) {
-      console.error(error);
+  const uploadPostImage = (images: Blob[], token: string) => {
+    formData.append("uploadFile", images[0]);
+    formData.append("postID", token);
+    // formData.append("uploadFile", images[0]);
+    console.log(formData);
+    if (token) {
+      uploadImagePromise(formData)
+        .then((res) => {
+          console.log("Upload post image response : ", res);
+        })
+        .catch((err) => {
+          console.log("Error on upload post image. error : ", err);
+        });
     }
   };
 
@@ -111,16 +137,18 @@ const NewPostLayout = () => {
   }, [error]);
 
   const Save = () => {
+    // return;
+    console.log("hello");
     if (title == "") {
       setError("Title");
       return;
     } else if (caption == "") {
       setError("Caption");
       return;
-    } else if (numimages == 0) {
+    } else if (images.length == 0) {
       setError("NumImages");
       return;
-    } else if (title != "" && caption != "" && numimages != 0) {
+    } else if (title != "" && caption != "" && images.length != 0) {
       // setIsSaved(true);
       setError("Ok");
     }
@@ -128,7 +156,7 @@ const NewPostLayout = () => {
     postclient
       .setPost(
         {
-          numImages: numimages,
+          numImages: images.length,
           description: caption,
           ingredients: ingredients,
           title: title,
@@ -141,7 +169,9 @@ const NewPostLayout = () => {
         }
       )
       .then((res) => {
-        console.log("setPost response is: ", res);
+        // setToken(res.response.id.toString());
+        console.log("----------setPost response is: ", res.response.id);
+        uploadPostImage(images, res.response.id.toString());
       })
       .catch((err) => {
         setError("error");
@@ -161,7 +191,6 @@ const NewPostLayout = () => {
   const handleRemoveImage = (index: number) => {
     const newImages = [...images];
     newImages.splice(index, 1);
-    setnumimg(numimages - 1);
     setImageError("");
     setImages(newImages);
   };
@@ -201,7 +230,7 @@ const NewPostLayout = () => {
         <Box
           bg="white"
           height="85%"
-          width="60%"
+          width="65%"
           boxShadow="lg"
           borderRadius="15px"
           pos="relative"
@@ -269,7 +298,7 @@ const NewPostLayout = () => {
                       height="75px"
                       // margin="10px"
                     >
-                      <Image
+                      <Img
                         src={URL.createObjectURL(image)}
                         alt={`Image ${index}`}
                         objectFit="cover"
@@ -320,7 +349,6 @@ const NewPostLayout = () => {
             </Center>
             <GradientRedButton
               onClick={function () {
-                uploadPostImage();
                 Save();
               }}
               pos="absolute"

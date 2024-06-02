@@ -85,11 +85,16 @@ export const EditProfile = () => {
   };
 
   const onCropDone = (imgCanvas: HTMLCanvasElement) => {
+    console.log("-------", imgCanvas);
     setImgAfterCrop(imgCanvas.toDataURL("image/jpeg"));
+    console.log("---------", imgAfterCrop);
+    // console.log("...........", imgAfterCrop);
+
     imgCanvas.toBlob((blob) => {
       if (blob) {
         const formData = new FormData();
         formData.append("uploadFile", blob);
+        console.log("hello", blob);
         uploadImagePromise(formData)
           .then((res) => {
             console.log("Upload profile image response : ", res);
