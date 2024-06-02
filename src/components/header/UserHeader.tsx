@@ -24,7 +24,6 @@ const UserHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
 
-
   return (
     <>
       <HStack
@@ -66,20 +65,20 @@ const UserHeader = ({ userProfile, isLoading }: Props) => {
                   <Button
                     variant="text"
                     onClick={() => {
-                      setFollowTab(1);
-                      onOpen();
-                    }}
-                  >
-                    {userProfile?.followerCnt.toString()} دنبال کننده
-                  </Button>
-                  <Button
-                    variant="text"
-                    onClick={() => {
                       setFollowTab(0);
                       onOpen();
                     }}
                   >
                     {userProfile?.followingCnt.toString()} دنبال شونده
+                  </Button>
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(1);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followerCnt.toString()} دنبال کننده
                   </Button>
                 </HStack>
                 <Text color="gray.500">
