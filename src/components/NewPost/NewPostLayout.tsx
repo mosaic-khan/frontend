@@ -29,9 +29,7 @@ const NewPostLayout = () => {
   const [title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [numimages, setnumimg] = useState<number>(0);
-  // const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState<string>("");
-  const [file, setFile] = useState<string | Blob>("");
   const BASE_URL = "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI";
   const [imageError, setImageError] = useState("");
   const Toast = useToast();
@@ -43,24 +41,83 @@ const NewPostLayout = () => {
     if (numimages == 4) {
       setImageError("NumImageLim");
       console.log("error");
-    } else {
     }
   };
 
-  const uploadPostImage = async () => {
+  const uploadPostImages = async () => {
     const formData = new FormData();
-    formData.append("uploadFile", file);
+    const imageTokens = [];
+
+    for (let image of images) {
+      formData.append("uploadFile", image);
+      try {
+        const response = await axios.post(`${BASE_URL}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
+        imageTokens.push(response.data.token);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        setError("ImageUpload");
+        return;
+      }
+    }
+
+    return imageTokens;
+  };
+
+  const SavePost = async () => {
+    if (title === "") {
+      setError("Title");
+      return;
+    } else if (caption === "") {
+      setError("Caption");
+      return;
+    } else if (numimages === 0) {
+      setError("NumImages");
+      return;
+    }
+
+    const imageTokens = await uploadPostImages();
+    if (imageTokens?.length !== images.length) {
+      setError("ImageUpload");
+      return;
+    }
+
+    const postRequest = {
+      title: title,
+      ingredients: ingredients,
+      description: caption,
+      categoryID: 1,
+      numImages: images.length,
+    };
 
     try {
-      const response = await axios.post(`${BASE_URL}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const response = await postclient.setPost(postRequest, {
+        meta: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       });
-      console.log(response.data.token);
-    } catch (error) {
-      console.error(error);
+
+      const postId = response.response.id;
+
+      for (let token of imageTokens) {
+        await postclient.addImageForPost(
+          { postImageToken: token }, // Corrected property name
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        );
+      }
+
+      setError("Ok");
+    } catch (err) {
+      setError("error");
+      console.log("Error setting post:", err);
     }
   };
 
@@ -105,58 +162,18 @@ const NewPostLayout = () => {
         duration: 3000,
         position: "bottom-left",
       });
+    } else if (error === "ImageUpload") {
+      Toast({
+        description: <Text dir="rtl">خطا در بارگذاری تصاویر!</Text>,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
     }
 
     setError("");
   }, [error]);
-
-  const Save = () => {
-    if (title == "") {
-      setError("Title");
-      return;
-    } else if (caption == "") {
-      setError("Caption");
-      return;
-    } else if (numimages == 0) {
-      setError("NumImages");
-      return;
-    } else if (title != "" && caption != "" && numimages != 0) {
-      // setIsSaved(true);
-      setError("Ok");
-    }
-
-    postclient
-      .setPost(
-        {
-          numImages: numimages,
-          description: caption,
-          ingredients: ingredients,
-          title: title,
-          categoryID: 1,
-        },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("setPost response is: ", res);
-      })
-      .catch((err) => {
-        setError("error");
-        console.log("errorx: ", err);
-        // setIsSaved(false);
-      });
-  };
-
-  // const handleIngredientsChange = (ingredients: string[][]) => {
-  //   var dict: { [key: string]: string } = {};
-  //   for (let index = 0; index < ingredients.length; index++) {
-  //     dict[ingredients[index][0]] = ingredients[index][1];
-  //   }
-  //   setIngredients(dict);
-  // };
 
   const handleRemoveImage = (index: number) => {
     const newImages = [...images];
@@ -168,7 +185,6 @@ const NewPostLayout = () => {
 
   return (
     <Flex h="100vh" bgColor="gray.100" pos="relative">
-      {/* navbar */}
       <UserNavigation isTrue={true} />
       <HStack boxShadow="lg" pos="relative" w="100%" h="100%" px={10} pt={5}>
         <Box
@@ -193,7 +209,7 @@ const NewPostLayout = () => {
             >
               پیش نمایش
             </Heading>
-            <PostPreview images={images} />
+            <PostPreview images={images} caption={caption} />
           </VStack>
         </Box>
 
@@ -213,18 +229,14 @@ const NewPostLayout = () => {
             h="15%"
             alignContent="center"
             pr={10}
-            // textAlign="center"
             textColor="white"
             fontSize="24"
-            // fontWeight="light"
             dir="rtl"
           >
             افزودن پست
           </Heading>
           <Box h="85%" w="100%" pos="relative">
-            {/* Spacer */}
             <Box h="5%" w="100%" pos="relative"></Box>
-            {/* Spacer */}
             <HStack h="60%" w="100%" pos="relative">
               <Center h="100%" w="100%" pos="relative" dir="rtl">
                 <CaptionBox
@@ -233,9 +245,7 @@ const NewPostLayout = () => {
                   title={title}
                   setTitle={setTitle}
                 />
-                {/* Spacer */}
                 <Box h="100%" w="10%"></Box>
-                {/* Spacer */}
                 <SelectIngredients />
               </Center>
             </HStack>
@@ -267,7 +277,6 @@ const NewPostLayout = () => {
                       position="relative"
                       width="75px"
                       height="75px"
-                      // margin="10px"
                     >
                       <Image
                         src={URL.createObjectURL(image)}
@@ -277,7 +286,6 @@ const NewPostLayout = () => {
                         height="100%"
                         borderRadius="10%"
                       />
-
                       <CloseIcon
                         aria-label="Remove image"
                         position="absolute"
@@ -301,13 +309,9 @@ const NewPostLayout = () => {
                       document.getElementById("image-upload")?.click()
                     }
                   >
-                    <FaCameraRetro
-                      key="empty-image-box"
-                      size="40%"
-                    ></FaCameraRetro>
+                    <FaCameraRetro size="40%" />
                   </Center>
                 </HStack>
-
                 <Input
                   type="file"
                   id="image-upload"
@@ -320,8 +324,7 @@ const NewPostLayout = () => {
             </Center>
             <GradientRedButton
               onClick={function () {
-                uploadPostImage();
-                Save();
+                SavePost();
               }}
               pos="absolute"
               left={-10}
@@ -333,7 +336,6 @@ const NewPostLayout = () => {
         </Box>
       </HStack>
     </Flex>
-    // </Box>
   );
 };
 

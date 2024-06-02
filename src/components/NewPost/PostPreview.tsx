@@ -13,9 +13,10 @@ import userClient from "../../api/services/user-service";
 import { User } from "../../api/clients/user";
 interface PostPreviewProps {
   images: File[];
+  caption: string;
 }
 
-const PostPreview = ({ images }: PostPreviewProps) => {
+const PostPreview = ({ images, caption }: PostPreviewProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [user, setUser] = useState<User | undefined>();
 
@@ -64,8 +65,15 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               borderRight="1px solid #ccc"
             >
               <HStack h="100%" w="100%" pr={2}>
-                <Avatar src={user?.profilePicUrl}></Avatar>
-                <Text fontWeight="bold">{user?.username}</Text>
+                <Avatar
+                  src={
+                    "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI" +
+                    user?.profilePicUrl
+                  }
+                ></Avatar>
+                <Text fontWeight="bold" fontSize="16px">
+                  {user?.username}
+                </Text>
               </HStack>
             </Heading>
             <Box
@@ -106,19 +114,23 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               </Flex>
             </Box>
             <Box
-              bg="gray.200"
+              pos="relative"
               w="100%"
               h="25%"
+              bg="gray.100"
               borderBottomRadius="15px"
-              dir="rtl"
-              fontWeight="bold"
-              p={2}
               boxShadow="lg"
               borderLeft="1px solid #ccc"
               borderBottom="1px solid #ccc"
               borderRight="1px solid #ccc"
+              overflowY="auto"
             >
-              {user?.username}
+              <Text pos="relative" fontWeight="bold" pr={2} pt={2} dir="rtl">
+                {user?.username}
+              </Text>
+              <Text pos="relative" pr={2} fontSize="14px" dir="rtl">
+                {caption}
+              </Text>
             </Box>
           </Box>
         </Center>
@@ -141,7 +153,13 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               textColor="black"
               fontSize="24"
               dir="rtl"
-            ></Heading>
+            >
+              <HStack h="100%" w="100%" pr={2}>
+                <Avatar></Avatar>
+                <Text fontWeight="bold" fontSize="16px" children="نام کاربری" />
+              </HStack>
+            </Heading>
+
             <Box
               bg="white"
               h="60%"
@@ -155,15 +173,26 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               w="100%"
               h="25%"
               borderBottomRadius="15px"
-              dir="rtl"
-              fontWeight="bold"
-              p={2}
               boxShadow="lg"
               borderLeft="1px solid #ccc"
               borderBottom="1px solid #ccc"
               borderRight="1px solid #ccc"
             >
-              نام کاربری
+              <Text
+                pos="relative"
+                fontWeight="bold"
+                dir="rtl"
+                children="نام کاربری"
+                pr={2}
+                pt={2}
+              />
+              <Text
+                pos="relative"
+                dir="rtl"
+                children="توضیحات پست"
+                pr={2}
+                fontSize="14px"
+              />
             </Box>
           </Box>
         </Center>
