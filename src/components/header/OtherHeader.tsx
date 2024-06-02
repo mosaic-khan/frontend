@@ -28,7 +28,6 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
 
-
   const onClick = (isFollowed: boolean) => {
     if (isFollowed) {
       console.log("unfollow");
@@ -118,29 +117,34 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                   </GradientRedButton>
                 </HStack>
                 <HStack spacing={5} fontSize="sm">
-              <Button
-                variant="text"
-                onClick={() => {
-                  setFollowTab(1);
-                  onOpen();
-                }}
-              >
-                {userProfile?.followerCnt.toString()} دنبال کننده
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => {
-                  setFollowTab(0);
-                  onOpen();
-                }}
-              >
-                {userProfile?.followingCnt.toString()} دنبال شونده
-              </Button>
-            </HStack>
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(0);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followingCnt.toString()} دنبال شونده
+                  </Button>
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setFollowTab(1);
+                      onOpen();
+                    }}
+                  >
+                    {userProfile?.followerCnt.toString()} دنبال کننده
+                  </Button>
+                </HStack>
                 <Text fontSize="sm" color="gray.300">
                   {userProfile?.city ? userProfile?.city : "شهر"}
                 </Text>
-                <Text color="gray.500" textAlign="center" fontSize="xs" maxW="150px">
+                <Text
+                  color="gray.500"
+                  textAlign="center"
+                  fontSize="xs"
+                  maxW="150px"
+                >
                   {userProfile?.bio ? userProfile?.bio : "بیو"}
                 </Text>
               </VStack>
