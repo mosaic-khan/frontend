@@ -22,8 +22,10 @@ import PostPreview from "./PostPreview";
 
 import { FaCameraRetro } from "react-icons/fa";
 import useUploadImage from "../../api/services/media-service-post";
+import { useNavigate } from "react-router-dom";
 
 const NewPostLayout = () => {
+  const navigate = useNavigate();
   const [images, setImages] = useState<Blob[]>([]);
   const [caption, setCaption] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -32,9 +34,11 @@ const NewPostLayout = () => {
   const BASE_URL = "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI";
   const [imageError, setImageError] = useState("");
   const Toast = useToast();
+  const [states, setStates] = useState<number>(0);
   const [token, setToken] = useState("");
   const uploadImagePromise = useUploadImage();
-  const formData = new FormData();
+  // const formData = new FormData();
+
   const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -75,19 +79,25 @@ const NewPostLayout = () => {
   };
 
   const uploadPostImage = (images: Blob[], token: string) => {
-    formData.append("uploadFile", images[0]);
-    formData.append("postID", token);
-    // formData.append("uploadFile", images[0]);
-    console.log(formData);
-    if (token) {
-      uploadImagePromise(formData)
-        .then((res) => {
-          console.log("Upload post image response : ", res);
-        })
-        .catch((err) => {
-          console.log("Error on upload post image. error : ", err);
-        });
+    for (var i = 0; i < images.length; i++) {
+      const formData = new FormData();
+      formData.append("uploadFile", images[i]);
+      formData.append("postID", token);
+      // formData.append("uploadFile", images[0]);
+      console.log(formData);
+      if (token) {
+        uploadImagePromise(formData)
+          .then((res) => {
+            setStates(states + 1);
+            console.log("Upload post image response : ", res);
+          })
+          .catch((err) => {
+            console.log("Error on upload post image. error : ", err);
+          });
+      }
     }
+    console.log(states);
+    if (states === images.length) navigate("/myprofile");
   };
 
   useEffect(() => {
@@ -180,14 +190,6 @@ const NewPostLayout = () => {
       });
   };
 
-  // const handleIngredientsChange = (ingredients: string[][]) => {
-  //   var dict: { [key: string]: string } = {};
-  //   for (let index = 0; index < ingredients.length; index++) {
-  //     dict[ingredients[index][0]] = ingredients[index][1];
-  //   }
-  //   setIngredients(dict);
-  // };
-
   const handleRemoveImage = (index: number) => {
     const newImages = [...images];
     newImages.splice(index, 1);
@@ -222,7 +224,7 @@ const NewPostLayout = () => {
             >
               پیش نمایش
             </Heading>
-            <PostPreview images={images} />
+            <PostPreview images={images} caption={caption} />
           </VStack>
         </Box>
 
@@ -265,7 +267,7 @@ const NewPostLayout = () => {
                 {/* Spacer */}
                 <Box h="100%" w="10%"></Box>
                 {/* Spacer */}
-                <SelectIngredients />
+                <SelectIngredients setIngredients={setIngredients} />
               </Center>
             </HStack>
             <Box h="4%" w="100%" pos="relative"></Box>
