@@ -10,14 +10,16 @@ import {
   Center,
 } from "@chakra-ui/react";
 import userClient from "../../api/services/user-service";
-import { User } from "../../api/clients/user";
+import { Profile, User } from "../../api/clients/user";
 interface PostPreviewProps {
   images: Blob[];
+  caption: string;
 }
 
-const PostPreview = ({ images }: PostPreviewProps) => {
+const PostPreview = ({ images, caption }: PostPreviewProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [user, setUser] = useState<User | undefined>();
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
 
   const handleDotClick = (index: number) => {
     setCurrentImageIndex(index);
@@ -37,6 +39,25 @@ const PostPreview = ({ images }: PostPreviewProps) => {
         console.log("getProfile response: ", res.response.user);
         if (res.response.user) {
           setUser(res.response.user);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
         }
       })
       .catch((err) => {
@@ -64,7 +85,11 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               borderRight="1px solid #ccc"
             >
               <HStack h="100%" w="100%" pr={2}>
-                <Avatar src={user?.profilePicUrl}></Avatar>
+                <Avatar
+                  src={
+                    "http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl
+                  }
+                ></Avatar>
                 <Text fontWeight="bold">{user?.username}</Text>
               </HStack>
             </Heading>
@@ -110,15 +135,18 @@ const PostPreview = ({ images }: PostPreviewProps) => {
               w="100%"
               h="25%"
               borderBottomRadius="15px"
-              dir="rtl"
-              fontWeight="bold"
-              p={2}
               boxShadow="lg"
               borderLeft="1px solid #ccc"
               borderBottom="1px solid #ccc"
               borderRight="1px solid #ccc"
+              overflowY="auto"
             >
-              {user?.username}
+              <Text dir="rtl" fontWeight="bold" px={2} pt={2} fontSize={16}>
+                {user?.username}
+              </Text>
+              <Text dir="rtl" px={4} fontSize={12}>
+                {caption}
+              </Text>
             </Box>
           </Box>
         </Center>

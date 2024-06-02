@@ -27,22 +27,24 @@ import {
   Center,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import IngredientsSuggestion from "./IngredientsSuggestion";
+import { DeleteIcon, MinusIcon } from "@chakra-ui/icons";
 
 interface Props {
-  onChange: (ingredients: string[][]) => void;
+  setIngredients: (value: SetStateAction<{ [key: string]: string }>) => void;
 }
 interface RowData {
   column1: string;
   column2: string;
 }
 
-const SelectIngredients = () => {
+const SelectIngredients = ({ setIngredients }: Props) => {
   const [nameError, setNameError] = useBoolean(false);
   const [amountError, setAmountError] = useBoolean(false);
   const [isEditingName, setIsEditingName] = useBoolean(false);
   const [showPopover, setShowPopover] = useBoolean(false);
+  const [display, setDisplay] = useState("");
   const nameRef = useRef(null);
   const Toast = useToast();
   const handleChangeName = (e: any) => {
@@ -109,17 +111,42 @@ const SelectIngredients = () => {
       });
     } else if (newRow.column1 && newRow.column2) {
       //check if the newRow is not inside data list before adding to data rows
-      Toast({
-        description: <Text dir="rtl">مقادیر با موفقیت ثبت شد.</Text>,
-        status: "success",
-        duration: 2500,
-        position: "bottom-left",
-      });
-      setData([...data, newRow]);
-      setNewRow({ column1: "", column2: "" });
-      onClose();
+      if (data.some((row) => row.column1 === newRow.column1)) {
+        Toast({
+          description: <Text dir="rtl">مواد تکراری است.</Text>,
+          status: "error",
+          duration: 2500,
+          position: "bottom-left",
+        });
+      } else {
+        Toast({
+          description: <Text dir="rtl">مقادیر با موفقیت ثبت شد.</Text>,
+          status: "success",
+          duration: 2500,
+          position: "bottom-left",
+        });
+        setData([...data, newRow]);
+        setNewRow({ column1: "", column2: "" });
+        onClose();
+      }
     }
   };
+  const handleRemoveRow = (index: number) => {
+    setData(data.filter((_, i) => i !== index));
+  };
+
+  const transformDataToDictionary = () => {
+    const dictionary: { [key: string]: string } = {};
+    data.forEach((row) => {
+      dictionary[row.column1] = row.column2;
+    });
+    return dictionary;
+  };
+
+  useEffect(() => {
+    setIngredients(transformDataToDictionary());
+  }, [data, setIngredients]);
+
   return (
     <Box w="40%" h="100%" borderTopRadius="15px" bg="white">
       <Box
@@ -141,7 +168,10 @@ const SelectIngredients = () => {
             dir="rtl"
             fontSize="16"
             fontWeight="bold"
-            onClick={onOpen}
+            onClick={() => {
+              setDisplay("flex");
+              onOpen();
+            }}
             bg="brand.200"
             _hover={{ bg: "brand.100" }}
             overflow="hidden"
@@ -210,8 +240,14 @@ const SelectIngredients = () => {
             </Thead>
             <Tbody style={{ width: "100%", height: "75%" }} pos="relative">
               {data.map((row, index) => (
-                <Tr key={index} h="30%" w="100%" pos="relative">
-                  <HStack h="100%" w="100%" pos="relative" gap={0} spacing={0}>
+                <Tr
+                  key={index}
+                  h="30%"
+                  w="100%"
+                  pos="relative"
+                  display={display}
+                >
+                  <HStack h="80%" w="100%" pos="relative" gap={0} spacing={0}>
                     <Td
                       style={{
                         width: "50%",
@@ -246,6 +282,20 @@ const SelectIngredients = () => {
                           {row.column2}
                         </Text>
                       </Center>
+                      <MinusIcon
+                        color="red"
+                        h="20%"
+                        w="10%"
+                        style={{
+                          position: "absolute",
+                          borderRadius: 0,
+                          top: 10,
+
+                          left: 0,
+                        }}
+                        cursor="pointer"
+                        onClick={() => handleRemoveRow(index)}
+                      />
                     </Td>
                   </HStack>
                 </Tr>
