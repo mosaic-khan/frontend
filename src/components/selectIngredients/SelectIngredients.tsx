@@ -29,7 +29,7 @@ import {
 } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import IngredientsSuggestion from "./IngredientsSuggestion";
-import { DeleteIcon, MinusIcon } from "@chakra-ui/icons";
+import { MinusIcon } from "@chakra-ui/icons";
 
 interface Props {
   setIngredients: (value: SetStateAction<{ [key: string]: string }>) => void;

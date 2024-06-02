@@ -31,11 +31,10 @@ const NewPostLayout = () => {
   const [title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [error, setError] = useState<string>("");
-  const BASE_URL = "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI";
   const [imageError, setImageError] = useState("");
   const Toast = useToast();
   const [states, setStates] = useState<number>(0);
-  const [token, setToken] = useState("");
+
   const uploadImagePromise = useUploadImage();
   // const formData = new FormData();
 
@@ -46,7 +45,7 @@ const NewPostLayout = () => {
 
       reader.readAsDataURL(file);
 
-      reader.onload = function (e) {
+      reader.onload = function () {
         if (reader.result) {
           const img = new Image();
           img.src = reader.result.toString();
