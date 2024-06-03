@@ -18,18 +18,23 @@ import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
 import { Post } from "../api/clients/post";
+import { useParams } from "react-router-dom";
 const H = 500;
 const W = 1000;
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [update, triggerUpdate] = useState(true);
-  {
-    console.log(post?.imageUrls);
+  const { postId } = useParams();
+  if (postId === undefined) {
+    console.error("postId is undefined");
+    return Promise.reject(new Error("postId is undefined"));
   }
+  const postIdBigInt = postId ? BigInt(postId) : BigInt(0);
+
   useEffect(() => {
     if (update) {
-      HandlePostRequest()
+      HandlePostRequest(postIdBigInt)
         .then((fetchedPost) => {
           if (fetchedPost) {
             setPost(fetchedPost as Post);
