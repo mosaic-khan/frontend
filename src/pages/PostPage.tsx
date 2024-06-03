@@ -130,7 +130,7 @@ const PostPage = () => {
             <VStack h="full" w="400px" alignItems="right" padding={4}>
               {/*User Info*/}
               <HStack dir="rtl" spacing="20px">
-                <Avatar src={post?.profilePicUrl} />
+                <Avatar src={"http://back.khanmedia.ir:9290" + post?.profilePicUrl} />
                 <Heading fontSize="lg" textColor="gray.700" fontWeight="bold">
                   {post?.username}
                 </Heading>
