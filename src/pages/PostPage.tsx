@@ -139,6 +139,7 @@ const PostPage = () => {
               {/*Post Detail*/}
               <HStack h="400px" w="full" dir="rtl" padding={2}>
                 <CaptionDetails
+                  name={post?.title ? post.title : ""}
                   ingredients={post?.ingredients ? post.ingredients : {}}
                   description={post?.description ? post.description : ""}
                 />
