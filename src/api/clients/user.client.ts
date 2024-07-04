@@ -4,6 +4,7 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { UserAPI } from "./user";
+import type { GetTopChefsResponse } from "./user";
 import type { GetFollowerListResponse } from "./user";
 import type { GetFollowerListRequest } from "./user";
 import type { GetFollowingListResponse } from "./user";
@@ -125,6 +126,10 @@ export interface IUserAPIClient {
      * @generated from protobuf rpc: GetFollowerList(KhanAPI.GetFollowerListRequest) returns (KhanAPI.GetFollowerListResponse);
      */
     getFollowerList(input: GetFollowerListRequest, options?: RpcOptions): UnaryCall<GetFollowerListRequest, GetFollowerListResponse>;
+    /**
+     * @generated from protobuf rpc: GetTopChefs(google.protobuf.Empty) returns (KhanAPI.GetTopChefsResponse);
+     */
+    getTopChefs(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetTopChefsResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.UserAPI
@@ -281,5 +286,12 @@ export class UserAPIClient implements IUserAPIClient, ServiceInfo {
     getFollowerList(input: GetFollowerListRequest, options?: RpcOptions): UnaryCall<GetFollowerListRequest, GetFollowerListResponse> {
         const method = this.methods[20], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetFollowerListRequest, GetFollowerListResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetTopChefs(google.protobuf.Empty) returns (KhanAPI.GetTopChefsResponse);
+     */
+    getTopChefs(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetTopChefsResponse> {
+        const method = this.methods[21], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, GetTopChefsResponse>("unary", this._transport, method, opt, input);
     }
 }

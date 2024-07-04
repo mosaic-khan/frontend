@@ -487,6 +487,36 @@ export interface GetFollowerListResponse {
      */
     profilePreview: ProfilePreview[];
 }
+/**
+ * @generated from protobuf message KhanAPI.TopChef
+ */
+export interface TopChef {
+    /**
+     * @generated from protobuf field: string username = 1;
+     */
+    username: string;
+    /**
+     * @generated from protobuf field: string first_name = 2;
+     */
+    firstName: string;
+    /**
+     * @generated from protobuf field: string last_name = 3;
+     */
+    lastName: string;
+    /**
+     * @generated from protobuf field: string profilePicUrl = 4;
+     */
+    profilePicUrl: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.GetTopChefsResponse
+ */
+export interface GetTopChefsResponse {
+    /**
+     * @generated from protobuf field: repeated KhanAPI.TopChef TopChefs = 1 [json_name = "TopChefs"];
+     */
+    topChefs: TopChef[];
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class User$Type extends MessageType<User> {
     constructor() {
@@ -2349,6 +2379,124 @@ class GetFollowerListResponse$Type extends MessageType<GetFollowerListResponse> 
  * @generated MessageType for protobuf message KhanAPI.GetFollowerListResponse
  */
 export const GetFollowerListResponse = new GetFollowerListResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class TopChef$Type extends MessageType<TopChef> {
+    constructor() {
+        super("KhanAPI.TopChef", [
+            { no: 1, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "first_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "last_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "profilePicUrl", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<TopChef>): TopChef {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.username = "";
+        message.firstName = "";
+        message.lastName = "";
+        message.profilePicUrl = "";
+        if (value !== undefined)
+            reflectionMergePartial<TopChef>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: TopChef): TopChef {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string username */ 1:
+                    message.username = reader.string();
+                    break;
+                case /* string first_name */ 2:
+                    message.firstName = reader.string();
+                    break;
+                case /* string last_name */ 3:
+                    message.lastName = reader.string();
+                    break;
+                case /* string profilePicUrl */ 4:
+                    message.profilePicUrl = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: TopChef, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string username = 1; */
+        if (message.username !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.username);
+        /* string first_name = 2; */
+        if (message.firstName !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.firstName);
+        /* string last_name = 3; */
+        if (message.lastName !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.lastName);
+        /* string profilePicUrl = 4; */
+        if (message.profilePicUrl !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.profilePicUrl);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.TopChef
+ */
+export const TopChef = new TopChef$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetTopChefsResponse$Type extends MessageType<GetTopChefsResponse> {
+    constructor() {
+        super("KhanAPI.GetTopChefsResponse", [
+            { no: 1, name: "TopChefs", kind: "message", jsonName: "TopChefs", repeat: 1 /*RepeatType.PACKED*/, T: () => TopChef }
+        ]);
+    }
+    create(value?: PartialMessage<GetTopChefsResponse>): GetTopChefsResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.topChefs = [];
+        if (value !== undefined)
+            reflectionMergePartial<GetTopChefsResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetTopChefsResponse): GetTopChefsResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated KhanAPI.TopChef TopChefs = 1 [json_name = "TopChefs"];*/ 1:
+                    message.topChefs.push(TopChef.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetTopChefsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated KhanAPI.TopChef TopChefs = 1 [json_name = "TopChefs"]; */
+        for (let i = 0; i < message.topChefs.length; i++)
+            TopChef.internalBinaryWrite(message.topChefs[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetTopChefsResponse
+ */
+export const GetTopChefsResponse = new GetTopChefsResponse$Type();
 /**
  * @generated ServiceType for protobuf service KhanAPI.UserAPI
  */
@@ -2373,5 +2521,6 @@ export const UserAPI = new ServiceType("KhanAPI.UserAPI", [
     { name: "Follow", options: {}, I: FollowRequest, O: Empty },
     { name: "Unfollow", options: {}, I: UnfollowRequest, O: Empty },
     { name: "GetFollowingList", options: {}, I: GetFollowingListRequest, O: GetFollowingListResponse },
-    { name: "GetFollowerList", options: {}, I: GetFollowerListRequest, O: GetFollowerListResponse }
+    { name: "GetFollowerList", options: {}, I: GetFollowerListRequest, O: GetFollowerListResponse },
+    { name: "GetTopChefs", options: {}, I: Empty, O: GetTopChefsResponse }
 ]);
