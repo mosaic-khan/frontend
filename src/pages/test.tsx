@@ -62,3 +62,18 @@
 //     </Box>
 //   );
 // };
+
+{
+  /* <Input
+            placeholder="عنوان پست"
+            marginBottom="4%"
+            textColor="white"
+            width="40%"
+            style={{ direction: detectLanguage(Title) }}
+            _placeholder={{ textColor: "white" }}
+            value={Title}
+            border="none"
+            bgGradient="linear(to-l, #ff0000,brand.300)"
+            onChange={(event) => setTitle(event.target.value)}
+          ></Input> */
+}

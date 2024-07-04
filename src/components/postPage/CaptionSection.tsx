@@ -1,10 +1,11 @@
 import { Box, HStack, StackDivider, Text, VStack } from "@chakra-ui/react";
 interface Props {
+  name: string;
   ingredients: { [key: string]: string };
   description: string;
 }
 
-const CaptionDetails = ({ ingredients, description }: Props) => {
+const CaptionDetails = ({ name, ingredients, description }: Props) => {
   return (
     <>
       <Box
@@ -17,7 +18,7 @@ const CaptionDetails = ({ ingredients, description }: Props) => {
         maxHeight="300px"
         p={4}
       >
-        <Text>توضیحات:</Text>
+        <Text fontWeight="bold">توضیحات {name} :</Text>
 
         <Text fontSize="sm">{description}</Text>
       </Box>
@@ -31,7 +32,7 @@ const CaptionDetails = ({ ingredients, description }: Props) => {
         maxHeight="300px"
         p={4}
       >
-        <Text>مواد اولیه:</Text>
+        <Text fontWeight="bold">مواد اولیه:</Text>
         <VStack
           divider={<StackDivider borderColor="gray.300" overflowY="auto" />}
         >

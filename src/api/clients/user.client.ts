@@ -4,14 +4,13 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { UserAPI } from "./user";
+import type { GetTopChefsResponse } from "./user";
 import type { GetFollowerListResponse } from "./user";
 import type { GetFollowerListRequest } from "./user";
 import type { GetFollowingListResponse } from "./user";
 import type { GetFollowingListRequest } from "./user";
 import type { UnfollowRequest } from "./user";
 import type { FollowRequest } from "./user";
-import type { SearchUsernameResponse } from "./user";
-import type { SearchUsernameRequest } from "./user";
 import type { DeleteAccountRequest } from "./user";
 import type { GetCitiesResponse } from "./user";
 import type { GetCitiesRequest } from "./user";
@@ -112,10 +111,6 @@ export interface IUserAPIClient {
      */
     deleteAccount(input: DeleteAccountRequest, options?: RpcOptions): UnaryCall<DeleteAccountRequest, Empty>;
     /**
-     * @generated from protobuf rpc: SearchUsername(KhanAPI.SearchUsernameRequest) returns (KhanAPI.SearchUsernameResponse);
-     */
-    searchUsername(input: SearchUsernameRequest, options?: RpcOptions): UnaryCall<SearchUsernameRequest, SearchUsernameResponse>;
-    /**
      * @generated from protobuf rpc: Follow(KhanAPI.FollowRequest) returns (google.protobuf.Empty);
      */
     follow(input: FollowRequest, options?: RpcOptions): UnaryCall<FollowRequest, Empty>;
@@ -131,6 +126,10 @@ export interface IUserAPIClient {
      * @generated from protobuf rpc: GetFollowerList(KhanAPI.GetFollowerListRequest) returns (KhanAPI.GetFollowerListResponse);
      */
     getFollowerList(input: GetFollowerListRequest, options?: RpcOptions): UnaryCall<GetFollowerListRequest, GetFollowerListResponse>;
+    /**
+     * @generated from protobuf rpc: GetTopChefs(google.protobuf.Empty) returns (KhanAPI.GetTopChefsResponse);
+     */
+    getTopChefs(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetTopChefsResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.UserAPI
@@ -261,38 +260,38 @@ export class UserAPIClient implements IUserAPIClient, ServiceInfo {
         return stackIntercept<DeleteAccountRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: SearchUsername(KhanAPI.SearchUsernameRequest) returns (KhanAPI.SearchUsernameResponse);
-     */
-    searchUsername(input: SearchUsernameRequest, options?: RpcOptions): UnaryCall<SearchUsernameRequest, SearchUsernameResponse> {
-        const method = this.methods[17], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SearchUsernameRequest, SearchUsernameResponse>("unary", this._transport, method, opt, input);
-    }
-    /**
      * @generated from protobuf rpc: Follow(KhanAPI.FollowRequest) returns (google.protobuf.Empty);
      */
     follow(input: FollowRequest, options?: RpcOptions): UnaryCall<FollowRequest, Empty> {
-        const method = this.methods[18], opt = this._transport.mergeOptions(options);
+        const method = this.methods[17], opt = this._transport.mergeOptions(options);
         return stackIntercept<FollowRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Unfollow(KhanAPI.UnfollowRequest) returns (google.protobuf.Empty);
      */
     unfollow(input: UnfollowRequest, options?: RpcOptions): UnaryCall<UnfollowRequest, Empty> {
-        const method = this.methods[19], opt = this._transport.mergeOptions(options);
+        const method = this.methods[18], opt = this._transport.mergeOptions(options);
         return stackIntercept<UnfollowRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetFollowingList(KhanAPI.GetFollowingListRequest) returns (KhanAPI.GetFollowingListResponse);
      */
     getFollowingList(input: GetFollowingListRequest, options?: RpcOptions): UnaryCall<GetFollowingListRequest, GetFollowingListResponse> {
-        const method = this.methods[20], opt = this._transport.mergeOptions(options);
+        const method = this.methods[19], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetFollowingListRequest, GetFollowingListResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetFollowerList(KhanAPI.GetFollowerListRequest) returns (KhanAPI.GetFollowerListResponse);
      */
     getFollowerList(input: GetFollowerListRequest, options?: RpcOptions): UnaryCall<GetFollowerListRequest, GetFollowerListResponse> {
-        const method = this.methods[21], opt = this._transport.mergeOptions(options);
+        const method = this.methods[20], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetFollowerListRequest, GetFollowerListResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetTopChefs(google.protobuf.Empty) returns (KhanAPI.GetTopChefsResponse);
+     */
+    getTopChefs(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetTopChefsResponse> {
+        const method = this.methods[21], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, GetTopChefsResponse>("unary", this._transport, method, opt, input);
     }
 }

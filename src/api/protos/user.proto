@@ -24,11 +24,11 @@ service UserAPI {
   rpc GetProfile (GetProfileRequests) returns (GetProfileResponse);
   rpc GetCities (GetCitiesRequest) returns (GetCitiesResponse);
   rpc DeleteAccount (DeleteAccountRequest) returns (google.protobuf.Empty);
-  rpc SearchUsername (SearchUsernameRequest) returns (SearchUsernameResponse);
   rpc Follow (FollowRequest) returns (google.protobuf.Empty);
   rpc Unfollow (UnfollowRequest) returns (google.protobuf.Empty);
   rpc GetFollowingList (GetFollowingListRequest) returns (GetFollowingListResponse);
   rpc GetFollowerList (GetFollowerListRequest) returns (GetFollowerListResponse);
+  rpc GetTopChefs (google.protobuf.Empty) returns (GetTopChefsResponse);
 }
 
 message User {
@@ -190,19 +190,12 @@ message DeleteAccountRequest {
   string password = 1;
 }
 
-message SearchUsernameRequest {
-  string username = 1;
-}
-
-message SearchUsernameResponse {
-  repeated ProfilePreview ProfilePreview = 1;
-}
-
 message ProfilePreview {
   int64 profileID = 1;
   string username = 2;
   string name = 3;
   string profilePicUrl = 4;
+  bool isFollowed = 5;
 }
 
 message FollowRequest {
@@ -227,4 +220,17 @@ message GetFollowerListRequest {
 
 message GetFollowerListResponse {
   repeated ProfilePreview profilePreview = 1;
+}
+
+
+message TopChef {
+  string username = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string profilePicUrl = 4; 
+}
+
+
+message GetTopChefsResponse {
+  repeated TopChef TopChefs = 1;
 }

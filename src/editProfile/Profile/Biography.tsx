@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { Box, Text, Input, useToast } from "@chakra-ui/react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Box, Text, useToast, Textarea } from "@chakra-ui/react";
 import { UserEditInfo } from "../../pages/EditProfile";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 const BiographyBox = ({ userEditInfo, setUserEditInfo }: Props) => {
   const toast = useToast();
 
-  const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBioChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputBio = e.target.value;
     if (inputBio.split(" ").length > 50) {
       toast({
@@ -31,10 +31,10 @@ const BiographyBox = ({ userEditInfo, setUserEditInfo }: Props) => {
   return (
     <Box
       bg="gray.100"
-      p={3}
+      p="10px"
       borderRadius="lg"
       boxShadow="lg"
-      maxW="200px"
+      w="230px"
       h="200px"
       mx="auto"
       position="absolute"
@@ -48,7 +48,7 @@ const BiographyBox = ({ userEditInfo, setUserEditInfo }: Props) => {
       <Text fontSize="md" color="gray.600" mb={1}>
         بیوگرافی:
       </Text>
-      <Input
+      <Textarea
         variant="filled"
         value={userEditInfo.user.bio}
         onChange={handleBioChange}
@@ -57,7 +57,6 @@ const BiographyBox = ({ userEditInfo, setUserEditInfo }: Props) => {
         color="gray.600"
         h="80%"
         w="100%"
-        whiteSpace="nowrap"
       />
     </Box>
   );

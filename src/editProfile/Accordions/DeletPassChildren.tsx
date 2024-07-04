@@ -38,7 +38,7 @@ const DeletPassChildren = () => {
 
   return (
     <Center>
-      <Box width="60%" boxShadow="sm" p={10}>
+      <Box width="60%" padding="0px 30px 30px 30px">
         <PasswordField
           id="password"
           value={oldPassword}
@@ -52,6 +52,7 @@ const DeletPassChildren = () => {
           رمز عبور فعلی
         </PasswordField>
         <GradientRedButton
+          borderRadius="40px"
           height="50px"
           marginTop="20px"
           width="100%"

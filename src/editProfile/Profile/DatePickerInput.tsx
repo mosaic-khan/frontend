@@ -40,7 +40,7 @@ const DatePickerInput = ({ placeHolderDate, onChange }: Props) => {
   let placeholder = "--/--/----";
   if (placeHolderDate != "0001-01-01") {
     moment.locale("fa", { useGregorianParser: true });
-    let date = moment(placeHolderDate).format().substring(0, 10);
+    let date = moment(placeHolderDate).format("YYYY/MM/DD");
     let pNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     placeholder = date
       .replace(/[0-9]/g, (d) => pNumbers[Number(d)])

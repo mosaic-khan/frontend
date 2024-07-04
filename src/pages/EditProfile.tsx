@@ -28,11 +28,26 @@ import PersonalInfo from "../editProfile/Profile/Personalnfo";
 import userClient from "../api/services/user-service";
 import { User } from "../api/clients/user";
 import useUploadImage from "../api/services/media-service";
+import useToastUtil, { ToastUtilProps } from "../components/util/useToastUtil";
 
 export interface UserEditInfo {
   user: User;
   cityId?: number;
 }
+
+const successToast: ToastUtilProps = {
+  active: true,
+  title: "ثبت اطلاعات",
+  description: "تغییرات پروفایل با موفیقت ثبت شد",
+  status: "success",
+};
+
+const serverErrorToast: ToastUtilProps = {
+  active: true,
+  title: "خطا از سمت سرور",
+  description: "تغییرات پروفایل ثبت نشد",
+  status: "error",
+};
 
 export const EditProfile = () => {
   const inputRef = useRef<any>();
@@ -50,6 +65,7 @@ export const EditProfile = () => {
       email: "",
     },
   });
+  const setToastInfo = useToastUtil({ position: "bottom-left" });
 
   const onChooseImg = () => {
     if (inputRef.current) {
@@ -69,11 +85,16 @@ export const EditProfile = () => {
   };
 
   const onCropDone = (imgCanvas: HTMLCanvasElement) => {
+    console.log("-------", imgCanvas);
     setImgAfterCrop(imgCanvas.toDataURL("image/jpeg"));
+    console.log("---------", imgAfterCrop);
+    // console.log("...........", imgAfterCrop);
+
     imgCanvas.toBlob((blob) => {
       if (blob) {
         const formData = new FormData();
         formData.append("uploadFile", blob);
+        console.log("hello", blob);
         uploadImagePromise(formData)
           .then((res) => {
             console.log("Upload profile image response : ", res);
@@ -90,13 +111,16 @@ export const EditProfile = () => {
               )
               .then((res) => {
                 console.log("editProfileInfo response: ", res);
+                setToastInfo(successToast);
               })
               .catch((err) => {
                 console.log("editProfileInfo error: ", err);
+                setToastInfo(serverErrorToast);
               });
           })
           .catch((err) => {
             console.log("Error on upload profile image. error : ", err);
+            setToastInfo(serverErrorToast);
           });
       }
     });
@@ -122,9 +146,11 @@ export const EditProfile = () => {
       )
       .then((res) => {
         console.log("editProfileInfo response: ", res);
+        setToastInfo(successToast);
       })
       .catch((err) => {
         console.log("editProfileInfo error: ", err);
+        setToastInfo(serverErrorToast);
       });
   };
 
@@ -196,13 +222,13 @@ export const EditProfile = () => {
           />
         </ModalContent>
       </Modal>
-      <VStack boxSize="80%" paddingTop={20}>
+      <VStack paddingTop={20}>
         <Box position="relative" width="900px" height="600px">
           <Center>
             <Box
               boxShadow="2xl"
               bg="gray.50"
-              h="500px"
+              h="520px"
               w="800px"
               color="white"
               borderRadius="lg"
@@ -289,7 +315,8 @@ export const EditProfile = () => {
           </Center>
           <GradientRedButton
             position="absolute"
-            bottom="50px"
+            bottom="20px"
+            borderRadius="40px"
             onClick={handleSubmitProfile}
           >
             ذخیره

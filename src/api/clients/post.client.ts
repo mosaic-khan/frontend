@@ -4,26 +4,30 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { PostAPI } from "./post";
-import type { SearchFoodByIngredientResponse } from "./post";
-import type { SearchFoodByIngredientRequest } from "./post";
-import type { SearchFoodByNameResponse } from "./post";
-import type { SearchFoodByNameRequest } from "./post";
-import type { GetCategoriesResponse } from "./post";
+import type { LoadTimeLineResponse } from "./post";
+import type { LoadTimeLineRequest } from "./post";
+import type { DeletePostRequest } from "./post";
+import type { GetPinsResponse } from "./post";
+import type { UnpinPostRequest } from "./post";
+import type { PinPostRequest } from "./post";
+import type { DeleteCommentRequest } from "./post";
+import type { RepostCommentRequest } from "./post";
+import type { DislikeCommentRequest } from "./post";
 import type { LikeCommentRequest } from "./post";
 import type { GetRepliesResponse } from "./post";
 import type { GetRepliesRequest } from "./post";
-import type { SearchCategoriesResponse } from "./post";
-import type { SearchCategoriesRequest } from "./post";
 import type { GetCommentsResponse } from "./post";
 import type { GetCommentsRequest } from "./post";
 import type { AddReplyRequest } from "./post";
+import type { Comment } from "./post";
 import type { AddCommentRequest } from "./post";
 import type { DislikeRequest } from "./post";
 import type { LikeRequest } from "./post";
-import type { Empty } from "./google/protobuf/empty";
 import type { AddImageForPostRequest } from "./post";
 import type { SuggestIngredientResponse } from "./post";
 import type { SuggestIngredientRequest } from "./post";
+import type { GetCategoriesResponse } from "./post";
+import type { Empty } from "./google/protobuf/empty";
 import type { SetPostResponse } from "./post";
 import type { SetPostRequest } from "./post";
 import type { GetPostResponse } from "./post";
@@ -50,6 +54,10 @@ export interface IPostAPIClient {
      */
     setPost(input: SetPostRequest, options?: RpcOptions): UnaryCall<SetPostRequest, SetPostResponse>;
     /**
+     * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
+     */
+    getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse>;
+    /**
      * @generated from protobuf rpc: SuggestIngredient(KhanAPI.SuggestIngredientRequest) returns (KhanAPI.SuggestIngredientResponse);
      */
     suggestIngredient(input: SuggestIngredientRequest, options?: RpcOptions): UnaryCall<SuggestIngredientRequest, SuggestIngredientResponse>;
@@ -66,21 +74,17 @@ export interface IPostAPIClient {
      */
     dislike(input: DislikeRequest, options?: RpcOptions): UnaryCall<DislikeRequest, Empty>;
     /**
-     * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (KhanAPI.Comment);
      */
-    addComment(input: AddCommentRequest, options?: RpcOptions): UnaryCall<AddCommentRequest, Empty>;
+    addComment(input: AddCommentRequest, options?: RpcOptions): UnaryCall<AddCommentRequest, Comment>;
     /**
-     * @generated from protobuf rpc: AddReply(KhanAPI.AddReplyRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: AddReply(KhanAPI.AddReplyRequest) returns (KhanAPI.Comment);
      */
-    addReply(input: AddReplyRequest, options?: RpcOptions): UnaryCall<AddReplyRequest, Empty>;
+    addReply(input: AddReplyRequest, options?: RpcOptions): UnaryCall<AddReplyRequest, Comment>;
     /**
      * @generated from protobuf rpc: GetComments(KhanAPI.GetCommentsRequest) returns (KhanAPI.GetCommentsResponse);
      */
     getComments(input: GetCommentsRequest, options?: RpcOptions): UnaryCall<GetCommentsRequest, GetCommentsResponse>;
-    /**
-     * @generated from protobuf rpc: SearchCategories(KhanAPI.SearchCategoriesRequest) returns (KhanAPI.SearchCategoriesResponse);
-     */
-    searchCategories(input: SearchCategoriesRequest, options?: RpcOptions): UnaryCall<SearchCategoriesRequest, SearchCategoriesResponse>;
     /**
      * @generated from protobuf rpc: GetReplies(KhanAPI.GetRepliesRequest) returns (KhanAPI.GetRepliesResponse);
      */
@@ -90,17 +94,37 @@ export interface IPostAPIClient {
      */
     likeComment(input: LikeCommentRequest, options?: RpcOptions): UnaryCall<LikeCommentRequest, Empty>;
     /**
-     * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
+     * @generated from protobuf rpc: DislikeComment(KhanAPI.DislikeCommentRequest) returns (google.protobuf.Empty);
      */
-    getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse>;
+    dislikeComment(input: DislikeCommentRequest, options?: RpcOptions): UnaryCall<DislikeCommentRequest, Empty>;
     /**
-     * @generated from protobuf rpc: SearchFoodByName(KhanAPI.SearchFoodByNameRequest) returns (KhanAPI.SearchFoodByNameResponse);
+     * @generated from protobuf rpc: ReportComment(KhanAPI.RepostCommentRequest) returns (google.protobuf.Empty);
      */
-    searchFoodByName(input: SearchFoodByNameRequest, options?: RpcOptions): UnaryCall<SearchFoodByNameRequest, SearchFoodByNameResponse>;
+    reportComment(input: RepostCommentRequest, options?: RpcOptions): UnaryCall<RepostCommentRequest, Empty>;
     /**
-     * @generated from protobuf rpc: SearchFoodByIngredient(KhanAPI.SearchFoodByIngredientRequest) returns (KhanAPI.SearchFoodByIngredientResponse);
+     * @generated from protobuf rpc: DeleteComment(KhanAPI.DeleteCommentRequest) returns (google.protobuf.Empty);
      */
-    searchFoodByIngredient(input: SearchFoodByIngredientRequest, options?: RpcOptions): UnaryCall<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse>;
+    deleteComment(input: DeleteCommentRequest, options?: RpcOptions): UnaryCall<DeleteCommentRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: PinPost(KhanAPI.PinPostRequest) returns (google.protobuf.Empty);
+     */
+    pinPost(input: PinPostRequest, options?: RpcOptions): UnaryCall<PinPostRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: UnpinPost(KhanAPI.UnpinPostRequest) returns (google.protobuf.Empty);
+     */
+    unpinPost(input: UnpinPostRequest, options?: RpcOptions): UnaryCall<UnpinPostRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
+     */
+    getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse>;
+    /**
+     * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
+     */
+    deletePost(input: DeletePostRequest, options?: RpcOptions): UnaryCall<DeletePostRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: LoadTimeLine(KhanAPI.LoadTimeLineRequest) returns (KhanAPI.LoadTimeLineResponse);
+     */
+    loadTimeLine(input: LoadTimeLineRequest, options?: RpcOptions): UnaryCall<LoadTimeLineRequest, LoadTimeLineResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.PostAPI
@@ -133,60 +157,60 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<SetPostRequest, SetPostResponse>("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
+     */
+    getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, GetCategoriesResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: SuggestIngredient(KhanAPI.SuggestIngredientRequest) returns (KhanAPI.SuggestIngredientResponse);
      */
     suggestIngredient(input: SuggestIngredientRequest, options?: RpcOptions): UnaryCall<SuggestIngredientRequest, SuggestIngredientResponse> {
-        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<SuggestIngredientRequest, SuggestIngredientResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: AddImageForPost(KhanAPI.AddImageForPostRequest) returns (google.protobuf.Empty);
      */
     addImageForPost(input: AddImageForPostRequest, options?: RpcOptions): UnaryCall<AddImageForPostRequest, Empty> {
-        const method = this.methods[4], opt = this._transport.mergeOptions(options);
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
         return stackIntercept<AddImageForPostRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Like(KhanAPI.LikeRequest) returns (google.protobuf.Empty);
      */
     like(input: LikeRequest, options?: RpcOptions): UnaryCall<LikeRequest, Empty> {
-        const method = this.methods[5], opt = this._transport.mergeOptions(options);
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
         return stackIntercept<LikeRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Dislike(KhanAPI.DislikeRequest) returns (google.protobuf.Empty);
      */
     dislike(input: DislikeRequest, options?: RpcOptions): UnaryCall<DislikeRequest, Empty> {
-        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        const method = this.methods[7], opt = this._transport.mergeOptions(options);
         return stackIntercept<DislikeRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: AddComment(KhanAPI.AddCommentRequest) returns (KhanAPI.Comment);
      */
-    addComment(input: AddCommentRequest, options?: RpcOptions): UnaryCall<AddCommentRequest, Empty> {
-        const method = this.methods[7], opt = this._transport.mergeOptions(options);
-        return stackIntercept<AddCommentRequest, Empty>("unary", this._transport, method, opt, input);
+    addComment(input: AddCommentRequest, options?: RpcOptions): UnaryCall<AddCommentRequest, Comment> {
+        const method = this.methods[8], opt = this._transport.mergeOptions(options);
+        return stackIntercept<AddCommentRequest, Comment>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: AddReply(KhanAPI.AddReplyRequest) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: AddReply(KhanAPI.AddReplyRequest) returns (KhanAPI.Comment);
      */
-    addReply(input: AddReplyRequest, options?: RpcOptions): UnaryCall<AddReplyRequest, Empty> {
-        const method = this.methods[8], opt = this._transport.mergeOptions(options);
-        return stackIntercept<AddReplyRequest, Empty>("unary", this._transport, method, opt, input);
+    addReply(input: AddReplyRequest, options?: RpcOptions): UnaryCall<AddReplyRequest, Comment> {
+        const method = this.methods[9], opt = this._transport.mergeOptions(options);
+        return stackIntercept<AddReplyRequest, Comment>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetComments(KhanAPI.GetCommentsRequest) returns (KhanAPI.GetCommentsResponse);
      */
     getComments(input: GetCommentsRequest, options?: RpcOptions): UnaryCall<GetCommentsRequest, GetCommentsResponse> {
-        const method = this.methods[9], opt = this._transport.mergeOptions(options);
-        return stackIntercept<GetCommentsRequest, GetCommentsResponse>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: SearchCategories(KhanAPI.SearchCategoriesRequest) returns (KhanAPI.SearchCategoriesResponse);
-     */
-    searchCategories(input: SearchCategoriesRequest, options?: RpcOptions): UnaryCall<SearchCategoriesRequest, SearchCategoriesResponse> {
         const method = this.methods[10], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SearchCategoriesRequest, SearchCategoriesResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<GetCommentsRequest, GetCommentsResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetReplies(KhanAPI.GetRepliesRequest) returns (KhanAPI.GetRepliesResponse);
@@ -203,24 +227,59 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<LikeCommentRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: GetCategories(google.protobuf.Empty) returns (KhanAPI.GetCategoriesResponse);
+     * @generated from protobuf rpc: DislikeComment(KhanAPI.DislikeCommentRequest) returns (google.protobuf.Empty);
      */
-    getCategories(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetCategoriesResponse> {
+    dislikeComment(input: DislikeCommentRequest, options?: RpcOptions): UnaryCall<DislikeCommentRequest, Empty> {
         const method = this.methods[13], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Empty, GetCategoriesResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<DislikeCommentRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: SearchFoodByName(KhanAPI.SearchFoodByNameRequest) returns (KhanAPI.SearchFoodByNameResponse);
+     * @generated from protobuf rpc: ReportComment(KhanAPI.RepostCommentRequest) returns (google.protobuf.Empty);
      */
-    searchFoodByName(input: SearchFoodByNameRequest, options?: RpcOptions): UnaryCall<SearchFoodByNameRequest, SearchFoodByNameResponse> {
+    reportComment(input: RepostCommentRequest, options?: RpcOptions): UnaryCall<RepostCommentRequest, Empty> {
         const method = this.methods[14], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SearchFoodByNameRequest, SearchFoodByNameResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<RepostCommentRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: SearchFoodByIngredient(KhanAPI.SearchFoodByIngredientRequest) returns (KhanAPI.SearchFoodByIngredientResponse);
+     * @generated from protobuf rpc: DeleteComment(KhanAPI.DeleteCommentRequest) returns (google.protobuf.Empty);
      */
-    searchFoodByIngredient(input: SearchFoodByIngredientRequest, options?: RpcOptions): UnaryCall<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse> {
+    deleteComment(input: DeleteCommentRequest, options?: RpcOptions): UnaryCall<DeleteCommentRequest, Empty> {
         const method = this.methods[15], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SearchFoodByIngredientRequest, SearchFoodByIngredientResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<DeleteCommentRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: PinPost(KhanAPI.PinPostRequest) returns (google.protobuf.Empty);
+     */
+    pinPost(input: PinPostRequest, options?: RpcOptions): UnaryCall<PinPostRequest, Empty> {
+        const method = this.methods[16], opt = this._transport.mergeOptions(options);
+        return stackIntercept<PinPostRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: UnpinPost(KhanAPI.UnpinPostRequest) returns (google.protobuf.Empty);
+     */
+    unpinPost(input: UnpinPostRequest, options?: RpcOptions): UnaryCall<UnpinPostRequest, Empty> {
+        const method = this.methods[17], opt = this._transport.mergeOptions(options);
+        return stackIntercept<UnpinPostRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
+     */
+    getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse> {
+        const method = this.methods[18], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, GetPinsResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
+     */
+    deletePost(input: DeletePostRequest, options?: RpcOptions): UnaryCall<DeletePostRequest, Empty> {
+        const method = this.methods[19], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeletePostRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: LoadTimeLine(KhanAPI.LoadTimeLineRequest) returns (KhanAPI.LoadTimeLineResponse);
+     */
+    loadTimeLine(input: LoadTimeLineRequest, options?: RpcOptions): UnaryCall<LoadTimeLineRequest, LoadTimeLineResponse> {
+        const method = this.methods[20], opt = this._transport.mergeOptions(options);
+        return stackIntercept<LoadTimeLineRequest, LoadTimeLineResponse>("unary", this._transport, method, opt, input);
     }
 }

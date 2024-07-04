@@ -63,12 +63,12 @@ const ChangePassChildren = () => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_]).{8,72}$/;
 
     if (!oldPass.match(passwordPattern)) {
-        setOldPasswordError(true);
-        setResult("password");
-        return false;
-      } else {
-        setOldPasswordError(false);
-      }
+      setOldPasswordError(true);
+      setResult("password");
+      return false;
+    } else {
+      setOldPasswordError(false);
+    }
 
     // Validate password
     if (!password.match(passwordPattern)) {
@@ -99,16 +99,17 @@ const ChangePassChildren = () => {
 
     if (valid) {
       userClient
-        .changePassword({
-          oldPassword: oldPass,
-          newPassword: newPass,
-        },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        .changePassword(
+          {
+            oldPassword: oldPass,
+            newPassword: newPass,
+          },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
           }
-        }
-)
+        )
         .then((res) => {
           console.log("signUp response: ", res);
           setResult("ok");
@@ -122,7 +123,7 @@ const ChangePassChildren = () => {
 
   return (
     <Center>
-      <Box width="60%" boxShadow="sm" p={10}>
+      <Box width="60%" padding="0px 30px 30px 30px">
         <PasswordField
           id="oldPass"
           value={oldPassword}
@@ -162,6 +163,7 @@ const ChangePassChildren = () => {
         <GradientRedButton
           height="50px"
           marginTop="20px"
+          borderRadius="40px"
           width="100%"
           onClick={() =>
             HandleChangePassword(oldPassword, password, passwordConfirm)
