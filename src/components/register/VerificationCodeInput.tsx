@@ -115,8 +115,9 @@ const VerificationCodeInput = ({ token, onSubmit, onCancel }: Props) => {
       <HStack>
         <PinInput
           type="alphanumeric"
+          value={code}
           onChange={(c) => {
-            setCode(c);
+            setCode(c.toUpperCase());
           }}
         >
           <PinInputField borderColor={"brand.100"} />
