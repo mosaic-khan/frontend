@@ -50,7 +50,7 @@ const UserProfile = () => {
           <VStack w="88%" h="full">
             {/* Header */}
             <UserHeader userProfile={userProfile} isLoading={isLoading} />
-            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)} />
+            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)} isCurrentUser={true} />
           </VStack>
         </HStack>
       </Box>
