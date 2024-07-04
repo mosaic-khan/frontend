@@ -4,9 +4,13 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { PostAPI } from "./post";
+import type { LoadTimeLineResponse } from "./post";
+import type { LoadTimeLineRequest } from "./post";
+import type { DeletePostRequest } from "./post";
 import type { GetPinsResponse } from "./post";
 import type { UnpinPostRequest } from "./post";
 import type { PinPostRequest } from "./post";
+import type { DeleteCommentRequest } from "./post";
 import type { RepostCommentRequest } from "./post";
 import type { DislikeCommentRequest } from "./post";
 import type { LikeCommentRequest } from "./post";
@@ -98,6 +102,10 @@ export interface IPostAPIClient {
      */
     reportComment(input: RepostCommentRequest, options?: RpcOptions): UnaryCall<RepostCommentRequest, Empty>;
     /**
+     * @generated from protobuf rpc: DeleteComment(KhanAPI.DeleteCommentRequest) returns (google.protobuf.Empty);
+     */
+    deleteComment(input: DeleteCommentRequest, options?: RpcOptions): UnaryCall<DeleteCommentRequest, Empty>;
+    /**
      * @generated from protobuf rpc: PinPost(KhanAPI.PinPostRequest) returns (google.protobuf.Empty);
      */
     pinPost(input: PinPostRequest, options?: RpcOptions): UnaryCall<PinPostRequest, Empty>;
@@ -109,6 +117,14 @@ export interface IPostAPIClient {
      * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
      */
     getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse>;
+    /**
+     * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
+     */
+    deletePost(input: DeletePostRequest, options?: RpcOptions): UnaryCall<DeletePostRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: LoadTimeLine(KhanAPI.LoadTimeLineRequest) returns (KhanAPI.LoadTimeLineResponse);
+     */
+    loadTimeLine(input: LoadTimeLineRequest, options?: RpcOptions): UnaryCall<LoadTimeLineRequest, LoadTimeLineResponse>;
 }
 /**
  * @generated from protobuf service KhanAPI.PostAPI
@@ -225,24 +241,45 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<RepostCommentRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: DeleteComment(KhanAPI.DeleteCommentRequest) returns (google.protobuf.Empty);
+     */
+    deleteComment(input: DeleteCommentRequest, options?: RpcOptions): UnaryCall<DeleteCommentRequest, Empty> {
+        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeleteCommentRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: PinPost(KhanAPI.PinPostRequest) returns (google.protobuf.Empty);
      */
     pinPost(input: PinPostRequest, options?: RpcOptions): UnaryCall<PinPostRequest, Empty> {
-        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        const method = this.methods[16], opt = this._transport.mergeOptions(options);
         return stackIntercept<PinPostRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UnpinPost(KhanAPI.UnpinPostRequest) returns (google.protobuf.Empty);
      */
     unpinPost(input: UnpinPostRequest, options?: RpcOptions): UnaryCall<UnpinPostRequest, Empty> {
-        const method = this.methods[16], opt = this._transport.mergeOptions(options);
+        const method = this.methods[17], opt = this._transport.mergeOptions(options);
         return stackIntercept<UnpinPostRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
      */
     getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse> {
-        const method = this.methods[17], opt = this._transport.mergeOptions(options);
+        const method = this.methods[18], opt = this._transport.mergeOptions(options);
         return stackIntercept<Empty, GetPinsResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
+     */
+    deletePost(input: DeletePostRequest, options?: RpcOptions): UnaryCall<DeletePostRequest, Empty> {
+        const method = this.methods[19], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeletePostRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: LoadTimeLine(KhanAPI.LoadTimeLineRequest) returns (KhanAPI.LoadTimeLineResponse);
+     */
+    loadTimeLine(input: LoadTimeLineRequest, options?: RpcOptions): UnaryCall<LoadTimeLineRequest, LoadTimeLineResponse> {
+        const method = this.methods[20], opt = this._transport.mergeOptions(options);
+        return stackIntercept<LoadTimeLineRequest, LoadTimeLineResponse>("unary", this._transport, method, opt, input);
     }
 }

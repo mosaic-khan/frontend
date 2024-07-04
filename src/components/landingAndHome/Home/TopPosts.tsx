@@ -8,15 +8,20 @@ import {
   Link,
   LinkBox,
   LinkOverlay,
+  Button,
 } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import Image1 from "../../../assets/Home1.jpg";
 import Image2 from "../../../assets/Home2.jpg";
 import Image3 from "../../../assets/Home3.jpg";
 import Image4 from "../../../assets/Home4.jpg";
 import Image5 from "../../../assets/Home5.jpg";
 import Post from "./PostOfTopPosts";
+import { useNavigate } from "react-router-dom";
 
 const TopPosts = () => {
+  const navigate = useNavigate();
+
   return (
     <VStack h="850px" w="100%" marginTop="40px">
       <HStack w="95%" justifyContent="space-between">
@@ -64,15 +69,30 @@ const TopPosts = () => {
             </Box>
           </HStack>
         </Box>
-        <Box h="400px" w="500px">
-          <Heading textAlign="right" paddingTop="30px" fontSize="32">
+        <VStack h="400px" w="500px" spacing="50px">
+          <Heading w="100%" textAlign="right" paddingTop="40px" fontSize="32">
             دستورهای آشپزی برتر هفته
           </Heading>
-          <Text textAlign="right" dir="rtl" paddingTop="50px" fontSize="20px">
+          <Text w="100%" textAlign="right" dir="rtl" fontSize="20px">
             در این بخش غذاهای برتر هفته رو براساس نظر کاربرها مشاهده می کنید. با
             لایک کردن پست ها کمک کنید تا غذا های برتر شناخته بشوند.
           </Text>
-        </Box>
+          <HStack w="100%" dir="rtl">
+            <Button
+              color="green.400"
+              variant="outline"
+              size="lg"
+              dir="rtl"
+              fontSize="20"
+              rightIcon={<ArrowBackIcon boxSize="6" />}
+              onClick={() => {
+                navigate("timeLine");
+              }}
+            >
+              بیشتر
+            </Button>
+          </HStack>
+        </VStack>
       </HStack>
       <HStack w="95%" justifyContent="space-between">
         <Post
