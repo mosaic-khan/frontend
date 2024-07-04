@@ -5,9 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 interface Props extends BoxProps {
   profilePreview: ProfilePreviewExplore;
+  avatarDefaultSize?: number;
+  avatarHoverSize?: number;
 }
 
-const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
+const UserDisplayItem = ({
+  profilePreview,
+  avatarDefaultSize,
+  avatarHoverSize,
+  ...rest
+}: Props) => {
   const navigate = useNavigate();
   const openProfilePage = () => {
     navigate("/profile/" + profilePreview.username);
@@ -23,10 +30,12 @@ const UserDisplayItem = ({ profilePreview, ...rest }: Props) => {
     >
       <HStack>
         <Avatar
-          boxSize="70px"
+          boxSize={avatarDefaultSize ? `${avatarDefaultSize}px` : "70px"}
           src={"http://back.khanmedia.ir:9290/" + profilePreview.profilePicUrl}
           transition="1s"
-          _hover={{ boxSize: "100px" }}
+          _hover={{
+            boxSize: avatarHoverSize ? `${avatarHoverSize}px` : "100px",
+          }}
           onClick={openProfilePage}
           cursor="pointer"
         />
