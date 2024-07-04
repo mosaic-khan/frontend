@@ -9,6 +9,7 @@ import {
   Center,
   Flex,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { Img } from "@chakra-ui/react";
@@ -32,11 +33,11 @@ const NewPostLayout = () => {
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [error, setError] = useState<string>("");
   const [imageError, setImageError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const Toast = useToast();
   const [states, setStates] = useState<number>(0);
 
   const uploadImagePromise = useUploadImage();
-  // const formData = new FormData();
 
   const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -77,26 +78,22 @@ const NewPostLayout = () => {
     }
   };
 
-  const uploadPostImage = (images: Blob[], token: string) => {
-    for (var i = 0; i < images.length; i++) {
+  const uploadPostImage = async (images: Blob[], token: string) => {
+    let uploadSuccess = true;
+    for (let i = 0; i < images.length; i++) {
       const formData = new FormData();
       formData.append("uploadFile", images[i]);
       formData.append("postID", token);
-      // formData.append("uploadFile", images[0]);
-      console.log(formData);
-      if (token) {
-        uploadImagePromise(formData)
-          .then((res) => {
-            setStates(states + 1);
-            console.log("Upload post image response : ", res);
-          })
-          .catch((err) => {
-            console.log("Error on upload post image. error : ", err);
-          });
+      try {
+        await uploadImagePromise(formData);
+        setStates(states + 1);
+        console.log("Upload post image response for image", i + 1);
+      } catch (err) {
+        console.log("Error on upload post image", i + 1, "error:", err);
+        uploadSuccess = false;
       }
     }
-    console.log(states);
-    if (states === images.length) navigate("/myprofile");
+    return uploadSuccess;
   };
 
   useEffect(() => {
@@ -145,8 +142,7 @@ const NewPostLayout = () => {
     setError("");
   }, [error]);
 
-  const Save = () => {
-    // return;
+  const Save = async () => {
     console.log("hello");
     if (title == "") {
       setError("Title");
@@ -158,12 +154,11 @@ const NewPostLayout = () => {
       setError("NumImages");
       return;
     } else if (title != "" && caption != "" && images.length != 0) {
-      // setIsSaved(true);
       setError("Ok");
     }
 
-    postclient
-      .setPost(
+    try {
+      const res = await postclient.setPost(
         {
           numImages: images.length,
           description: caption,
@@ -176,17 +171,22 @@ const NewPostLayout = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
         }
-      )
-      .then((res) => {
-        // setToken(res.response.id.toString());
-        console.log("----------setPost response is: ", res.response.id);
-        uploadPostImage(images, res.response.id.toString());
-      })
-      .catch((err) => {
+      );
+      console.log("----------setPost response is:", res.response.id);
+
+      setIsUploading(true);
+      const uploadSuccess = await uploadPostImage(images, res.response.id.toString());
+      setIsUploading(false);
+
+      if (uploadSuccess) {
+        navigate("/myprofile");
+      } else {
         setError("error");
-        console.log("errorx: ", err);
-        // setIsSaved(false);
-      });
+      }
+    } catch (err) {
+      setError("error");
+      console.log("error:", err);
+    }
   };
 
   const handleRemoveImage = (index: number) => {
@@ -243,10 +243,8 @@ const NewPostLayout = () => {
             h="15%"
             alignContent="center"
             pr={10}
-            // textAlign="center"
             textColor="white"
             fontSize="24"
-            // fontWeight="light"
             dir="rtl"
           >
             افزودن پست
@@ -297,7 +295,6 @@ const NewPostLayout = () => {
                       position="relative"
                       width="75px"
                       height="75px"
-                      // margin="10px"
                     >
                       <Img
                         src={URL.createObjectURL(image)}
@@ -361,8 +358,19 @@ const NewPostLayout = () => {
           </Box>
         </Box>
       </HStack>
+      {isUploading && (
+        <Center
+          pos="fixed"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          bg="rgba(0, 0, 0, 0.5)"
+        >
+          <Spinner size="xl" color="white" />
+        </Center>
+      )}
     </Flex>
-    // </Box>
   );
 };
 
