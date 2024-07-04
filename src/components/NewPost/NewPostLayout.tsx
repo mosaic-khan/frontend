@@ -152,6 +152,7 @@ const NewPostLayout = () => {
           duration: 3000,
           position: "bottom-left",
         });
+       
       }
     } catch (err) {
       setIsUploading(false);

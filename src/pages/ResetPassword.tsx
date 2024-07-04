@@ -17,6 +17,7 @@ import { RedButton } from "../components/Buttons";
 import ResetPassNav from "../components/ResetPassword/NavSetting";
 import userClient from "../api/services/user-service";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BoxH = 500;
 const BoxW = 800;
@@ -28,7 +29,7 @@ export const ResetPassword = () => {
   const toast = useToast();
   const url = window.location.href;
   const token = new URLSearchParams(new URL(url).search).get("token");
-
+  const navigate = useNavigate();
   const resetPassReq = (password: string) => {
     if (token != null) {
       userClient
@@ -59,6 +60,7 @@ export const ResetPassword = () => {
         duration: 4000,
         position: "bottom-left",
       });
+      navigate("/register");
     } else if (result === "badRequest") {
       toast({
         description: <Text dir="rtl">خطا از سمت سرور</Text>,
