@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://46.249.100.110/KhanAPI.MediaAPI/",
+  baseURL: "http://back.khanmedia.ir:8080/KhanAPI.MediaAPI/",
 });
 
 const useUploadImage = () => {
