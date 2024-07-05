@@ -145,13 +145,6 @@ const HeaderMenu = ({ itemTexts }: Props) => {
               color="orange.400"
               text={itemTexts[0]}
             />
-            {/* <Box
-              h="12px"
-              w="50px"
-              borderRadius="10px 10px 2px 2px"
-              marginTop="0px"
-              marginBottom="3px"
-            /> */}
           </Box>
           <Box onClick={() => handleItemClick(1)}>
             <HeaderMenuItem
