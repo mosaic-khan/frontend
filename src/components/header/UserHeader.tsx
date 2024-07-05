@@ -117,6 +117,8 @@ const UserHeader = ({
             {pinnedPosts && pinnedPosts?.length >= 1 && (
               <Image
                 src={"http://back.khanmedia.ir:9290/" + pinnedPosts[0].imageUrl}
+                objectFit="cover"
+                objectPosition="center"
                 onClick={() => unpinRequest(pinnedPosts[0].id)}
               ></Image>
             )}
@@ -133,6 +135,8 @@ const UserHeader = ({
                   src={
                     "http://back.khanmedia.ir:9290/" + pinnedPosts[1].imageUrl
                   }
+                  objectFit="cover"
+                  objectPosition="center"
                 ></Image>
               </Box>
             )}
@@ -147,6 +151,8 @@ const UserHeader = ({
               <Image
                 src={"http://back.khanmedia.ir:9290/" + pinnedPosts[2].imageUrl}
                 onClick={() => unpinRequest(pinnedPosts[2].id)}
+                objectFit="cover"
+                objectPosition="center"
               ></Image>
             )}
           </GridItem>
