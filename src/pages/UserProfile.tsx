@@ -11,7 +11,7 @@ const UserProfile = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [pinnedPosts, setPinnedPosts] = useState<PinedPost[] | null>();
-  const [flag, setFlag] = useState();
+  const [flag, setFlag] = useState("");
   const pinRequest = (postID: bigint) => {
     if (postID) {
       console.log(postID);
@@ -21,7 +21,7 @@ const UserProfile = () => {
         },
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
       )
-        .then((res) => setFlag(res))
+        .then((res) => setFlag(res.status.detail))
         .catch((err) => console.error(err));
     } else console.log("missing");
   };
@@ -35,7 +35,7 @@ const UserProfile = () => {
         },
         { meta: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
       )
-        .then((res) => setFlag(res))
+        .then((res) => setFlag(res.status.detail))
         .catch((err) => console.error(err));
     } else console.log("missing");
   };
@@ -85,7 +85,7 @@ const UserProfile = () => {
     <Box h="100vh" bgColor="gray.100" position="relative" overflowY="auto">
       <Flex position="fixed" w="100%" zIndex="10" bg="white">
         {/* navbar */}
-        <UserNavigation userProfile={userProfile} isTrue={true} />
+        <UserNavigation isTrue={true} userProfile={userProfile} />
       </Flex>
       <Box
         h="full"
@@ -109,10 +109,6 @@ const UserProfile = () => {
               isCurrentUser={true}
               pinnedPosts={pinnedPosts ? pinnedPosts : null}
               pinRequest={pinRequest}
-            <UserHeader userProfile={userProfile} isLoading={isLoading} />
-            <Post
-              profileId={userProfile?.id ? userProfile.id : BigInt(1)}
-              isCurrentUser={true}
             />
           </VStack>
         </HStack>

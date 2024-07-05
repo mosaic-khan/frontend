@@ -332,7 +332,7 @@ const CommentsPage: React.FC<CommentProps> = ({ postId }) => {
             ...prevVisible,
             [Number(itemId)]: true, // Ensure replies are visible after liking/disliking
           }));
-          handlegetonecommentreplies(item.parentId); // Fetch updated replies
+          handlegetonecommentreplies(item.parentId ? item.parentId : BigInt(0)); // Fetch updated replies
         } else {
           // If it's a comment, update the comments state
           triggerUpdate(!update);
