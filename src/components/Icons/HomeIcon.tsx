@@ -12,7 +12,7 @@ const HomeIcon = () => {
       boxSize={6}
       color={isHovered ? "brand.800" : "black.100"}
       mr={4}
-      onClick={() => navigate('/')}
+      onClick={() => navigate("/home")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       _hover={{
