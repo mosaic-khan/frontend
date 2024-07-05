@@ -28,14 +28,17 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
   const [followerCount, setFollowerCount] = useState<bigint>(
-    userProfile?.followerCnt ? userProfile?.followerCnt : BigInt(0)
+    userProfile ? userProfile?.followerCnt : BigInt(0)
   );
 
-  const [followed, setFollowed] = useState<boolean>(false);
+  const [followed, setFollowed] = useState<boolean>(
+    userProfile ? userProfile?.isFollowed : false
+  );
 
   useEffect(() => {
+    setFollowerCount(userProfile ? userProfile?.followerCnt : BigInt(0));
     setFollowed(userProfile?.isFollowed ? userProfile?.isFollowed : false);
-  }, [userProfile?.isFollowed]);
+  }, [userProfile]);
 
   const handleClick = () => {
     if (followed) unfollow();
@@ -131,6 +134,12 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                   >
                     {followed ? "حذف" : "دنبال کردن "}
                   </GradientRedButton>
+                  {/* <FollowButton
+                    isFollowed={
+                      userProfile?.isFollowed ? userProfile?.isFollowed : false
+                    }
+                    profileId={userProfile?.id ? userProfile?.id : BigInt(0)}
+                  /> */}
                 </HStack>
                 <HStack spacing={5} fontSize="sm">
                   <Button
