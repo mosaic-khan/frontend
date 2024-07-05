@@ -20,7 +20,6 @@ import {
   useBoolean,
   Text,
   HStack,
-  Spacer,
   PopoverTrigger,
   Popover,
   PopoverContent,
@@ -30,6 +29,8 @@ import {
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import IngredientsSuggestion from "./IngredientsSuggestion";
 import { MinusIcon } from "@chakra-ui/icons";
+import { GradientRedButton } from "../Buttons";
+import { PlusIcon } from "lucide-react";
 
 interface Props {
   setIngredients: (value: SetStateAction<{ [key: string]: string }>) => void;
@@ -159,25 +160,24 @@ const SelectIngredients = ({ setIngredients }: Props) => {
         alignContent="center"
         pos="relative"
       >
-        <HStack h="100%" w="100%" p={2}>
+        <HStack h="100%" w="100%" px={5} justifyContent="space-between">
           <Text dir="rtl" fontSize="16" fontWeight="bold">
             مواد اولیه:
           </Text>
-          <Spacer />
-          <Button
+          < GradientRedButton
             dir="rtl"
             fontSize="16"
             fontWeight="bold"
+            boxSize="25px"
+            borderRadius="full"
             onClick={() => {
               setDisplay("flex");
               onOpen();
             }}
-            bg="brand.200"
-            _hover={{ bg: "brand.100" }}
             overflow="hidden"
           >
-            اضافه کردن
-          </Button>
+            <PlusIcon color="white"/>
+          </GradientRedButton>
         </HStack>
       </Box>
       <Box
@@ -359,10 +359,20 @@ const SelectIngredients = ({ setIngredients }: Props) => {
 
             <ModalFooter>
               <Button
-                bg="brand.200"
-                _hover={{ bg: "brand.100" }}
+                bgGradient="radial-gradient(ellipse at top, #DD3768, #D70040), radial-gradient(ellipse at bottom, #D70040, #DD3768)"
+
+                _hover={{
+                  transition: "0.7s easeInOut",
+                  transform: "translateY(-1px)",
+                }}
+                _active={{
+                  bgGradient:
+                   "radial-gradient(ellipse at top, #DD3768, #D70040), radial-gradient(ellipse at bottom, #D70040, #DD3768)",
+                  borderColor: "white",
+                }}
                 mr={3}
                 onClick={handleAddRow}
+                colorScheme="white"
               >
                 ذخیره
               </Button>
