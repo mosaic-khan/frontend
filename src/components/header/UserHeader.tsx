@@ -12,15 +12,24 @@ import {
   Spinner,
   Center,
   Button,
+  Image,
 } from "@chakra-ui/react";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Profile } from "../../api/clients/user";
+import { PinedPost, PostPreview } from "../../api/clients/post";
 interface Props {
   userProfile: Profile | undefined;
   isLoading: boolean;
+  pinnedPosts: PinedPost[] | null;
+  unpinRequest: (id: bigint) => void;
 }
-const UserHeader = ({ userProfile, isLoading }: Props) => {
+const UserHeader = ({
+  userProfile,
+  isLoading,
+  pinnedPosts,
+  unpinRequest,
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
 
@@ -99,9 +108,48 @@ const UserHeader = ({ userProfile, isLoading }: Props) => {
           pos="relative"
           paddingRight={10}
         >
-          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
+          <GridItem
+            boxSize="120px"
+            bg="gray.200"
+            borderRadius="md"
+            overflow="hidden"
+          >
+            {pinnedPosts && pinnedPosts?.length >= 1 && (
+              <Image
+                src={"http://back.khanmedia.ir:9290/" + pinnedPosts[0].imageUrl}
+                onClick={() => unpinRequest(pinnedPosts[0].id)}
+              ></Image>
+            )}
+          </GridItem>
+          <GridItem
+            boxSize="120px"
+            bg="gray.200"
+            borderRadius="md"
+            overflow="hidden"
+          >
+            {pinnedPosts && pinnedPosts?.length >= 2 && (
+              <Box onClick={() => unpinRequest(pinnedPosts[1].id)}>
+                <Image
+                  src={
+                    "http://back.khanmedia.ir:9290/" + pinnedPosts[1].imageUrl
+                  }
+                ></Image>
+              </Box>
+            )}
+          </GridItem>
+          <GridItem
+            boxSize="120px"
+            bg="gray.200"
+            borderRadius="md"
+            overflow="hidden"
+          >
+            {pinnedPosts && pinnedPosts?.length >= 3 && (
+              <Image
+                src={"http://back.khanmedia.ir:9290/" + pinnedPosts[2].imageUrl}
+                onClick={() => unpinRequest(pinnedPosts[2].id)}
+              ></Image>
+            )}
+          </GridItem>
         </Grid>
       </HStack>
       <FollowerFollowingModal
