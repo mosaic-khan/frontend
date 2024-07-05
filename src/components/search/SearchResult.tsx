@@ -113,11 +113,16 @@ const PostCard = ({ post }: { post: PostPreviewExplore }) => (
     transition="all 0.3s ease"
     _hover={{
       transform: "scale(1.05)",
-      boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)"
+      boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
     }}
     p={1}
   >
-    <Image src={post.postImage} w="100%" objectFit="cover" borderRadius="md" />
+    <Image
+      src={"http://back.khanmedia.ir:9290/" + post.postImage}
+      w="100%"
+      objectFit="cover"
+      borderRadius="md"
+    />
   </Box>
 );
 
@@ -133,26 +138,29 @@ const SearchResult = ({ posts }: Props) => {
   const [firstPart, secondPart, thirdPart] = splitPosts(posts);
 
   return (
-    <HStack align="flex-start" justifyContent="space-between" padding="10px" spacing="10px">
+    <HStack
+      align="flex-start"
+      justifyContent="space-between"
+      padding="10px"
+      spacing="10px"
+    >
       <VStack w="100%" spacing="10px">
-        {firstPart.map(post => (
+        {firstPart.map((post) => (
           <PostCard post={post} />
         ))}
       </VStack>
       <VStack w="100%" spacing="10px">
-        {secondPart.map(post => (
+        {secondPart.map((post) => (
           <PostCard post={post} />
         ))}
       </VStack>
       <VStack w="100%" spacing="10px">
-        {thirdPart.map(post => (
+        {thirdPart.map((post) => (
           <PostCard post={post} />
         ))}
       </VStack>
     </HStack>
   );
 };
-
-
 
 export default SearchResult;
