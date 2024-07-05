@@ -64,6 +64,10 @@ const SearchLayout = () => {
     if (searchInfo.text.trim() != "") applySearch();
   }, [searchInfo]);
 
+  useEffect(() => {
+    if (searchInfo.tab == 1 && searchPostInfo.categoryID.length > 0)
+      applySearch();
+  }, [searchPostInfo]);
   const handleSearchPostInfoChange = (info: SearchPostInfo) => {
     setSearchPostInfo(info);
     if (info.categoryID.length > 0) {
