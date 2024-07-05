@@ -1,4 +1,4 @@
-import { SearchIcon, BellIcon, SettingsIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   HStack,
@@ -9,9 +9,16 @@ import {
   Slide,
 } from "@chakra-ui/react";
 import { BiUser } from "react-icons/bi";
+import { FiEdit } from "react-icons/fi";
 import { Icon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-const UserSideBar = () => {
+import { Profile } from "../../api/clients/user";
+import { useNavigate } from "react-router-dom";
+interface Props {
+  userProfile: Profile | undefined;
+}
+const UserSideBar = ({ userProfile }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   return (
     <Box>
       <Icon
@@ -60,7 +67,9 @@ const UserSideBar = () => {
               marginBottom={10}
             >
               <Image
-                src="https://bit.ly/dan-abramov"
+                src={
+                  "http://back.khanmedia.ir:9290" + userProfile?.profilePicUrl
+                }
                 alt="Profile Image"
                 display="flex"
                 fallbackSrc="https://via.placeholder.com/150"
@@ -69,11 +78,11 @@ const UserSideBar = () => {
               />
               <Text fontSize="md" fontWeight="bold" color="gray.800">
                 {" "}
-                نام کاربری
+                {userProfile?.username}
               </Text>
               <Text fontSize="sm" color="gray.600">
                 {" "}
-                لوکیشن
+                {userProfile?.city}
               </Text>
             </VStack>
             <VStack
@@ -87,6 +96,7 @@ const UserSideBar = () => {
                 cursor="pointer"
                 _hover={{ color: "white" }}
                 marginBottom={5}
+                onClick={() => navigate("/myprofile")}
               >
                 <BiUser />
                 <Text>پروفایل</Text>
@@ -97,27 +107,21 @@ const UserSideBar = () => {
                 cursor="pointer"
                 _hover={{ color: "white" }}
                 marginBottom={5}
+                onClick={() => navigate("/home")}
               >
                 <SearchIcon />
                 <Text>صفحه اصلی</Text>
               </HStack>
+
               <HStack
                 width="100%"
                 cursor="pointer"
                 _hover={{ color: "white" }}
                 marginBottom={5}
+                onClick={() => navigate("/editprofile")}
               >
-                <BellIcon />
-                <Text>پیام‌ها</Text>
-              </HStack>
-              <HStack
-                width="100%"
-                cursor="pointer"
-                _hover={{ color: "white" }}
-                marginBottom={5}
-              >
-                <SettingsIcon />
-                <Text>تنظیمات</Text>
+                <FiEdit />
+                <Text>اديت پروفايل</Text>
               </HStack>
             </VStack>
           </VStack>

@@ -67,7 +67,15 @@ const HeaderMenu = ({ itemTexts }: Props) => {
     }
 
     if (index === 4 && state === 2) {
-      navigate("/");
+      if (index === 4) {
+        localStorage.removeItem("username");
+        localStorage.removeItem("userClient");
+        localStorage.removeItem("User");
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("userClient");
+        localStorage.removeItem("refreshToken");
+        navigate("/Register");
+      }
     }
     // navigate("#");
   };

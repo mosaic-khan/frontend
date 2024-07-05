@@ -9,6 +9,7 @@ import Post from "../components/MyPosts/Post";
 
 const OtherProfile = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
+  const [thisuserProfile, setThisUserProfile] = useState<Profile | undefined>();
   const { username } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,11 +36,31 @@ const OtherProfile = () => {
         setIsLoading(true);
       });
   }, []);
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setThisUserProfile(res.response.profile);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">
       <Box position="fixed" w="full" zIndex="10" h="10%">
         {/* navbar */}
-        <UserNavigation isTrue={true} />
+        <UserNavigation userProfile={thisuserProfile} isTrue={true} />
       </Box>
       <Box
         h="full"

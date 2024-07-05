@@ -1,15 +1,17 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Button, Spacer, HStack } from "@chakra-ui/react";
-import HeartIcon from "../Icons/HeartIcon";
+
 import HomeIcon from "../Icons/HomeIcon";
-import QuestionIcon from "../Icons/QuestionMark";
+
 import SettingsIcon from "../Icons/SettingIcon";
 import UserSideBar from "./UserSideBar";
 import { useNavigate } from "react-router-dom";
+import { Profile } from "../../api/clients/user";
 interface Props {
   isTrue: Boolean;
+  userProfile: Profile | undefined;
 }
-const UserNavigation = ({ isTrue }: Props) => {
+const UserNavigation = ({ userProfile, isTrue }: Props) => {
   console.debug(isTrue);
   const navigate = useNavigate();
   return (
@@ -17,9 +19,9 @@ const UserNavigation = ({ isTrue }: Props) => {
       <HStack bg="white" color="black" p={4} boxShadow="sm" borderRadius="lg">
         <Box>
           <HomeIcon />
-          <QuestionIcon />
+
           <SettingsIcon />
-          <HeartIcon />
+
           <Button
             boxSize="30px"
             bgGradient="linear(to-bl, brand.400, brand.500, brand.700)"
@@ -39,7 +41,7 @@ const UserNavigation = ({ isTrue }: Props) => {
             <AddIcon boxSize={3} color="black" />
           </Button>
         </Box>
-        {isTrue && <UserSideBar />}
+        {isTrue && <UserSideBar userProfile={userProfile} />}
         <Spacer />
       </HStack>
     </Box>
