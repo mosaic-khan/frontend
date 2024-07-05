@@ -32,7 +32,7 @@ interface BoxConfig {
 }
 
 const generateLink = (): string => {
-  return `https://example.com/invite?code=${Math.random()
+  return `http://www.khanmedia.ir/invite?code=${Math.random()
     .toString(36)
     .substr(2, 9)}`;
 };

@@ -21,7 +21,11 @@ const TopUser = () => {
       .then((res) => {
         console.log("getTopChefs response: ", res);
         setTopChefs(res.response.topChefs);
-        if (topChefs && topChefs.length > 4) setTopChefs(topChefs.slice(0, 4));
+        if (res.response.topChefs) {
+          if (res.response.topChefs.length > 4)
+            setTopChefs(res.response.topChefs.slice(0, 4));
+          else setTopChefs(res.response.topChefs);
+        } else setTopChefs([]);
       })
       .catch((err) => {
         console.log("getTopChefs error: ", err);
@@ -44,7 +48,7 @@ const TopUser = () => {
                   <UserDisplayItem
                     profilePreview={{
                       isFollowed: BigInt(0),
-                      name: chef.firstName + chef.lastName,
+                      name: chef.firstName + " " + chef.lastName,
                       profileID: BigInt(0),
                       username: chef.username,
                       profilePicUrl: chef.profilePicUrl,

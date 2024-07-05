@@ -53,10 +53,12 @@ const UserDisplayItem = ({
           </Button>
         </VStack>
       </HStack>
-      <FollowButton
-        isFollowed={profilePreview.isFollowed == BigInt(1)}
-        profileId={profilePreview.profileID}
-      />
+      {profilePreview.username != localStorage.getItem("username") && (
+        <FollowButton
+          isFollowed={profilePreview.isFollowed == BigInt(1)}
+          profileId={profilePreview.profileID}
+        />
+      )}
     </HStack>
   );
 };
