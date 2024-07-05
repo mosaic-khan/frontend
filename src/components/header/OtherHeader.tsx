@@ -159,9 +159,9 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
           pos="relative"
           paddingRight={10}
         >
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
         </Grid>
       </HStack>
       <FollowerFollowingModal
