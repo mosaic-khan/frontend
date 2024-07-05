@@ -34,7 +34,7 @@ const PostPage = () => {
     navigate("/error");
     return null;
   }
-  
+
   const postIdBigInt = postId ? BigInt(postId) : BigInt(0);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const PostPage = () => {
           if (fetchedPost) {
             setPost(fetchedPost as Post);
             triggerUpdate(false);
-            console.log("posttttt", post?.imageUrls);
+            console.log("posttttt", fetchedPost);
           } else {
             console.error("Received undefined post data");
           }
@@ -119,7 +119,7 @@ const PostPage = () => {
             position="absolute"
             left="0"
             top="0"
-            onClick={() => console.log("todo")}
+            onClick={() => navigate("/myprofile")}
           />
           <HStack
             position="absolute"
@@ -140,7 +140,9 @@ const PostPage = () => {
             <VStack h="full" w="400px" alignItems="right" padding={4}>
               {/*User Info*/}
               <HStack dir="rtl" spacing="20px">
-                <Avatar src={"http://back.khanmedia.ir:9290" + post?.profilePicUrl} />
+                <Avatar
+                  src={"http://back.khanmedia.ir:9290" + post?.profilePicUrl}
+                />
                 <Heading fontSize="lg" textColor="gray.700" fontWeight="bold">
                   {post?.username}
                 </Heading>

@@ -79,11 +79,13 @@ const NewPostLayout = () => {
   };
 
   const uploadPostImage = async (images: Blob[], token: string) => {
+    console.log("images here:", images);
     let uploadSuccess = true;
     for (let i = 0; i < images.length; i++) {
       const formData = new FormData();
       formData.append("uploadFile", images[i]);
       formData.append("postID", token);
+
       try {
         await uploadImagePromise(formData);
         setStates(states + 1);
@@ -130,7 +132,10 @@ const NewPostLayout = () => {
 
       console.log("----------setPost response is:", res.response.id);
 
-      const uploadSuccess = await uploadPostImage(images, res.response.id.toString());
+      const uploadSuccess = await uploadPostImage(
+        images,
+        res.response.id.toString()
+      );
 
       setIsUploading(false);
 
@@ -146,13 +151,14 @@ const NewPostLayout = () => {
       } else {
         setError("error");
         Toast({
-          description: <Text dir="rtl">خطا در بارگذاری تصاویر! پست ذخیره نشد.</Text>,
+          description: (
+            <Text dir="rtl">خطا در بارگذاری تصاویر! پست ذخیره نشد.</Text>
+          ),
           status: "error",
           isClosable: true,
           duration: 3000,
           position: "bottom-left",
         });
-       
       }
     } catch (err) {
       setIsUploading(false);
