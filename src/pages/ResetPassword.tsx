@@ -135,7 +135,7 @@ export const ResetPassword = () => {
           bottom="0px"
           right="0px"
         />
-        <Image src={BG_bottom_left} position="fixed" top="60px" left="0px" />
+        <Image src={BG_bottom_left} position="fixed" top="60px" left="0px"  zIndex={-10}/>
       </Center>
     </Box>
   );

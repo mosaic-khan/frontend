@@ -4,7 +4,8 @@ import { NAV_ITEMS } from "./NavItems";
 
 const ResetPassNav = () => {
   return (
-    <Box>
+    <Box zIndex={10}>
+      
       <Flex
         position="fixed"
         top="0"
