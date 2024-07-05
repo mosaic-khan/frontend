@@ -58,12 +58,21 @@ const SearchLayout = () => {
   useEffect(() => {
     if (searchTextParam)
       setSearchInfo({ ...searchInfo, text: searchTextParam });
+    else setSearchInfo({ ...searchInfo, text: "" });
   }, [searchTextParam]);
 
   useEffect(() => {
-    if (searchInfo.text.trim() != "") applySearch();
+    if (
+      searchInfo.text.trim() != "" ||
+      (searchInfo.tab == 1 && searchPostInfo.categoryID.length > 0)
+    )
+      applySearch();
   }, [searchInfo]);
 
+  useEffect(() => {
+    if (searchInfo.tab == 1 && searchPostInfo.categoryID.length > 0)
+      applySearch();
+  }, [searchPostInfo]);
   const handleSearchPostInfoChange = (info: SearchPostInfo) => {
     setSearchPostInfo(info);
     if (info.categoryID.length > 0) {

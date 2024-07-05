@@ -1,11 +1,4 @@
-import {
-  Image,
-  Text,
-  Flex,
-  Avatar,
-  HStack,
-  VStack,
-} from "@chakra-ui/react";
+import { Image, Text, Flex, Avatar, HStack, VStack } from "@chakra-ui/react";
 import CommentsIcon from "../Icons/CommentsIcon";
 import LikeIcon from "../Icons/LikeIcon";
 import { useState } from "react";
@@ -62,38 +55,38 @@ const Post = ({
       </Flex>
       <Image src={postImage} alt="Post image" />
 
-        <HStack dir="rtl" w="full" justifyContent="space-between">
-          <Text
-            marginRight={5}
-            onClick={() => console.log("todo")}
-            _hover={{
-              cursor: "pointer",
-              color: "brand.900",
-            }}
-          >
-            <b>{likes}</b> لایک
-          </Text>
-          <HStack marginLeft={2}>
-            <LikeIcon
-              onclick={handleLikeClick}
-              like={isLiked ? isLiked : false}
-              boxSize={6}
-            />
-            <CommentsIcon boxSize={6} />
-          </HStack>
+      <HStack dir="rtl" w="full" justifyContent="space-between">
+        <Text
+          marginRight={5}
+          onClick={() => console.log("todo")}
+          _hover={{
+            cursor: "pointer",
+            color: "brand.900",
+          }}
+        >
+          <b>{likes}</b> لایک
+        </Text>
+        <HStack marginLeft={2}>
+          <LikeIcon
+            onclick={handleLikeClick}
+            like={isLiked ? isLiked : false}
+            boxSize={6}
+          />
+          <CommentsIcon boxSize={6} postid={0n} />
         </HStack>
-        <Flex mt={1}>
-          <Text
-            p={2}
-            dir="rtl"
-            onClick={() => setIsExpanded(!isExpanded)}
-            _hover={{
-              cursor: "pointer",
-            }}
-          >
-            {filterCaption(caption)}
-          </Text>
-        </Flex>
+      </HStack>
+      <Flex mt={1}>
+        <Text
+          p={2}
+          dir="rtl"
+          onClick={() => setIsExpanded(!isExpanded)}
+          _hover={{
+            cursor: "pointer",
+          }}
+        >
+          {filterCaption(caption)}
+        </Text>
+      </Flex>
     </VStack>
   );
 };

@@ -1,47 +1,70 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Box, Center, Input, Select, Textarea, HStack } from "@chakra-ui/react";
 import postClient from "../../api/services/post-service";
-
 interface Props {
   caption: string;
   setCaption: Dispatch<SetStateAction<string>>;
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
+  setCategoryID: Dispatch<SetStateAction<number | null>>;
 }
 
 interface Category {
   name: string;
+  id: number | null;
 }
 
-const CaptionBox = ({ caption, setCaption, title, setTitle }: Props) => {
+const CaptionBox = ({
+  caption,
+  setCaption,
+  title,
+  setTitle,
+  setCategoryID,
+}: Props) => {
   const [dropdownValue, setDropdownValue] = useState<string>("");
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     postClient
-    .getCategories(
-      {},
-      {
-        meta: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    )
-    .then((res) => {
-      console.log("Categories response: ", res);
-      setCategories(res.response.categories)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .getCategories(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("Categories response: ", res);
+        setCategories(res.response.categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
-  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDropdownChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedCategory = categories.find(
+      (category) => category.name === event.target.value
+    );
     setDropdownValue(event.target.value);
+    if (selectedCategory) {
+      setCategoryID(selectedCategory ? selectedCategory.id : null);
+    }
   };
+
   const handleCaptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCaption(event.target.value);
   };
+
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
@@ -84,8 +107,10 @@ const CaptionBox = ({ caption, setCaption, title, setTitle }: Props) => {
             boxShadow="sm"
             paddingRight={3}
           >
-            {categories.map(category => (
-              <option key={category.name} value={category.name}>{category.name}</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
             ))}
           </Select>
         </HStack>
