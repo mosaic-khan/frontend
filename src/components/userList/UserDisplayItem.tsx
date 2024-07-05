@@ -7,12 +7,14 @@ interface Props extends BoxProps {
   profilePreview: ProfilePreviewExplore;
   avatarDefaultSize?: number;
   avatarHoverSize?: number;
+  dontShowButton?: boolean;
 }
 
 const UserDisplayItem = ({
   profilePreview,
   avatarDefaultSize,
   avatarHoverSize,
+  dontShowButton,
   ...rest
 }: Props) => {
   const navigate = useNavigate();
@@ -53,12 +55,13 @@ const UserDisplayItem = ({
           </Button>
         </VStack>
       </HStack>
-      {profilePreview.username != localStorage.getItem("username") && (
-        <FollowButton
-          isFollowed={profilePreview.isFollowed == BigInt(1)}
-          profileId={profilePreview.profileID}
-        />
-      )}
+      {profilePreview.username != localStorage.getItem("username") &&
+        !dontShowButton && (
+          <FollowButton
+            isFollowed={profilePreview.isFollowed == BigInt(1)}
+            profileId={profilePreview.profileID}
+          />
+        )}
     </HStack>
   );
 };
