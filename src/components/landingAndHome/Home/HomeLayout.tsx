@@ -5,8 +5,12 @@ import WebsiteDescription from "../WebsiteDescription";
 import Footer from "../Footer/Footer";
 import TopPosts from "./TopPosts";
 import TopUser from "./TopUser";
+import { useNavigate } from "react-router-dom";
 
 const HomeLayout = () => {
+  const navigate = useNavigate();
+  const u = localStorage.getItem("username");
+  if (!u || u.trim() == "") navigate("/");
   return (
     <VStack marginTop="100px" spacing="120px" w="100%">
       <CategoryList />
