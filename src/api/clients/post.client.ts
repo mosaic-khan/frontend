@@ -8,6 +8,7 @@ import type { LoadTimeLineResponse } from "./post";
 import type { LoadTimeLineRequest } from "./post";
 import type { DeletePostRequest } from "./post";
 import type { GetPinsResponse } from "./post";
+import type { GetPinsRequest } from "./post";
 import type { UnpinPostRequest } from "./post";
 import type { PinPostRequest } from "./post";
 import type { DeleteCommentRequest } from "./post";
@@ -114,9 +115,9 @@ export interface IPostAPIClient {
      */
     unpinPost(input: UnpinPostRequest, options?: RpcOptions): UnaryCall<UnpinPostRequest, Empty>;
     /**
-     * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
+     * @generated from protobuf rpc: GetPins(KhanAPI.GetPinsRequest) returns (KhanAPI.GetPinsResponse);
      */
-    getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse>;
+    getPins(input: GetPinsRequest, options?: RpcOptions): UnaryCall<GetPinsRequest, GetPinsResponse>;
     /**
      * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
      */
@@ -262,11 +263,11 @@ export class PostAPIClient implements IPostAPIClient, ServiceInfo {
         return stackIntercept<UnpinPostRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: GetPins(google.protobuf.Empty) returns (KhanAPI.GetPinsResponse);
+     * @generated from protobuf rpc: GetPins(KhanAPI.GetPinsRequest) returns (KhanAPI.GetPinsResponse);
      */
-    getPins(input: Empty, options?: RpcOptions): UnaryCall<Empty, GetPinsResponse> {
+    getPins(input: GetPinsRequest, options?: RpcOptions): UnaryCall<GetPinsRequest, GetPinsResponse> {
         const method = this.methods[18], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Empty, GetPinsResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<GetPinsRequest, GetPinsResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: DeletePost(KhanAPI.DeletePostRequest) returns (google.protobuf.Empty);
