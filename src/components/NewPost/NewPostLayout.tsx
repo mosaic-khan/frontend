@@ -39,7 +39,7 @@ const NewPostLayout = () => {
   const [states, setStates] = useState<number>(0);
   const [userProfile, setUserProfile] = useState<Profile | undefined>();
   const uploadImagePromise = useUploadImage();
-
+  const [categoryID, setCategoryID] = useState<number | null>(null);
   const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -109,8 +109,11 @@ const NewPostLayout = () => {
     } else if (images.length === 0) {
       setError("NumImages");
       return;
+    } else if (categoryID === null) {
+      // Add this check
+      setError("Category");
+      return;
     }
-
     setIsUploading(true);
 
     try {
@@ -122,7 +125,7 @@ const NewPostLayout = () => {
           description: caption,
           ingredients: ingredients,
           title: title,
-          categoryID: 1,
+          categoryID: categoryID,
         },
         {
           meta: {
@@ -230,6 +233,14 @@ const NewPostLayout = () => {
         duration: 3000,
         position: "bottom-left",
       });
+    } else if (error === "Category") {
+      Toast({
+        description: <Text dir="rtl">یک دسته بندی انتخاب کنید!</Text>, // Add this toast
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
     }
 
     setError("");
@@ -299,6 +310,7 @@ const NewPostLayout = () => {
                   setCaption={setCaption}
                   title={title}
                   setTitle={setTitle}
+                  setCategoryID={setCategoryID}
                 />
                 {/* Spacer */}
                 <Box h="100%" w="10%"></Box>
