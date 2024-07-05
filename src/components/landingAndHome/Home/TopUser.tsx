@@ -59,6 +59,7 @@ const TopUser = () => {
                     bg="white"
                     borderWidth="2px"
                     borderColor="brand.400"
+                    dontShowButton={true}
                   />
                 ))
               : [1, 2, 3, 4].map(() => (
@@ -76,6 +77,7 @@ const TopUser = () => {
                     bg="white"
                     borderWidth="2px"
                     borderColor="brand.400"
+                    dontShowButton={true}
                   />
                 ))}
           </VStack>
