@@ -18,7 +18,6 @@ import { useEffect, useState } from "react";
 import userClient from "../../api/services/user-service";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
 import { Profile } from "../../api/clients/user";
-import FollowButton from "../userList/FollowButton";
 
 interface Props {
   userProfile: Profile | undefined;
@@ -132,12 +131,6 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                   >
                     {followed ? "حذف" : "دنبال کردن "}
                   </GradientRedButton>
-                  {/* <FollowButton
-                    isFollowed={
-                      userProfile?.isFollowed ? userProfile?.isFollowed : false
-                    }
-                    profileId={userProfile?.id ? userProfile?.id : BigInt(0)}
-                  /> */}
                 </HStack>
                 <HStack spacing={5} fontSize="sm">
                   <Button
