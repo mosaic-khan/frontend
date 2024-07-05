@@ -22,11 +22,11 @@ import { GradientRedButton } from "../Buttons";
 
 interface Props {
   profileId: bigint;
-  isCurrentUser: boolean; // Add this prop to check if the profile belongs to the current user
+  isCurrentUser: boolean;
 }
 
 const Post = ({ profileId, isCurrentUser }: Props) => {
-  const [posts, setPosts] = useState<PostPreview[] | null>(); // Sample fake posts
+  const [posts, setPosts] = useState<PostPreview[] | null>(); 
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   useEffect(() => {

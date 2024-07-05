@@ -31,7 +31,6 @@ const PostPage = () => {
 
   if (postId === undefined) {
     console.error("postId is undefined");
-    // Instead of returning a promise, navigate to another page or render an error message
     navigate("/error");
     return null;
   }
