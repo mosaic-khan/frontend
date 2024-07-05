@@ -1,10 +1,17 @@
-import { Box, Center, ScaleFade, VStack, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  ScaleFade,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { chakra, shouldForwardProp } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import HeaderMenuItem from "./HeaderMenuItem";
 import { ChevronUpIcon } from "@chakra-ui/icons";
-import ShareLinkModal from "./ShareLinkModal"; 
+import ShareLinkModal from "./ShareLinkModal";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   itemTexts: string[];
@@ -21,15 +28,19 @@ interface BoxConfig {
   borderRadius: string;
   marginTop: string;
   marginBottom: string;
+  display?: string;
 }
 
 const generateLink = (): string => {
-  return `https://example.com/invite?code=${Math.random().toString(36).substr(2, 9)}`;
+  return `https://example.com/invite?code=${Math.random()
+    .toString(36)
+    .substr(2, 9)}`;
 };
 
 const HeaderMenu = ({ itemTexts }: Props) => {
+  const navigate = useNavigate();
   const [state, setState] = useState(0);
-  const [link, setLink] = useState<string>('');
+  const [link, setLink] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const toggleOpen = () => {
@@ -38,11 +49,24 @@ const HeaderMenu = ({ itemTexts }: Props) => {
   };
 
   const handleItemClick = (index: number) => {
-    if (index === 2) {
+    if (index === 0 && state === 2) {
+      navigate("/newpost");
+    }
+
+    if (index === 2 && state === 2) {
       const newLink = generateLink();
       setLink(newLink);
-      onOpen(); 
+      onOpen();
     }
+
+    if (index === 3 && state === 2) {
+      navigate("/editprofile");
+    }
+
+    if (index === 4 && state === 2) {
+      navigate("/");
+    }
+    // navigate("#");
   };
 
   const topProps: BoxConfig = {
@@ -54,6 +78,15 @@ const HeaderMenu = ({ itemTexts }: Props) => {
   };
 
   const middleAround: BoxConfig = {
+    h: "4px",
+    w: "40px",
+    borderRadius: "3px 3px 3px 3px",
+    marginTop: "0px",
+    marginBottom: "0px",
+    display: state === 2 ? "none" : "",
+  };
+
+  const middleDown: BoxConfig = {
     h: "4px",
     w: "40px",
     borderRadius: "3px 3px 3px 3px",
@@ -104,8 +137,8 @@ const HeaderMenu = ({ itemTexts }: Props) => {
         marginTop="-46px"
         top={state == 2 ? "60px" : "0px"}
       >
-        <VStack spacing="3px"> 
-          <Box onClick={() => handleItemClick(0)} > 
+        <VStack spacing="3px">
+          <Box onClick={() => handleItemClick(0)}>
             <HeaderMenuItem
               state={state}
               boxConfig={topProps}
@@ -113,7 +146,7 @@ const HeaderMenu = ({ itemTexts }: Props) => {
               text={itemTexts[0]}
             />
           </Box>
-          <Box onClick={() => handleItemClick(1)} >
+          <Box onClick={() => handleItemClick(1)}>
             <HeaderMenuItem
               state={state}
               boxConfig={middleAround}
@@ -129,15 +162,15 @@ const HeaderMenu = ({ itemTexts }: Props) => {
               text={itemTexts[2]}
             />
           </Box>
-          <Box onClick={() => handleItemClick(3)} >
+          <Box onClick={() => handleItemClick(3)}>
             <HeaderMenuItem
               state={state}
-              boxConfig={middleAround}
+              boxConfig={middleDown}
               color="green.400"
               text={itemTexts[3]}
             />
           </Box>
-          <Box onClick={() => handleItemClick(4)} >
+          <Box onClick={() => handleItemClick(4)}>
             <HeaderMenuItem
               state={state}
               boxConfig={bottom}
@@ -147,7 +180,7 @@ const HeaderMenu = ({ itemTexts }: Props) => {
           </Box>
         </VStack>
       </ChakraBox>
-      <ShareLinkModal isOpen={isOpen} onClose={onClose} link={link} /> 
+      <ShareLinkModal isOpen={isOpen} onClose={onClose} link={link} />
     </Box>
   );
 };
