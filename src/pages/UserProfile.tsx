@@ -36,7 +36,7 @@ const UserProfile = () => {
     <Box h="100vh" bgColor="gray.100" position="relative" overflowY="auto">
       <Flex position="fixed" w="100%" zIndex="10" bg="white">
         {/* navbar */}
-        <UserNavigation isTrue={true} />
+        <UserNavigation userProfile={userProfile} isTrue={true} />
       </Flex>
       <Box
         h="full"
@@ -50,7 +50,10 @@ const UserProfile = () => {
           <VStack w="88%" h="full">
             {/* Header */}
             <UserHeader userProfile={userProfile} isLoading={isLoading} />
-            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)} isCurrentUser={true} />
+            <Post
+              profileId={userProfile?.id ? userProfile.id : BigInt(1)}
+              isCurrentUser={true}
+            />
           </VStack>
         </HStack>
       </Box>

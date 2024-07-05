@@ -3,24 +3,33 @@ import { PasswordField } from "../../components/register/PassWordField";
 import { GradientRedButton } from "../../components/Buttons";
 import { useEffect, useState } from "react";
 import userClient from "../../api/services/user-service";
+import { useNavigate } from "react-router-dom";
 
 const DeletPassChildren = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [oldPasswordError, setOldPasswordError] = useState(false);
   const [result, setResult] = useState("");
   const toast = useToast();
+  const navigate = useNavigate();
   const handleDelete = (password: string) => {
     userClient
-      .deleteAccount({
-        password: password,
-      })
+      .deleteAccount(
+        {
+          password: password,
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
       .then((res) => {
         console.log("delete response: ", res);
         setResult("ok");
       })
       .catch((err) => {
         console.log("error333: ", err);
-        setResult("request");
+        setResult("error");
       });
   };
   useEffect(() => {
@@ -28,6 +37,23 @@ const DeletPassChildren = () => {
       toast({
         description: <Text dir="rtl">حذف حساب کاربر انجام شد</Text>,
         status: "success",
+        isClosable: true,
+        duration: 4000,
+        position: "bottom-left",
+      });
+
+      localStorage.removeItem("username");
+      localStorage.removeItem("userClient");
+      localStorage.removeItem("User");
+      localStorage.removeItem("jwt");
+      localStorage.removeItem("userClient");
+      localStorage.removeItem("refreshToken");
+      navigate("/Register");
+    }
+    if (result == "error") {
+      toast({
+        description: <Text dir="rtl">رمز وارد شده اشتباه است!</Text>,
+        status: "error",
         isClosable: true,
         duration: 4000,
         position: "bottom-left",
