@@ -18,12 +18,13 @@ export const BasicNavbar = ({Nav_Items}:{ Nav_Items: NavItem[] }) => {
     const linkHoverColor = 'brand.800';
   
     return (
-      <HStack spacing={4}>
+      <HStack spacing={4}  zIndex={10}>
         {Nav_Items.map((navItem) => (
-          <Box key={navItem.ItemNumber}>
+          <Box key={navItem.ItemNumber} zIndex={10}>
             <Popover trigger='hover' placement="bottom" >
-              <PopoverTrigger>
+              <PopoverTrigger >
                 <Link
+                
                   p={2}
                   href={navItem.href ?? '#'}
                   fontSize={'sm'}
@@ -32,6 +33,7 @@ export const BasicNavbar = ({Nav_Items}:{ Nav_Items: NavItem[] }) => {
                     color: linkHoverColor,
                   }}>
                   {navItem.label||navItem.icon}
+                  
                 </Link>
               </PopoverTrigger>
   
@@ -59,14 +61,15 @@ export const BasicNavbar = ({Nav_Items}:{ Nav_Items: NavItem[] }) => {
 export const BasicSubNav = ({ label, icon, href, subLabel }: NavItem) => {
     return (
       <Link
+      
         href={href}
         role='group'
         p={4}
         rounded={'md'}
         _hover={{ bg: "gray.50" }}>
-        <HStack>
+        <HStack >
           {icon ? icon:""}
-          <Box>
+          <Box >
             <Text
               transition={'all .3s ease'}
               _groupHover={{ color: 'brand.900' }}
@@ -76,12 +79,14 @@ export const BasicSubNav = ({ label, icon, href, subLabel }: NavItem) => {
             <Text fontSize={'sm'}>{subLabel}</Text>
           </Box>
           <Flex
+          
             transition={'all .3s ease'}
             transform={'translateX(-10px)'}
             opacity={0}
             _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
             justify={'flex-end'}
             flex={1}>
+              
             <Icon color={'brand.900'} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </HStack>

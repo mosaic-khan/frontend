@@ -14,9 +14,9 @@ export const NAV_ITEMS: Array<NavItem> = [
       children: [
         {
           ItemNumber: 1,
-          label: "ارتباط با ما",
+          label: "درباره ما",
           icon: <InfoOutlineIcon color="brand.800" opacity="90%" />,
-          href: "#",
+          href: "/aboutUs",
         },
       ],
     },

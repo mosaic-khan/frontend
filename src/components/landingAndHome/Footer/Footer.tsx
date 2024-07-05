@@ -45,7 +45,7 @@ const Footer = () => {
         <Text textAlign="right">ما را در شبکه های اجتماعی دنبال کنید</Text>
         <HStack>
           <IconButton
-            aria-label="Code Icon"
+            aria-label="Instagram Icon"
             borderRadius="20%"
             colorScheme="brand"
             variant="solid"
@@ -54,7 +54,7 @@ const Footer = () => {
             isRound={false}
           />
           <IconButton
-            aria-label="Code Icon"
+            aria-label="Twitter Icon"
             borderRadius="20%"
             colorScheme="brand"
             variant="solid"
@@ -63,7 +63,7 @@ const Footer = () => {
             isRound={false}
           />
           <IconButton
-            aria-label="Code Icon"
+            aria-label="Telegram Icon"
             borderRadius="20%"
             colorScheme="brand"
             variant="solid"
@@ -72,7 +72,7 @@ const Footer = () => {
             isRound={false}
           />
           <IconButton
-            aria-label="Code Icon"
+            aria-label="Facebook Icon"
             borderRadius="20%"
             colorScheme="brand"
             variant="solid"
@@ -93,16 +93,9 @@ const Footer = () => {
           fontSize="13px"
           fontWeight="bold"
           _hover={{ color: "brand.500" }}
+          href="/aboutUs"
         >
-          شرایط و قوانین
-        </Link>
-        <Link
-          fontSize="13px"
-          textAlign="right"
-          fontWeight="bold"
-          _hover={{ color: "brand.500" }}
-        >
-          پرسش و پاسخ
+          درباره ما
         </Link>
       </VStack>
       <VStack spacing="10px">
