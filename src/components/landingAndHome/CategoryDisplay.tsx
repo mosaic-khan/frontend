@@ -1,10 +1,11 @@
-import { Image, LinkOverlay, LinkBox } from "@chakra-ui/react";
+import { Image, LinkOverlay, LinkBox, Text, VStack } from "@chakra-ui/react";
 
 interface Props {
   image: string;
+  name: string;
 }
 
-const CategoryDisplay = ({ image }: Props) => {
+const CategoryDisplay = ({ image, name }: Props) => {
   return (
     <LinkBox
       as="image"
@@ -15,14 +16,19 @@ const CategoryDisplay = ({ image }: Props) => {
       _hover={{ opacity: "0.85", transform: "scale(1.5)" }}
     >
       <LinkOverlay href="#">
-        <Image
-          boxSize="130px"
-          objectFit="cover"
-          src={image}
-          alt="Image1"
-          borderRadius="25%"
-          boxShadow="lg"
-        />
+        <VStack>
+          <Image
+            boxSize="130px"
+            objectFit="cover"
+            src={image}
+            alt="Image1"
+            borderRadius="25%"
+            boxShadow="lg"
+          />
+          <Text textAlign="center" as="b">
+            {name}
+          </Text>
+        </VStack>
       </LinkOverlay>
     </LinkBox>
   );
