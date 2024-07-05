@@ -11,7 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import Image1 from "../../../assets/Home1.jpg";
+import Image1 from "../../../assets/joje.jpg";
 import Image2 from "../../../assets/Home2.jpg";
 import Image3 from "../../../assets/Home3.jpg";
 import Image4 from "../../../assets/Home4.jpg";
@@ -53,7 +53,7 @@ const TopPosts = () => {
                   paddingTop="30px"
                   paddingRight="30px"
                 >
-                  کباب ترکی
+                  جوجه کباب
                 </Heading>
               </Link>
               <Text
@@ -63,8 +63,10 @@ const TopPosts = () => {
                 paddingTop="40px"
                 fontSize="18"
               >
-                توضیح غذا یا زیرعنوان غذای برتر که توسط کاربر انتخاب شده. ممکنه
-                در این بخش مثلا مواد اولیه استفاده شده نیز نمایش داده شود.
+                با این دستور آشپزی به راحتی در خانه جوجه کباب خوش مزه درست کنید.
+                تکه‌های مرغ را در تابه مناسبی، اما بدون روغن ریخته و روی حرارت
+                متوسط قرار دهید، نمک، فلفل و پودر سیر را افزوده، درب تابه را
+                گذاشته تا با بخار خودش پخته شود.
               </Text>
             </Box>
           </HStack>
@@ -98,22 +100,22 @@ const TopPosts = () => {
         <Post
           image={Image2}
           title="کوفته تبریزی"
-          text=" توضیح غذا یا زیرعنوان غذا که توسط کاربر انتخاب شده بلابلابلابلا"
+          text="یک غذای بسیار خوشمزه ترکی را به راحتی در خانه درست کنید ..."
         ></Post>
         <Post
           image={Image3}
           title="خورش خلال"
-          text=" توضیح غذا یا زیرعنوان غذا که توسط کاربر انتخاب شده بلابلابلابلا"
+          text="طرز تهیه خورش خلال. برای شروع ابتدا در قابلمه ..."
         ></Post>
         <Post
           image={Image4}
           title="ته چین مرغ"
-          text=" توضیح غذا یا زیرعنوان غذا که توسط کاربر انتخاب شده بلابلابلابلا"
+          text="با این دستور آشپزی ته چین مرغی درست کن که ..."
         ></Post>
         <Post
           image={Image5}
           title="خورش فسنجان"
-          text=" توضیح غذا یا زیرعنوان غذا که توسط کاربر انتخاب شده بلابلابلابلا"
+          text="خورش فسنجان ایرانی یکی از غذای ها خوشمزه ..."
         ></Post>
       </HStack>
     </VStack>
