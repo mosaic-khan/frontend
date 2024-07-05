@@ -111,7 +111,7 @@ const PostPage = () => {
     <Box h="100vh" bgColor="gray.100">
       <Box w="full" h="10%" position="fixed" zIndex={10}>
         {/* navbar */}
-        <UserNavigation isTrue={false} />
+        <UserNavigation isTrue={false} userProfile={undefined} />
       </Box>
       <Center>
         <Box position="relative" h={`${H}px`} w={`${W + 20}px`} marginTop="10%">

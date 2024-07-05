@@ -167,6 +167,7 @@ const Post = ({ profileId, isCurrentUser, pinRequest }: Props) => {
                       <Text fontSize="14">{post.numLikes}</Text>
 
                       <CommentsIcon
+                        postid={post.id}
                         isHoveredColor="white"
                         color="white"
                         boxSize={8}

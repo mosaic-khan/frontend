@@ -1,5 +1,4 @@
 import { Icon } from "@chakra-ui/icons";
-import { useState } from "react";
 import { FaThumbtack } from "react-icons/fa";
 interface Props {
   onClick: () => void;

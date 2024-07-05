@@ -16,7 +16,6 @@ interface Props {
   isHoveredColor?: string;
   color?: string;
   boxSize?: number;
-
   marginRight?:
     | number
     | (string & {})
