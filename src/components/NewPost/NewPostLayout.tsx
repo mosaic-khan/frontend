@@ -20,7 +20,7 @@ import { GradientRedButton } from "../Buttons";
 import SelectIngredients from "../selectIngredients/SelectIngredients";
 import UserNavigation from "../Navigation/ProfileNavigation";
 import PostPreview from "./PostPreview";
-
+import userClient from "../../api/services/user-service";
 import { FaCameraRetro } from "react-icons/fa";
 import useUploadImage from "../../api/services/media-service-post";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const NewPostLayout = () => {
   const [isUploading, setIsUploading] = useState(false);
   const Toast = useToast();
   const [states, setStates] = useState<number>(0);
-
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
   const uploadImagePromise = useUploadImage();
 
   const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -183,6 +183,26 @@ const NewPostLayout = () => {
     setImageError("");
     setImages(newImages);
   };
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
 
   useEffect(() => {
     if (error === "Title") {
@@ -217,7 +237,7 @@ const NewPostLayout = () => {
   return (
     <Flex h="100vh" bgColor="gray.100" pos="relative">
       {/* navbar */}
-      <UserNavigation isTrue={true} />
+      <UserNavigation userProfile={userProfile} isTrue={true} />
       <HStack boxShadow="lg" pos="relative" w="100%" h="100%" px={10} pt={5}>
         <Box
           h="85%"

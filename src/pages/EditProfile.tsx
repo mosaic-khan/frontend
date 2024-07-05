@@ -30,6 +30,8 @@ import { User } from "../api/clients/user";
 import useUploadImage from "../api/services/media-service";
 import useToastUtil, { ToastUtilProps } from "../components/util/useToastUtil";
 
+import { Profile } from "../api/clients/user";
+
 export interface UserEditInfo {
   user: User;
   cityId?: number;
@@ -52,6 +54,7 @@ const serverErrorToast: ToastUtilProps = {
 export const EditProfile = () => {
   const inputRef = useRef<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
   const [userEdit, setUserEdit] = useState<UserEditInfo>({
     user: {
       fName: "",
@@ -73,6 +76,7 @@ export const EditProfile = () => {
     }
   };
   const [image, setImage] = useState("");
+
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
   const uploadImagePromise = useUploadImage({
@@ -153,6 +157,26 @@ export const EditProfile = () => {
         setToastInfo(serverErrorToast);
       });
   };
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
 
   useEffect(() => {
     userClient
@@ -182,7 +206,7 @@ export const EditProfile = () => {
   }, [currentPage, onOpen]);
   return (
     <Box position="relative" boxSize="100%" bgColor="gray.100">
-      <UserNavigation isTrue={true} />
+      <UserNavigation userProfile={userProfile} isTrue={true} />
       <Img
         boxSize="200px"
         position="fixed"

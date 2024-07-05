@@ -26,6 +26,7 @@ const SearchFilters = ({
         <SearchType type={searchType} onTypeChange={onSearchTypeChange} />
         <SearchFilterDivider />
         <SearchCategory
+          searchPostInfo={searchPostInfo}
           onChange={(id) => {
             onSearchPostInfoChange({ ...searchPostInfo, categoryID: [id] });
           }}

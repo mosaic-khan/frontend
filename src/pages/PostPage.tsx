@@ -156,7 +156,11 @@ const PostPage = () => {
                   description={post?.description ? post.description : ""}
                 />
               </HStack>
-              <HStack dir="rtl" justifyContent="space-between">
+              <HStack
+                dir="rtl"
+                justifyContent="space-between"
+                marginBottom="25%"
+              >
                 <Text
                   marginRight={2}
                   onClick={() => console.log("todo")}
@@ -167,17 +171,16 @@ const PostPage = () => {
                 >
                   <b>{post?.numLikes}</b> لایک
                 </Text>
-                <HStack marginLeft={2}>
+                <HStack marginLeft={2} marginBottom="1%">
                   <LikeIcon
                     onclick={handleLikeClick}
                     like={post?.like ? post.like : false}
                     boxSize={6}
                   />
-                  <CommentsIcon boxSize={6} />
+                  <CommentsIcon boxSize={6} postid={BigInt(postId)} />
                 </HStack>
               </HStack>
               {/*Comment section*/}
-              <CommentSection />
             </VStack>
           </HStack>
         </Box>
