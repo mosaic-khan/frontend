@@ -37,7 +37,7 @@ const OtherProfile = () => {
   }, []);
   return (
     <Box h="100vh" bgColor="gray.100" position="relative">
-      <Box position="fixed" w="full" h="10%">
+      <Box position="fixed" w="full" zIndex="10" h="10%">
         {/* navbar */}
         <UserNavigation isTrue={true} />
       </Box>
@@ -55,7 +55,10 @@ const OtherProfile = () => {
           <VStack w="88%" h="full">
             {/* Header */}
             <OtherHeader userProfile={userProfile} isLoading={isLoading} />
-            <Post profileId={userProfile?.id ? userProfile.id : BigInt(1)} isCurrentUser={false} />
+            <Post
+              profileId={userProfile?.id ? userProfile.id : BigInt(1)}
+              isCurrentUser={false}
+            />
           </VStack>
         </HStack>
       </Box>

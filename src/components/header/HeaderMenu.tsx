@@ -52,6 +52,9 @@ const HeaderMenu = ({ itemTexts }: Props) => {
     if (index === 0 && state === 2) {
       navigate("/newpost");
     }
+    if (index === 1 && state === 2) {
+      navigate("/myprofile");
+    }
 
     if (index === 2 && state === 2) {
       const newLink = generateLink();
@@ -83,7 +86,6 @@ const HeaderMenu = ({ itemTexts }: Props) => {
     borderRadius: "3px 3px 3px 3px",
     marginTop: "0px",
     marginBottom: "0px",
-    display: state === 2 ? "none" : "",
   };
 
   const middleDown: BoxConfig = {
