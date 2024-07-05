@@ -41,7 +41,7 @@ const SearchCategory = ({ onChange }: Props) => {
         bgPosition="left"
         icon={<ChevronDownIcon marginRight="640px" />}
         focusBorderColor="gray.300"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(Number(e.target.value))}
       >
         {categories.map((c) =>
           c.level == 0 ? (

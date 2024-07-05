@@ -139,47 +139,42 @@ const HeaderMenu = ({ itemTexts }: Props) => {
         marginTop="-46px"
         top={state == 2 ? "60px" : "0px"}
       >
-        <VStack spacing="3px">
-          <Box onClick={() => handleItemClick(0)}>
-            <HeaderMenuItem
-              state={state}
-              boxConfig={topProps}
-              color="orange.400"
-              text={itemTexts[0]}
-            />
-          </Box>
-          <Box onClick={() => handleItemClick(1)}>
-            <HeaderMenuItem
-              state={state}
-              boxConfig={middleAround}
-              color="brand.500"
-              text={itemTexts[1]}
-            />
-          </Box>
-          <Box onClick={() => handleItemClick(2)}>
-            <HeaderMenuItem
-              state={state}
-              boxConfig={middleCenter}
-              color="orange.800"
-              text={itemTexts[2]}
-            />
-          </Box>
-          <Box onClick={() => handleItemClick(3)}>
-            <HeaderMenuItem
-              state={state}
-              boxConfig={middleDown}
-              color="green.400"
-              text={itemTexts[3]}
-            />
-          </Box>
-          <Box onClick={() => handleItemClick(4)}>
-            <HeaderMenuItem
-              state={state}
-              boxConfig={bottom}
-              color="orange.400"
-              text={itemTexts[4]}
-            />
-          </Box>
+        <VStack spacing="0px">
+          <HeaderMenuItem
+            state={state}
+            boxConfig={topProps}
+            color="orange.400"
+            text={itemTexts[0]}
+            onClick={() => handleItemClick(0)}
+          />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleAround}
+            color="brand.500"
+            text={itemTexts[1]}
+            onClick={() => handleItemClick(1)}
+          />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleCenter}
+            color="orange.800"
+            text={itemTexts[2]}
+            onClick={() => handleItemClick(2)}
+          />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={middleDown}
+            color="green.400"
+            text={itemTexts[3]}
+            onClick={() => handleItemClick(3)}
+          />
+          <HeaderMenuItem
+            state={state}
+            boxConfig={bottom}
+            color="orange.400"
+            text={itemTexts[4]}
+            onClick={() => handleItemClick(4)}
+          />
         </VStack>
       </ChakraBox>
       <ShareLinkModal isOpen={isOpen} onClose={onClose} link={link} />

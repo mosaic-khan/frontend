@@ -6,6 +6,7 @@ interface Props {
   boxConfig: BoxConfig;
   color: string;
   text: string;
+  onClick: () => void;
 }
 
 interface BoxConfig {
@@ -21,7 +22,7 @@ const ChakraBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-const HeaderMenuItem = ({ state, boxConfig, color, text }: Props) => {
+const HeaderMenuItem = ({ state, boxConfig, color, text, onClick }: Props) => {
   const boxTransitionAnimation = (from: BoxConfig, to: BoxConfig) => {
     return {
       height: [from.h, to.h],
@@ -68,6 +69,7 @@ const HeaderMenuItem = ({ state, boxConfig, color, text }: Props) => {
       }}
       {...boxConfig}
       bg={color}
+      onClick={onClick}
     >
       {state == 2 && (
         <ChakraBox
