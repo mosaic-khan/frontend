@@ -1,5 +1,6 @@
 import { Box, HStack, Image, VStack } from "@chakra-ui/react";
 import { PostPreviewExplore } from "../../api/clients/search";
+import { useNavigate } from "react-router-dom";
 
 // const mockPosts: PostPreviewExplore[] = [
 //   {
@@ -103,7 +104,13 @@ import { PostPreviewExplore } from "../../api/clients/search";
 interface Props {
   posts: PostPreviewExplore[];
 }
-const PostCard = ({ post }: { post: PostPreviewExplore }) => (
+const PostCard = ({
+  post,
+  onClick,
+}: {
+  post: PostPreviewExplore;
+  onClick: (id: BigInt) => void;
+}) => (
   <Box
     key={post.id.toString()}
     w="100%"
@@ -116,6 +123,7 @@ const PostCard = ({ post }: { post: PostPreviewExplore }) => (
       boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
     }}
     p={1}
+    onClick={() => onClick(post.id)}
   >
     <Image
       src={"http://back.khanmedia.ir:9290/" + post.postImage}
@@ -127,6 +135,8 @@ const PostCard = ({ post }: { post: PostPreviewExplore }) => (
 );
 
 const SearchResult = ({ posts }: Props) => {
+  const navigate = useNavigate();
+
   const splitPosts = (posts: PostPreviewExplore[]) => {
     const partition = Math.ceil(posts.length / 3);
     const first = posts.slice(0, partition);
@@ -146,17 +156,32 @@ const SearchResult = ({ posts }: Props) => {
     >
       <VStack w="100%" spacing="10px">
         {firstPart.map((post) => (
-          <PostCard post={post} />
+          <PostCard
+            post={post}
+            onClick={(id) => {
+              navigate(`/Post/${id}`);
+            }}
+          />
         ))}
       </VStack>
       <VStack w="100%" spacing="10px">
         {secondPart.map((post) => (
-          <PostCard post={post} />
+          <PostCard
+            post={post}
+            onClick={(id) => {
+              navigate(`/Post/${id}`);
+            }}
+          />
         ))}
       </VStack>
       <VStack w="100%" spacing="10px">
         {thirdPart.map((post) => (
-          <PostCard post={post} />
+          <PostCard
+            post={post}
+            onClick={(id) => {
+              navigate(`/Post/${id}`);
+            }}
+          />
         ))}
       </VStack>
     </HStack>
