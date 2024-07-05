@@ -4,12 +4,14 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import searchClient from "../../../api/services/search-service";
 import { Categories } from "../../../api/clients/search";
+import { SearchPostInfo } from "../SearchLayout";
 
 interface Props {
+  searchPostInfo: SearchPostInfo;
   onChange: (id: number) => void;
 }
 
-const SearchCategory = ({ onChange }: Props) => {
+const SearchCategory = ({ searchPostInfo, onChange }: Props) => {
   const [categories, setCategories] = useState<Categories[]>([]);
 
   useEffect(() => {
@@ -35,6 +37,11 @@ const SearchCategory = ({ onChange }: Props) => {
     <VStack w="100%">
       <SearchFilterHeaders>دسته بندی</SearchFilterHeaders>
       <Select
+        value={
+          searchPostInfo.categoryID.length > 0
+            ? searchPostInfo.categoryID[0]
+            : ""
+        }
         variant="filled"
         placeholder="انتخاب دسته بندی"
         dir="rtl"

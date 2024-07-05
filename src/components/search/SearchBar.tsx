@@ -1,6 +1,6 @@
 import { Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 export const SearchBar = ({ width }: Props) => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { searchTextParam } = useParams();
   const [text, setText] = useState<string>();
@@ -21,9 +22,11 @@ export const SearchBar = ({ width }: Props) => {
   };
 
   const handleSearchSubmit = () => {
-    console.log("search button clicked!");
-    if (text && text.trim() != "") navigate("/search/" + text);
-    else navigate("/search");
+    let path = "/search";
+    if (text && text.trim() != "") path = "/search/" + text;
+    const searchParams = new URLSearchParams(location.search);
+    const newUrl = `${path}?${searchParams.toString()}`;
+    navigate(newUrl);
   };
 
   return (

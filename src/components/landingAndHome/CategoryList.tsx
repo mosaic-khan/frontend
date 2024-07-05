@@ -43,6 +43,7 @@ const CategoryList = ({ marginTop }: Props) => {
               <CategoryDisplay
                 image={`http://back.khanmedia.ir:9290/KhanAPI.MediaAPI/images/category-${c.id}.jpg`}
                 name={c.name}
+                categoryId={c.id}
                 key={c.id}
               ></CategoryDisplay>
             ))
