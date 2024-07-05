@@ -18,7 +18,7 @@ const CaptionDetails = ({ name, ingredients, description }: Props) => {
         maxHeight="300px"
         p={4}
       >
-        <Text fontWeight="bold">توضیحات {name} :</Text>
+        <Text fontWeight="bold">توضیحات {name} </Text>
 
         <Text fontSize="sm">{description}</Text>
       </Box>

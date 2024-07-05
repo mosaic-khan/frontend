@@ -86,7 +86,7 @@ const TopPosts = () => {
               fontSize="20"
               rightIcon={<ArrowBackIcon boxSize="6" />}
               onClick={() => {
-                navigate("timeLine");
+                navigate("/timeLine");
               }}
             >
               بیشتر

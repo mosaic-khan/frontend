@@ -14,7 +14,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { GradientRedButton } from "../Buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import userClient from "../../api/services/user-service";
 import FollowerFollowingModal from "../userList/FollowerFollowingModal";
 import { Profile } from "../../api/clients/user";
@@ -27,41 +27,66 @@ interface Props {
 const OtherHeader = ({ userProfile, isLoading }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [followTab, setFollowTab] = useState<number>(0);
+  const [followerCount, setFollowerCount] = useState<bigint>(
+    userProfile ? userProfile?.followerCnt : BigInt(0)
+  );
 
-  const onClick = (isFollowed: boolean) => {
-    if (isFollowed) {
-      console.log("unfollow");
-      userClient
-        .unfollow(
-          {
-            profileID: userProfile?.id ? userProfile?.id : BigInt(1),
+  const [followed, setFollowed] = useState<boolean>(
+    userProfile ? userProfile?.isFollowed : false
+  );
+
+  useEffect(() => {
+    setFollowerCount(userProfile ? userProfile?.followerCnt : BigInt(0));
+    setFollowed(userProfile?.isFollowed ? userProfile?.isFollowed : false);
+  }, [userProfile]);
+
+  const handleClick = () => {
+    if (followed) unfollow();
+    else follow();
+  };
+
+  const follow = () => {
+    userClient
+      .follow(
+        {
+          profileID: userProfile?.id ? userProfile?.id : BigInt(0),
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
-          {
-            meta: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log("Unfollow response: ", res.response);
-        });
-    } else {
-      console.log("follow");
-      userClient
-        .follow(
-          {
-            profileID: userProfile?.id ? userProfile?.id : BigInt(1),
+        }
+      )
+      .then((res) => {
+        console.log("follow response: ", res);
+        setFollowed(true);
+        setFollowerCount(followerCount + BigInt(1));
+      })
+      .catch((err) => {
+        console.log("follow error: ", err);
+      });
+  };
+
+  const unfollow = () => {
+    userClient
+      .unfollow(
+        {
+          profileID: userProfile?.id ? userProfile?.id : BigInt(0),
+        },
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
-          {
-            meta: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log("follow response: ", res.response);
-        });
-    }
+        }
+      )
+      .then((res) => {
+        console.log("unfollow response: ", res);
+        setFollowed(false);
+        setFollowerCount(followerCount - BigInt(1));
+      })
+      .catch((err) => {
+        console.log("unfollow error: ", err);
+      });
   };
 
   return (
@@ -105,16 +130,16 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                     color="white"
                     fontSize="sm"
                     borderRadius="20px"
-                    onClick={() =>
-                      onClick(
-                        userProfile?.isFollowed
-                          ? userProfile?.isFollowed
-                          : false
-                      )
-                    }
+                    onClick={() => handleClick()}
                   >
-                    {userProfile?.isFollowed ? "حذف" : "دنبال کردن "}
+                    {followed ? "حذف" : "دنبال کردن "}
                   </GradientRedButton>
+                  {/* <FollowButton
+                    isFollowed={
+                      userProfile?.isFollowed ? userProfile?.isFollowed : false
+                    }
+                    profileId={userProfile?.id ? userProfile?.id : BigInt(0)}
+                  /> */}
                 </HStack>
                 <HStack spacing={5} fontSize="sm">
                   <Button
@@ -133,7 +158,7 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
                       onOpen();
                     }}
                   >
-                    {userProfile?.followerCnt.toString()} دنبال کننده
+                    {followerCount.toString()} دنبال کننده
                   </Button>
                 </HStack>
                 <Text fontSize="sm" color="gray.300">
@@ -159,9 +184,9 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
           pos="relative"
           paddingRight={10}
         >
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
-          <GridItem boxSize="100px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
+          <GridItem boxSize="120px" bg="gray.200" borderRadius="md" />
         </Grid>
       </HStack>
       <FollowerFollowingModal
@@ -169,6 +194,7 @@ const OtherHeader = ({ userProfile, isLoading }: Props) => {
         isOpen={isOpen}
         onClose={onClose}
         startIndex={followTab}
+        followersCnt={followerCount}
       />
     </>
   );

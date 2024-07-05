@@ -9,6 +9,7 @@ import {
   Center,
   Flex,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { Img } from "@chakra-ui/react";
@@ -19,7 +20,7 @@ import { GradientRedButton } from "../Buttons";
 import SelectIngredients from "../selectIngredients/SelectIngredients";
 import UserNavigation from "../Navigation/ProfileNavigation";
 import PostPreview from "./PostPreview";
-
+import userClient from "../../api/services/user-service";
 import { FaCameraRetro } from "react-icons/fa";
 import useUploadImage from "../../api/services/media-service-post";
 import { useNavigate } from "react-router-dom";
@@ -32,11 +33,11 @@ const NewPostLayout = () => {
   const [ingredients, setIngredients] = useState<{ [key: string]: string }>({});
   const [error, setError] = useState<string>("");
   const [imageError, setImageError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const Toast = useToast();
   const [states, setStates] = useState<number>(0);
-
+  const [userProfile, setUserProfile] = useState<Profile | undefined>();
   const uploadImagePromise = useUploadImage();
-  // const formData = new FormData();
 
   const handleImageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -77,46 +78,134 @@ const NewPostLayout = () => {
     }
   };
 
-  const uploadPostImage = (images: Blob[], token: string) => {
-    for (var i = 0; i < images.length; i++) {
+  const uploadPostImage = async (images: Blob[], token: string) => {
+    console.log("images here:", images);
+    let uploadSuccess = true;
+    for (let i = 0; i < images.length; i++) {
       const formData = new FormData();
       formData.append("uploadFile", images[i]);
       formData.append("postID", token);
-      // formData.append("uploadFile", images[0]);
-      console.log(formData);
-      if (token) {
-        uploadImagePromise(formData)
-          .then((res) => {
-            setStates(states + 1);
-            console.log("Upload post image response : ", res);
-          })
-          .catch((err) => {
-            console.log("Error on upload post image. error : ", err);
-          });
+
+      try {
+        await uploadImagePromise(formData);
+        setStates(states + 1);
+        console.log("Upload post image response for image", i + 1);
+      } catch (err) {
+        console.log("Error on upload post image", i + 1, "error:", err);
+        uploadSuccess = false;
       }
     }
-    console.log(states);
-    if (states === images.length) navigate("/myprofile");
+    return uploadSuccess;
   };
 
-  useEffect(() => {
-    if (error === "Ok") {
+  const Save = async () => {
+    if (title === "") {
+      setError("Title");
+      return;
+    } else if (caption === "") {
+      setError("Caption");
+      return;
+    } else if (images.length === 0) {
+      setError("NumImages");
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const token = `Bearer ${localStorage.getItem("jwt")}`;
+
+      const res = await postclient.setPost(
+        {
+          numImages: images.length,
+          description: caption,
+          ingredients: ingredients,
+          title: title,
+          categoryID: 1,
+        },
+        {
+          meta: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log("----------setPost response is:", res.response.id);
+
+      const uploadSuccess = await uploadPostImage(
+        images,
+        res.response.id.toString()
+      );
+
+      setIsUploading(false);
+
+      if (uploadSuccess) {
+        Toast({
+          description: <Text dir="rtl">پست با موفقیت ذخیره شد.</Text>,
+          status: "success",
+          isClosable: true,
+          duration: 3000,
+          position: "bottom-left",
+        });
+        navigate("/myprofile");
+      } else {
+        setError("error");
+        Toast({
+          description: (
+            <Text dir="rtl">خطا در بارگذاری تصاویر! پست ذخیره نشد.</Text>
+          ),
+          status: "error",
+          isClosable: true,
+          duration: 3000,
+          position: "bottom-left",
+        });
+      }
+    } catch (err) {
+      setIsUploading(false);
+      setError("error");
+      console.log("error:", err);
+
       Toast({
-        description: <Text dir="rtl">پست با موفقیت ذخیره شد.</Text>,
-        status: "success",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
-      });
-    } else if (error === "error") {
-      Toast({
-        description: <Text dir="rtl">خطا از سمت سرور!</Text>,
+        description: (
+          <Text dir="rtl">خطا در ذخیره پست! لطفا دوباره امتحان کنید.</Text>
+        ),
         status: "error",
         isClosable: true,
         duration: 3000,
         position: "bottom-left",
       });
-    } else if (error === "Title") {
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImageError("");
+    setImages(newImages);
+  };
+  useEffect(() => {
+    userClient
+      .getProfile(
+        {},
+        {
+          meta: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("getProfile response: ", res.response.profile);
+        if (res.response.profile) {
+          setUserProfile(res.response.profile);
+        }
+      })
+      .catch((err) => {
+        console.log("getProfile error: ", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (error === "Title") {
       Toast({
         description: <Text dir="rtl">عنوان نمی تواند خالی باشد!</Text>,
         status: "error",
@@ -145,61 +234,10 @@ const NewPostLayout = () => {
     setError("");
   }, [error]);
 
-  const Save = () => {
-    // return;
-    console.log("hello");
-    if (title == "") {
-      setError("Title");
-      return;
-    } else if (caption == "") {
-      setError("Caption");
-      return;
-    } else if (images.length == 0) {
-      setError("NumImages");
-      return;
-    } else if (title != "" && caption != "" && images.length != 0) {
-      // setIsSaved(true);
-      setError("Ok");
-    }
-
-    postclient
-      .setPost(
-        {
-          numImages: images.length,
-          description: caption,
-          ingredients: ingredients,
-          title: title,
-          categoryID: 1,
-        },
-        {
-          meta: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        // setToken(res.response.id.toString());
-        console.log("----------setPost response is: ", res.response.id);
-        uploadPostImage(images, res.response.id.toString());
-      })
-      .catch((err) => {
-        setError("error");
-        console.log("errorx: ", err);
-        // setIsSaved(false);
-      });
-  };
-
-  const handleRemoveImage = (index: number) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImageError("");
-    setImages(newImages);
-  };
-
   return (
     <Flex h="100vh" bgColor="gray.100" pos="relative">
       {/* navbar */}
-      <UserNavigation isTrue={true} />
+      <UserNavigation userProfile={userProfile} isTrue={true} />
       <HStack boxShadow="lg" pos="relative" w="100%" h="100%" px={10} pt={5}>
         <Box
           h="85%"
@@ -243,10 +281,8 @@ const NewPostLayout = () => {
             h="15%"
             alignContent="center"
             pr={10}
-            // textAlign="center"
             textColor="white"
             fontSize="24"
-            // fontWeight="light"
             dir="rtl"
           >
             افزودن پست
@@ -277,27 +313,26 @@ const NewPostLayout = () => {
                 pos="relative"
                 align="start"
                 bg="gray.200"
-                borderRadius="lg"
-                pb={2}
+                borderRadius="15px"
               >
                 <Text
-                  pos="relative"
-                  right={0}
-                  fontSize="22"
-                  dir="rtl"
+                  w="95%"
+                  pt={1}
                   pr={5}
-                  pt={2}
+                  color="gray.700"
+                  fontSize={16}
+                  dir="rtl"
+                  textAlign="start"
                 >
-                  اضافه کردن عکس
+                  اضافه کردن عکس :
                 </Text>
-                <HStack h="80%" w="90%" pos="relative" pr={5}>
+                <HStack w="100%" h="85%" px={5} pb={5} spacing={5} dir="rtl">
                   {images.map((image, index) => (
                     <Box
                       key={index}
                       position="relative"
                       width="75px"
                       height="75px"
-                      // margin="10px"
                     >
                       <Img
                         src={URL.createObjectURL(image)}
@@ -319,23 +354,25 @@ const NewPostLayout = () => {
                       />
                     </Box>
                   ))}
-                  <Center
-                    pos="relative"
-                    h="75px"
-                    w="75px"
-                    bg="gray.50"
-                    cursor="pointer"
-                    borderRadius="10%"
-                    display={imageError === "NumImageLim" ? "none" : "flex"}
-                    onClick={() =>
-                      document.getElementById("image-upload")?.click()
-                    }
-                  >
-                    <FaCameraRetro
-                      key="empty-image-box"
-                      size="40%"
-                    ></FaCameraRetro>
-                  </Center>
+                  <Box borderRadius="lg" border="2px dashed gray">
+                    <Center
+                      pos="relative"
+                      h="75px"
+                      w="75px"
+                      bg="gray.50"
+                      cursor="pointer"
+                      borderRadius="10%"
+                      display={imageError === "NumImageLim" ? "none" : "flex"}
+                      onClick={() =>
+                        document.getElementById("image-upload")?.click()
+                      }
+                    >
+                      <FaCameraRetro
+                        key="empty-image-box"
+                        size="40%"
+                      ></FaCameraRetro>
+                    </Center>
+                  </Box>
                 </HStack>
 
                 <Input
@@ -349,9 +386,7 @@ const NewPostLayout = () => {
               </VStack>
             </Center>
             <GradientRedButton
-              onClick={function () {
-                Save();
-              }}
+              onClick={Save}
               pos="absolute"
               left={-10}
               bottom={-10}
@@ -361,8 +396,19 @@ const NewPostLayout = () => {
           </Box>
         </Box>
       </HStack>
+      {isUploading && (
+        <Center
+          pos="fixed"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          bg="rgba(0, 0, 0, 0.5)"
+        >
+          <Spinner size="xl" color="white" />
+        </Center>
+      )}
     </Flex>
-    // </Box>
   );
 };
 

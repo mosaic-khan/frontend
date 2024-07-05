@@ -2,7 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import SearchResult from "./SearchResult";
 import SearchFilters from "./searchFilter/SearchFilters";
 import searchClient from "../../api/services/search-service";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserSearchResult from "./UserSearchResult";
 import {
@@ -23,6 +23,8 @@ export interface SearchPostInfo {
 }
 
 const SearchLayout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { searchTextParam } = useParams();
   const [searchInfo, setSearchInfo] = useState<SearchInfo>({
     text: "",
@@ -40,6 +42,18 @@ const SearchLayout = () => {
   const [postSearchResponse, setPostSearchResponse] = useState<
     PostPreviewExplore[]
   >([]);
+  const url = window.location.href;
+  const categoryIdParam = new URLSearchParams(new URL(url).search).get(
+    "categoryId"
+  );
+
+  useEffect(() => {
+    if (categoryIdParam)
+      setSearchPostInfo({
+        ...searchPostInfo,
+        categoryID: [Number(categoryIdParam)],
+      });
+  }, [categoryIdParam]);
 
   useEffect(() => {
     if (searchTextParam)
@@ -49,6 +63,24 @@ const SearchLayout = () => {
   useEffect(() => {
     if (searchInfo.text.trim() != "") applySearch();
   }, [searchInfo]);
+
+  const handleSearchPostInfoChange = (info: SearchPostInfo) => {
+    setSearchPostInfo(info);
+    if (info.categoryID.length > 0) {
+      if (info.categoryID[0] == 0) {
+        setSearchPostInfo({ ...info, categoryID: [] });
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.delete("categoryId");
+        const newUrl = `${location.pathname}?${searchParams.toString()}`;
+        navigate(newUrl);
+      } else {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("categoryId", info.categoryID[0].toString());
+        const newUrl = `${location.pathname}?${searchParams.toString()}`;
+        navigate(newUrl);
+      }
+    }
+  };
 
   const applySearch = () => {
     if (searchInfo.tab == 0) applySearchUser();
@@ -122,7 +154,7 @@ const SearchLayout = () => {
             setSearchInfo({ ...searchInfo, tab: type })
           }
           searchPostInfo={searchPostInfo}
-          onSearchPostInfoChange={(info) => setSearchPostInfo(info)}
+          onSearchPostInfoChange={handleSearchPostInfoChange}
           onFilterApply={applySearch}
         />
       </GridItem>

@@ -424,13 +424,26 @@ export interface UnpinPostRequest {
  */
 export interface PinedPost {
   /**
-   * @generated from protobuf field: string title = 1;
+   * @generated from protobuf field: int64 id = 1;
+   */
+  id: bigint;
+  /**
+   * @generated from protobuf field: string title = 2;
    */
   title: string;
   /**
-   * @generated from protobuf field: string image_url = 2;
+   * @generated from protobuf field: string image_url = 3;
    */
   imageUrl: string;
+}
+/**
+ * @generated from protobuf message KhanAPI.GetPinsRequest
+ */
+export interface GetPinsRequest {
+  /**
+   * @generated from protobuf field: int64 profileID = 1;
+   */
+  profileID: bigint;
 }
 /**
  * @generated from protobuf message KhanAPI.GetPinsResponse
@@ -3008,12 +3021,20 @@ export const UnpinPostRequest = new UnpinPostRequest$Type();
 class PinedPost$Type extends MessageType<PinedPost> {
   constructor() {
     super("KhanAPI.PinedPost", [
-      { no: 1, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-      { no: 2, name: "image_url", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+      {
+        no: 1,
+        name: "id",
+        kind: "scalar",
+        T: 3 /*ScalarType.INT64*/,
+        L: 0 /*LongType.BIGINT*/,
+      },
+      { no: 2, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+      { no: 3, name: "image_url", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
     ]);
   }
   create(value?: PartialMessage<PinedPost>): PinedPost {
     const message = globalThis.Object.create(this.messagePrototype!);
+    message.id = 0n;
     message.title = "";
     message.imageUrl = "";
     if (value !== undefined)
@@ -3031,10 +3052,13 @@ class PinedPost$Type extends MessageType<PinedPost> {
     while (reader.pos < end) {
       let [fieldNo, wireType] = reader.tag();
       switch (fieldNo) {
-        case /* string title */ 1:
+        case /* int64 id */ 1:
+          message.id = reader.int64().toBigInt();
+          break;
+        case /* string title */ 2:
           message.title = reader.string();
           break;
-        case /* string image_url */ 2:
+        case /* string image_url */ 3:
           message.imageUrl = reader.string();
           break;
         default:
@@ -3061,12 +3085,14 @@ class PinedPost$Type extends MessageType<PinedPost> {
     writer: IBinaryWriter,
     options: BinaryWriteOptions
   ): IBinaryWriter {
-    /* string title = 1; */
+    /* int64 id = 1; */
+    if (message.id !== 0n) writer.tag(1, WireType.Varint).int64(message.id);
+    /* string title = 2; */
     if (message.title !== "")
-      writer.tag(1, WireType.LengthDelimited).string(message.title);
-    /* string image_url = 2; */
+      writer.tag(2, WireType.LengthDelimited).string(message.title);
+    /* string image_url = 3; */
     if (message.imageUrl !== "")
-      writer.tag(2, WireType.LengthDelimited).string(message.imageUrl);
+      writer.tag(3, WireType.LengthDelimited).string(message.imageUrl);
     let u = options.writeUnknownFields;
     if (u !== false)
       (u == true ? UnknownFieldHandler.onWrite : u)(
@@ -3081,6 +3107,81 @@ class PinedPost$Type extends MessageType<PinedPost> {
  * @generated MessageType for protobuf message KhanAPI.PinedPost
  */
 export const PinedPost = new PinedPost$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetPinsRequest$Type extends MessageType<GetPinsRequest> {
+  constructor() {
+    super("KhanAPI.GetPinsRequest", [
+      {
+        no: 1,
+        name: "profileID",
+        kind: "scalar",
+        T: 3 /*ScalarType.INT64*/,
+        L: 0 /*LongType.BIGINT*/,
+      },
+    ]);
+  }
+  create(value?: PartialMessage<GetPinsRequest>): GetPinsRequest {
+    const message = globalThis.Object.create(this.messagePrototype!);
+    message.profileID = 0n;
+    if (value !== undefined)
+      reflectionMergePartial<GetPinsRequest>(this, message, value);
+    return message;
+  }
+  internalBinaryRead(
+    reader: IBinaryReader,
+    length: number,
+    options: BinaryReadOptions,
+    target?: GetPinsRequest
+  ): GetPinsRequest {
+    let message = target ?? this.create(),
+      end = reader.pos + length;
+    while (reader.pos < end) {
+      let [fieldNo, wireType] = reader.tag();
+      switch (fieldNo) {
+        case /* int64 profileID */ 1:
+          message.profileID = reader.int64().toBigInt();
+          break;
+        default:
+          let u = options.readUnknownField;
+          if (u === "throw")
+            throw new globalThis.Error(
+              `Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`
+            );
+          let d = reader.skip(wireType);
+          if (u !== false)
+            (u === true ? UnknownFieldHandler.onRead : u)(
+              this.typeName,
+              message,
+              fieldNo,
+              wireType,
+              d
+            );
+      }
+    }
+    return message;
+  }
+  internalBinaryWrite(
+    message: GetPinsRequest,
+    writer: IBinaryWriter,
+    options: BinaryWriteOptions
+  ): IBinaryWriter {
+    /* int64 profileID = 1; */
+    if (message.profileID !== 0n)
+      writer.tag(1, WireType.Varint).int64(message.profileID);
+    let u = options.writeUnknownFields;
+    if (u !== false)
+      (u == true ? UnknownFieldHandler.onWrite : u)(
+        this.typeName,
+        message,
+        writer
+      );
+    return writer;
+  }
+}
+/**
+ * @generated MessageType for protobuf message KhanAPI.GetPinsRequest
+ */
+export const GetPinsRequest = new GetPinsRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetPinsResponse$Type extends MessageType<GetPinsResponse> {
   constructor() {
@@ -3671,7 +3772,7 @@ export const PostAPI = new ServiceType("KhanAPI.PostAPI", [
   { name: "DeleteComment", options: {}, I: DeleteCommentRequest, O: Empty },
   { name: "PinPost", options: {}, I: PinPostRequest, O: Empty },
   { name: "UnpinPost", options: {}, I: UnpinPostRequest, O: Empty },
-  { name: "GetPins", options: {}, I: Empty, O: GetPinsResponse },
+  { name: "GetPins", options: {}, I: GetPinsRequest, O: GetPinsResponse },
   { name: "DeletePost", options: {}, I: DeletePostRequest, O: Empty },
   {
     name: "LoadTimeLine",

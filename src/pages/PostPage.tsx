@@ -18,7 +18,8 @@ import CaptionDetails from "../components/postPage/CaptionSection";
 import CommentSection from "../components/postPage/CommentSection";
 import ImageSection from "../components/postPage/ImageSection";
 import { Post } from "../api/clients/post";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 const H = 500;
 const W = 1000;
 
@@ -26,10 +27,14 @@ const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [update, triggerUpdate] = useState(true);
   const { postId } = useParams();
+  const navigate = useNavigate();
+
   if (postId === undefined) {
     console.error("postId is undefined");
-    return Promise.reject(new Error("postId is undefined"));
+    navigate("/error");
+    return null;
   }
+
   const postIdBigInt = postId ? BigInt(postId) : BigInt(0);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ const PostPage = () => {
           if (fetchedPost) {
             setPost(fetchedPost as Post);
             triggerUpdate(false);
-            console.log("posttttt", post?.imageUrls);
+            console.log("posttttt", fetchedPost);
           } else {
             console.error("Received undefined post data");
           }
@@ -89,6 +94,7 @@ const PostPage = () => {
       }
     });
   }
+
   const handleLikeClick = () => {
     if (post?.like) {
       sendLikeRequest(post?.id, "DisLikeAction");
@@ -96,6 +102,11 @@ const PostPage = () => {
       sendLikeRequest(post?.id ? post.id : BigInt(1), "LikeAction");
     }
   };
+
+  if (!post) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <Box h="100vh" bgColor="gray.100">
       <Box w="full" h="10%" position="fixed" zIndex={10}>
@@ -108,7 +119,7 @@ const PostPage = () => {
             position="absolute"
             left="0"
             top="0"
-            onClick={() => console.log("todo")}
+            onClick={() => navigate("/myprofile")}
           />
           <HStack
             position="absolute"
@@ -124,13 +135,14 @@ const PostPage = () => {
             paddingLeft={10}
           >
             {/*Image section*/}
-
             <ImageSection images={post?.imageUrls ? post?.imageUrls : []} />
             {/*Caption section*/}
             <VStack h="full" w="400px" alignItems="right" padding={4}>
               {/*User Info*/}
               <HStack dir="rtl" spacing="20px">
-                <Avatar src={"http://back.khanmedia.ir:9290" + post?.profilePicUrl} />
+                <Avatar
+                  src={"http://back.khanmedia.ir:9290" + post?.profilePicUrl}
+                />
                 <Heading fontSize="lg" textColor="gray.700" fontWeight="bold">
                   {post?.username}
                 </Heading>

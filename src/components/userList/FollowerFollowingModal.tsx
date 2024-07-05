@@ -18,6 +18,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   startIndex?: number;
+  followersCnt?: BigInt;
 }
 
 const FollowerFollowingModal = ({
@@ -25,6 +26,7 @@ const FollowerFollowingModal = ({
   isOpen,
   onClose,
   profileId,
+  followersCnt,
 }: Props) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [followerList, setFollowerList] = useState<ProfilePreview[]>([]);
@@ -73,6 +75,46 @@ const FollowerFollowingModal = ({
   useEffect(() => {
     setTabIndex(startIndex ? startIndex : 0);
   }, [startIndex]);
+
+  useEffect(() => {
+    if (profileId) {
+      console.log("get follow list for id: ", profileId);
+      userClient
+        .getFollowerList(
+          {
+            profileID: profileId,
+          },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("getFollowerList response: ", res);
+          setFollowerList(res.response.profilePreview);
+        })
+        .catch((err) => {
+          console.log("getFollowerList error: ", err);
+        });
+      userClient
+        .getFollowingList(
+          { profileID: profileId },
+          {
+            meta: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("getFollowingList response: ", res);
+          setFollowingList(res.response.profilePreview);
+        })
+        .catch((err) => {
+          console.log("getFollowingList error: ", err);
+        });
+    }
+  }, [followersCnt]);
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
