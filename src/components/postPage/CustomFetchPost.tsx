@@ -2,24 +2,24 @@ import { useState, useEffect } from "react";
 import HandlePostRequest from "./HandlePost";
 
 type Post = {
-    id: bigint;
-    title: string;
-    ingredients: { [key: string]: string };
-    description: string;
-    numImages: number;
-    numLikes: number;
-    like: boolean;
-    imageUrls: string[];
-    username: string;
-    profilePicUrl: string;
-    category: string;
-  };
+  id: bigint;
+  title: string;
+  ingredients: { [key: string]: string };
+  description: string;
+  numImages: number;
+  numLikes: number;
+  like: boolean;
+  imageUrls: string[];
+  username: string;
+  profilePicUrl: string;
+  category: string;
+};
 
 const usePostData = () => {
   const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    HandlePostRequest()
+    HandlePostRequest(BigInt(0))
       .then((post) => {
         if (post) {
           setPost(post as Post);
@@ -32,7 +32,7 @@ const usePostData = () => {
       });
   }, []);
 
-  return {post, setPost};
+  return { post, setPost };
 };
 
 export default usePostData;

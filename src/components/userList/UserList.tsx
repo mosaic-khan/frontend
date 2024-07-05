@@ -11,7 +11,15 @@ const UserList = ({ profileList }: Props) => {
     <Box overflowY="scroll" h="75vh" paddingRight="20px">
       <VStack>
         {profileList.map((profile) => (
-          <UserDisplayItem profilePreview={profile} />
+          <UserDisplayItem
+            profilePreview={{
+              isFollowed: BigInt(profile.isFollowed),
+              name: profile.name,
+              profileID: profile.profileID,
+              profilePicUrl: profile.profilePicUrl,
+              username: profile.username,
+            }}
+          />
         ))}
       </VStack>
     </Box>

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Profile } from "../api/clients/user";
 import Post from "../components/MyPosts/Post";
+import UserNavigation from "../components/Navigation/ProfileNavigation";
 
 const OtherProfile = () => {
   const [userProfile, setUserProfile] = useState<Profile | undefined>();

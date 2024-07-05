@@ -8,13 +8,18 @@ import FollowSuggestions from "../components/TimeLine/FollowSuggestions";
 const TimeLine = () => {
   return (
     <>
-      <Box h="100vh" bgColor="gray.100" position="relative"  overflow="auto">
-        <Box position="fixed" w="full" h="10%" zIndex={10} >
+      <Box h="100vh" bgColor="gray.100" position="relative" overflow="auto">
+        <Box position="fixed" w="full" h="10%" zIndex={10}>
           {/* navbar */}
-          <UserNavigation isTrue={true} />
+          <UserNavigation isTrue={true} userProfile={undefined} />
         </Box>
 
-        <Center h="100vh" overflowY="auto" justifyContent="space-evenly" mb={10}>
+        <Center
+          h="100vh"
+          overflowY="auto"
+          justifyContent="space-evenly"
+          mb={10}
+        >
           {/* sideBar */}
           <VStack spacing={10} mt="15%" h="full">
             <ProfileDetails />
@@ -38,7 +43,6 @@ const TimeLine = () => {
               caption="سلام من این متن را برای تست کپشن نوشتم و قرار بود بیشتر از 50 کلمه باشه تا ببینیم چی میشه سلام سلام سلام"
               isLiked={true}
             ></ExplorePost>
-            
           </VStack>
           {/* sideBar */}
           <Flex h="full" mt="15%">

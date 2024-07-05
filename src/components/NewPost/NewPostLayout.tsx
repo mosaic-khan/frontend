@@ -24,6 +24,7 @@ import userClient from "../../api/services/user-service";
 import { FaCameraRetro } from "react-icons/fa";
 import useUploadImage from "../../api/services/media-service-post";
 import { useNavigate } from "react-router-dom";
+import { Profile } from "../../api/clients/user";
 
 const NewPostLayout = () => {
   const navigate = useNavigate();
