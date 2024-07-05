@@ -39,12 +39,7 @@ const Post = ({ image, title, text }: Props) => {
         <Link href="#" _hover={{ opacity: "0.85" }}>
           <Heading fontSize="24">{title}</Heading>
         </Link>
-        <Text
-          fontSize="18"
-          textAlign="right"
-          paddingRight="15px"
-          paddingLeft="15px"
-        >
+        <Text dir="rtl" fontSize="18" paddingRight="15px" paddingLeft="15px">
           {text}
         </Text>
       </VStack>
